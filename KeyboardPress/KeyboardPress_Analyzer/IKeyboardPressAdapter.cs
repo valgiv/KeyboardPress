@@ -25,35 +25,5 @@ namespace KeyboardPress_Analyzer
         /// </summary>
         void CleanData();
 
-        /*/// <summary>
-        /// Mouse press events
-        /// </summary>
-        List<EventObj_mouse> MouseEvents
-        {
-            get; set;
-        }
-
-        /// <summary>
-        /// All keyboard press events
-        /// </summary>
-        List<EventObj_key> KeysEvents
-        {
-            get; set;
-        }
-
-        /// <summary>
-        /// Keyboard press results
-        /// </summary>
-        List<EventObj_key> KeysCharsEvents
-        {
-            get; set;
-        }
-
-        List<KeyPressCountObj> KeyPressCountObjList
-        {
-            get; set;
-        }*/
-
-
     }
 }
