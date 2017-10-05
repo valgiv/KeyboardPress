@@ -24,9 +24,7 @@ namespace KeyboardPress_Analyzer
         /// Cleans saved data
         /// </summary>
         void CleanData();
-
-
-
+        
 
     }
 }
