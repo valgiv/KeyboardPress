@@ -11,6 +11,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using KeyboardPress_Extensions;
 
 namespace KeyboardPress
 {
@@ -38,6 +39,8 @@ namespace KeyboardPress
 
             logInfoTask = new Task(() => { LogInfo(); });
             logInfoTask.Start();
+
+            this.notifyIcon.Visible = true;
         }
         
         #region UI Events
@@ -178,7 +181,7 @@ namespace KeyboardPress
         {
             this.WindowState = FormWindowState.Normal;
             this.ShowInTaskbar = true;
-            this.notifyIcon.Visible = false;
+            //this.notifyIcon.Visible = false;
         }
 
         private void MainForm_Resize(object sender, EventArgs e)
@@ -186,7 +189,7 @@ namespace KeyboardPress
             if(this.WindowState == FormWindowState.Minimized)
             {
                 this.ShowInTaskbar = false;
-                this.notifyIcon.Visible = true;
+                //this.notifyIcon.Visible = true;
             }
         }
 
@@ -231,6 +234,9 @@ namespace KeyboardPress
             //KeyboardControlAdapter.pressAndReleaseButton(VirtualKeysEnum.VK_BACK);
             //KeyboardControlAdapter.pressAndReleaseButton(VirtualKeysEnum.VK_BACK);
             //KeyboardControlAdapter.pressAndReleaseButton(VirtualKeysEnum.VK_BACK);
+
+            notifyIcon.ShowBalloonTip(5000, "title", "text", ToolTipIcon.Info);
+
         }
 
         private void timer_workTime_Tick(object sender, EventArgs e)
@@ -239,6 +245,12 @@ namespace KeyboardPress
                 return;
 
             toolStripStatusLabel_totalWorkTime.Text = kpt.StopWach.Elapsed.ToString(@"dd\.hh\:mm\:ss");
+        }
+
+        private void test2ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            notifyIcon.SetIcon(NotifyIconExtensions.NotifyIconType.red);
+            //notifyIcon.Icon = new Icon(@"C:\Users\Val\GitHub\Repos\kp\KeyboardPress\Graphicloads-Seo-Services-Tags.ico");
         }
     }
 }

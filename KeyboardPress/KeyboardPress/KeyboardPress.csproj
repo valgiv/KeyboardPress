@@ -111,6 +111,10 @@
       <Project>{761f3774-875e-470a-84bc-846b4f20c28d}</Project>
       <Name>KeyboardPress_Analyzer</Name>
     </ProjectReference>
+    <ProjectReference Include="..\KeyboardPress_Extensions\KeyboardPress_Extensions.csproj">
+      <Project>{868ed802-69e8-45e0-a593-73fc11cf3c2d}</Project>
+      <Name>KeyboardPress_Extensions</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.5.2">

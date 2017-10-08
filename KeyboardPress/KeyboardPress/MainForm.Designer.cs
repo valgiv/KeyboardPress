@@ -39,16 +39,17 @@
             this.toolStripItem_debug = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripItem_cleanDebugWindow = new System.Windows.Forms.ToolStripMenuItem();
             this.testToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.apieToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.informacijaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.notifyIcon = new System.Windows.Forms.NotifyIcon(this.components);
             this.statusStrip = new System.Windows.Forms.StatusStrip();
             this.toolStripStatusLabel_info = new System.Windows.Forms.ToolStripStatusLabel();
+            this.toolStripStatusLabel_totalWorkTime = new System.Windows.Forms.ToolStripStatusLabel();
             this.panelDebug = new System.Windows.Forms.Panel();
             this.richTB_debug = new System.Windows.Forms.RichTextBox();
             this.panelMain = new System.Windows.Forms.Panel();
-            this.apieToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.informacijaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.timer_workTime = new System.Windows.Forms.Timer(this.components);
-            this.toolStripStatusLabel_totalWorkTime = new System.Windows.Forms.ToolStripStatusLabel();
+            this.test2ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip.SuspendLayout();
             this.statusStrip.SuspendLayout();
             this.panelDebug.SuspendLayout();
@@ -60,6 +61,7 @@
             this.menuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.nustatymaiToolStripMenuItem,
             this.testToolStripMenuItem,
+            this.test2ToolStripMenuItem,
             this.apieToolStripMenuItem});
             this.menuStrip.Location = new System.Drawing.Point(0, 0);
             this.menuStrip.Name = "menuStrip";
@@ -133,6 +135,20 @@
             this.testToolStripMenuItem.Text = "test";
             this.testToolStripMenuItem.Click += new System.EventHandler(this.testToolStripMenuItem_Click);
             // 
+            // apieToolStripMenuItem
+            // 
+            this.apieToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.informacijaToolStripMenuItem});
+            this.apieToolStripMenuItem.Name = "apieToolStripMenuItem";
+            this.apieToolStripMenuItem.Size = new System.Drawing.Size(43, 20);
+            this.apieToolStripMenuItem.Text = "Apie";
+            // 
+            // informacijaToolStripMenuItem
+            // 
+            this.informacijaToolStripMenuItem.Name = "informacijaToolStripMenuItem";
+            this.informacijaToolStripMenuItem.Size = new System.Drawing.Size(134, 22);
+            this.informacijaToolStripMenuItem.Text = "Informacija";
+            // 
             // notifyIcon
             // 
             this.notifyIcon.BalloonTipText = "test";
@@ -159,6 +175,14 @@
             this.toolStripStatusLabel_info.Name = "toolStripStatusLabel_info";
             this.toolStripStatusLabel_info.Size = new System.Drawing.Size(31, 17);
             this.toolStripStatusLabel_info.Text = "Info:";
+            // 
+            // toolStripStatusLabel_totalWorkTime
+            // 
+            this.toolStripStatusLabel_totalWorkTime.Name = "toolStripStatusLabel_totalWorkTime";
+            this.toolStripStatusLabel_totalWorkTime.Size = new System.Drawing.Size(627, 17);
+            this.toolStripStatusLabel_totalWorkTime.Spring = true;
+            this.toolStripStatusLabel_totalWorkTime.Text = "--";
+            this.toolStripStatusLabel_totalWorkTime.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // panelDebug
             // 
@@ -191,32 +215,17 @@
             this.panelMain.Size = new System.Drawing.Size(339, 266);
             this.panelMain.TabIndex = 3;
             // 
-            // apieToolStripMenuItem
-            // 
-            this.apieToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.informacijaToolStripMenuItem});
-            this.apieToolStripMenuItem.Name = "apieToolStripMenuItem";
-            this.apieToolStripMenuItem.Size = new System.Drawing.Size(43, 20);
-            this.apieToolStripMenuItem.Text = "Apie";
-            // 
-            // informacijaToolStripMenuItem
-            // 
-            this.informacijaToolStripMenuItem.Name = "informacijaToolStripMenuItem";
-            this.informacijaToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
-            this.informacijaToolStripMenuItem.Text = "Informacija";
-            // 
             // timer_workTime
             // 
             this.timer_workTime.Interval = 1000;
             this.timer_workTime.Tick += new System.EventHandler(this.timer_workTime_Tick);
             // 
-            // toolStripStatusLabel_totalWorkTime
+            // test2ToolStripMenuItem
             // 
-            this.toolStripStatusLabel_totalWorkTime.Name = "toolStripStatusLabel_totalWorkTime";
-            this.toolStripStatusLabel_totalWorkTime.Size = new System.Drawing.Size(627, 17);
-            this.toolStripStatusLabel_totalWorkTime.Spring = true;
-            this.toolStripStatusLabel_totalWorkTime.Text = "--";
-            this.toolStripStatusLabel_totalWorkTime.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.test2ToolStripMenuItem.Name = "test2ToolStripMenuItem";
+            this.test2ToolStripMenuItem.Size = new System.Drawing.Size(44, 20);
+            this.test2ToolStripMenuItem.Text = "test2";
+            this.test2ToolStripMenuItem.Click += new System.EventHandler(this.test2ToolStripMenuItem_Click);
             // 
             // MainForm
             // 
@@ -265,6 +274,7 @@
         private System.Windows.Forms.ToolStripMenuItem informacijaToolStripMenuItem;
         private System.Windows.Forms.Timer timer_workTime;
         private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel_totalWorkTime;
+        private System.Windows.Forms.ToolStripMenuItem test2ToolStripMenuItem;
     }
 }
 
