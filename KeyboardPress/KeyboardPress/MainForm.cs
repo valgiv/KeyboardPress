@@ -38,8 +38,6 @@ namespace KeyboardPress
 
             logInfoTask = new Task(() => { LogInfo(); });
             logInfoTask.Start();
-
-            
         }
         
         #region UI Events
@@ -133,6 +131,7 @@ namespace KeyboardPress
             {
                 kpt.StartHookWork();
                 toolStripStatusLabel_info.Text = $"{DateTime.Now.ToString()}: Pradėti fiksuoti duomenys";
+                timer_workTime.Start();
             }
             catch(Exception ex)
             {
@@ -147,6 +146,7 @@ namespace KeyboardPress
             {
                 kpt.StopHookWork();
                 toolStripStatusLabel_info.Text = $"{DateTime.Now.ToString()}: Sustabdyti fiksuoti duomenys";
+                timer_workTime.Stop();
             }
             catch(Exception ex)
             {
@@ -226,11 +226,19 @@ namespace KeyboardPress
 
         private void testToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            Thread.Sleep(5000);
-            KeyboardControlAdapter.pressAndReleaseButton(VirtualKeysEnum.VK_BACK);
-            KeyboardControlAdapter.pressAndReleaseButton(VirtualKeysEnum.VK_BACK);
-            KeyboardControlAdapter.pressAndReleaseButton(VirtualKeysEnum.VK_BACK);
-            KeyboardControlAdapter.pressAndReleaseButton(VirtualKeysEnum.VK_BACK);
+            //Thread.Sleep(5000);
+            //KeyboardControlAdapter.pressAndReleaseButton(VirtualKeysEnum.VK_BACK);
+            //KeyboardControlAdapter.pressAndReleaseButton(VirtualKeysEnum.VK_BACK);
+            //KeyboardControlAdapter.pressAndReleaseButton(VirtualKeysEnum.VK_BACK);
+            //KeyboardControlAdapter.pressAndReleaseButton(VirtualKeysEnum.VK_BACK);
+        }
+
+        private void timer_workTime_Tick(object sender, EventArgs e)
+        {
+            if (kpt == null || kpt.StopWach == null)
+                return;
+
+            toolStripStatusLabel_totalWorkTime.Text = kpt.StopWach.Elapsed.ToString(@"dd\.hh\:mm\:ss");
         }
     }
 }
