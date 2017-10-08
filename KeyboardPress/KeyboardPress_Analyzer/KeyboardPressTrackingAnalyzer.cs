@@ -168,38 +168,13 @@ namespace KeyboardPress_Analyzer
                 var t_totalWordsCount = new Task(() => { totalWordsCount(lastRec, lastNRecInSameWin); });
                 t_totalWordsCount.Start();
 
-                // pasidomet http://www.albahari.com/threading/
-
-                // to do:
-                try
+                // Atskiroje gijoje žodžių keitimas
+                Thread t = new Thread(() =>
                 {
-                    KeyValuePair<string, string>? keyValuePair = new KeyValuePair<string, string>?();
-                    Thread t = new Thread(() =>
-                    {
-                        keyValuePair = offerWordTemplate(lastNRecInSameWin);
-                    });
-                    t.Start();
-                    t.Join();
-                    
-                    if (((KeyValuePair<string, string>)keyValuePair).Key != null && ((KeyValuePair<string, string>)keyValuePair).Value != null)
-                    {
-                        Thread.Sleep(500);
-                        
-                        System.Windows.Forms.Application.DoEvents();
-                        //KeyboardControlAdapter.pressAndReleaseButton(VirtualKeysEnum.VK_BACK);
-                        for (int z = 0; z < ((KeyValuePair<string, string>)keyValuePair).Key.Length; z++)
-                        {
-                            KeyboardControlAdapter.pressAndReleaseButton(VirtualKeysEnum.VK_BACK);
-                        }
-                        KeyboardControlAdapter.pasteText(((KeyValuePair<string, string>)keyValuePair).Value, true);
-                        //KeyboardControlAdapter.pressAndReleaseButton(VirtualKeysEnum.VK_BACK);
-                    }
-                }
-                catch(Exception ex)
-                {
-
-                }
-                
+                    offerWordTemplate(lastNRecInSameWin);
+                });
+                t.SetApartmentState(ApartmentState.STA);
+                t.Start();
 
             }
             catch(Exception ex)
@@ -309,7 +284,7 @@ namespace KeyboardPress_Analyzer
             }
         }
 
-        private KeyValuePair<string, string>? offerWordTemplate(ObjEvent_key[] NLastKeyPressInSameWindow)
+        private void offerWordTemplate(ObjEvent_key[] NLastKeyPressInSameWindow)
         {
             try
             {
@@ -339,19 +314,19 @@ namespace KeyboardPress_Analyzer
                             {
                                 notifyIcon.ShowBalloonTip(1000, "", $"Siūlomas tekstas: {pair.Value}", ToolTipIcon.Info); // to do: reikia pamastyti kaip uzdaryti siulymus
                                 System.Diagnostics.Debug.WriteLine("offetWordTemplate atitikmuo: " + pair.Value);
-                                return null;
+                                return;
                             }
                             else
                             {
-                                //KeyboardControlAdapter.pressAndReleaseButton(VirtualKeysEnum.VK_BACK);
-                                //for(int z=0; z<pair.Key.Length; z++)
-                                //{
-                                //    KeyboardControlAdapter.pressAndReleaseButton(VirtualKeysEnum.VK_BACK);
-                                //}
-                                //KeyboardControlAdapter.pasteText(pair.Value, true);
-                                ////notifyIcon.ShowBalloonTip(1000, "", $"Pasirinktas tekstas: {pair.Value}", ToolTipIcon.Info);
-                                //break;
-                                            return pair;
+                                System.Windows.Forms.Application.DoEvents();
+                                KeyboardControlAdapter.pressAndReleaseButton(VirtualKeysEnum.VK_BACK);
+                                for (int z = 0; z < ((KeyValuePair<string, string>)pair).Key.Length; z++)
+                                {
+                                    KeyboardControlAdapter.pressAndReleaseButton(VirtualKeysEnum.VK_BACK);
+                                }
+                                KeyboardControlAdapter.pasteText(((KeyValuePair<string, string>)pair).Value, true);
+                                
+                                return;
                             }
                         }
                         else
@@ -360,13 +335,13 @@ namespace KeyboardPress_Analyzer
                         }
                     }
                 }
-                return null;
+                return;
             }
             catch (Exception ex)
             {
-                return null;
+
+                return;
             }
-            return null;
         }
 
         //del sito reikia daugiau pamastyti i kuria struktura ziureti

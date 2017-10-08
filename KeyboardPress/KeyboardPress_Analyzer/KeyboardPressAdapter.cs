@@ -40,7 +40,6 @@ namespace KeyboardPress_Analyzer
         
         private IKeyboardMouseEvents m_GlobalHook;
         private IDebugHelper debugLogHelper;
-        private GetActiveWindowName getActiveWindowName;
         private Stopwatch stopWach;
 
         #region constructors
@@ -51,7 +50,6 @@ namespace KeyboardPress_Analyzer
             mouseEvents = new List<ObjEvent_mouse>();
             keyPressCountObjList = new List<ObjKeyPressCount>();
 
-            getActiveWindowName = new GetActiveWindowName();
             stopWach = new Stopwatch();
         }
         #endregion constructors
@@ -215,7 +213,7 @@ namespace KeyboardPress_Analyzer
             var newRec = new ObjEvent_key()
             {
                 dateTime = DateTime.Now,
-                activeWindowName = getActiveWindowName.GetActiveWindowTitle(),
+                activeWindowName = Helper.Helper.GetActiveWindowTitle(),
                 eventObjType = EventType.KeyPress,
                 keyValue = (int)e.KeyChar,
                 key = e.KeyChar
@@ -272,7 +270,7 @@ namespace KeyboardPress_Analyzer
                 dateTime = DateTime.Now,
                 key = e.KeyData.ToString(),
                 eventObjType = EventType.KeyDown,
-                activeWindowName = getActiveWindowName.GetActiveWindowTitle(),
+                activeWindowName = Helper.Helper.GetActiveWindowTitle(),
                 keyValue = e.KeyValue
             };
             try
