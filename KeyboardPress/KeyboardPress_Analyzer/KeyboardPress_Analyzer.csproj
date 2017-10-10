@@ -73,6 +73,7 @@
     <Compile Include="KeyboardPressTrackingAnalyzer.cs" />
     <Compile Include="ObjKeyPressCount.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RestReminder.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
