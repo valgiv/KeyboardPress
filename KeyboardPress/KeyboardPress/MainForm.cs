@@ -218,9 +218,11 @@ namespace KeyboardPress
             {
                 try
                 {
+                    Console.WriteLine("started LogInfo() method...");
                     LogHelper.LogInfoMsg(Environment.NewLine + baloonInfoString());
 
-                    Thread.Sleep(1800000); //1 800 000 milliseconds = 30 minutes
+                    //Thread.Sleep(1800000); //1 800 000 milliseconds = 30 minutes
+                    Thread.Sleep(10000);
                 }
                 catch{}
             }
@@ -249,8 +251,9 @@ namespace KeyboardPress
 
         private void test2ToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            notifyIcon.SetIcon(NotifyIconExtensions.NotifyIconType.red);
+            //notifyIcon.SetIcon(NotifyIconExtensions.NotifyIconType.red);
             //notifyIcon.Icon = new Icon(@"C:\Users\Val\GitHub\Repos\kp\KeyboardPress\Graphicloads-Seo-Services-Tags.ico");
+            notifyIcon.HideBalloonTip();
         }
     }
 }

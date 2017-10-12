@@ -1,8 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
+using System.Configuration;
 using System.Diagnostics;
-using System.Linq;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -18,14 +16,20 @@ namespace KeyboardPress_Analyzer
         private Task workTask;
         private bool runTask;
 
-        private const int workTimeMin = 45;
-        private const int restTimeMin = 5;
+        private int workTimeSeconds;
+        private int restTimeSeconds;
+        private const int def_workTimeSeconds = 3600; //60min.
+        private const int def_restTimeSeconds = 300; //5min.
+
+        private object locker = new object();
 
         public RestReminder()
         {
             workStopwatch = new Stopwatch();
             restStopwatch = new Stopwatch();
             runTask = false;
+
+            GetConfigValues();
 
             workTask = new Task(() => { workInProgress(); });
         }
@@ -34,13 +38,16 @@ namespace KeyboardPress_Analyzer
         {
             while (runTask)
             {
+                lock (locker)
+                {
+                    if (workStopwatch.Elapsed.TotalSeconds >= workTimeSeconds)
+                        MakeAction(new EventArgs());
 
-
-
-                if (true)
-                    MakeAction(new EventArgs());
-
-                var waitTask = new Task(() => { Thread.Sleep(10000); });
+                    if (restStopwatch.Elapsed.TotalSeconds >= restTimeSeconds)
+                        workStopwatch.Reset();
+                }
+                
+                var waitTask = new Task(() => { Thread.Sleep(60000); });
                 waitTask.Start();
                 waitTask.Wait();
             }
@@ -48,22 +55,26 @@ namespace KeyboardPress_Analyzer
 
         public void Action()
         {
-            if (!workStopwatch.IsRunning)
-                workStopwatch.Start();
-            restStopwatch.Restart();
+            lock (locker)
+            {
+                if (!workStopwatch.IsRunning)
+                    workStopwatch.Start();
+                restStopwatch.Restart();
+            }
         }
 
         private void MakeAction(EventArgs e)
         {
             if (TimeToRest != null)
             {
-                workStopwatch.Reset();
+                //workStopwatch.Reset();
                 TimeToRest(this, e);
             }
         }
 
         public virtual void Start()
         {
+            runTask = true;
             workStopwatch.Start();
             restStopwatch.Start();
             workTask.Start();
@@ -72,6 +83,7 @@ namespace KeyboardPress_Analyzer
         public virtual void Stop()
         {
             workStopwatch.Stop();
+            restStopwatch.Stop();
             runTask = false;
 
         }
@@ -87,6 +99,36 @@ namespace KeyboardPress_Analyzer
             if (startAfterReset)
                 Start();
         }
+        
+        private void GetConfigValues()
+        {
+            try
+            {
+                var wt = ConfigurationManager.AppSettings["WorkTimeMin"].ToString();
+                if(!String.IsNullOrWhiteSpace(wt))
+                    workTimeSeconds = System.Convert.ToInt32(wt) * 60;
+                else
+                    workTimeSeconds = def_workTimeSeconds;
+            }
+            catch
+            {
+                workTimeSeconds = def_workTimeSeconds;
+            }
+
+            try
+            {
+                var rt = ConfigurationManager.AppSettings["RestTimeMin"].ToString();
+                if(!String.IsNullOrWhiteSpace(rt))
+                    restTimeSeconds = System.Convert.ToInt32(rt) * 60;
+                else
+                    restTimeSeconds = def_restTimeSeconds;
+            }
+            catch
+            {
+                restTimeSeconds = def_restTimeSeconds;
+            }
+        }
+        
 
     }
 }

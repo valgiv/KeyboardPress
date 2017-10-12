@@ -152,7 +152,7 @@ namespace KeyboardPress_Analyzer
 
         #region IKeyboardPressTracking
 
-        public void CleanData()
+        public virtual void CleanData()
         {
             if (keysEvents != null)
                 keysEvents.Clear();
@@ -164,7 +164,7 @@ namespace KeyboardPress_Analyzer
                 mouseEvents.Clear();
         }
 
-        public void StopHookWork()
+        public virtual void StopHookWork()
         {
             if (m_GlobalHook == null)
                 return;
@@ -181,7 +181,7 @@ namespace KeyboardPress_Analyzer
             stopWach.Stop();
         }
 
-        public void StartHookWork()
+        public virtual void StartHookWork()
         {
             if (m_GlobalHook == null)
                 m_GlobalHook = Hook.GlobalEvents();
@@ -302,6 +302,7 @@ namespace KeyboardPress_Analyzer
                 debugLogHelper.AddInfoMsg(newRec.dateTime, $"{newRec.key.ToString()} {newRec.keyValue.ToString()} [{newRec.activeWindowName}]");
             }
         }
+        
         
 
     }

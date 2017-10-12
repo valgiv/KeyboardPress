@@ -8,9 +8,9 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyTitle("KeyboardPress")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("")]
+[assembly: AssemblyCompany("valgiv (Valentinas Givėliušas)")]
 [assembly: AssemblyProduct("KeyboardPress")]
-[assembly: AssemblyCopyright("Copyright ©  2017")]
+[assembly: AssemblyCopyright("Copyright ©  2017 valgiv")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 

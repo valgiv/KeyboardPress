@@ -21,7 +21,8 @@ namespace KeyboardPress_Analyzer
         private ulong totalMouseWheelUp;
         private ulong totalMouseWheelDown;
 
-        private KeyValuePair<string, string>[] offetWordTemplate_pairs;
+        private KeyValuePair<string, string>[] offerWordTemplate_pairs;
+        private RestReminder restReminder;
 
         public ulong TotalKeyPress
         {
@@ -88,7 +89,42 @@ namespace KeyboardPress_Analyzer
         }
 
         private NotifyIcon notifyIcon;
-        
+
+        public override void CleanData()
+        {
+            base.CleanData();
+        }
+
+        public override void StopHookWork()
+        {
+            base.StopHookWork();
+
+            if (restReminder != null)
+                restReminder.Stop();
+        }
+
+        public override void StartHookWork()
+        {
+            base.StartHookWork();
+
+            if (restReminder == null)
+                restReminder = new RestReminder();
+            restReminder.TimeToRest += RestReminder_TimeToRest;
+            restReminder.Start();
+        }
+
+        #region Rest reminder
+        private void RestReminder_TimeToRest(object sender, EventArgs e)
+        {
+            notifyIcon.ShowBalloonTip(1000, "restTime", "restTime", ToolTipIcon.Warning);
+        }
+
+        private void WorkInProgress()
+        {
+            if (restReminder != null)
+                restReminder.Action();
+        }
+        #endregion Rest reminder
 
         public KeyboardPressTracking(NotifyIcon NotifyIcon) : base()
         {
@@ -99,10 +135,8 @@ namespace KeyboardPress_Analyzer
             totalMouseWheelDown = 0;
 
             notifyIcon = NotifyIcon;
-
-
-
-            offetWordTemplate_pairs = new KeyValuePair<string, string>[]
+            
+            offerWordTemplate_pairs = new KeyValuePair<string, string>[]
             {
                 new KeyValuePair<string, string>("aa", "labaaaasRytas"),
                 new KeyValuePair<string, string>("abrikosas", "ananasas"),
@@ -120,6 +154,8 @@ namespace KeyboardPress_Analyzer
                     totalKeyPress++;
                 else if (DebugLog)
                     IDebugLogHelper.AddErrorMsg("Pasiektas maksimalus sumuojamas klavišų paspaudimų kiekis");
+
+                WorkInProgress();
             }
             catch(Exception ex)
             {
@@ -191,6 +227,7 @@ namespace KeyboardPress_Analyzer
                 {
                     totalMousePress++;
                 }
+                WorkInProgress();
             }
             catch(Exception ex)
             {
@@ -204,6 +241,8 @@ namespace KeyboardPress_Analyzer
                 totalMouseWheelUp++;
             else
                 totalMouseWheelDown++;
+
+            WorkInProgress();
         }
 
         /// <summary>
@@ -288,7 +327,7 @@ namespace KeyboardPress_Analyzer
         {
             try
             {
-                if (offetWordTemplate_pairs != null && offetWordTemplate_pairs.Count() > 0)
+                if (offerWordTemplate_pairs != null && offerWordTemplate_pairs.Count() > 0)
                 {
                     int maxLettersToCheck = 10;
                     int symbolToConfimOffer = 9;//// tab '\t'
@@ -307,7 +346,7 @@ namespace KeyboardPress_Analyzer
                     for (int i = 1; i < maxLettersToCheck && i < lastSymbols.Length; i++)
                     {
                         string strLet = lastSymbols.Remove(0, lastSymbols.Length - 1 - i);
-                        var pair = offetWordTemplate_pairs.FirstOrDefault(x => x.Key.ToLower() == strLet.ToLower());
+                        var pair = offerWordTemplate_pairs.FirstOrDefault(x => x.Key.ToLower() == strLet.ToLower());
                         if (!String.IsNullOrEmpty(pair.Key) && !String.IsNullOrEmpty(pair.Value))
                         {
                             if (!confirm)

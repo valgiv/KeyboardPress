@@ -10,6 +10,10 @@ namespace KeyboardPress_Analyzer.Helper
 
         static readonly object locker = new object();
 
+
+        //DateTime lastLock = new DateTime();
+        //string lockObj = "";
+
         public DebugHelper(RichTextBox richTextBox)
         {
             debugRichTextBox = richTextBox;
@@ -44,6 +48,9 @@ namespace KeyboardPress_Analyzer.Helper
             {
                 lock (locker)
                 {
+                    //lastLock = DateTime.Now;
+                    //lockObj = "AddErrorMsg" + " " + msg;
+
                     if (!debugRichTextBox.InvokeRequired)
                     {
                         debugRichTextBox.Text += errMsg;
@@ -70,6 +77,9 @@ namespace KeyboardPress_Analyzer.Helper
             {
                 lock (locker)
                 {
+                    //lastLock = DateTime.Now;
+                    //lockObj = "AddErrorMsg" + " " + dateTime.ToString() + " " + msg;
+
                     if (!debugRichTextBox.InvokeRequired)
                     {
                         debugRichTextBox.Text += errMsg;
@@ -95,6 +105,9 @@ namespace KeyboardPress_Analyzer.Helper
             {
                 lock (locker)
                 {
+                    //lastLock = DateTime.Now;
+                    //lockObj = "AddInfoMsg" + " " + msg;
+
                     if (!debugRichTextBox.InvokeRequired)
                     {
                         debugRichTextBox.Text += $"{DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.fff", CultureInfo.InvariantCulture)}: {msg}\n";
@@ -119,6 +132,9 @@ namespace KeyboardPress_Analyzer.Helper
             {
                 lock (locker)
                 {
+                    //lastLock = DateTime.Now;
+                    //lockObj = "AddInfoMsg" + " " + dateTime.ToString() + " " + msg;
+
                     if (!debugRichTextBox.InvokeRequired)
                     {
                         debugRichTextBox.Text += $"{dateTime.ToString("yyyy-MM-dd HH:mm:ss.fff", CultureInfo.InvariantCulture)}: {msg}\n";
