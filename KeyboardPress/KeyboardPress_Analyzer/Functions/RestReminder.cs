@@ -4,7 +4,7 @@ using System.Diagnostics;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace KeyboardPress_Analyzer
+namespace KeyboardPress_Analyzer.Functions
 {
     public class RestReminder
     {

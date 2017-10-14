@@ -4,44 +4,23 @@ using System.Windows.Forms;
 
 namespace KeyboardPress_Analyzer.Helper
 {
-    public class DebugHelper : IDebugHelper
+    public class DebugHelper
     {
-        private RichTextBox debugRichTextBox;
+        private static RichTextBox debugRichTextBox;
 
         static readonly object locker = new object();
-
-
-        //DateTime lastLock = new DateTime();
-        //string lockObj = "";
-
-        public DebugHelper(RichTextBox richTextBox)
-        {
-            debugRichTextBox = richTextBox;
-        }
-
-        public bool DebugMode
-        {
-            get
-            {
-                if (debugRichTextBox != null)
-                    return true;
-                return false;
-            }
-        }
-
-        public RichTextBox DebugModeControl
-        {
-            get
-            {
-                return debugRichTextBox;
-            }
-            set
-            {
-                debugRichTextBox = value;
-            }
-        }
         
-        public void AddErrorMsg(string msg)
+        public static void Start(RichTextBox rtb)
+        {
+            debugRichTextBox = rtb;
+        }
+
+        public static void Stop()
+        {
+            debugRichTextBox = null;
+        }
+
+        public static void AddErrorMsg(string msg)
         {
             string errMsg = $"ERR-{DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.fff", CultureInfo.InvariantCulture)}: {msg}\n";
             if (debugRichTextBox != null)
@@ -67,10 +46,9 @@ namespace KeyboardPress_Analyzer.Helper
                     }
                 }
             }
-            LogHelper.LogErrorMsg(errMsg);
         }
 
-        public void AddErrorMsg(DateTime dateTime, string msg)
+        public static void AddErrorMsg(DateTime dateTime, string msg)
         {
             string errMsg = $"ERR-{dateTime.ToString("yyyy-MM-dd HH:mm:ss.fff", CultureInfo.InvariantCulture)}: {msg}\n";
             if (debugRichTextBox != null)
@@ -96,10 +74,9 @@ namespace KeyboardPress_Analyzer.Helper
                     }
                 }
             }
-            LogHelper.LogErrorMsg(errMsg);
         }
 
-        public void AddInfoMsg(string msg)
+        public static void AddInfoMsg(string msg)
         {
             if (debugRichTextBox != null)
             {
@@ -126,7 +103,7 @@ namespace KeyboardPress_Analyzer.Helper
             }
         }
 
-        public void AddInfoMsg(DateTime dateTime, string msg)
+        public static void AddInfoMsg(DateTime dateTime, string msg)
         {
             if (debugRichTextBox != null)
             {

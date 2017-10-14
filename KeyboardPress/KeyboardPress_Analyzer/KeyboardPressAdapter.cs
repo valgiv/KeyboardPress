@@ -1,5 +1,6 @@
 ﻿using Gma.System.MouseKeyHook;
 using KeyboardPress_Analyzer.Helper;
+using KeyboardPress_Analyzer.Objects;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -39,7 +40,6 @@ namespace KeyboardPress_Analyzer
         private List<ObjKeyPressCount> keyPressCountObjList;
         
         private IKeyboardMouseEvents m_GlobalHook;
-        private IDebugHelper debugLogHelper;
         private Stopwatch stopWach;
 
         #region constructors
@@ -108,29 +108,7 @@ namespace KeyboardPress_Analyzer
                 mouseEvents = value;
             }
         }
-
-        public IDebugHelper IDebugLogHelper
-        {
-            get
-            {
-                return debugLogHelper;
-            }
-            set
-            {
-                debugLogHelper = value;
-            }
-        }
-
-        protected bool DebugLog
-        {
-            get
-            {
-                if (debugLogHelper != null)
-                    return true;
-                return false;
-            }
-        }
-
+        
         public Stopwatch StopWach
         {
             get { return stopWach; }
@@ -226,8 +204,7 @@ namespace KeyboardPress_Analyzer
             catch(OutOfMemoryException oomEx)
             {
                 LogHelper.LogInfoMsg($"BANDOMA PAŠALINTI DALĮ ELEMENTŲ IŠ {nameof(keysCharsEvents)}");
-                if(DebugLog)
-                    debugLogHelper.AddInfoMsg($"BANDOMA PAŠALINTI DALĮ ELEMENTŲ IŠ {nameof(keysCharsEvents)}");
+                DebugHelper.AddInfoMsg($"BANDOMA PAŠALINTI DALĮ ELEMENTŲ IŠ {nameof(keysCharsEvents)}");
                 var deletedItems = new List<ObjEvent_key>();
                 Helper.Helper.DeleteFromBegin(ref keysCharsEvents, 100, ref deletedItems);
                 keysCharsEvents.Add(newRec);
@@ -237,10 +214,7 @@ namespace KeyboardPress_Analyzer
                 throw ex;
             }
             
-            if (DebugLog)
-            {
-                debugLogHelper.AddInfoMsg(newRec.dateTime, $"{newRec.key.ToString()} {newRec.keyValue.ToString()} [{newRec.activeWindowName}]");
-            }
+            DebugHelper.AddInfoMsg(newRec.dateTime, $"{newRec.key.ToString()} {newRec.keyValue.ToString()} [{newRec.activeWindowName}]");
         }
         
         protected virtual void GlobalHookMouseDown(object sender, MouseEventArgs e)
@@ -280,8 +254,7 @@ namespace KeyboardPress_Analyzer
             catch (OutOfMemoryException oomEx)
             {
                 LogHelper.LogInfoMsg($"BANDOMA PAŠALINTI DALĮ ELEMENTŲ IŠ {nameof(keysEvents)}");
-                if (DebugLog)
-                    debugLogHelper.AddInfoMsg($"BANDOMA PAŠALINTI DALĮ ELEMENTŲ IŠ {nameof(keysEvents)}");
+                DebugHelper.AddInfoMsg($"BANDOMA PAŠALINTI DALĮ ELEMENTŲ IŠ {nameof(keysEvents)}");
                 var deletedItems = new List<ObjEvent_key>();
                 Helper.Helper.DeleteFromBegin(ref keysEvents, 100, ref deletedItems);
                 keysEvents.Add(newRec);
@@ -297,10 +270,7 @@ namespace KeyboardPress_Analyzer
             else
                 keyPressCountObjList.Add(new ObjKeyPressCount(e.KeyValue));
 
-            if (DebugLog)
-            {
-                debugLogHelper.AddInfoMsg(newRec.dateTime, $"{newRec.key.ToString()} {newRec.keyValue.ToString()} [{newRec.activeWindowName}]");
-            }
+            DebugHelper.AddInfoMsg(newRec.dateTime, $"{newRec.key.ToString()} {newRec.keyValue.ToString()} [{newRec.activeWindowName}]");
         }
         
         

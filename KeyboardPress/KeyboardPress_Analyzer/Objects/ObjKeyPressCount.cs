@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace KeyboardPress_Analyzer
+namespace KeyboardPress_Analyzer.Objects
 {
     public class ObjKeyPressCount
     {

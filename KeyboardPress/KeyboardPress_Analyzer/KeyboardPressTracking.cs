@@ -1,4 +1,7 @@
-﻿using System;
+﻿using KeyboardPress_Analyzer.Functions;
+using KeyboardPress_Analyzer.Helper;
+using KeyboardPress_Analyzer.Objects;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -17,13 +20,19 @@ namespace KeyboardPress_Analyzer
 
         private ulong totalKeyPress;
         private ulong totalMousePress;
-        private ulong totalWords;
+        
         private ulong totalMouseWheelUp;
         private ulong totalMouseWheelDown;
 
-        private KeyValuePair<string, string>[] offerWordTemplate_pairs;
+        
         private RestReminder restReminder;
 
+        private NotifyIcon notifyIcon;
+
+        private TotalWords TotalWordsClass;
+        private OfferWord OfferWordClass;
+
+        #region get set
         public ulong TotalKeyPress
         {
             get
@@ -53,13 +62,13 @@ namespace KeyboardPress_Analyzer
         {
             get
             {
-                return totalWords;
+                return TotalWordsClass.TotalWordsCount;
             }
 
-            set
-            {
-                totalWords = value;
-            }
+            //set
+            //{
+            //    TotalWordsClass.TotalWordsCount = value;
+            //}
         }
 
         public ulong TotalMouseWheelUp
@@ -87,9 +96,9 @@ namespace KeyboardPress_Analyzer
                 totalMouseWheelDown = value;
             }
         }
+        #endregion
 
-        private NotifyIcon notifyIcon;
-
+        #region interface overrides
         public override void CleanData()
         {
             base.CleanData();
@@ -112,6 +121,7 @@ namespace KeyboardPress_Analyzer
             restReminder.TimeToRest += RestReminder_TimeToRest;
             restReminder.Start();
         }
+        #endregion
 
         #region Rest reminder
         private void RestReminder_TimeToRest(object sender, EventArgs e)
@@ -126,24 +136,22 @@ namespace KeyboardPress_Analyzer
         }
         #endregion Rest reminder
 
+        #region construkctor
         public KeyboardPressTracking(NotifyIcon NotifyIcon) : base()
         {
             totalKeyPress = 0;
             totalMousePress = 0;
-            totalWords = 0;
             totalMouseWheelUp = 0;
             totalMouseWheelDown = 0;
-
-            notifyIcon = NotifyIcon;
             
-            offerWordTemplate_pairs = new KeyValuePair<string, string>[]
-            {
-                new KeyValuePair<string, string>("aa", "labaaaasRytas"),
-                new KeyValuePair<string, string>("abrikosas", "ananasas"),
-                new KeyValuePair<string, string>("greta", "pyyypsikė")
-            };
-        }
+            notifyIcon = NotifyIcon;
 
+            TotalWordsClass = new TotalWords();
+            OfferWordClass = new OfferWord(NotifyIcon);
+        }
+        #endregion
+
+        #region overrides
         protected override void GlobalHookKeyUp(object sender, KeyEventArgs e)
         {
             try
@@ -152,8 +160,8 @@ namespace KeyboardPress_Analyzer
 
                 if (totalKeyPress < ulongMax)
                     totalKeyPress++;
-                else if (DebugLog)
-                    IDebugLogHelper.AddErrorMsg("Pasiektas maksimalus sumuojamas klavišų paspaudimų kiekis");
+                else
+                    DebugHelper.AddErrorMsg("Pasiektas maksimalus sumuojamas klavišų paspaudimų kiekis");
 
                 WorkInProgress();
             }
@@ -201,13 +209,13 @@ namespace KeyboardPress_Analyzer
                 }
 
                 // Atskiroje gijoje sumuoja žodžius
-                var t_totalWordsCount = new Task(() => { totalWordsCount(lastRec, lastNRecInSameWin); });
+                var t_totalWordsCount = new Task(() => { TotalWordsClass.totalWordsCount(lastRec, lastNRecInSameWin); });
                 t_totalWordsCount.Start();
 
                 // Atskiroje gijoje žodžių keitimas
                 Thread t = new Thread(() =>
                 {
-                    offerWordTemplate(lastNRecInSameWin);
+                    OfferWordClass.offerWordTemplate(lastNRecInSameWin);
                 });
                 t.SetApartmentState(ApartmentState.STA);
                 t.Start();
@@ -244,144 +252,10 @@ namespace KeyboardPress_Analyzer
 
             WorkInProgress();
         }
+        #endregion
 
-        /// <summary>
-        /// Counting total words - always works in other thread/task (count word when word end's)
-        /// </summary>
-        /// <param name="lastRecord"></param>
-        /// <param name="NLastKeyPressInSameWindow"></param>
-        private void totalWordsCount(ObjEvent_key lastRecord, ObjEvent_key[] NLastKeyPressInSameWindow)
-        {
-            try
-            {
-                int[] strArr = new int[] { 9, 13, 32, 46, 44,63, 33, 58, 59, 91, 93, 123, 125, 34, 61, 60, 62, 47, 42, 45, 43, 95, 64 }; // tab enter space . , ? ! : ; [ ] { } = < / " * + @ // to do: papildyti: ... ir kt.simboliais pamastyti apie smailus
-                if (strArr.Contains(lastRecord.keyValue))
-                {
-                    var lst_NLastKeyPressInSameWindow = NLastKeyPressInSameWindow.Reverse().ToList();
-                    lst_NLastKeyPressInSameWindow.RemoveAt(0);
-                    if(lst_NLastKeyPressInSameWindow.Count() > 0)
-                    {
-                        var before = totalWords;
-
-                        string wrd = "";
-                        int skip = 0;
-                        foreach (var item in lst_NLastKeyPressInSameWindow)
-                        {
-                            if (!strArr.Contains(item.keyValue))
-                            {
-                                if ((int)((char)item.key) == 8)
-                                {
-                                    skip++;
-                                }
-                                else
-                                {
-                                    if (skip == 0)
-                                        wrd += item.key.ToString();
-                                    else
-                                        skip--;
-                                }
-                            }
-                            else
-                            {
-                                break;
-                            }
-                        }
-
-                        //kad nefiksuotų smailo kaip žodžio
-                        char[] smilesChars = new char[] { ';', ':', '-' };
-                        if (wrd.Length == 2 && smilesChars.Contains(wrd[0]))
-                            return;
-
-                        var tmp = wrd.ToCharArray();
-                        Array.Reverse(tmp);
-                        wrd = new string(tmp);
-
-                        foreach(var c in tmp)
-                        {
-                            int ch = (int)c;
-                            if ((ch > 64 && ch < 91) || (ch > 96 && ch < 123) || Helper.Helper.ltLettersArray.Contains(ch))
-                            {
-                                totalWords++;
-                                break;
-                            }
-                        }
-                        
-                        if (before != totalWords)
-                        {
-                            if (DebugLog)
-                                IDebugLogHelper.AddInfoMsg($"Iš viso žodžių: {totalWords.ToString()} paskutinis: {wrd}");
-                            
-                            System.Diagnostics.Debug.WriteLine("total words: " + totalWords.ToString() + " last word: " + wrd);
-                        }
-                    }
-                }
-            }
-            catch(Exception ex)
-            {
-                MessageBox.Show(ex.Message, $"Error on {nameof(totalWordsCount)}");
-                Console.WriteLine(ex.Message);
-            }
-        }
-
-        private void offerWordTemplate(ObjEvent_key[] NLastKeyPressInSameWindow)
-        {
-            try
-            {
-                if (offerWordTemplate_pairs != null && offerWordTemplate_pairs.Count() > 0)
-                {
-                    int maxLettersToCheck = 10;
-                    int symbolToConfimOffer = 9;//// tab '\t'
-                    bool confirm = NLastKeyPressInSameWindow[NLastKeyPressInSameWindow.Length - 1].keyValue == symbolToConfimOffer;
-
-                    string lastSymbols = "";
-                    foreach (var s in NLastKeyPressInSameWindow)
-                    {
-                        lastSymbols += s.key.ToString();
-                    }
-                    if (confirm)
-                    {
-                        lastSymbols = lastSymbols.Remove(lastSymbols.Length - 1, 1);
-                    }
-                    System.Diagnostics.Debug.WriteLine("offetWordTemplate: " + lastSymbols);
-                    for (int i = 1; i < maxLettersToCheck && i < lastSymbols.Length; i++)
-                    {
-                        string strLet = lastSymbols.Remove(0, lastSymbols.Length - 1 - i);
-                        var pair = offerWordTemplate_pairs.FirstOrDefault(x => x.Key.ToLower() == strLet.ToLower());
-                        if (!String.IsNullOrEmpty(pair.Key) && !String.IsNullOrEmpty(pair.Value))
-                        {
-                            if (!confirm)
-                            {
-                                notifyIcon.ShowBalloonTip(1000, "", $"Siūlomas tekstas: {pair.Value}", ToolTipIcon.Info); // to do: reikia pamastyti kaip uzdaryti siulymus
-                                System.Diagnostics.Debug.WriteLine("offetWordTemplate atitikmuo: " + pair.Value);
-                                return;
-                            }
-                            else
-                            {
-                                System.Windows.Forms.Application.DoEvents();
-                                KeyboardControlAdapter.pressAndReleaseButton(VirtualKeysEnum.VK_BACK);
-                                for (int z = 0; z < ((KeyValuePair<string, string>)pair).Key.Length; z++)
-                                {
-                                    KeyboardControlAdapter.pressAndReleaseButton(VirtualKeysEnum.VK_BACK);
-                                }
-                                KeyboardControlAdapter.pasteText(((KeyValuePair<string, string>)pair).Value, true);
-                                
-                                return;
-                            }
-                        }
-                        else
-                        {
-                            notifyIcon.Visible = true;
-                        }
-                    }
-                }
-                return;
-            }
-            catch (Exception ex)
-            {
-
-                return;
-            }
-        }
+        
+        
 
         //del sito reikia daugiau pamastyti i kuria struktura ziureti
         //public string[] mostMistakesAfterLetters(int lettersBefore)
@@ -446,15 +320,15 @@ namespace KeyboardPress_Analyzer
 
         public double countAvrgWordsPerMin()
         {
-            if (totalWords == 0 || StopWach.ElapsedMilliseconds == 0)
+            if (TotalWordsClass.TotalWordsCount == 0 || StopWach.ElapsedMilliseconds == 0)
                 return 0;
 
-            return totalWords / TimeSpan.FromMilliseconds(StopWach.ElapsedMilliseconds).TotalMinutes;
+            return TotalWordsClass.TotalWordsCount / TimeSpan.FromMilliseconds(StopWach.ElapsedMilliseconds).TotalMinutes;
         }
 
         public double countAvrgWordsPerHour()
         {
-            if (totalWords == 0 || StopWach.ElapsedMilliseconds == 0)
+            if (TotalWordsClass.TotalWordsCount == 0 || StopWach.ElapsedMilliseconds == 0)
                 return 0;
 
             return TimeSpan.FromMilliseconds(StopWach.ElapsedMilliseconds).TotalHours;

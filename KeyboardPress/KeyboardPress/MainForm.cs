@@ -51,9 +51,9 @@ namespace KeyboardPress
         {
             panelDebug.Visible = toolStripItem_debug.Checked;
             if (panelDebug.Visible)
-                kpt.IDebugLogHelper = new DebugHelper(richTB_debug);
+                DebugHelper.Start(richTB_debug);
             else
-                kpt.IDebugLogHelper = null;
+                DebugHelper.Stop();
         }
 
         private void toolStripItem_start_Click(object sender, EventArgs e)
@@ -222,7 +222,7 @@ namespace KeyboardPress
                     LogHelper.LogInfoMsg(Environment.NewLine + baloonInfoString());
 
                     //Thread.Sleep(1800000); //1 800 000 milliseconds = 30 minutes
-                    Thread.Sleep(10000);
+                    Thread.Sleep(300000); //5min
                 }
                 catch{}
             }
