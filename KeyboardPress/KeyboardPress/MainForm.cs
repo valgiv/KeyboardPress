@@ -28,6 +28,8 @@ namespace KeyboardPress
         
         private void StartUp()
         {
+            TestDBConnectionOnLoad();
+
             toolStripItem_debug.Checked = true;
             toolStripItem_debug_Click(null, null);
 
@@ -251,9 +253,26 @@ namespace KeyboardPress
 
         private void test2ToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            //notifyIcon.SetIcon(NotifyIconExtensions.NotifyIconType.red);
-            //notifyIcon.Icon = new Icon(@"C:\Users\Val\GitHub\Repos\kp\KeyboardPress\Graphicloads-Seo-Services-Tags.ico");
-            notifyIcon.HideBalloonTip();
+            try
+            {
+                var a = KeyboardPress_Analyzer.Helper.DBHelper.TestConnection();
+
+                //var b = KeyboardPress_Analyzer.Helper.DBHelper.GetDataSetDb($"INSERT INTO KP_USER (guid_id, name) VALUES ('{Guid.NewGuid()}', 'test2')");
+            }
+            catch(Exception ex)
+            {
+
+            }
+        }
+
+        private void TestDBConnectionOnLoad()
+        {
+            if(!DBHelper.TestConnection())
+            {
+                MessageBox.Show("Nepavyksta prisijunti prie duomenų bazės");
+                return;
+            }
+            var user = DBHelper.UserId;
         }
     }
 }

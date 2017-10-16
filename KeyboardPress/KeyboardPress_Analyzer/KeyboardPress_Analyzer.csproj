@@ -64,6 +64,7 @@
   <ItemGroup>
     <Compile Include="Functions\OfferWord.cs" />
     <Compile Include="Functions\TotalWords.cs" />
+    <Compile Include="Helper\DBHelper.cs" />
     <Compile Include="KeyboardControlAdapter.cs" />
     <Compile Include="Objects\ObjEvent.cs" />
     <Compile Include="Helper\DebugHelper.cs" />
@@ -96,6 +97,15 @@
       <Project>{868ed802-69e8-45e0-a593-73fc11cf3c2d}</Project>
       <Name>KeyboardPress_Extensions</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="kpData.mdf">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="kpData_log.ldf">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <DependentUpon>kpData.mdf</DependentUpon>
+    </Content>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

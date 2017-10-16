@@ -255,34 +255,6 @@ namespace KeyboardPress_Analyzer
         #endregion
 
         
-        
-
-        //del sito reikia daugiau pamastyti i kuria struktura ziureti
-        //public string[] mostMistakesAfterLetters(int lettersBefore)
-        //{
-        //    try
-        //    {
-        //        EventObj_key[] tempData;
-        //        lock (KeysCharsEvents)
-        //        {
-        //            tempData = new EventObj_key[KeysCharsEvents.Count - 1];
-        //            KeysCharsEvents.CopyTo(tempData);
-        //        }
-
-        //        List<string> result = new List<string>();
-        //        foreach(var item in tempData)
-        //        {
-        //            //if(item.)
-        //        }
-        //        return result.ToArray();
-        //    }
-        //    catch(Exception ex)
-        //    {
-        //        MessageBox.Show($"Klaida ieškant po kokių simbolių junginių dažniausiai daromos klaidos\n{ex.Message}");
-        //        Helper.LogHelper.LogErrorMsg(ex.Message);
-        //        return null;
-        //    }
-        //}
 
         #region count avrg
 

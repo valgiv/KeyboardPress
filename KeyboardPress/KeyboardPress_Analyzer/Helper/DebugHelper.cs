@@ -27,22 +27,26 @@ namespace KeyboardPress_Analyzer.Helper
             {
                 lock (locker)
                 {
-                    //lastLock = DateTime.Now;
-                    //lockObj = "AddErrorMsg" + " " + msg;
-
-                    if (!debugRichTextBox.InvokeRequired)
+                    try
                     {
-                        debugRichTextBox.Text += errMsg;
-                        debugRichTextBox.SelectionStart = debugRichTextBox.Text.Length;
-                        debugRichTextBox.ScrollToCaret();
-                    }
-                    else
-                    {
-                        debugRichTextBox.Invoke(new MethodInvoker(delegate {
+                        if (!debugRichTextBox.InvokeRequired)
+                        {
                             debugRichTextBox.Text += errMsg;
                             debugRichTextBox.SelectionStart = debugRichTextBox.Text.Length;
                             debugRichTextBox.ScrollToCaret();
-                        }));
+                        }
+                        else
+                        {
+                            debugRichTextBox.Invoke(new MethodInvoker(delegate {
+                                debugRichTextBox.Text += errMsg;
+                                debugRichTextBox.SelectionStart = debugRichTextBox.Text.Length;
+                                debugRichTextBox.ScrollToCaret();
+                            }));
+                        }
+                    }
+                    catch(Exception ex)
+                    {
+                        MessageBox.Show(ex.Message + " " + ex.StackTrace);
                     }
                 }
             }
@@ -55,22 +59,26 @@ namespace KeyboardPress_Analyzer.Helper
             {
                 lock (locker)
                 {
-                    //lastLock = DateTime.Now;
-                    //lockObj = "AddErrorMsg" + " " + dateTime.ToString() + " " + msg;
-
-                    if (!debugRichTextBox.InvokeRequired)
+                    try
                     {
-                        debugRichTextBox.Text += errMsg;
-                        debugRichTextBox.SelectionStart = debugRichTextBox.Text.Length;
-                        debugRichTextBox.ScrollToCaret();
-                    }
-                    else
-                    {
-                        debugRichTextBox.Invoke(new MethodInvoker(delegate {
+                        if (!debugRichTextBox.InvokeRequired)
+                        {
                             debugRichTextBox.Text += errMsg;
                             debugRichTextBox.SelectionStart = debugRichTextBox.Text.Length;
                             debugRichTextBox.ScrollToCaret();
-                        }));
+                        }
+                        else
+                        {
+                            debugRichTextBox.Invoke(new MethodInvoker(delegate {
+                                debugRichTextBox.Text += errMsg;
+                                debugRichTextBox.SelectionStart = debugRichTextBox.Text.Length;
+                                debugRichTextBox.ScrollToCaret();
+                            }));
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show(ex.Message + " " + ex.StackTrace);
                     }
                 }
             }
@@ -82,22 +90,26 @@ namespace KeyboardPress_Analyzer.Helper
             {
                 lock (locker)
                 {
-                    //lastLock = DateTime.Now;
-                    //lockObj = "AddInfoMsg" + " " + msg;
-
-                    if (!debugRichTextBox.InvokeRequired)
+                    try
                     {
-                        debugRichTextBox.Text += $"{DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.fff", CultureInfo.InvariantCulture)}: {msg}\n";
-                        debugRichTextBox.SelectionStart = debugRichTextBox.Text.Length;
-                        debugRichTextBox.ScrollToCaret();
-                    }
-                    else
-                    {
-                        debugRichTextBox.Invoke(new MethodInvoker(delegate {
+                        if (!debugRichTextBox.InvokeRequired)
+                        {
                             debugRichTextBox.Text += $"{DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.fff", CultureInfo.InvariantCulture)}: {msg}\n";
                             debugRichTextBox.SelectionStart = debugRichTextBox.Text.Length;
                             debugRichTextBox.ScrollToCaret();
-                        }));
+                        }
+                        else
+                        {
+                            debugRichTextBox.Invoke(new MethodInvoker(delegate {
+                                debugRichTextBox.Text += $"{DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.fff", CultureInfo.InvariantCulture)}: {msg}\n";
+                                debugRichTextBox.SelectionStart = debugRichTextBox.Text.Length;
+                                debugRichTextBox.ScrollToCaret();
+                            }));
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show(ex.Message + " " + ex.StackTrace);
                     }
                 }
             }
@@ -109,24 +121,28 @@ namespace KeyboardPress_Analyzer.Helper
             {
                 lock (locker)
                 {
-                    //lastLock = DateTime.Now;
-                    //lockObj = "AddInfoMsg" + " " + dateTime.ToString() + " " + msg;
-
-                    if (!debugRichTextBox.InvokeRequired)
+                    try
                     {
-                        debugRichTextBox.Text += $"{dateTime.ToString("yyyy-MM-dd HH:mm:ss.fff", CultureInfo.InvariantCulture)}: {msg}\n";
-                        debugRichTextBox.SelectionStart = debugRichTextBox.Text.Length;
-                        debugRichTextBox.ScrollToCaret();
-                    }
-                    else
-                    {
-                        debugRichTextBox.Invoke(new MethodInvoker(delegate
+                        if (!debugRichTextBox.InvokeRequired)
                         {
                             debugRichTextBox.Text += $"{dateTime.ToString("yyyy-MM-dd HH:mm:ss.fff", CultureInfo.InvariantCulture)}: {msg}\n";
                             debugRichTextBox.SelectionStart = debugRichTextBox.Text.Length;
                             debugRichTextBox.ScrollToCaret();
-                        }));
-                    }    
+                        }
+                        else
+                        {
+                            debugRichTextBox.Invoke(new MethodInvoker(delegate
+                            {
+                                debugRichTextBox.Text += $"{dateTime.ToString("yyyy-MM-dd HH:mm:ss.fff", CultureInfo.InvariantCulture)}: {msg}\n";
+                                debugRichTextBox.SelectionStart = debugRichTextBox.Text.Length;
+                                debugRichTextBox.ScrollToCaret();
+                            }));
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show(ex.Message + " " + ex.StackTrace);
+                    }
                 }
             }
         }

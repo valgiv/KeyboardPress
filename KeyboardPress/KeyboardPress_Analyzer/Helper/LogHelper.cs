@@ -8,7 +8,7 @@ namespace KeyboardPress_Analyzer.Helper
     {
         private static string logDir = "";
 
-        public static string LogDir
+        private static string LogDir
         {
             get
             {

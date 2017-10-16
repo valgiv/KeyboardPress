@@ -12,12 +12,14 @@ namespace KeyboardPress_Analyzer.Functions
     public class TotalWords
     {
         private ulong totalWords;
+        private ulong wordsWithMistakes;
 
         private List<string> tmpWrdsList = new List<string>();
 
         public TotalWords()
         {
             totalWords = 0;
+            wordsWithMistakes = 0;
         }
         
         public ulong TotalWordsCount
@@ -67,10 +69,11 @@ namespace KeyboardPress_Analyzer.Functions
                             }
                         }
 
-                        //kad nefiksuotų smailo kaip žodžio
+                        #region kad nefiksuotų smailo kaip žodžio
                         char[] smilesChars = new char[] { ';', ':', '-' };
                         if (wrd.Length == 2 && smilesChars.Contains(wrd[0]))
                             return;
+                        #endregion
 
                         var tmp = wrd.ToCharArray();
                         Array.Reverse(tmp);
@@ -100,6 +103,25 @@ namespace KeyboardPress_Analyzer.Functions
             {
                 MessageBox.Show(ex.Message, $"Error on {nameof(totalWordsCount)}");
                 Console.WriteLine(ex.Message);
+            }
+        }
+
+        /// <summary>
+        /// rašymo tikslumas
+        /// </summary>
+        private void CountAccuracy()
+        {
+            try
+            {
+
+            }
+            catch (Exception ex)
+            {
+
+            }
+            finally
+            {
+
             }
         }
 
