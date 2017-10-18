@@ -39,6 +39,7 @@
             this.toolStripItem_debug = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripItem_cleanDebugWindow = new System.Windows.Forms.ToolStripMenuItem();
             this.testToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.test2ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.apieToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.informacijaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.notifyIcon = new System.Windows.Forms.NotifyIcon(this.components);
@@ -49,10 +50,12 @@
             this.richTB_debug = new System.Windows.Forms.RichTextBox();
             this.panelMain = new System.Windows.Forms.Panel();
             this.timer_workTime = new System.Windows.Forms.Timer(this.components);
-            this.test2ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.label1 = new System.Windows.Forms.Label();
+            this.textBox1 = new System.Windows.Forms.TextBox();
             this.menuStrip.SuspendLayout();
             this.statusStrip.SuspendLayout();
             this.panelDebug.SuspendLayout();
+            this.panelMain.SuspendLayout();
             this.SuspendLayout();
             // 
             // menuStrip
@@ -135,6 +138,13 @@
             this.testToolStripMenuItem.Text = "test";
             this.testToolStripMenuItem.Click += new System.EventHandler(this.testToolStripMenuItem_Click);
             // 
+            // test2ToolStripMenuItem
+            // 
+            this.test2ToolStripMenuItem.Name = "test2ToolStripMenuItem";
+            this.test2ToolStripMenuItem.Size = new System.Drawing.Size(44, 20);
+            this.test2ToolStripMenuItem.Text = "test2";
+            this.test2ToolStripMenuItem.Click += new System.EventHandler(this.test2ToolStripMenuItem_Click);
+            // 
             // apieToolStripMenuItem
             // 
             this.apieToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -209,6 +219,8 @@
             // panelMain
             // 
             this.panelMain.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
+            this.panelMain.Controls.Add(this.textBox1);
+            this.panelMain.Controls.Add(this.label1);
             this.panelMain.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panelMain.Location = new System.Drawing.Point(0, 24);
             this.panelMain.Name = "panelMain";
@@ -220,12 +232,21 @@
             this.timer_workTime.Interval = 1000;
             this.timer_workTime.Tick += new System.EventHandler(this.timer_workTime_Tick);
             // 
-            // test2ToolStripMenuItem
+            // label1
             // 
-            this.test2ToolStripMenuItem.Name = "test2ToolStripMenuItem";
-            this.test2ToolStripMenuItem.Size = new System.Drawing.Size(44, 20);
-            this.test2ToolStripMenuItem.Text = "test2";
-            this.test2ToolStripMenuItem.Click += new System.EventHandler(this.test2ToolStripMenuItem_Click);
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(65, 25);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(35, 13);
+            this.label1.TabIndex = 0;
+            this.label1.Text = "label1";
+            // 
+            // textBox1
+            // 
+            this.textBox1.Location = new System.Drawing.Point(68, 51);
+            this.textBox1.Name = "textBox1";
+            this.textBox1.Size = new System.Drawing.Size(100, 20);
+            this.textBox1.TabIndex = 1;
             // 
             // MainForm
             // 
@@ -248,6 +269,8 @@
             this.statusStrip.ResumeLayout(false);
             this.statusStrip.PerformLayout();
             this.panelDebug.ResumeLayout(false);
+            this.panelMain.ResumeLayout(false);
+            this.panelMain.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -275,6 +298,8 @@
         private System.Windows.Forms.Timer timer_workTime;
         private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel_totalWorkTime;
         private System.Windows.Forms.ToolStripMenuItem test2ToolStripMenuItem;
+        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.Label label1;
     }
 }
 

@@ -45,8 +45,6 @@ namespace KeyboardPress
             this.notifyIcon.Visible = true;
         }
         
-        #region UI Events
-
         #region ToolStrip meniu items
 
         private void toolStripItem_debug_Click(object sender, EventArgs e)
@@ -127,8 +125,6 @@ namespace KeyboardPress
                 Console.WriteLine("NENUMATYTA KLAIDA: " + ex.Message);
             }
         }
-
-        #endregion UI Events
 
         public void StartHookWork()
         {
@@ -230,16 +226,8 @@ namespace KeyboardPress
             }
         }
         
-
         private void testToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            //Thread.Sleep(5000);
-            //KeyboardControlAdapter.pressAndReleaseButton(VirtualKeysEnum.VK_BACK);
-            //KeyboardControlAdapter.pressAndReleaseButton(VirtualKeysEnum.VK_BACK);
-            //KeyboardControlAdapter.pressAndReleaseButton(VirtualKeysEnum.VK_BACK);
-            //KeyboardControlAdapter.pressAndReleaseButton(VirtualKeysEnum.VK_BACK);
-
-            notifyIcon.ShowBalloonTip(5000, "title", "text", ToolTipIcon.Info);
 
         }
 
@@ -253,16 +241,7 @@ namespace KeyboardPress
 
         private void test2ToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            try
-            {
-                var a = KeyboardPress_Analyzer.Helper.DBHelper.TestConnection();
-
-                //var b = KeyboardPress_Analyzer.Helper.DBHelper.GetDataSetDb($"INSERT INTO KP_USER (guid_id, name) VALUES ('{Guid.NewGuid()}', 'test2')");
-            }
-            catch(Exception ex)
-            {
-
-            }
+            
         }
 
         private void TestDBConnectionOnLoad()

@@ -32,6 +32,8 @@ namespace KeyboardPress_Analyzer
         private TotalWords TotalWordsClass;
         private OfferWord OfferWordClass;
 
+        public List<object> UiControls;
+
         #region get set
         public ulong TotalKeyPress
         {

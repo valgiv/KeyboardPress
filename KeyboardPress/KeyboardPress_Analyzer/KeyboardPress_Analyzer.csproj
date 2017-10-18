@@ -76,6 +76,7 @@
     <Compile Include="Objects\ObjKeyPressCount.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Functions\RestReminder.cs" />
+    <Compile Include="UiControls.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

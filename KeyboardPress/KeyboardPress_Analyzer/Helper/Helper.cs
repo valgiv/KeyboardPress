@@ -13,6 +13,17 @@ namespace KeyboardPress_Analyzer.Helper
     {
         public static readonly int[] ltLettersArray = new int[] { 260, 261, 269, 268, 281, 280, 279, 278, 303, 303, 353, 352, 371, 370, 363, 362, 382, 381 };
 
+        private static UiControls uiControls;
+        public static UiControls UiControls
+        {
+            get
+            {
+                if (uiControls == null)
+                    uiControls = new UiControls();
+                return uiControls;
+            }
+        }
+
         public static IEnumerable<T> TakeLast<T>(this IEnumerable<T> collection, int n)
         {
             if (collection == null)
@@ -54,7 +65,7 @@ namespace KeyboardPress_Analyzer.Helper
                 }
             }
         }
-
+        
         //--
         [DllImport("user32.dll", SetLastError = true)]
         [return: MarshalAs(UnmanagedType.Bool)]
