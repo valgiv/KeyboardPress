@@ -50,8 +50,12 @@
             this.richTB_debug = new System.Windows.Forms.RichTextBox();
             this.panelMain = new System.Windows.Forms.Panel();
             this.timer_workTime = new System.Windows.Forms.Timer(this.components);
-            this.label1 = new System.Windows.Forms.Label();
-            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.tbTotalWords = new System.Windows.Forms.TextBox();
+            this.tbLastWord = new System.Windows.Forms.TextBox();
+            this.tbLastWordWithMistake = new System.Windows.Forms.TextBox();
+            this.lblTotalWords = new System.Windows.Forms.Label();
+            this.lblLastWord = new System.Windows.Forms.Label();
+            this.lblLastWordWithMistake = new System.Windows.Forms.Label();
             this.menuStrip.SuspendLayout();
             this.statusStrip.SuspendLayout();
             this.panelDebug.SuspendLayout();
@@ -202,7 +206,6 @@
             this.panelDebug.Name = "panelDebug";
             this.panelDebug.Size = new System.Drawing.Size(334, 266);
             this.panelDebug.TabIndex = 2;
-            this.panelDebug.Visible = false;
             // 
             // richTB_debug
             // 
@@ -219,8 +222,12 @@
             // panelMain
             // 
             this.panelMain.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
-            this.panelMain.Controls.Add(this.textBox1);
-            this.panelMain.Controls.Add(this.label1);
+            this.panelMain.Controls.Add(this.lblLastWordWithMistake);
+            this.panelMain.Controls.Add(this.lblLastWord);
+            this.panelMain.Controls.Add(this.lblTotalWords);
+            this.panelMain.Controls.Add(this.tbLastWordWithMistake);
+            this.panelMain.Controls.Add(this.tbLastWord);
+            this.panelMain.Controls.Add(this.tbTotalWords);
             this.panelMain.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panelMain.Location = new System.Drawing.Point(0, 24);
             this.panelMain.Name = "panelMain";
@@ -232,21 +239,57 @@
             this.timer_workTime.Interval = 1000;
             this.timer_workTime.Tick += new System.EventHandler(this.timer_workTime_Tick);
             // 
-            // label1
+            // tbTotalWords
             // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(65, 25);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(35, 13);
-            this.label1.TabIndex = 0;
-            this.label1.Text = "label1";
+            this.tbTotalWords.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
+            this.tbTotalWords.Location = new System.Drawing.Point(147, 132);
+            this.tbTotalWords.Name = "tbTotalWords";
+            this.tbTotalWords.ReadOnly = true;
+            this.tbTotalWords.Size = new System.Drawing.Size(155, 20);
+            this.tbTotalWords.TabIndex = 2;
             // 
-            // textBox1
+            // tbLastWord
             // 
-            this.textBox1.Location = new System.Drawing.Point(68, 51);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(100, 20);
-            this.textBox1.TabIndex = 1;
+            this.tbLastWord.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
+            this.tbLastWord.Location = new System.Drawing.Point(147, 158);
+            this.tbLastWord.Name = "tbLastWord";
+            this.tbLastWord.ReadOnly = true;
+            this.tbLastWord.Size = new System.Drawing.Size(155, 20);
+            this.tbLastWord.TabIndex = 3;
+            // 
+            // tbLastWordWithMistake
+            // 
+            this.tbLastWordWithMistake.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
+            this.tbLastWordWithMistake.Location = new System.Drawing.Point(147, 187);
+            this.tbLastWordWithMistake.Name = "tbLastWordWithMistake";
+            this.tbLastWordWithMistake.ReadOnly = true;
+            this.tbLastWordWithMistake.Size = new System.Drawing.Size(155, 20);
+            this.tbLastWordWithMistake.TabIndex = 4;
+            // 
+            // lblTotalWords
+            // 
+            this.lblTotalWords.AutoSize = true;
+            this.lblTotalWords.Location = new System.Drawing.Point(3, 135);
+            this.lblTotalWords.Name = "lblTotalWords";
+            this.lblTotalWords.Size = new System.Drawing.Size(63, 13);
+            this.lblTotalWords.TabIndex = 7;
+            this.lblTotalWords.Text = "Viso žodžių:";
+            // 
+            // lblLastWord
+            // 
+            this.lblLastWord.Location = new System.Drawing.Point(3, 158);
+            this.lblLastWord.Name = "lblLastWord";
+            this.lblLastWord.Size = new System.Drawing.Size(115, 29);
+            this.lblLastWord.TabIndex = 8;
+            this.lblLastWord.Text = "Paskutinis užfiksuotas žodis";
+            // 
+            // lblLastWordWithMistake
+            // 
+            this.lblLastWordWithMistake.Location = new System.Drawing.Point(3, 187);
+            this.lblLastWordWithMistake.Name = "lblLastWordWithMistake";
+            this.lblLastWordWithMistake.Size = new System.Drawing.Size(115, 29);
+            this.lblLastWordWithMistake.TabIndex = 9;
+            this.lblLastWordWithMistake.Text = "Viso žodžių, kuriuos rašant taisytos klaidos";
             // 
             // MainForm
             // 
@@ -298,8 +341,12 @@
         private System.Windows.Forms.Timer timer_workTime;
         private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel_totalWorkTime;
         private System.Windows.Forms.ToolStripMenuItem test2ToolStripMenuItem;
-        private System.Windows.Forms.TextBox textBox1;
-        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.TextBox tbTotalWords;
+        private System.Windows.Forms.Label lblLastWord;
+        private System.Windows.Forms.Label lblTotalWords;
+        private System.Windows.Forms.TextBox tbLastWordWithMistake;
+        private System.Windows.Forms.TextBox tbLastWord;
+        private System.Windows.Forms.Label lblLastWordWithMistake;
     }
 }
 

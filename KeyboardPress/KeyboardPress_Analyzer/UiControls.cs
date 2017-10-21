@@ -61,7 +61,7 @@ namespace KeyboardPress_Analyzer
             {
                 var c = uiControls.FirstOrDefault(x => x.Tag == uiControlTag);
                 if (c == null)
-                    result = new ArgumentNullException().ToString();
+                    result = new ArgumentNullException(uiControlTag.ToString()).ToString();
 
                 if(result == "OK")
                 {
@@ -105,6 +105,7 @@ namespace KeyboardPress_Analyzer
         TotalMouseWheelUp,
         TotalMouseWheelDown,
         LastWord,
+        LastWordMistake,
         AvrgPressPerMin,
         AvrgPressPerHour,
         AvrgMousePressPerMin,

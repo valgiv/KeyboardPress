@@ -30,6 +30,8 @@ namespace KeyboardPress
         {
             TestDBConnectionOnLoad();
 
+            SetControls();
+
             toolStripItem_debug.Checked = true;
             toolStripItem_debug_Click(null, null);
 
@@ -49,11 +51,35 @@ namespace KeyboardPress
 
         private void toolStripItem_debug_Click(object sender, EventArgs e)
         {
+            bool visibleChanged = panelDebug.Visible == toolStripItem_debug.Checked ? false : true;
             panelDebug.Visible = toolStripItem_debug.Checked;
+
+            int maxWidth = 0;
+            foreach(var screen in Screen.AllScreens)
+            {
+                if (screen.WorkingArea.Width > maxWidth)
+                    maxWidth = screen.WorkingArea.Width;
+            }
+
             if (panelDebug.Visible)
+            {
                 DebugHelper.Start(richTB_debug);
+                if (visibleChanged)
+                {
+                    if (this.Width + panelDebug.Width < maxWidth)
+                        this.Width = this.Width + panelDebug.Width;
+                    else
+                        this.Width = maxWidth;
+                }
+            }
             else
+            {
                 DebugHelper.Stop();
+                if (visibleChanged)
+                {
+                    this.Width = this.Width - richTB_debug.Width;
+                }
+            }
         }
 
         private void toolStripItem_start_Click(object sender, EventArgs e)
@@ -205,6 +231,13 @@ namespace KeyboardPress
 {Environment.NewLine}Žodžių: {kpt.TotalWords.ToString()}
 {Environment.NewLine}Pelės ratuko naudojimo santykis: {kpt.TotalMouseWheelUp}/{kpt.TotalMouseWheelDown}
 {Environment.NewLine}Per: {kpt.StopWach.Elapsed.ToString(@"dd\.hh\:mm\:ss")}";
+        }
+
+        private void SetControls()
+        {
+            Helper.UiControls.Add(tbTotalWords, EnumUiControlTag.TotalWords);
+            Helper.UiControls.Add(tbLastWord, EnumUiControlTag.LastWord);
+            Helper.UiControls.Add(tbLastWordWithMistake, EnumUiControlTag.LastWordMistake);
         }
 
         /// <summary>

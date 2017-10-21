@@ -47,6 +47,7 @@ namespace KeyboardPress_Analyzer.Functions
 
                         string wrd = "";
                         int skip = 0;
+                        bool wasSkip = false;
                         foreach (var item in lst_NLastKeyPressInSameWindow)
                         {
                             if (!strArr.Contains(item.keyValue))
@@ -58,9 +59,14 @@ namespace KeyboardPress_Analyzer.Functions
                                 else
                                 {
                                     if (skip == 0)
+                                    {
                                         wrd += item.key.ToString();
+                                    }
                                     else
+                                    {
                                         skip--;
+                                        wasSkip = true;
+                                    }
                                 }
                             }
                             else
@@ -85,6 +91,11 @@ namespace KeyboardPress_Analyzer.Functions
                             if ((ch > 64 && ch < 91) || (ch > 96 && ch < 123) || Helper.Helper.ltLettersArray.Contains(ch))
                             {
                                 totalWords++;
+                                if(wasSkip)
+                                    wordsWithMistakes++;
+                                Helper.Helper.UiControls.SetText(totalWords.ToString(), EnumUiControlTag.TotalWords);
+                                Helper.Helper.UiControls.SetText(wrd, EnumUiControlTag.LastWord);
+                                Helper.Helper.UiControls.SetText(wordsWithMistakes.ToString(), EnumUiControlTag.LastWordMistake);
                                 tmpWrdsList.Add(wrd);
                                 break;
                             }
