@@ -12,6 +12,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using KeyboardPress_Extensions;
+using KeyboardPress_Analyzer.Objects;
 
 namespace KeyboardPress
 {
@@ -24,6 +25,7 @@ namespace KeyboardPress
         {
             InitializeComponent();
             this.Text = "Keyboard Press Analyzer";
+
         }
         
         private void StartUp()
@@ -285,6 +287,20 @@ namespace KeyboardPress
                 return;
             }
             var user = DBHelper.UserId;
+        }
+
+        private void karščioŽemėlapisToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                List<ObjKeyPressCount> a = kpt.KeyPressCountObjList;
+                Keyboard k = new Keyboard(a);
+                k.ShowDialog();
+            }
+            catch (Exception ex)
+            {
+
+            }
         }
     }
 }

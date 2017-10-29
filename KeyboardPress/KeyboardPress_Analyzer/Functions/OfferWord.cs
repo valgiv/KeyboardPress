@@ -40,12 +40,12 @@ namespace KeyboardPress_Analyzer.Functions
                 {
                     int maxLettersToCheck = 10;
                     int symbolToConfimOffer = 9;//// tab '\t'
-                    bool confirm = NLastKeyPressInSameWindow[NLastKeyPressInSameWindow.Length - 1].keyValue == symbolToConfimOffer;
+                    bool confirm = NLastKeyPressInSameWindow[NLastKeyPressInSameWindow.Length - 1].KeyValue == symbolToConfimOffer;
 
                     string lastSymbols = "";
                     foreach (var s in NLastKeyPressInSameWindow)
                     {
-                        lastSymbols += s.key.ToString();
+                        lastSymbols += s.Key.ToString();
                     }
                     if (confirm)
                     {

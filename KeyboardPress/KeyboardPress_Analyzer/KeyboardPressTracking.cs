@@ -16,7 +16,7 @@ namespace KeyboardPress_Analyzer
     public class KeyboardPressTracking : KeyboardPressAdapter
     {
         private const ulong ulongMax = ulong.MaxValue;
-        private const int lastRecordsToCheck = 25;
+        private const int lastRecordsToCheck = 30;
 
         private ulong totalKeyPress;
         private ulong totalMousePress;
@@ -180,6 +180,22 @@ namespace KeyboardPress_Analyzer
         /// <param name="e"></param>
         protected override void GlobalHookKeyDown(object sender, KeyEventArgs e)
         {
+            if ((new int[] { 35, 36, 37, 38, 39, 40 }).Contains(e.KeyValue)) // home, end, arrows
+            {
+                var a = new ObjEvent_key()
+                {
+                    ActiveWindowName = Helper.Helper.GetActiveWindowTitle(),
+                    ShiftKeyPressed = e.Shift,
+                    CtrlKeyPressed = e.Control,
+                    EventObjType = EventType.KeyPress,
+                    KeyValue = null, // null nes naudojama zodziu fiksavime ir patenka i lista ne pagal reikiama eventType
+                    Key = e.KeyCode.ToString()
+                };
+                Add_ObjEvent_key(a);
+            }
+
+
+
             try
             {
                 base.GlobalHookKeyDown(sender, e);
@@ -207,7 +223,7 @@ namespace KeyboardPress_Analyzer
                 lock (KeysCharsEvents)
                 {
                     lastRec = KeysCharsEvents.LastOrDefault();
-                    lastNRecInSameWin = Helper.Helper.TakeLast(KeysCharsEvents.Where(x => x.activeWindowName == lastRec.activeWindowName), lastRecordsToCheck).ToArray();
+                    lastNRecInSameWin = Helper.Helper.TakeLast(KeysCharsEvents.Where(x => x.ActiveWindowName == lastRec.ActiveWindowName), lastRecordsToCheck).ToArray();
                 }
 
                 // Atskiroje gijoje sumuoja žodžius

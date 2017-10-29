@@ -7,6 +7,9 @@ using System.Windows.Forms;
 
 namespace KeyboardPress_Analyzer
 {
+    /// <summary>
+    /// Class for UI data update
+    /// </summary>
     public class UiControls
     {
         private List<ObjUiControl> uiControls;

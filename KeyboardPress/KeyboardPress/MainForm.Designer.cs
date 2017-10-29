@@ -49,13 +49,14 @@
             this.panelDebug = new System.Windows.Forms.Panel();
             this.richTB_debug = new System.Windows.Forms.RichTextBox();
             this.panelMain = new System.Windows.Forms.Panel();
-            this.timer_workTime = new System.Windows.Forms.Timer(this.components);
-            this.tbTotalWords = new System.Windows.Forms.TextBox();
-            this.tbLastWord = new System.Windows.Forms.TextBox();
-            this.tbLastWordWithMistake = new System.Windows.Forms.TextBox();
-            this.lblTotalWords = new System.Windows.Forms.Label();
-            this.lblLastWord = new System.Windows.Forms.Label();
             this.lblLastWordWithMistake = new System.Windows.Forms.Label();
+            this.lblLastWord = new System.Windows.Forms.Label();
+            this.lblTotalWords = new System.Windows.Forms.Label();
+            this.tbLastWordWithMistake = new System.Windows.Forms.TextBox();
+            this.tbLastWord = new System.Windows.Forms.TextBox();
+            this.tbTotalWords = new System.Windows.Forms.TextBox();
+            this.timer_workTime = new System.Windows.Forms.Timer(this.components);
+            this.karščioŽemėlapisToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip.SuspendLayout();
             this.statusStrip.SuspendLayout();
             this.panelDebug.SuspendLayout();
@@ -69,7 +70,8 @@
             this.nustatymaiToolStripMenuItem,
             this.testToolStripMenuItem,
             this.test2ToolStripMenuItem,
-            this.apieToolStripMenuItem});
+            this.apieToolStripMenuItem,
+            this.karščioŽemėlapisToolStripMenuItem});
             this.menuStrip.Location = new System.Drawing.Point(0, 0);
             this.menuStrip.Name = "menuStrip";
             this.menuStrip.Size = new System.Drawing.Size(673, 24);
@@ -234,37 +236,21 @@
             this.panelMain.Size = new System.Drawing.Size(339, 266);
             this.panelMain.TabIndex = 3;
             // 
-            // timer_workTime
+            // lblLastWordWithMistake
             // 
-            this.timer_workTime.Interval = 1000;
-            this.timer_workTime.Tick += new System.EventHandler(this.timer_workTime_Tick);
+            this.lblLastWordWithMistake.Location = new System.Drawing.Point(3, 187);
+            this.lblLastWordWithMistake.Name = "lblLastWordWithMistake";
+            this.lblLastWordWithMistake.Size = new System.Drawing.Size(115, 29);
+            this.lblLastWordWithMistake.TabIndex = 9;
+            this.lblLastWordWithMistake.Text = "Viso žodžių, kuriuos rašant taisytos klaidos";
             // 
-            // tbTotalWords
+            // lblLastWord
             // 
-            this.tbTotalWords.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
-            this.tbTotalWords.Location = new System.Drawing.Point(147, 132);
-            this.tbTotalWords.Name = "tbTotalWords";
-            this.tbTotalWords.ReadOnly = true;
-            this.tbTotalWords.Size = new System.Drawing.Size(155, 20);
-            this.tbTotalWords.TabIndex = 2;
-            // 
-            // tbLastWord
-            // 
-            this.tbLastWord.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
-            this.tbLastWord.Location = new System.Drawing.Point(147, 158);
-            this.tbLastWord.Name = "tbLastWord";
-            this.tbLastWord.ReadOnly = true;
-            this.tbLastWord.Size = new System.Drawing.Size(155, 20);
-            this.tbLastWord.TabIndex = 3;
-            // 
-            // tbLastWordWithMistake
-            // 
-            this.tbLastWordWithMistake.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
-            this.tbLastWordWithMistake.Location = new System.Drawing.Point(147, 187);
-            this.tbLastWordWithMistake.Name = "tbLastWordWithMistake";
-            this.tbLastWordWithMistake.ReadOnly = true;
-            this.tbLastWordWithMistake.Size = new System.Drawing.Size(155, 20);
-            this.tbLastWordWithMistake.TabIndex = 4;
+            this.lblLastWord.Location = new System.Drawing.Point(3, 158);
+            this.lblLastWord.Name = "lblLastWord";
+            this.lblLastWord.Size = new System.Drawing.Size(115, 29);
+            this.lblLastWord.TabIndex = 8;
+            this.lblLastWord.Text = "Paskutinis užfiksuotas žodis";
             // 
             // lblTotalWords
             // 
@@ -275,21 +261,44 @@
             this.lblTotalWords.TabIndex = 7;
             this.lblTotalWords.Text = "Viso žodžių:";
             // 
-            // lblLastWord
+            // tbLastWordWithMistake
             // 
-            this.lblLastWord.Location = new System.Drawing.Point(3, 158);
-            this.lblLastWord.Name = "lblLastWord";
-            this.lblLastWord.Size = new System.Drawing.Size(115, 29);
-            this.lblLastWord.TabIndex = 8;
-            this.lblLastWord.Text = "Paskutinis užfiksuotas žodis";
+            this.tbLastWordWithMistake.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
+            this.tbLastWordWithMistake.Location = new System.Drawing.Point(147, 187);
+            this.tbLastWordWithMistake.Name = "tbLastWordWithMistake";
+            this.tbLastWordWithMistake.ReadOnly = true;
+            this.tbLastWordWithMistake.Size = new System.Drawing.Size(155, 20);
+            this.tbLastWordWithMistake.TabIndex = 4;
             // 
-            // lblLastWordWithMistake
+            // tbLastWord
             // 
-            this.lblLastWordWithMistake.Location = new System.Drawing.Point(3, 187);
-            this.lblLastWordWithMistake.Name = "lblLastWordWithMistake";
-            this.lblLastWordWithMistake.Size = new System.Drawing.Size(115, 29);
-            this.lblLastWordWithMistake.TabIndex = 9;
-            this.lblLastWordWithMistake.Text = "Viso žodžių, kuriuos rašant taisytos klaidos";
+            this.tbLastWord.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
+            this.tbLastWord.Location = new System.Drawing.Point(147, 158);
+            this.tbLastWord.Name = "tbLastWord";
+            this.tbLastWord.ReadOnly = true;
+            this.tbLastWord.Size = new System.Drawing.Size(155, 20);
+            this.tbLastWord.TabIndex = 3;
+            // 
+            // tbTotalWords
+            // 
+            this.tbTotalWords.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
+            this.tbTotalWords.Location = new System.Drawing.Point(147, 132);
+            this.tbTotalWords.Name = "tbTotalWords";
+            this.tbTotalWords.ReadOnly = true;
+            this.tbTotalWords.Size = new System.Drawing.Size(155, 20);
+            this.tbTotalWords.TabIndex = 2;
+            // 
+            // timer_workTime
+            // 
+            this.timer_workTime.Interval = 1000;
+            this.timer_workTime.Tick += new System.EventHandler(this.timer_workTime_Tick);
+            // 
+            // karščioŽemėlapisToolStripMenuItem
+            // 
+            this.karščioŽemėlapisToolStripMenuItem.Name = "karščioŽemėlapisToolStripMenuItem";
+            this.karščioŽemėlapisToolStripMenuItem.Size = new System.Drawing.Size(112, 20);
+            this.karščioŽemėlapisToolStripMenuItem.Text = "Karščio žemėlapis";
+            this.karščioŽemėlapisToolStripMenuItem.Click += new System.EventHandler(this.karščioŽemėlapisToolStripMenuItem_Click);
             // 
             // MainForm
             // 
@@ -347,6 +356,7 @@
         private System.Windows.Forms.TextBox tbLastWordWithMistake;
         private System.Windows.Forms.TextBox tbLastWord;
         private System.Windows.Forms.Label lblLastWordWithMistake;
+        private System.Windows.Forms.ToolStripMenuItem karščioŽemėlapisToolStripMenuItem;
     }
 }
 

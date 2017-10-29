@@ -8,34 +8,38 @@ namespace KeyboardPress_Analyzer.Objects
 {
     public class ObjEvent_mouse : ObjEvent_base
     {
-        public int? x { get; set; }
-        public int? y { get; set; }
+        public int? X { get; set; }
+        public int? Y { get; set; }
     }
 
     public class ObjEvent_key : ObjEvent_base
     {
-        public ObjEvent_key()
-        {
-            processed = false;
-        }
-
-        public object key { get; set; } // to do: pakeisti į reikiamą tipą
+        //public object Key { get; set; } // to do: pakeisti į reikiamą tipą
+        public string Key { get; set; } //dažnu atveju char
         /// <summary>
         /// ascii int value
         /// </summary>
-        public int keyValue { get; set; } // desimtainis kodas is ascii
+        public int? KeyValue { get; set; } // desimtainis simbolio arba mygtuko kodas (priklausomai nuo eventType)
         
-        /// <summary>
-        /// 
-        /// </summary>
-        public bool processed { get; set; }
+        public bool? ShiftKeyPressed { get; set; }
+        public bool? CtrlKeyPressed { get; set; }
     }
 
-    public class ObjEvent_base
+    public class ObjEvent_base : ObjDate
     {
-        public DateTime dateTime { get; set; }
-        public EventType eventObjType { get; set; }
-        public string activeWindowName { get; set; }
+        //public DateTime dateTime { get; set; }
+        public EventType EventObjType { get; set; }
+        public string ActiveWindowName { get; set; }
+    }
+
+    public class ObjDate
+    {
+        public ObjDate()
+        {
+            EventTime = DateTime.Now;
+        }
+
+        public DateTime EventTime { get; set; }
     }
 
     public enum EventType

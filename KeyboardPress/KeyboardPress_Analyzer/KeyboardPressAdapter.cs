@@ -17,8 +17,6 @@ namespace KeyboardPress_Analyzer
 {
     public class KeyboardPressAdapter : IKeyboardPressAdapter
     {
-        public Point lastPoint;
-
         /// <summary>
         /// Pelės mygtukų paspaudimai
         /// </summary>
@@ -173,13 +171,22 @@ namespace KeyboardPress_Analyzer
 
             stopWach.Start();
         }
-        
+
         #endregion IKeyboardPressTracking
+
+        #region GlobalHook_Mouse
 
         protected virtual void GlobalHook_MouseWheel(object sender, MouseEventArgs e)
         {
 
         }
+
+        protected virtual void GlobalHookMouseDown(object sender, MouseEventArgs e)
+        {
+
+        }
+
+        #endregion GlobalHook_Mouse
 
         /// <summary>
         /// simbolių gavimui
@@ -190,18 +197,25 @@ namespace KeyboardPress_Analyzer
         {
             var newRec = new ObjEvent_key()
             {
-                dateTime = DateTime.Now,
-                activeWindowName = Helper.Helper.GetActiveWindowTitle(),
-                eventObjType = EventType.KeyPress,
-                keyValue = (int)e.KeyChar,
-                key = e.KeyChar
+                ActiveWindowName = Helper.Helper.GetActiveWindowTitle(),
+                EventObjType = EventType.KeyPress,
+                KeyValue = (int)e.KeyChar,
+                Key = e.KeyChar.ToString()
             };
 
+            Add_ObjEvent_key(newRec);
+
+
+            DebugHelper.AddInfoMsg(newRec.EventTime, $"{newRec.Key.ToString()} {newRec.KeyValue.ToString()} [{newRec.ActiveWindowName}]");
+        }
+        
+        protected void Add_ObjEvent_key(ObjEvent_key newRec)
+        {
             try
             {
                 keysCharsEvents.Add(newRec);
             }
-            catch(OutOfMemoryException oomEx)
+            catch (OutOfMemoryException oomEx)
             {
                 LogHelper.LogInfoMsg($"BANDOMA PAŠALINTI DALĮ ELEMENTŲ IŠ {nameof(keysCharsEvents)}");
                 DebugHelper.AddInfoMsg($"BANDOMA PAŠALINTI DALĮ ELEMENTŲ IŠ {nameof(keysCharsEvents)}");
@@ -209,17 +223,10 @@ namespace KeyboardPress_Analyzer
                 Helper.Helper.DeleteFromBegin(ref keysCharsEvents, 100, ref deletedItems);
                 keysCharsEvents.Add(newRec);
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 throw ex;
             }
-            
-            DebugHelper.AddInfoMsg(newRec.dateTime, $"{newRec.key.ToString()} {newRec.keyValue.ToString()} [{newRec.activeWindowName}]");
-        }
-        
-        protected virtual void GlobalHookMouseDown(object sender, MouseEventArgs e)
-        {
-            
         }
 
         protected virtual void GlobalHookKeyUp(object sender, KeyEventArgs e)
@@ -241,11 +248,10 @@ namespace KeyboardPress_Analyzer
         {
             var newRec = new ObjEvent_key()
             {
-                dateTime = DateTime.Now,
-                key = e.KeyData.ToString(),
-                eventObjType = EventType.KeyDown,
-                activeWindowName = Helper.Helper.GetActiveWindowTitle(),
-                keyValue = e.KeyValue
+                Key = e.KeyData.ToString(),
+                EventObjType = EventType.KeyDown,
+                ActiveWindowName = Helper.Helper.GetActiveWindowTitle(),
+                KeyValue = e.KeyValue
             };
             try
             {
@@ -270,7 +276,7 @@ namespace KeyboardPress_Analyzer
             else
                 keyPressCountObjList.Add(new ObjKeyPressCount(e.KeyValue));
 
-            DebugHelper.AddInfoMsg(newRec.dateTime, $"{newRec.key.ToString()} {newRec.keyValue.ToString()} [{newRec.activeWindowName}]");
+            DebugHelper.AddInfoMsg(newRec.EventTime, $"{newRec.Key.ToString()} {newRec.KeyValue.ToString()} [{newRec.ActiveWindowName}]");
         }
         
         
