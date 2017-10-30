@@ -37,7 +37,7 @@ namespace KeyboardPress_Analyzer.Helper
                         }
                         else
                         {
-                            debugRichTextBox.Invoke(new MethodInvoker(delegate {
+                            debugRichTextBox.BeginInvoke(new MethodInvoker(delegate {
                                 debugRichTextBox.Text += errMsg;
                                 debugRichTextBox.SelectionStart = debugRichTextBox.Text.Length;
                                 debugRichTextBox.ScrollToCaret();
@@ -69,7 +69,7 @@ namespace KeyboardPress_Analyzer.Helper
                         }
                         else
                         {
-                            debugRichTextBox.Invoke(new MethodInvoker(delegate {
+                            debugRichTextBox.BeginInvoke(new MethodInvoker(delegate {
                                 debugRichTextBox.Text += errMsg;
                                 debugRichTextBox.SelectionStart = debugRichTextBox.Text.Length;
                                 debugRichTextBox.ScrollToCaret();
@@ -100,7 +100,8 @@ namespace KeyboardPress_Analyzer.Helper
                         }
                         else
                         {
-                            debugRichTextBox.Invoke(new MethodInvoker(delegate {
+                            debugRichTextBox.BeginInvoke(new MethodInvoker(delegate
+                            {
                                 debugRichTextBox.Text += $"{DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.fff", CultureInfo.InvariantCulture)}: {msg}\n";
                                 debugRichTextBox.SelectionStart = debugRichTextBox.Text.Length;
                                 debugRichTextBox.ScrollToCaret();
@@ -109,7 +110,7 @@ namespace KeyboardPress_Analyzer.Helper
                     }
                     catch (Exception ex)
                     {
-                        MessageBox.Show(ex.Message + " " + ex.StackTrace);
+                        MessageBox.Show("err\n" + ex.Message + " " + ex.StackTrace);
                     }
                 }
             }
@@ -131,7 +132,7 @@ namespace KeyboardPress_Analyzer.Helper
                         }
                         else
                         {
-                            debugRichTextBox.Invoke(new MethodInvoker(delegate
+                            debugRichTextBox.BeginInvoke(new MethodInvoker(delegate
                             {
                                 debugRichTextBox.Text += $"{dateTime.ToString("yyyy-MM-dd HH:mm:ss.fff", CultureInfo.InvariantCulture)}: {msg}\n";
                                 debugRichTextBox.SelectionStart = debugRichTextBox.Text.Length;

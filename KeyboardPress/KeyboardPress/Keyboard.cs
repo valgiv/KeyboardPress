@@ -58,9 +58,12 @@ namespace KeyboardPress
 
         private int getColor(int count, uint maxCount)
         {
-            int minValue = 50;
-            int maxValue = 210;
-            int diffColors = 10;
+            //int minValue = 50;
+            //int maxValue = 210;
+            //int diffColors = 10;
+            int minValue = 30;
+            int maxValue = 240;
+            int diffColors = 20;
 
             int diffValue = (maxValue - minValue) / diffColors;
             

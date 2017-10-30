@@ -71,14 +71,14 @@ namespace KeyboardPress_Analyzer
                     if (c.Obj is Label)
                     {
                         if (((Label)c.Obj).InvokeRequired)
-                            ((Label)c.Obj).Invoke(new MethodInvoker(delegate { ((Label)c.Obj).Text = text; }));
+                            ((Label)c.Obj).BeginInvoke(new MethodInvoker(delegate { ((Label)c.Obj).Text = text; }));
                         else
                             ((Label)c.Obj).Text = text;
                     }
                     else if(c.Obj is TextBox)
                     {
                         if (((TextBox)c.Obj).InvokeRequired)
-                            ((TextBox)c.Obj).Invoke(new MethodInvoker(delegate { ((TextBox)c.Obj).Text = text; }));
+                            ((TextBox)c.Obj).BeginInvoke(new MethodInvoker(delegate { ((TextBox)c.Obj).Text = text; }));
                         else
                             ((TextBox)c.Obj).Text = text;
                     }
