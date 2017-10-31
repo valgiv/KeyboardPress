@@ -62,6 +62,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Constants.cs" />
     <Compile Include="Functions\OfferWord.cs" />
     <Compile Include="Functions\TotalWords.cs" />
     <Compile Include="Functions\WritingMistakes.cs" />

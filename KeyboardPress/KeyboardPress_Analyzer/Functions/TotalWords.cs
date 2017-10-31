@@ -11,20 +11,20 @@ namespace KeyboardPress_Analyzer.Functions
 {
     public class TotalWords : WritingMistakes
     {
-        private ulong totalWords;
-        private ulong wordsWithMistakes;
+        private ulong totalWords_v1;
+        private ulong wordsWithMistakes_v1;
 
-        private List<string> tmpWrdsList = new List<string>();
+        private List<string> tmpWrdsList_v1 = new List<string>();
 
         public TotalWords()
         {
-            totalWords = 0;
-            wordsWithMistakes = 0;
+            totalWords_v1 = 0;
+            wordsWithMistakes_v1 = 0;
         }
         
-        public ulong TotalWordsCount
+        public ulong TotalWordsCount_v1
         {
-            get { return totalWords; }
+            get { return totalWords_v1; }
         }
 
         /// <summary>
@@ -36,14 +36,13 @@ namespace KeyboardPress_Analyzer.Functions
         {
             try
             {
-                int[] strArr = new int[] { 9, 13, 32, 46, 44, 63, 33, 58, 59, 91, 93, 123, 125, 34, 61, 60, 62, 47, 42, 45, 43, 95, 64 }; // tab enter space . , ? ! : ; [ ] { } = < / " * + @ // to do: papildyti: ... ir kt.simboliais pamastyti apie smailus
-                if (strArr.Contains(lastRecord?.KeyValue ?? 0))
+                if (Constants.WordEndSymbolArr.Contains(lastRecord?.KeyValue ?? 0))
                 {
                     var lst_NLastKeyPressInSameWindow = NLastKeyPressInSameWindow.Reverse().ToList();
                     lst_NLastKeyPressInSameWindow.RemoveAt(0);
                     if (lst_NLastKeyPressInSameWindow.Count() > 0)
                     {
-                        var before = totalWords;
+                        var before = totalWords_v1;
 
                         string wrd = "";
                         int skip = 0;
@@ -56,7 +55,7 @@ namespace KeyboardPress_Analyzer.Functions
 
                         foreach (var item in lst_NLastKeyPressInSameWindow)
                         {
-                            if (!strArr.Contains(item?.KeyValue ?? 0))
+                            if (!Constants.WordEndSymbolArr.Contains(item?.KeyValue ?? 0))
                             {
                                 if (item.Key.Length == 1 && (int)((char)item.Key[0]) == 8)
                                 {
@@ -125,26 +124,26 @@ namespace KeyboardPress_Analyzer.Functions
                             int ch = (int)c;
                             if ((ch > 64 && ch < 91) || (ch > 96 && ch < 123) || Helper.Helper.ltLettersArray.Contains(ch))
                             {
-                                totalWords++;
+                                totalWords_v1++;
                                 if (wasSkip)
                                 {
-                                    wordsWithMistakes++;
+                                    wordsWithMistakes_v1++;
 
                                     //AddMistake(wrd, );
                                 }
-                                Helper.Helper.UiControls.SetText(totalWords.ToString(), EnumUiControlTag.TotalWords);
+                                Helper.Helper.UiControls.SetText(totalWords_v1.ToString(), EnumUiControlTag.TotalWords);
                                 Helper.Helper.UiControls.SetText(wrd, EnumUiControlTag.LastWord);
-                                Helper.Helper.UiControls.SetText(wordsWithMistakes.ToString(), EnumUiControlTag.LastWordMistake);
-                                tmpWrdsList.Add(wrd);
+                                Helper.Helper.UiControls.SetText(wordsWithMistakes_v1.ToString(), EnumUiControlTag.LastWordMistake);
+                                tmpWrdsList_v1.Add(wrd);
                                 break;
                             }
                         }
                         
-                        if (before != totalWords)
+                        if (before != totalWords_v1)
                         {
-                            DebugHelper.AddInfoMsg($"Iš viso žodžių: {totalWords.ToString()} paskutinis: {wrd}");
+                            DebugHelper.AddInfoMsg($"Iš viso žodžių: {totalWords_v1.ToString()} paskutinis: {wrd}");
 
-                            System.Diagnostics.Debug.WriteLine("total words: " + totalWords.ToString() + " last word: " + wrd);
+                            System.Diagnostics.Debug.WriteLine("total words: " + totalWords_v1.ToString() + " last word: " + wrd);
                         }
                     }
                 }
@@ -155,25 +154,7 @@ namespace KeyboardPress_Analyzer.Functions
                 Console.WriteLine(ex.Message);
             }
         }
-
-        /// <summary>
-        /// rašymo tikslumas
-        /// </summary>
-        private void CountAccuracy()
-        {
-            try
-            {
-
-            }
-            catch (Exception ex)
-            {
-
-            }
-            finally
-            {
-
-            }
-        }
+        
 
     }
 }

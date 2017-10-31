@@ -64,7 +64,7 @@ namespace KeyboardPress_Analyzer
         {
             get
             {
-                return TotalWordsClass.TotalWordsCount;
+                return TotalWordsClass.TotalWordsCount_v1;
             }
 
             //set
@@ -180,7 +180,7 @@ namespace KeyboardPress_Analyzer
         /// <param name="e"></param>
         protected override void GlobalHookKeyDown(object sender, KeyEventArgs e)
         {
-            if ((new int[] { 35, 36, 37, 38, 39, 40 }).Contains(e.KeyValue)) // home, end, arrows
+            if (Constants.CursorPositionChangeKeyboardKeyCodesArr.Contains(e.KeyValue)) // home, end, arrows
             {
                 var a = new ObjEvent_key()
                 {
@@ -216,6 +216,7 @@ namespace KeyboardPress_Analyzer
         {
             try
             {
+                // to do: ar bazineje klaseje netruksta lock'o?
                 base.GlobalHookKeyPress(sender, e);
 
                 ObjEvent_key lastRec;
@@ -223,12 +224,19 @@ namespace KeyboardPress_Analyzer
                 lock (KeysCharsEvents)
                 {
                     lastRec = KeysCharsEvents.LastOrDefault();
+                    // v.1.1:
                     lastNRecInSameWin = Helper.Helper.TakeLast(KeysCharsEvents.Where(x => x.ActiveWindowName == lastRec.ActiveWindowName), lastRecordsToCheck).ToArray();
+                    // v.2.0:
+                    // to do: imti N irasu nuo simbolio iki ir dirbti su jais
                 }
 
                 // Atskiroje gijoje sumuoja žodžius
+                // v.1.1:
                 var t_totalWordsCount = new Task(() => { TotalWordsClass.totalWordsCount(lastRec, lastNRecInSameWin); });
                 t_totalWordsCount.Start();
+                // v.2.0:
+                // to do: suformuoti stringa pagal klavisus
+
 
                 // Atskiroje gijoje žodžių keitimas
                 Thread t = new Thread(() =>
@@ -310,15 +318,15 @@ namespace KeyboardPress_Analyzer
 
         public double countAvrgWordsPerMin()
         {
-            if (TotalWordsClass.TotalWordsCount == 0 || StopWach.ElapsedMilliseconds == 0)
+            if (TotalWordsClass.TotalWordsCount_v1 == 0 || StopWach.ElapsedMilliseconds == 0)
                 return 0;
 
-            return TotalWordsClass.TotalWordsCount / TimeSpan.FromMilliseconds(StopWach.ElapsedMilliseconds).TotalMinutes;
+            return TotalWordsClass.TotalWordsCount_v1 / TimeSpan.FromMilliseconds(StopWach.ElapsedMilliseconds).TotalMinutes;
         }
 
         public double countAvrgWordsPerHour()
         {
-            if (TotalWordsClass.TotalWordsCount == 0 || StopWach.ElapsedMilliseconds == 0)
+            if (TotalWordsClass.TotalWordsCount_v1 == 0 || StopWach.ElapsedMilliseconds == 0)
                 return 0;
 
             return TimeSpan.FromMilliseconds(StopWach.ElapsedMilliseconds).TotalHours;
