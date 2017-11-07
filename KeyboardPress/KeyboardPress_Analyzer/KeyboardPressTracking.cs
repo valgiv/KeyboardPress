@@ -17,6 +17,7 @@ namespace KeyboardPress_Analyzer
     {
         private const ulong ulongMax = ulong.MaxValue;
         private const int lastRecordsToCheck = 30;
+        private const int maxLastRecordToCheckForWord = 40;
 
         private ulong totalKeyPress;
         private ulong totalMousePress;
@@ -174,13 +175,13 @@ namespace KeyboardPress_Analyzer
         }
 
         /// <summary>
-        /// Apsoliučia visi mygtukų paspaudimai (nuspaudimai)
+        /// Apsoliučia visi mygtukų paspaudimai (nuspaudimai) + kursoriaus pozicijos keitimas
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
         protected override void GlobalHookKeyDown(object sender, KeyEventArgs e)
         {
-            if (Constants.CursorPositionChangeKeyboardKeyCodesArr.Contains(e.KeyValue)) // home, end, arrows
+            if (Constants.CursorPositionChangeKeyboardKeyCodesArr.Contains(e.KeyValue)) // home, end, arrows, pgup, pgdn
             {
                 var a = new ObjEvent_key()
                 {
@@ -188,14 +189,13 @@ namespace KeyboardPress_Analyzer
                     ShiftKeyPressed = e.Shift,
                     CtrlKeyPressed = e.Control,
                     EventObjType = EventType.KeyPress,
-                    KeyValue = null, // null nes naudojama zodziu fiksavime ir patenka i lista ne pagal reikiama eventType
+                    KeyValue = e.KeyValue, // to do: pakeisti komentara: null nes naudojama zodziu fiksavime ir patenka i lista ne pagal reikiama eventType
+                    EventObjDataType = EventDataType.KeyboardButtonCode,
                     Key = e.KeyCode.ToString()
                 };
                 Add_ObjEvent_key(a);
             }
-
-
-
+            
             try
             {
                 base.GlobalHookKeyDown(sender, e);
@@ -219,8 +219,9 @@ namespace KeyboardPress_Analyzer
                 // to do: ar bazineje klaseje netruksta lock'o?
                 base.GlobalHookKeyPress(sender, e);
 
-                ObjEvent_key lastRec;
-                ObjEvent_key[] lastNRecInSameWin;
+                ObjEvent_key lastRec = null;
+                ObjEvent_key[] lastNRecInSameWin = null;
+                ObjEvent_key[] lastNRecInSameWin_v2 = null;
                 lock (KeysCharsEvents)
                 {
                     lastRec = KeysCharsEvents.LastOrDefault();
@@ -228,6 +229,7 @@ namespace KeyboardPress_Analyzer
                     lastNRecInSameWin = Helper.Helper.TakeLast(KeysCharsEvents.Where(x => x.ActiveWindowName == lastRec.ActiveWindowName), lastRecordsToCheck).ToArray();
                     // v.2.0:
                     // to do: imti N irasu nuo simbolio iki ir dirbti su jais
+                    lastNRecInSameWin_v2 = getLastSymbolsForWordCountV2(lastRec);
                 }
 
                 // Atskiroje gijoje sumuoja žodžius
@@ -235,10 +237,11 @@ namespace KeyboardPress_Analyzer
                 var t_totalWordsCount = new Task(() => { TotalWordsClass.totalWordsCount(lastRec, lastNRecInSameWin); });
                 t_totalWordsCount.Start();
                 // v.2.0:
-                // to do: suformuoti stringa pagal klavisus
+                var t_totalWordsCount_v2 = new Task(() => { TotalWordsClass.totalWordsCount_v2(lastNRecInSameWin_v2); });
+                t_totalWordsCount_v2.Start();
 
 
-                // Atskiroje gijoje žodžių keitimas
+                // Atskiroje gijoje žodžių keitimas //to do sita irgi reikia pakoreguoti
                 Thread t = new Thread(() =>
                 {
                     OfferWordClass.offerWordTemplate(lastNRecInSameWin);
@@ -251,6 +254,30 @@ namespace KeyboardPress_Analyzer
             {
                 MessageBox.Show(ex.Message, $"Error on {nameof(GlobalHookKeyPress)}");
             }
+        }
+
+        private ObjEvent_key[] getLastSymbolsForWordCountV2(ObjEvent_key lastRec)
+         {
+            if (lastRec == null)
+                return null;
+
+            var result = new List<ObjEvent_key>();
+
+            var data = KeysCharsEvents.Where(x => x.EventObjType == EventType.KeyPress && x.ActiveWindowName == lastRec.ActiveWindowName).TakeLast(maxLastRecordToCheckForWord).Reverse();
+            foreach (var rec in data)
+            {
+                // to do: blogai veikia if'as
+                if (!(rec.EventObjDataType == EventDataType.KeyboardButtonCode && Constants.KeyboardButtonsToSkipWordsCount.Contains(rec.KeyValue))
+                    &&
+                    !(rec.EventObjDataType == EventDataType.SymbolAsciiCode && Constants.WordEndSymbolArr.Contains(rec.KeyValue)))
+                    result.Add(rec);
+                else if(rec == data.FirstOrDefault())
+                    result.Add(rec);
+                else
+                    break;
+            }
+
+            return result.ToArray().Reverse().ToArray();
         }
 
         protected override void GlobalHookMouseDown(object sender, MouseEventArgs e)

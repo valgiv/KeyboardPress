@@ -24,6 +24,7 @@ namespace KeyboardPress
 
         private void Keyboard_Load(object sender, EventArgs e)
         {
+            return;
             try
             {
                 uint maxCount = 0;

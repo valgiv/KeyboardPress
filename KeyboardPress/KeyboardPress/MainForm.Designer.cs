@@ -42,6 +42,7 @@
             this.test2ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.apieToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.informacijaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.karščioŽemėlapisToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.notifyIcon = new System.Windows.Forms.NotifyIcon(this.components);
             this.statusStrip = new System.Windows.Forms.StatusStrip();
             this.toolStripStatusLabel_info = new System.Windows.Forms.ToolStripStatusLabel();
@@ -56,7 +57,6 @@
             this.tbLastWord = new System.Windows.Forms.TextBox();
             this.tbTotalWords = new System.Windows.Forms.TextBox();
             this.timer_workTime = new System.Windows.Forms.Timer(this.components);
-            this.karščioŽemėlapisToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip.SuspendLayout();
             this.statusStrip.SuspendLayout();
             this.panelDebug.SuspendLayout();
@@ -164,6 +164,13 @@
             this.informacijaToolStripMenuItem.Name = "informacijaToolStripMenuItem";
             this.informacijaToolStripMenuItem.Size = new System.Drawing.Size(134, 22);
             this.informacijaToolStripMenuItem.Text = "Informacija";
+            // 
+            // karščioŽemėlapisToolStripMenuItem
+            // 
+            this.karščioŽemėlapisToolStripMenuItem.Name = "karščioŽemėlapisToolStripMenuItem";
+            this.karščioŽemėlapisToolStripMenuItem.Size = new System.Drawing.Size(122, 20);
+            this.karščioŽemėlapisToolStripMenuItem.Text = "\"Karščio\" žemėlapis";
+            this.karščioŽemėlapisToolStripMenuItem.Click += new System.EventHandler(this.karščioŽemėlapisToolStripMenuItem_Click);
             // 
             // notifyIcon
             // 
@@ -292,13 +299,6 @@
             // 
             this.timer_workTime.Interval = 1000;
             this.timer_workTime.Tick += new System.EventHandler(this.timer_workTime_Tick);
-            // 
-            // karščioŽemėlapisToolStripMenuItem
-            // 
-            this.karščioŽemėlapisToolStripMenuItem.Name = "karščioŽemėlapisToolStripMenuItem";
-            this.karščioŽemėlapisToolStripMenuItem.Size = new System.Drawing.Size(112, 20);
-            this.karščioŽemėlapisToolStripMenuItem.Text = "Karščio žemėlapis";
-            this.karščioŽemėlapisToolStripMenuItem.Click += new System.EventHandler(this.karščioŽemėlapisToolStripMenuItem_Click);
             // 
             // MainForm
             // 

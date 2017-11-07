@@ -200,7 +200,8 @@ namespace KeyboardPress_Analyzer
                 ActiveWindowName = Helper.Helper.GetActiveWindowTitle(),
                 EventObjType = EventType.KeyPress,
                 KeyValue = (int)e.KeyChar,
-                Key = e.KeyChar.ToString()
+                Key = e.KeyChar.ToString(),
+                EventObjDataType = EventDataType.SymbolAsciiCode
             };
 
             Add_ObjEvent_key(newRec);
@@ -251,7 +252,8 @@ namespace KeyboardPress_Analyzer
                 Key = e.KeyData.ToString(),
                 EventObjType = EventType.KeyDown,
                 ActiveWindowName = Helper.Helper.GetActiveWindowTitle(),
-                KeyValue = e.KeyValue
+                KeyValue = e.KeyValue,
+                EventObjDataType = EventDataType.KeyboardButtonCode
             };
             try
             {

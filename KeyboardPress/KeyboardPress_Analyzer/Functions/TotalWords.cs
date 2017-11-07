@@ -154,7 +154,36 @@ namespace KeyboardPress_Analyzer.Functions
                 Console.WriteLine(ex.Message);
             }
         }
-        
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="NLastKeyPressInSameWindow">nuo paskutinio tame lange arba nuo paskutinio KeyboardButtonsToSkipWordsCount</param>
+        public void totalWordsCount_v2(ObjEvent_key[] NLastKeyPressInSameWindow)
+        {
+            try
+            {
+                if (NLastKeyPressInSameWindow == null || NLastKeyPressInSameWindow.Count() == 0)
+                    return;
+                if (!Constants.WordEndSymbolArr.Contains(NLastKeyPressInSameWindow.LastOrDefault()?.KeyValue ?? 0))
+                    return;
+                if (NLastKeyPressInSameWindow.LastOrDefault().EventObjDataType != EventDataType.SymbolAsciiCode)
+                    return;
+
+                string newWord = "";
+                int cursorPos = 0;
+                bool containsLetters = false;
+                int? cursorBeginPos = null;
+                foreach(ObjEvent_key eventK in NLastKeyPressInSameWindow)
+                {
+                    // to do: cia daryti
+                }
+            }
+            catch(Exception ex)
+            {
+                MessageBox.Show(ex.Message, $"Error on {nameof(totalWordsCount_v2)}");
+                Console.WriteLine(ex.Message);
+            }
+        }
     }
 }

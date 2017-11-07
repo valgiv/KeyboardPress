@@ -19,7 +19,7 @@ namespace KeyboardPress_Analyzer.Objects
         /// <summary>
         /// ascii int value
         /// </summary>
-        public int? KeyValue { get; set; } // desimtainis simbolio arba mygtuko kodas (priklausomai nuo eventType)
+        public int KeyValue { get; set; } // desimtainis simbolio arba mygtuko kodas (priklausomai nuo eventType)
         
         public bool? ShiftKeyPressed { get; set; }
         public bool? CtrlKeyPressed { get; set; }
@@ -27,9 +27,9 @@ namespace KeyboardPress_Analyzer.Objects
 
     public class ObjEvent_base : ObjDate
     {
-        //public DateTime dateTime { get; set; }
         public EventType EventObjType { get; set; }
         public string ActiveWindowName { get; set; }
+        public EventDataType EventObjDataType { get; set; }
     }
 
     public class ObjDate
@@ -60,5 +60,11 @@ namespace KeyboardPress_Analyzer.Objects
         MouseUpExt,
         MouseWheel,
         MouseWheelExt
+    }
+
+    public enum EventDataType
+    {
+        KeyboardButtonCode = 1,
+        SymbolAsciiCode = 2
     }
 }
