@@ -177,6 +177,14 @@ namespace KeyboardPress_Analyzer.Functions
                 foreach(ObjEvent_key eventK in NLastKeyPressInSameWindow)
                 {
                     // to do: cia daryti
+                    if(eventK.EventObjDataType == EventDataType.SymbolAsciiCode)
+                    {
+
+                    }
+                    else if(eventK.EventObjDataType == EventDataType.KeyboardButtonCode)
+                    {
+
+                    }
                 }
             }
             catch(Exception ex)
