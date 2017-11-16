@@ -30,7 +30,7 @@ namespace KeyboardPress
         
         private void StartUp()
         {
-            TestDBConnectionOnLoad();
+            //TestDBConnectionOnLoad();
 
             SetControls();
 

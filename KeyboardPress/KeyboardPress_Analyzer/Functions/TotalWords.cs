@@ -173,17 +173,83 @@ namespace KeyboardPress_Analyzer.Functions
                 string newWord = "";
                 int cursorPos = 0;
                 bool containsLetters = false;
-                int? cursorBeginPos = null;
-                foreach(ObjEvent_key eventK in NLastKeyPressInSameWindow)
+                int? cursorBeginPos = null; //todo reikia pervadinti
+                foreach (ObjEvent_key eventK in NLastKeyPressInSameWindow)
                 {
-                    // to do: cia daryti
-                    if(eventK.EventObjDataType == EventDataType.SymbolAsciiCode)
-                    {
+                    if (eventK == NLastKeyPressInSameWindow.Last()) // paskutinio netraukti
+                        break;
 
+                    if (eventK.EventObjDataType == EventDataType.SymbolAsciiCode)
+                    {
+                        //iterpiamas/pašalinamas simbolis:
+                        if (cursorBeginPos == null || cursorBeginPos == cursorPos)
+                        {
+                            //nera selectinto teksto
+                            if (eventK.KeyValue == 8)
+                            {
+                                // backspace:
+                                if (cursorPos == 0)
+                                    return;
+                                newWord = newWord.Remove(cursorPos, 1);
+                                cursorPos--;
+                            }
+                            else
+                            {
+                                newWord = newWord.Insert(cursorPos, eventK.Key);
+                                cursorPos++;
+                            }
+                        }
+                        else
+                        {
+                            // yra selectintas tekstas
+                            if (eventK.KeyValue == 8)
+                            {
+                                // backspace:
+                                newWord = newWord.Remove((int)cursorBeginPos > cursorPos ? cursorPos : (int)cursorBeginPos, Math.Abs((int)cursorBeginPos - cursorPos));
+                                cursorPos = (int)cursorBeginPos > cursorPos ? cursorPos : (int)cursorBeginPos;
+                                cursorBeginPos = null;
+                            }
+                            else
+                            {
+                                newWord = newWord.Remove((int)cursorBeginPos > cursorPos ? cursorPos : (int)cursorBeginPos, Math.Abs((int)cursorBeginPos - cursorPos));
+                                cursorPos = (int)cursorBeginPos > cursorPos ? cursorPos : (int)cursorBeginPos;
+                                cursorBeginPos = null;
+
+                                newWord = newWord.Insert(cursorPos, eventK.Key);
+                                cursorPos++;
+                            }
+                        }
+                        cursorBeginPos = null;
                     }
-                    else if(eventK.EventObjDataType == EventDataType.KeyboardButtonCode)
+                    else if (eventK.EventObjDataType == EventDataType.KeyboardButtonCode)
                     {
-
+                        //keičiama kursoriaus pozicija + delete btn:
+                        if (cursorBeginPos == null || cursorBeginPos == cursorPos)
+                        {
+                            //nera selectinto teksto
+                            if(eventK.KeyValue == 46)
+                            {
+                                //delete btn
+                                throw new NotImplementedException();
+                            }
+                            else
+                            {
+                                throw new NotImplementedException();
+                            }
+                        }
+                        else
+                        {
+                            //yra selectinamas tekstas
+                            if (eventK.KeyValue == 46)
+                            {
+                                //delete btn
+                                throw new NotImplementedException();
+                            }
+                            else
+                            {
+                                throw new NotImplementedException();
+                            }
+                        }
                     }
                 }
             }

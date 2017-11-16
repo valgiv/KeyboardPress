@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 14
-VisualStudioVersion = 14.0.25420.1
+# Visual Studio 15
+VisualStudioVersion = 15.0.26430.13
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KeyboardPress", "KeyboardPress\KeyboardPress.csproj", "{EB999E45-B07F-498C-85A1-98797AEFDD16}"
 EndProject
@@ -10,6 +10,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KeyboardPress_Analyzer", "KeyboardPress_Analyzer\KeyboardPress_Analyzer.csproj", "{761F3774-875E-470A-84BC-846B4F20C28D}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KeyboardPress_Extensions", "KeyboardPress_Extensions\KeyboardPress_Extensions.csproj", "{868ED802-69E8-45E0-A593-73FC11CF3C2D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnitTestProject", "UnitTestProject\UnitTestProject.csproj", "{7AB0FB95-D769-429D-AFD6-46D14BB857ED}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -29,6 +31,10 @@ Global
 		{868ED802-69E8-45E0-A593-73FC11CF3C2D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{868ED802-69E8-45E0-A593-73FC11CF3C2D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{868ED802-69E8-45E0-A593-73FC11CF3C2D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7AB0FB95-D769-429D-AFD6-46D14BB857ED}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7AB0FB95-D769-429D-AFD6-46D14BB857ED}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7AB0FB95-D769-429D-AFD6-46D14BB857ED}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7AB0FB95-D769-429D-AFD6-46D14BB857ED}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

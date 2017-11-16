@@ -181,7 +181,7 @@ namespace KeyboardPress_Analyzer
         /// <param name="e"></param>
         protected override void GlobalHookKeyDown(object sender, KeyEventArgs e)
         {
-            if (Constants.CursorPositionChangeKeyboardKeyCodesArr.Contains(e.KeyValue)) // home, end, arrows, pgup, pgdn
+            if (Constants.CursorPositionChangeKeyboardKeyCodesArr.Contains(e.KeyValue) || e.KeyValue == 46) // home, end, arrows, pgup, pgdn || delete
             {
                 var a = new ObjEvent_key()
                 {
