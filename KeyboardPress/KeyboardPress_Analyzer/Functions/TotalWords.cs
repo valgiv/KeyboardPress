@@ -172,8 +172,9 @@ namespace KeyboardPress_Analyzer.Functions
 
                 string newWord = "";
                 int cursorPos = 0;
-                bool containsLetters = false;
-                int? cursorBeginPos = null; //todo reikia pervadinti
+                //bool containsLetters = false; //todo
+                int? cursorSelPos = null; //todo reikia pervadinti
+                int eventK_index = 0;
                 foreach (ObjEvent_key eventK in NLastKeyPressInSameWindow)
                 {
                     if (eventK == NLastKeyPressInSameWindow.Last()) // paskutinio netraukti
@@ -181,10 +182,10 @@ namespace KeyboardPress_Analyzer.Functions
 
                     if (eventK.EventObjDataType == EventDataType.SymbolAsciiCode)
                     {
-                        //iterpiamas/pašalinamas simbolis:
-                        if (cursorBeginPos == null || cursorBeginPos == cursorPos)
+                        #region iterpiamas/pašalinamas simbolis
+                        if (cursorSelPos == null || cursorSelPos == cursorPos)
                         {
-                            //nera selectinto teksto
+                            #region nera selectinto teksto
                             if (eventK.KeyValue == 8)
                             {
                                 // backspace:
@@ -198,59 +199,71 @@ namespace KeyboardPress_Analyzer.Functions
                                 newWord = newWord.Insert(cursorPos, eventK.Key);
                                 cursorPos++;
                             }
+                            #endregion nera selectinto teksto
                         }
                         else
                         {
-                            // yra selectintas tekstas
+                            #region yra selectintas tekstas
                             if (eventK.KeyValue == 8)
                             {
                                 // backspace:
-                                newWord = newWord.Remove((int)cursorBeginPos > cursorPos ? cursorPos : (int)cursorBeginPos, Math.Abs((int)cursorBeginPos - cursorPos));
-                                cursorPos = (int)cursorBeginPos > cursorPos ? cursorPos : (int)cursorBeginPos;
-                                cursorBeginPos = null;
+                                newWord = newWord.Remove((int)cursorSelPos > cursorPos ? cursorPos : (int)cursorSelPos, Math.Abs((int)cursorSelPos - cursorPos));
+                                cursorPos = (int)cursorSelPos > cursorPos ? cursorPos : (int)cursorSelPos;
+                                cursorSelPos = null;
                             }
                             else
                             {
-                                newWord = newWord.Remove((int)cursorBeginPos > cursorPos ? cursorPos : (int)cursorBeginPos, Math.Abs((int)cursorBeginPos - cursorPos));
-                                cursorPos = (int)cursorBeginPos > cursorPos ? cursorPos : (int)cursorBeginPos;
-                                cursorBeginPos = null;
+                                newWord = newWord.Remove((int)cursorSelPos > cursorPos ? cursorPos : (int)cursorSelPos, Math.Abs((int)cursorSelPos - cursorPos));
+                                cursorPos = (int)cursorSelPos > cursorPos ? cursorPos : (int)cursorSelPos;
+                                cursorSelPos = null;
 
                                 newWord = newWord.Insert(cursorPos, eventK.Key);
                                 cursorPos++;
                             }
+                            #endregion yra selectintas tekstas
                         }
-                        cursorBeginPos = null;
+                        cursorSelPos = null;
+                        #endregion iterpiamas/pašalinamas simbolis
                     }
                     else if (eventK.EventObjDataType == EventDataType.KeyboardButtonCode)
                     {
-                        //keičiama kursoriaus pozicija + delete btn:
-                        if (cursorBeginPos == null || cursorBeginPos == cursorPos)
+                        #region keičiama kursoriaus pozicija + delete btn:
+                        if (cursorSelPos == null || cursorSelPos == cursorPos)
                         {
-                            //nera selectinto teksto
+                            #region nera selectinto teksto
                             if(eventK.KeyValue == 46)
                             {
                                 //delete btn
-                                throw new NotImplementedException();
+                                if (cursorPos + 1 <= newWord.Length)
+                                    newWord = newWord.Remove(cursorPos, 1); //todo: patikrinti
                             }
                             else
                             {
-                                throw new NotImplementedException();
+                                calculateCursorPos(ref newWord, ref cursorPos, ref cursorSelPos, eventK, eventK_index, NLastKeyPressInSameWindow);
                             }
+                            #endregion nera selectinto teksto
                         }
                         else
                         {
-                            //yra selectinamas tekstas
+                            #region yra selectinamas tekstas
                             if (eventK.KeyValue == 46)
                             {
                                 //delete btn
-                                throw new NotImplementedException();
+                                int from = cursorPos + (int)cursorSelPos;
+                                int countLenght = Math.Abs((int)cursorSelPos - cursorPos);
+                                newWord = newWord.Remove(from, countLenght); //todo: patikrinti
+                                cursorSelPos = null;
+                                cursorPos = from;
                             }
                             else
                             {
-                                throw new NotImplementedException();
+                                calculateCursorPos(ref newWord, ref cursorPos, ref cursorSelPos, eventK, eventK_index, NLastKeyPressInSameWindow);
                             }
+                            #endregion yra selectinamas tekstas
                         }
+                        #endregion keičiama kursoriaus pozicija + delete btn:
                     }
+                    eventK_index++;
                 }
             }
             catch(Exception ex)
@@ -259,5 +272,29 @@ namespace KeyboardPress_Analyzer.Functions
                 Console.WriteLine(ex.Message);
             }
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="word"></param>
+        /// <param name="cursorPos"></param>
+        /// <param name="cursorSelPos"></param>
+        /// <param name="eventK"></param>
+        /// <param name="eventKIndex">kad būtų galima atskirti būsimus veikmus</param>
+        /// <param name="nLastKeyPressInSameWindow">kad būtų galima atskirti būsimus veikmus</param>
+        private void calculateCursorPos(ref string word,
+            ref int cursorPos,
+            ref int? cursorSelPos,
+            ObjEvent_key eventK,
+            int eventKIndex,
+            ObjEvent_key[] nLastKeyPressInSameWindow)
+        {
+            if (eventK.EventObjDataType != EventDataType.KeyboardButtonCode)
+                throw new ArgumentException("wrong EventObjDataType", nameof(eventK.EventObjDataType));
+            
+            throw new NotImplementedException();
+        }
+
+
     }
 }
