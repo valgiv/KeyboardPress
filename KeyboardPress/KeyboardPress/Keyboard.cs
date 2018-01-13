@@ -24,7 +24,6 @@ namespace KeyboardPress
 
         private void Keyboard_Load(object sender, EventArgs e)
         {
-            return;
             try
             {
                 uint maxCount = 0;
@@ -43,7 +42,6 @@ namespace KeyboardPress
                             var iLine = Data.FirstOrDefault(x => x.AsciiKeyCode == System.Convert.ToInt32(((Button)control).Tag.ToString()));
                             if (iLine != null)
                             {
-                                //((Button)control).Text = iLine.PressHoldCount.ToString();
                                 int value = getColor(System.Convert.ToInt32(iLine.PressHoldCount.ToString()), maxCount);
                                 ((Button)control).BackColor = Color.FromArgb(255, value, value);
                             }

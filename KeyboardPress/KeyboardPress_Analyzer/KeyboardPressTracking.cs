@@ -24,7 +24,6 @@ namespace KeyboardPress_Analyzer
         
         private ulong totalMouseWheelUp;
         private ulong totalMouseWheelDown;
-
         
         private RestReminder restReminder;
 
@@ -65,13 +64,8 @@ namespace KeyboardPress_Analyzer
         {
             get
             {
-                return TotalWordsClass.TotalWordsCount_v1;
+                return TotalWordsClass.TotalWordsCount_v2;
             }
-
-            //set
-            //{
-            //    TotalWordsClass.TotalWordsCount = value;
-            //}
         }
 
         public ulong TotalMouseWheelUp
@@ -175,7 +169,7 @@ namespace KeyboardPress_Analyzer
         }
 
         /// <summary>
-        /// Apsoliučia visi mygtukų paspaudimai (nuspaudimai) + kursoriaus pozicijos keitimas
+        /// Apsoliučiai visi mygtukų paspaudimai (nuspaudimai) + kursoriaus pozicijos keitimas
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -183,13 +177,14 @@ namespace KeyboardPress_Analyzer
         {
             if (Constants.CursorPositionChangeKeyboardKeyCodesArr.Contains(e.KeyValue) || e.KeyValue == 46) // home, end, arrows, pgup, pgdn || delete
             {
+                //nes keičia kursoriaus poziciją
                 var a = new ObjEvent_key()
                 {
                     ActiveWindowName = Helper.Helper.GetActiveWindowTitle(),
                     ShiftKeyPressed = e.Shift,
                     CtrlKeyPressed = e.Control,
                     EventObjType = EventType.KeyPress,
-                    KeyValue = e.KeyValue, // to do: pakeisti komentara: null nes naudojama zodziu fiksavime ir patenka i lista ne pagal reikiama eventType
+                    KeyValue = e.KeyValue,
                     EventObjDataType = EventDataType.KeyboardButtonCode,
                     Key = e.KeyCode.ToString()
                 };
@@ -216,7 +211,7 @@ namespace KeyboardPress_Analyzer
         {
             try
             {
-                // to do: ar bazineje klaseje netruksta lock'o?
+                // nice to have: ar bazineje klaseje netruksta lock'o?
                 base.GlobalHookKeyPress(sender, e);
 
                 ObjEvent_key lastRec = null;
@@ -228,20 +223,20 @@ namespace KeyboardPress_Analyzer
                     // v.1.1:
                     lastNRecInSameWin = Helper.Helper.TakeLast(KeysCharsEvents.Where(x => x.ActiveWindowName == lastRec.ActiveWindowName), lastRecordsToCheck).ToArray();
                     // v.2.0:
-                    // to do: imti N irasu nuo simbolio iki ir dirbti su jais
                     lastNRecInSameWin_v2 = getLastSymbolsForWordCountV2(lastRec);
                 }
 
                 // Atskiroje gijoje sumuoja žodžius
                 // v.1.1:
-                var t_totalWordsCount = new Task(() => { TotalWordsClass.totalWordsCount(lastRec, lastNRecInSameWin); });
-                t_totalWordsCount.Start();
+                //var t_totalWordsCount = new Task(() => { TotalWordsClass.totalWordsCount(lastRec, lastNRecInSameWin); });
+                //t_totalWordsCount.Start();
                 // v.2.0:
                 var t_totalWordsCount_v2 = new Task(() => { TotalWordsClass.totalWordsCount_v2(lastNRecInSameWin_v2); });
                 t_totalWordsCount_v2.Start();
 
 
-                // Atskiroje gijoje žodžių keitimas //to do sita irgi reikia pakoreguoti
+                // Atskiroje gijoje žodžių keitimas
+                // nice to have: pajungti ant t_totalWordsCount_v2
                 Thread t = new Thread(() =>
                 {
                     OfferWordClass.offerWordTemplate(lastNRecInSameWin);
@@ -257,21 +252,23 @@ namespace KeyboardPress_Analyzer
         }
 
         private ObjEvent_key[] getLastSymbolsForWordCountV2(ObjEvent_key lastRec)
-         {
+        {
             if (lastRec == null)
                 return null;
 
             var result = new List<ObjEvent_key>();
 
-            var data = KeysCharsEvents.Where(x => x.EventObjType == EventType.KeyPress && x.ActiveWindowName == lastRec.ActiveWindowName).TakeLast(maxLastRecordToCheckForWord).Reverse();
+            var data = KeysCharsEvents.Where(x => (x.EventObjType == EventType.KeyPress && x.ActiveWindowName == lastRec.ActiveWindowName) || (x.EventObjType == EventType.KeyPress && x.EventObjDataType == EventDataType.MouseClick))
+                .TakeLast(maxLastRecordToCheckForWord).Reverse();
             foreach (var rec in data)
             {
-                // to do: blogai veikia if'as
                 if (!(rec.EventObjDataType == EventDataType.KeyboardButtonCode && Constants.KeyboardButtonsToSkipWordsCount.Contains(rec.KeyValue))
                     &&
                     !(rec.EventObjDataType == EventDataType.SymbolAsciiCode && Constants.WordEndSymbolArr.Contains(rec.KeyValue)))
                     result.Add(rec);
                 else if(rec == data.FirstOrDefault())
+                    result.Add(rec);
+                else if(rec.EventObjDataType == EventDataType.MouseClick)
                     result.Add(rec);
                 else
                     break;
@@ -289,6 +286,19 @@ namespace KeyboardPress_Analyzer
                     totalMousePress++;
                 }
                 WorkInProgress();
+
+                //pelės paspaudimas gali keisti kursoriaus poziciją
+                var a = new ObjEvent_key()
+                {
+                    ActiveWindowName = Helper.Helper.GetActiveWindowTitle(),
+                    ShiftKeyPressed = null,
+                    CtrlKeyPressed = null,
+                    EventObjType = EventType.KeyPress, //nes naudojamas bus ten kur generuojamos zodis
+                    KeyValue = -1,
+                    EventObjDataType = EventDataType.MouseClick,
+                    Key = "MouseClick"
+                };
+                Add_ObjEvent_key(a);
             }
             catch(Exception ex)
             {
@@ -345,15 +355,15 @@ namespace KeyboardPress_Analyzer
 
         public double countAvrgWordsPerMin()
         {
-            if (TotalWordsClass.TotalWordsCount_v1 == 0 || StopWach.ElapsedMilliseconds == 0)
+            if (TotalWordsClass.TotalWordsCount_v2 == 0 || StopWach.ElapsedMilliseconds == 0)
                 return 0;
 
-            return TotalWordsClass.TotalWordsCount_v1 / TimeSpan.FromMilliseconds(StopWach.ElapsedMilliseconds).TotalMinutes;
+            return TotalWordsClass.TotalWordsCount_v2 / TimeSpan.FromMilliseconds(StopWach.ElapsedMilliseconds).TotalMinutes;
         }
 
         public double countAvrgWordsPerHour()
         {
-            if (TotalWordsClass.TotalWordsCount_v1 == 0 || StopWach.ElapsedMilliseconds == 0)
+            if (TotalWordsClass.TotalWordsCount_v2 == 0 || StopWach.ElapsedMilliseconds == 0)
                 return 0;
 
             return TimeSpan.FromMilliseconds(StopWach.ElapsedMilliseconds).TotalHours;

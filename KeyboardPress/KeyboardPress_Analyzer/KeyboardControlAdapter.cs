@@ -123,7 +123,7 @@ namespace KeyboardPress_Analyzer
         {
             try
             {
-                // to do: jei bus laiko patobulinti
+                // nice to have: jei bus laiko patobulinti (paveiksleliai ir kiti objektai atmintyje)
 
                 //bool containsAudio = false;
                 //bool containsFileDropList = false;

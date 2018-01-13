@@ -14,7 +14,6 @@ namespace KeyboardPress_Analyzer.Objects
 
     public class ObjEvent_key : ObjEvent_base
     {
-        //public object Key { get; set; } // to do: pakeisti į reikiamą tipą
         public string Key { get; set; } //dažnu atveju char
         /// <summary>
         /// ascii int value
@@ -65,6 +64,7 @@ namespace KeyboardPress_Analyzer.Objects
     public enum EventDataType
     {
         KeyboardButtonCode = 1,
-        SymbolAsciiCode = 2
+        SymbolAsciiCode = 2,
+        MouseClick = 3
     }
 }

@@ -21,11 +21,10 @@ namespace KeyboardPress_Analyzer.Functions
 
             ow_notifyIcon = ni;
 
-            offerWordTemplate_pairs = new KeyValuePair<string, string>[]
+            offerWordTemplate_pairs = new KeyValuePair<string, string>[] // to do: iskelti i db
             {
                 new KeyValuePair<string, string>("aa", "labaaaasRytas"),
-                new KeyValuePair<string, string>("abrikosas", "ananasas"),
-                new KeyValuePair<string, string>("greta", "pyyypsikė")
+                new KeyValuePair<string, string>("abrikosas", "ananasas")
             };
 
             
@@ -51,7 +50,6 @@ namespace KeyboardPress_Analyzer.Functions
                     {
                         lastSymbols = lastSymbols.Remove(lastSymbols.Length - 1, 1);
                     }
-                    System.Diagnostics.Debug.WriteLine("offetWordTemplate: " + lastSymbols);
                     for (int i = 1; i < maxLettersToCheck && i < lastSymbols.Length; i++)
                     {
                         string strLet = lastSymbols.Remove(0, lastSymbols.Length - 1 - i);
@@ -60,9 +58,9 @@ namespace KeyboardPress_Analyzer.Functions
                         {
                             if (!confirm)
                             {
-                                ow_notifyIcon.ShowBalloonTip(1000, "", $"Siūlomas tekstas: {pair.Value}", ToolTipIcon.Info); // to do: reikia pamastyti kaip uzdaryti siulymus
+                                ow_notifyIcon.ShowBalloonTip(1000, "", $"Siūlomas tekstas: {pair.Value}", ToolTipIcon.Info); // nice to have: reikia pamastyti kaip uzdaryti siulymus
                                 needHideMsg = true;
-                                System.Diagnostics.Debug.WriteLine("offetWordTemplate atitikmuo: " + pair.Value);
+                                //System.Diagnostics.Debug.WriteLine("offerWordTemplate atitikmuo: " + pair.Value);
                                 return;
                             }
                             else
@@ -92,6 +90,7 @@ namespace KeyboardPress_Analyzer.Functions
             }
             catch (Exception ex)
             {
+                MessageBox.Show(ex.Message); //to do: logas + nemesti pranesimo
                 return;
             }
         }
