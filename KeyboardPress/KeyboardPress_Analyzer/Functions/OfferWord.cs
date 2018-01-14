@@ -1,4 +1,5 @@
-﻿using KeyboardPress_Analyzer.Objects;
+﻿using KeyboardPress_Analyzer.Helper;
+using KeyboardPress_Analyzer.Objects;
 using KeyboardPress_Extensions;
 using System;
 using System.Collections.Generic;
@@ -24,7 +25,8 @@ namespace KeyboardPress_Analyzer.Functions
             offerWordTemplate_pairs = new KeyValuePair<string, string>[] // to do: iskelti i db
             {
                 new KeyValuePair<string, string>("aa", "labaaaasRytas"),
-                new KeyValuePair<string, string>("abrikosas", "ananasas")
+                new KeyValuePair<string, string>("abrikosas", "ananasas"),
+                new KeyValuePair<string, string>("ilgiausias", "pasikiškekopūsteliaudavome")
             };
 
             
@@ -90,7 +92,7 @@ namespace KeyboardPress_Analyzer.Functions
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message); //to do: logas + nemesti pranesimo
+                LogHelper.LogErrorMsg(ex);
                 return;
             }
         }

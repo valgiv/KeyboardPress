@@ -31,14 +31,14 @@
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             this.menuStrip = new System.Windows.Forms.MenuStrip();
-            this.nustatymaiToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.setingsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripItem_start = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripItem_stop = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripItem_clean = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.toolStripItem_debug = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripItem_cleanDebugWindow = new System.Windows.Forms.ToolStripMenuItem();
-            this.testToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.administrationToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.test2ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.apieToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.informacijaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -53,10 +53,11 @@
             this.lblLastWordWithMistake = new System.Windows.Forms.Label();
             this.lblLastWord = new System.Windows.Forms.Label();
             this.lblTotalWords = new System.Windows.Forms.Label();
-            this.tbLastWordWithMistake = new System.Windows.Forms.TextBox();
+            this.tbTotalWordsWithMistakes = new System.Windows.Forms.TextBox();
             this.tbLastWord = new System.Windows.Forms.TextBox();
             this.tbTotalWords = new System.Windows.Forms.TextBox();
             this.timer_workTime = new System.Windows.Forms.Timer(this.components);
+            this.offerWordToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip.SuspendLayout();
             this.statusStrip.SuspendLayout();
             this.panelDebug.SuspendLayout();
@@ -67,8 +68,8 @@
             // 
             this.menuStrip.BackColor = System.Drawing.SystemColors.ActiveCaption;
             this.menuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.nustatymaiToolStripMenuItem,
-            this.testToolStripMenuItem,
+            this.setingsToolStripMenuItem,
+            this.administrationToolStripMenuItem,
             this.test2ToolStripMenuItem,
             this.apieToolStripMenuItem,
             this.karščioŽemėlapisToolStripMenuItem});
@@ -78,18 +79,18 @@
             this.menuStrip.TabIndex = 0;
             this.menuStrip.Text = "menuStrip";
             // 
-            // nustatymaiToolStripMenuItem
+            // setingsToolStripMenuItem
             // 
-            this.nustatymaiToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.setingsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripItem_start,
             this.toolStripItem_stop,
             this.toolStripItem_clean,
             this.toolStripSeparator1,
             this.toolStripItem_debug,
             this.toolStripItem_cleanDebugWindow});
-            this.nustatymaiToolStripMenuItem.Name = "nustatymaiToolStripMenuItem";
-            this.nustatymaiToolStripMenuItem.Size = new System.Drawing.Size(80, 20);
-            this.nustatymaiToolStripMenuItem.Text = "Nustatymai";
+            this.setingsToolStripMenuItem.Name = "setingsToolStripMenuItem";
+            this.setingsToolStripMenuItem.Size = new System.Drawing.Size(80, 20);
+            this.setingsToolStripMenuItem.Text = "Nustatymai";
             // 
             // toolStripItem_start
             // 
@@ -137,12 +138,14 @@
             this.toolStripItem_cleanDebugWindow.Text = "Valyti debug langą";
             this.toolStripItem_cleanDebugWindow.Click += new System.EventHandler(this.toolStripItem_cleanDebugWindow_Click);
             // 
-            // testToolStripMenuItem
+            // administrationToolStripMenuItem
             // 
-            this.testToolStripMenuItem.Name = "testToolStripMenuItem";
-            this.testToolStripMenuItem.Size = new System.Drawing.Size(38, 20);
-            this.testToolStripMenuItem.Text = "test";
-            this.testToolStripMenuItem.Click += new System.EventHandler(this.testToolStripMenuItem_Click);
+            this.administrationToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.offerWordToolStripMenuItem});
+            this.administrationToolStripMenuItem.Name = "administrationToolStripMenuItem";
+            this.administrationToolStripMenuItem.Size = new System.Drawing.Size(70, 20);
+            this.administrationToolStripMenuItem.Text = "Valdymas";
+            this.administrationToolStripMenuItem.Click += new System.EventHandler(this.testToolStripMenuItem_Click);
             // 
             // test2ToolStripMenuItem
             // 
@@ -234,7 +237,7 @@
             this.panelMain.Controls.Add(this.lblLastWordWithMistake);
             this.panelMain.Controls.Add(this.lblLastWord);
             this.panelMain.Controls.Add(this.lblTotalWords);
-            this.panelMain.Controls.Add(this.tbLastWordWithMistake);
+            this.panelMain.Controls.Add(this.tbTotalWordsWithMistakes);
             this.panelMain.Controls.Add(this.tbLastWord);
             this.panelMain.Controls.Add(this.tbTotalWords);
             this.panelMain.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -268,14 +271,14 @@
             this.lblTotalWords.TabIndex = 7;
             this.lblTotalWords.Text = "Viso žodžių:";
             // 
-            // tbLastWordWithMistake
+            // tbTotalWordsWithMistakes
             // 
-            this.tbLastWordWithMistake.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
-            this.tbLastWordWithMistake.Location = new System.Drawing.Point(147, 187);
-            this.tbLastWordWithMistake.Name = "tbLastWordWithMistake";
-            this.tbLastWordWithMistake.ReadOnly = true;
-            this.tbLastWordWithMistake.Size = new System.Drawing.Size(155, 20);
-            this.tbLastWordWithMistake.TabIndex = 4;
+            this.tbTotalWordsWithMistakes.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
+            this.tbTotalWordsWithMistakes.Location = new System.Drawing.Point(147, 187);
+            this.tbTotalWordsWithMistakes.Name = "tbTotalWordsWithMistakes";
+            this.tbTotalWordsWithMistakes.ReadOnly = true;
+            this.tbTotalWordsWithMistakes.Size = new System.Drawing.Size(155, 20);
+            this.tbTotalWordsWithMistakes.TabIndex = 4;
             // 
             // tbLastWord
             // 
@@ -299,6 +302,13 @@
             // 
             this.timer_workTime.Interval = 1000;
             this.timer_workTime.Tick += new System.EventHandler(this.timer_workTime_Tick);
+            // 
+            // oferWordToolStripMenuItem
+            // 
+            this.offerWordToolStripMenuItem.Name = "oferWordToolStripMenuItem";
+            this.offerWordToolStripMenuItem.Size = new System.Drawing.Size(169, 22);
+            this.offerWordToolStripMenuItem.Text = "Reikšmių keitimas";
+            this.offerWordToolStripMenuItem.Click += new System.EventHandler(this.offerWordToolStripMenuItem_Click);
             // 
             // MainForm
             // 
@@ -331,7 +341,7 @@
         #endregion
 
         private System.Windows.Forms.MenuStrip menuStrip;
-        private System.Windows.Forms.ToolStripMenuItem nustatymaiToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem setingsToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem toolStripItem_debug;
         private System.Windows.Forms.ToolStripMenuItem toolStripItem_start;
         private System.Windows.Forms.ToolStripMenuItem toolStripItem_stop;
@@ -344,7 +354,7 @@
         private System.Windows.Forms.Panel panelMain;
         private System.Windows.Forms.ToolStripMenuItem toolStripItem_cleanDebugWindow;
         private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel_info;
-        private System.Windows.Forms.ToolStripMenuItem testToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem administrationToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem apieToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem informacijaToolStripMenuItem;
         private System.Windows.Forms.Timer timer_workTime;
@@ -353,10 +363,11 @@
         private System.Windows.Forms.TextBox tbTotalWords;
         private System.Windows.Forms.Label lblLastWord;
         private System.Windows.Forms.Label lblTotalWords;
-        private System.Windows.Forms.TextBox tbLastWordWithMistake;
+        private System.Windows.Forms.TextBox tbTotalWordsWithMistakes;
         private System.Windows.Forms.TextBox tbLastWord;
         private System.Windows.Forms.Label lblLastWordWithMistake;
         private System.Windows.Forms.ToolStripMenuItem karščioŽemėlapisToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem offerWordToolStripMenuItem;
     }
 }
 

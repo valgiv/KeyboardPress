@@ -63,11 +63,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="InfoForm.cs">
+    <Compile Include="EmptyForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="InfoForm.Designer.cs">
-      <DependentUpon>InfoForm.cs</DependentUpon>
+    <Compile Include="EmptyForm.Designer.cs">
+      <DependentUpon>EmptyForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Keyboard.cs">
       <SubType>Form</SubType>
@@ -81,16 +81,25 @@
     <Compile Include="MainForm.Designer.cs">
       <DependentUpon>MainForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="OfferWord\ucOfferWord.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="OfferWord\ucOfferWord.Designer.cs">
+      <DependentUpon>ucOfferWord.cs</DependentUpon>
+    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <EmbeddedResource Include="InfoForm.resx">
-      <DependentUpon>InfoForm.cs</DependentUpon>
+    <EmbeddedResource Include="EmptyForm.resx">
+      <DependentUpon>EmptyForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Keyboard.resx">
       <DependentUpon>Keyboard.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="OfferWord\ucOfferWord.resx">
+      <DependentUpon>ucOfferWord.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -140,6 +149,7 @@
   <ItemGroup>
     <Content Include="_Notes.txt" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PreBuildEvent>

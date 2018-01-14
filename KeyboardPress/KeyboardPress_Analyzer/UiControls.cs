@@ -12,31 +12,32 @@ namespace KeyboardPress_Analyzer
     /// </summary>
     public class UiControls
     {
-        private List<ObjUiControl> uiControls;
+        private List<ObjUiControl> uiControls = null;
         private object locker = new object();
 
         public UiControls()
         {
-            uiControls = new List<ObjUiControl>();
+            if(uiControls == null)
+                uiControls = new List<ObjUiControl>();
         }
 
-        public void Add(ObjUiControl obj)
-        {
-            bool throwEx = false;
-            lock (locker)
-            {
-                if (uiControls.FirstOrDefault(x => x.Obj == obj.Obj) == null)
-                {
-                    uiControls.Add(obj);
-                }
-                else
-                {
-                    throwEx = true;
-                }
-            }
-            if(throwEx)
-                throw new ArgumentException("Duplicated object", nameof(obj.Obj));
-        }
+        //public void Add(ObjUiControl obj)
+        //{
+        //    bool throwEx = false;
+        //    lock (locker)
+        //    {
+        //        if (uiControls.FirstOrDefault(x => x.Obj == obj.Obj) == null)
+        //        {
+        //            uiControls.Add(obj);
+        //        }
+        //        else
+        //        {
+        //            throwEx = true;
+        //        }
+        //    }
+        //    if(throwEx)
+        //        throw new ArgumentException("Duplicated object", nameof(obj.Obj));
+        //}
 
         public void Add(object obj, EnumUiControlTag tag)
         {
@@ -108,7 +109,7 @@ namespace KeyboardPress_Analyzer
         TotalMouseWheelUp,
         TotalMouseWheelDown,
         LastWord,
-        LastWordMistake,
+        TotalWordsMistakes,
         AvrgPressPerMin,
         AvrgPressPerHour,
         AvrgMousePressPerMin,

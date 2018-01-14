@@ -218,6 +218,7 @@ namespace KeyboardPress_Analyzer
             }
             catch (OutOfMemoryException oomEx)
             {
+                LogHelper.LogErrorMsg(oomEx);
                 LogHelper.LogInfoMsg($"BANDOMA PAŠALINTI DALĮ ELEMENTŲ IŠ {nameof(keysCharsEvents)}");
                 DebugHelper.AddInfoMsg($"BANDOMA PAŠALINTI DALĮ ELEMENTŲ IŠ {nameof(keysCharsEvents)}");
                 var deletedItems = new List<ObjEvent_key>();
@@ -261,6 +262,7 @@ namespace KeyboardPress_Analyzer
             }
             catch (OutOfMemoryException oomEx)
             {
+                LogHelper.LogErrorMsg(oomEx);
                 LogHelper.LogInfoMsg($"BANDOMA PAŠALINTI DALĮ ELEMENTŲ IŠ {nameof(keysEvents)}");
                 DebugHelper.AddInfoMsg($"BANDOMA PAŠALINTI DALĮ ELEMENTŲ IŠ {nameof(keysEvents)}");
                 var deletedItems = new List<ObjEvent_key>();

@@ -302,6 +302,7 @@ namespace KeyboardPress_Analyzer
             }
             catch(Exception ex)
             {
+                LogHelper.LogErrorMsg(ex);
                 MessageBox.Show(ex.Message, $"Error on {nameof(GlobalHookMouseDown)}");
             }
         }

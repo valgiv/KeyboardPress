@@ -328,6 +328,10 @@ namespace KeyboardPress_Analyzer.Functions
                     if (mistake)
                         wordsWithMistakes_v2++;
 
+                    Helper.Helper.UiControls.SetText(totalWords_v2.ToString(), EnumUiControlTag.TotalWords);
+                    Helper.Helper.UiControls.SetText(newWord, EnumUiControlTag.LastWord);
+                    Helper.Helper.UiControls.SetText(wordsWithMistakes_v2.ToString(), EnumUiControlTag.TotalWordsMistakes);
+
                     Console.WriteLine($"TotalWordsCount v2: '{newWord}'");
                 }
                 else
@@ -340,6 +344,7 @@ namespace KeyboardPress_Analyzer.Functions
             {
                 MessageBox.Show(ex.Message, $"Error on {nameof(totalWordsCount_v2)}", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 Console.WriteLine(ex.Message);
+                LogHelper.LogErrorMsg(ex);
             }
         }
 

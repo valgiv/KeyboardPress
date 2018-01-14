@@ -1,4 +1,5 @@
-﻿using KeyboardPress_Analyzer.Objects;
+﻿using KeyboardPress_Analyzer.Helper;
+using KeyboardPress_Analyzer.Objects;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -51,7 +52,7 @@ namespace KeyboardPress
             }
             catch(Exception ex)
             {
-                
+                LogHelper.LogErrorMsg(ex);
             }
         }
 

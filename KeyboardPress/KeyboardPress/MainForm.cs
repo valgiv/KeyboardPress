@@ -13,6 +13,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using KeyboardPress_Extensions;
 using KeyboardPress_Analyzer.Objects;
+using KeyboardPress.OfferWord;
 
 namespace KeyboardPress
 {
@@ -30,7 +31,7 @@ namespace KeyboardPress
         
         private void StartUp()
         {
-            //TestDBConnectionOnLoad();
+            TestDBConnectionOnLoad();
 
             SetControls();
 
@@ -136,7 +137,7 @@ namespace KeyboardPress
             catch(Exception ex)
             {
                 MessageBox.Show($"Klaida paleidžiant programą:\n{ex.Message}");
-                LogHelper.LogErrorMsg(ex.Message);
+                LogHelper.LogErrorMsg(ex);
             }
         }
 
@@ -149,7 +150,7 @@ namespace KeyboardPress
             }
             catch (Exception ex)
             {
-                LogHelper.LogErrorMsg(ex.Message);
+                LogHelper.LogErrorMsg(ex);
                 Console.WriteLine("NENUMATYTA KLAIDA: " + ex.Message);
             }
         }
@@ -164,7 +165,7 @@ namespace KeyboardPress
             }
             catch(Exception ex)
             {
-                LogHelper.LogErrorMsg(ex.Message);
+                LogHelper.LogErrorMsg(ex);
                 MessageBox.Show("Klaida inicijuojant klavišų paspaudimų fiksavimo pradžią");
             }
         }
@@ -179,7 +180,7 @@ namespace KeyboardPress
             }
             catch(Exception ex)
             {
-                LogHelper.LogErrorMsg(ex.Message);
+                LogHelper.LogErrorMsg(ex);
                 MessageBox.Show("Klaida sustabdant klavišų paspaudimų fiksavimą");
             }
         }
@@ -192,7 +193,7 @@ namespace KeyboardPress
             }
             catch(Exception ex)
             {
-                LogHelper.LogErrorMsg(ex.Message);
+                LogHelper.LogErrorMsg(ex);
                 MessageBox.Show("Klaida inicijuojant surinktų duomenų šalinimą");
             }
         }
@@ -239,7 +240,7 @@ namespace KeyboardPress
         {
             Helper.UiControls.Add(tbTotalWords, EnumUiControlTag.TotalWords);
             Helper.UiControls.Add(tbLastWord, EnumUiControlTag.LastWord);
-            Helper.UiControls.Add(tbLastWordWithMistake, EnumUiControlTag.LastWordMistake);
+            Helper.UiControls.Add(tbTotalWordsWithMistakes, EnumUiControlTag.TotalWordsMistakes);
         }
 
         /// <summary>
@@ -299,7 +300,22 @@ namespace KeyboardPress
             }
             catch (Exception ex)
             {
+                LogHelper.LogErrorMsg(ex);
+                MessageBox.Show($"Klaida atveriant langą\n{ex.Message}", "Klaida", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
 
+        private void offerWordToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                ucOfferWord uc = new ucOfferWord();
+                EmptyForm form = new EmptyForm(uc, "Žodžių keitimas", true);
+                form.ShowDialog();
+            }
+            catch(Exception ex)
+            {
+                LogHelper.LogErrorMsg(ex);
             }
         }
     }

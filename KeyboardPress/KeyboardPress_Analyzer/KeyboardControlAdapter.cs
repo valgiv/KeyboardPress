@@ -1,4 +1,5 @@
-﻿using System;
+﻿using KeyboardPress_Analyzer.Helper;
+using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
@@ -43,6 +44,7 @@ namespace KeyboardPress_Analyzer
             }
             catch(Exception ex)
             {
+                LogHelper.LogErrorMsg(ex);
                 throw ex;
             }
         }

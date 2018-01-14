@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Configuration;
 using System.IO;
+using System.Windows.Forms;
 
 namespace KeyboardPress_Analyzer.Helper
 {
@@ -31,6 +32,28 @@ namespace KeyboardPress_Analyzer.Helper
                 Console.WriteLine("ERROR !!! !!! !!!");
                 Console.WriteLine($"err on {nameof(LogErrorMsg)}()");
                 Console.WriteLine(ex.Message);
+            }
+        }
+
+        public static void ShowErrorMsgWithLog(string ErrorMSg, Exception ex)
+        {
+            MessageBox.Show(ErrorMSg, "Klaida", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            LogErrorMsg(ex);
+        }
+
+        public static void LogErrorMsg(Exception ex)
+        {
+            try
+            {
+                string errMsg = $"{DateTime.Now} ERROR: [{ex.Source}] {ex.Message} [{ex.StackTrace}]";
+
+                WriteToFile(errMsg);
+            }
+            catch(Exception e)
+            {
+                Console.WriteLine("ERROR !!! !!! !!!");
+                Console.WriteLine($"err on {nameof(LogErrorMsg)}()");
+                Console.WriteLine(e.Message);
             }
         }
 

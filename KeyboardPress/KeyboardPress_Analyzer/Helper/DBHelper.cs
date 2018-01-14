@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
 
@@ -14,10 +15,13 @@ namespace KeyboardPress_Analyzer.Helper
             get
             {
                 if (String.IsNullOrWhiteSpace(connStr))
+                {
+                    string customLocation = ConfigurationManager.AppSettings["CustomDbFileLocation"];
                     connStr = $@"
 Data Source=(LocalDB)\MSSQLLocalDB;
-AttachDbFilename={AppDomain.CurrentDomain.BaseDirectory}kpData.mdf;
+AttachDbFilename={(String.IsNullOrEmpty(customLocation) ? AppDomain.CurrentDomain.BaseDirectory : customLocation)}kpData.mdf;
 Integrated Security=True";
+                }
                 return connStr;
             }
         }
@@ -72,6 +76,7 @@ Integrated Security=True";
             }
             catch(Exception ex)
             {
+                LogHelper.LogErrorMsg(ex);
                 return false;
             }
         }
@@ -94,6 +99,7 @@ Integrated Security=True";
             }
             catch(Exception ex)
             {
+                LogHelper.LogErrorMsg(ex);
                 throw new Exception("Klaida naudojantis duomenų baze: " + ex.Message.ToString());
             }
         }
@@ -116,6 +122,7 @@ Integrated Security=True";
             }
             catch(Exception ex)
             {
+                LogHelper.LogErrorMsg(ex);
                 throw new Exception("Klaida naudojantis duomenų baze: " + ex.Message.ToString());
             }
         }
@@ -135,6 +142,7 @@ Integrated Security=True";
             }
             catch(Exception ex)
             {
+                LogHelper.LogErrorMsg(ex);
                 if (silentMode)
                     result = "Klaida naudojantis duomenų baze: " + ex.Message.ToString();
                 else
