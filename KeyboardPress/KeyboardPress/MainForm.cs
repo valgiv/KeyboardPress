@@ -17,6 +17,7 @@ using KeyboardPress.OfferWord;
 
 namespace KeyboardPress
 {
+    // v.1.0.0.0
     public partial class MainForm : Form, IKeyboardPressAdapter
     {
         private KeyboardPressTracking kpt;
