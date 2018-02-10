@@ -3,6 +3,7 @@ using KeyboardPress_Analyzer.Objects;
 using KeyboardPress_Extensions;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -21,15 +22,8 @@ namespace KeyboardPress_Analyzer.Functions
                 throw new ArgumentNullException(nameof(ni));
 
             ow_notifyIcon = ni;
-
-            offerWordTemplate_pairs = new KeyValuePair<string, string>[] // to do: iskelti i db
-            {
-                new KeyValuePair<string, string>("aa", "labaaaasRytas"),
-                new KeyValuePair<string, string>("abrikosas", "ananasas"),
-                new KeyValuePair<string, string>("ilgiausias", "pasikiškekopūsteliaudavome")
-            };
-
             
+            load_offerWordTemplate_pairs();
         }
 
         private bool needHideMsg = false;
@@ -95,6 +89,32 @@ namespace KeyboardPress_Analyzer.Functions
                 LogHelper.LogErrorMsg(ex);
                 return;
             }
+        }
+
+        private void load_offerWordTemplate_pairs()
+        {
+            try
+            {
+                var dt = Helper.DBHelper.GetDataTableDb($"SELECT value1, value2 FROM KP_OFFER_WORD WHERE user_guid_id = '{DBHelper.UserId}'");
+                if(dt != null && dt.Rows.Count > 0)
+                {
+                    List<KeyValuePair<string, string>> lst = new List<KeyValuePair<string, string>>();
+                    foreach(DataRow item in dt.Rows)
+                    {
+                        lst.Add(new KeyValuePair<string, string>(item["value1"].ToString(), item["value2"].ToString()));
+                    }
+                    offerWordTemplate_pairs = lst.ToArray();
+                }
+            }
+            catch(Exception ex)
+            {
+                LogHelper.LogErrorMsg(ex);
+            }
+        }
+
+        public void reloadOfferWord()
+        {
+            load_offerWordTemplate_pairs();
         }
     }
 }

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
+using System.Diagnostics;
 using System.Linq;
 using System.Runtime.InteropServices;
 using System.Text;
@@ -99,6 +100,46 @@ namespace KeyboardPress_Analyzer.Helper
         [DllImport("user32.dll")]
         static extern int GetWindowText(IntPtr hWnd, StringBuilder text, int count);
 
+        [DllImport("user32.dll")]
+        static extern IntPtr GetWindowThreadProcessId(IntPtr hWnd, out uint ProcessId);
+
+        public static string GetActiveWindowTitle_v2()
+        {
+            try
+            {
+                IntPtr hwnd = GetForegroundWindow();
+                uint pid;
+                GetWindowThreadProcessId(hwnd, out pid);
+                Process p = Process.GetProcessById((int)pid);
+
+                return p.ProcessName.ToString();
+            }
+            catch { return "z_unknown"; }
+            
+
+            /// nice to have:
+            /// mapas su procesu ir jo descriptionu
+            /// arba (jei tuscia)
+            /// var wmiQueryString = $"SELECT ProcessId, ExecutablePath, CommandLine FROM Win32_Process WHERE ProcessId = {pid}";
+            /// using (var searcher = new ManagementObjectSearcher(wmiQueryString))
+            /// using (var results = searcher.Get())
+            /// {
+            ///     var query = from p in Process.GetProcesses()
+            ///                 join mo in results.Cast<ManagementObject>()
+            ///                 on p.Id equals (int)(uint)mo["ProcessId"]
+            ///                 select new
+            ///                 {
+            ///                     Process = p,
+            ///                     Path = (string)mo["ExecutablePath"],
+            ///                     CommandLine = (string)mo["CommandLine"],
+            ///                 };
+            ///     foreach (var item in query)
+            ///     {
+            ///         // pasiziureti failo description ir ideti i map'a
+            ///     }
+
+            }
+
         public static string GetActiveWindowTitle()
         {
             const int nChars = 256;
@@ -112,7 +153,7 @@ namespace KeyboardPress_Analyzer.Helper
             return null;
         }
         //--
-        
+
 
     }
 }

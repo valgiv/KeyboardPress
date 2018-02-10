@@ -29,68 +29,54 @@
         private void InitializeComponent()
         {
             this.dataGridView = new System.Windows.Forms.DataGridView();
-            this.colId = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.colValue1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.colValue2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.colRemoveRex = new System.Windows.Forms.DataGridViewButtonColumn();
             this.btnSave = new System.Windows.Forms.Button();
+            this.btn_remove = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView)).BeginInit();
             this.SuspendLayout();
             // 
             // dataGridView
             // 
-            this.dataGridView.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.dataGridView.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.dataGridView.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.dataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.colId,
-            this.colValue1,
-            this.colValue2,
-            this.colRemoveRex});
             this.dataGridView.Location = new System.Drawing.Point(3, 39);
+            this.dataGridView.MultiSelect = false;
             this.dataGridView.Name = "dataGridView";
-            this.dataGridView.Size = new System.Drawing.Size(448, 150);
+            this.dataGridView.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.dataGridView.Size = new System.Drawing.Size(517, 262);
             this.dataGridView.TabIndex = 0;
-            // 
-            // colId
-            // 
-            this.colId.HeaderText = "Id";
-            this.colId.Name = "colId";
-            this.colId.Visible = false;
-            // 
-            // colValue1
-            // 
-            this.colValue1.HeaderText = "Reikšmė iš";
-            this.colValue1.Name = "colValue1";
-            // 
-            // colValue2
-            // 
-            this.colValue2.HeaderText = "Reikšmė į";
-            this.colValue2.Name = "colValue2";
-            // 
-            // colRemoveRex
-            // 
-            this.colRemoveRex.HeaderText = "Šalinti";
-            this.colRemoveRex.Name = "colRemoveRex";
             // 
             // btnSave
             // 
             this.btnSave.Location = new System.Drawing.Point(4, 4);
             this.btnSave.Name = "btnSave";
-            this.btnSave.Size = new System.Drawing.Size(75, 23);
+            this.btnSave.Size = new System.Drawing.Size(118, 23);
             this.btnSave.TabIndex = 1;
-            this.btnSave.Text = "Išsaugoti";
+            this.btnSave.Text = "Išsaugoti pakeitimus";
             this.btnSave.UseVisualStyleBackColor = true;
+            this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
+            // 
+            // btn_remove
+            // 
+            this.btn_remove.Location = new System.Drawing.Point(128, 4);
+            this.btn_remove.Name = "btn_remove";
+            this.btn_remove.Size = new System.Drawing.Size(118, 23);
+            this.btn_remove.TabIndex = 3;
+            this.btn_remove.Text = "Pašalinti eilutę";
+            this.btn_remove.UseVisualStyleBackColor = true;
+            this.btn_remove.Click += new System.EventHandler(this.btn_remove_Click);
             // 
             // ucOfferWord
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.btn_remove);
             this.Controls.Add(this.btnSave);
             this.Controls.Add(this.dataGridView);
             this.Name = "ucOfferWord";
-            this.Size = new System.Drawing.Size(454, 301);
+            this.Size = new System.Drawing.Size(523, 311);
             this.Load += new System.EventHandler(this.ucOfferWord_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView)).EndInit();
             this.ResumeLayout(false);
@@ -100,10 +86,7 @@
         #endregion
 
         private System.Windows.Forms.DataGridView dataGridView;
-        private System.Windows.Forms.DataGridViewTextBoxColumn colId;
-        private System.Windows.Forms.DataGridViewTextBoxColumn colValue1;
-        private System.Windows.Forms.DataGridViewTextBoxColumn colValue2;
-        private System.Windows.Forms.DataGridViewButtonColumn colRemoveRex;
         private System.Windows.Forms.Button btnSave;
+        private System.Windows.Forms.Button btn_remove;
     }
 }

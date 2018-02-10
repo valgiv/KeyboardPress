@@ -313,6 +313,7 @@ namespace KeyboardPress
                 ucOfferWord uc = new ucOfferWord();
                 EmptyForm form = new EmptyForm(uc, "Žodžių keitimas", true);
                 form.ShowDialog();
+                kpt.Reload_OfferWordClass_Data();
             }
             catch(Exception ex)
             {

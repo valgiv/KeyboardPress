@@ -93,6 +93,12 @@ namespace KeyboardPress_Analyzer
                 totalMouseWheelDown = value;
             }
         }
+
+        public void Reload_OfferWordClass_Data()
+        {
+            if (OfferWordClass != null)
+                OfferWordClass.reloadOfferWord();
+        }
         #endregion
 
         #region interface overrides
@@ -180,7 +186,7 @@ namespace KeyboardPress_Analyzer
                 //nes keičia kursoriaus poziciją
                 var a = new ObjEvent_key()
                 {
-                    ActiveWindowName = Helper.Helper.GetActiveWindowTitle(),
+                    ActiveWindowName = Helper.Helper.GetActiveWindowTitle_v2(),
                     ShiftKeyPressed = e.Shift,
                     CtrlKeyPressed = e.Control,
                     EventObjType = EventType.KeyPress,
@@ -290,7 +296,7 @@ namespace KeyboardPress_Analyzer
                 //pelės paspaudimas gali keisti kursoriaus poziciją
                 var a = new ObjEvent_key()
                 {
-                    ActiveWindowName = Helper.Helper.GetActiveWindowTitle(),
+                    ActiveWindowName = Helper.Helper.GetActiveWindowTitle_v2(),
                     ShiftKeyPressed = null,
                     CtrlKeyPressed = null,
                     EventObjType = EventType.KeyPress, //nes naudojamas bus ten kur generuojamos zodis

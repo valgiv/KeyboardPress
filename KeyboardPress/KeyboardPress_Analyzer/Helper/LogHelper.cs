@@ -41,6 +41,11 @@ namespace KeyboardPress_Analyzer.Helper
             LogErrorMsg(ex);
         }
 
+        public static void ShowErrorMsgWithLog(Exception ex)
+        {
+            ShowErrorMsgWithLog(ex.Message, ex);
+        }
+
         public static void LogErrorMsg(Exception ex)
         {
             try
