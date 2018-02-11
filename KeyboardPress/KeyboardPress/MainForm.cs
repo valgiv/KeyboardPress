@@ -278,7 +278,15 @@ namespace KeyboardPress
 
         private void test2ToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            //InfoForm.Show(2000, InfoForm.Enum_InfoFormImage.BulbBlack);
             
+            //InfoForm.Show(2000, InfoForm.Enum_InfoFormImage.BulbQ);
+
+            //InfoForm.Show(2000, InfoForm.Enum_InfoFormImage.HeadConfig);
+
+            //InfoForm.Show(2000, InfoForm.Enum_InfoFormImage.HeadMind);
+
+            //InfoForm.Show(2000, InfoForm.Enum_InfoFormImage.Precent);
         }
 
         private void TestDBConnectionOnLoad()

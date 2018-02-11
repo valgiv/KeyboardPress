@@ -61,6 +61,46 @@ namespace KeyboardPress_Extensions.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap bulb_black {
+            get {
+                object obj = ResourceManager.GetObject("bulb_black", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap bulb_quastion {
+            get {
+                object obj = ResourceManager.GetObject("bulb_quastion", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap head_config {
+            get {
+                object obj = ResourceManager.GetObject("head_config", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap head_mind {
+            get {
+                object obj = ResourceManager.GetObject("head_mind", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Icon similar to (Icon).
         /// </summary>
         public static System.Drawing.Icon ico_blue_Graphicloads_Seo_Services_Creative {
@@ -97,6 +137,16 @@ namespace KeyboardPress_Extensions.Properties {
             get {
                 object obj = ResourceManager.GetObject("ico_yellow_Graphicloads_Seo_Services_Target", resourceCulture);
                 return ((System.Drawing.Icon)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap precent {
+            get {
+                object obj = ResourceManager.GetObject("precent", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
             }
         }
     }
