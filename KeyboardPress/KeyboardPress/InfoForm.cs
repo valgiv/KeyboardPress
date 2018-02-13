@@ -25,11 +25,31 @@ namespace KeyboardPress
             this.Opacity = 0;
             showTimeMiliseconds = ShowTimeMiliseconds;
             pictureBox.Image = Image;
-            pictureBox.SizeMode = PictureBoxSizeMode.StretchImage;
+            pictureBox.SizeMode = PictureBoxSizeMode.Zoom;
             lblFormTitle.Text = Title;
             action = ClickAct;
+            lblText.Text = Message;
             //to do: padaryti action ant paspaudimo,
             //to do: atidaryti tam tikroje ekrano vietoje
+
+            ChangeFormSize();
+        }
+
+        private void ChangeFormSize()
+        {
+            try
+            {
+                Size sz = TextRenderer.MeasureText(lblText.Text, lblText.Font, lblText.Size, TextFormatFlags.WordBreak);
+                //MessageBox.Show(sz.Width.ToString() + " - " + sz.Height.ToString()); //to do: jei sitas, tai klaida
+                if (sz.Width >= lblText.Width)
+                    this.Width = sz.Width + pictureBox.Width + 40;
+                if (sz.Height >= lblText.Height)
+                    this.Height = sz.Height + 40;
+            }
+            catch(Exception ex)
+            {
+                //to do: nustatyti kažkokį dydį klaidos atveju
+            }
         }
 
         public string FormTitle

@@ -286,7 +286,22 @@ namespace KeyboardPress
 
             //InfoForm.Show(2000, InfoForm.Enum_InfoFormImage.HeadMind);
 
-            //InfoForm.Show(2000, InfoForm.Enum_InfoFormImage.Precent);
+            string text = @"Labas
+1
+2
+-33333333333333333333333333333333333333333333333-
+4
+5
+6
+7
+8
+testas";
+
+            InfoForm.Show(text,
+                "Pavadinimas", 2000,
+                InfoForm.Enum_InfoFormImage.Precent,
+                null);
+
         }
 
         private void TestDBConnectionOnLoad()
