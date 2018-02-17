@@ -14,6 +14,7 @@ using System.Windows.Forms;
 using KeyboardPress_Extensions;
 using KeyboardPress_Analyzer.Objects;
 using KeyboardPress.OfferWord;
+using KeyboardPress_Extensions.InfoForm;
 
 namespace KeyboardPress
 {
@@ -301,6 +302,26 @@ testas";
                 "Pavadinimas", 2000,
                 InfoForm.Enum_InfoFormImage.Precent,
                 null);
+
+            //Task t = new Task(() =>
+            //{
+            //    InfoForm.Show(text,
+            //    "Pavadinimas", 2000,
+            //    InfoForm.Enum_InfoFormImage.Precent,
+            //    null);
+            //});
+            //t.Start();
+
+
+            //Thread t = new Thread(() =>
+            //{
+            //    InfoForm.Show(text,
+            //    "Pavadinimas", 2000,
+            //    InfoForm.Enum_InfoFormImage.Precent,
+            //    null);
+            //});
+            //t.SetApartmentState(ApartmentState.STA);
+            //t.Start();
 
         }
 
