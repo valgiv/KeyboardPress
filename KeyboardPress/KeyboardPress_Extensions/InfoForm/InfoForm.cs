@@ -18,6 +18,7 @@ namespace KeyboardPress_Extensions.InfoForm
         private int showTimeMiliseconds = 0;
         private Action action = null;
 
+        //to do: padaryti naudojima kur reikia
         public InfoFormDialog(string Message, string Title, int ShowTimeMiliseconds, Image Image, Action ClickAct)
         {
             InitializeComponent();
@@ -29,8 +30,7 @@ namespace KeyboardPress_Extensions.InfoForm
             lblFormTitle.Text = Title;
             action = ClickAct;
             lblText.Text = Message;
-            //to do: padaryti action ant paspaudimo
-            
+
             ChangeFormSize();
         }
 
@@ -107,6 +107,32 @@ namespace KeyboardPress_Extensions.InfoForm
                     this.Close();
             }
         }
+
+        private const int WS_EX_TOPMOST = 0x00000008;
+        protected override CreateParams CreateParams
+        {
+            get
+            {
+                CreateParams createParams = base.CreateParams;
+                createParams.ExStyle |= WS_EX_TOPMOST;
+                return createParams;
+            }
+        }
+
+        private void pictureBox_Click(object sender, EventArgs e)
+        {
+            action?.Invoke();
+        }
+
+        private void lblText_Click(object sender, EventArgs e)
+        {
+            action?.Invoke();
+        }
+
+        private void panelCenter_Click(object sender, EventArgs e)
+        {
+            action?.Invoke();
+        }
     }
 
     public class InfoForm
@@ -138,8 +164,10 @@ namespace KeyboardPress_Extensions.InfoForm
                 }
 
                 var form = new InfoFormDialog(Message, Title, ShowTimeMiliseconds, img, ClickAct);
-                //form.SetFormPosition(CalculateFormLocation(form));
-                FormWithoutActivation.ShowInactiveTopmost(form);
+                form.SetFormPosition(CalculateFormLocation(form));
+                //FormWithoutActivation.ShowInactiveTopmost(form);
+                form.Show();
+                System.Windows.Threading.Dispatcher.Run();
             }
             catch(Exception ex)
             {

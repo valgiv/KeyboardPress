@@ -86,6 +86,7 @@
             this.panelCenter.Name = "panelCenter";
             this.panelCenter.Size = new System.Drawing.Size(204, 103);
             this.panelCenter.TabIndex = 1;
+            this.panelCenter.Click += new System.EventHandler(this.panelCenter_Click);
             // 
             // lblText
             // 
@@ -98,6 +99,7 @@
             this.lblText.TabIndex = 1;
             this.lblText.Text = "Text";
             this.lblText.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.lblText.Click += new System.EventHandler(this.lblText_Click);
             // 
             // pictureBox
             // 
@@ -108,6 +110,7 @@
             this.pictureBox.Size = new System.Drawing.Size(82, 86);
             this.pictureBox.TabIndex = 0;
             this.pictureBox.TabStop = false;
+            this.pictureBox.Click += new System.EventHandler(this.pictureBox_Click);
             // 
             // timerOpacity
             // 
@@ -128,12 +131,9 @@
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "InfoFormDialog";
-            this.Opacity = 0D;
             this.ShowIcon = false;
-            this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.Manual;
             this.Text = "InfoForm";
-            this.TopMost = true;
             this.TransparencyKey = System.Drawing.Color.White;
             this.Load += new System.EventHandler(this.InfoForm_Load);
             this.panelBorder.ResumeLayout(false);

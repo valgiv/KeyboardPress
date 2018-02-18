@@ -1,6 +1,7 @@
 ﻿using KeyboardPress_Analyzer.Helper;
 using KeyboardPress_Analyzer.Objects;
 using KeyboardPress_Extensions;
+using KeyboardPress_Extensions.InfoForm;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -56,6 +57,12 @@ namespace KeyboardPress_Analyzer.Functions
                             {
                                 ow_notifyIcon.ShowBalloonTip(1000, "", $"Siūlomas tekstas: {pair.Value}", ToolTipIcon.Info); // nice to have: reikia pamastyti kaip uzdaryti siulymus
                                 needHideMsg = true;
+                                //
+                                InfoForm.Show($"Siūlomas tekstas: {pair.Value}",
+                                   "Pavadinimas", 2000,
+                                   InfoForm.Enum_InfoFormImage.Precent,
+                                   null);
+                                //
                                 //System.Diagnostics.Debug.WriteLine("offerWordTemplate atitikmuo: " + pair.Value);
                                 return;
                             }

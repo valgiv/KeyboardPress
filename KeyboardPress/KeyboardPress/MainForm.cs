@@ -11,10 +11,10 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using KeyboardPress_Extensions;
 using KeyboardPress_Analyzer.Objects;
 using KeyboardPress.OfferWord;
 using KeyboardPress_Extensions.InfoForm;
+
 
 namespace KeyboardPress
 {
@@ -298,30 +298,50 @@ namespace KeyboardPress
 8
 testas";
 
-            InfoForm.Show(text,
+            //InfoForm.Show(text,
+            //    "Pavadinimas", 2000,
+            //    InfoForm.Enum_InfoFormImage.Precent,
+            //    null);
+
+            Task t = new Task(() =>
+            {
+                InfoForm.Show(text,
                 "Pavadinimas", 2000,
                 InfoForm.Enum_InfoFormImage.Precent,
                 null);
+            });
+            t.Start();
+
+            //Thread t = new Thread(delegate ()
+            //{
+            //    var form = new InfoFormDialog("tst", "ewgvszdfv", 3000, null, null);
+            //    //form.SetFormPosition(CalculateFormLocation(form));
+            //    //FormWithoutActivation.ShowInactiveTopmost(form);
+            //    form.Show();
+            //    System.Windows.Threading.Dispatcher.Run();
+            //});
+            ////t.SetApartmentState(ApartmentState.STA);
+            //t.Start();
+
+
 
             //Task t = new Task(() =>
             //{
-            //    InfoForm.Show(text,
-            //    "Pavadinimas", 2000,
-            //    InfoForm.Enum_InfoFormImage.Precent,
-            //    null);
+            //    var form = new InfoFormDialog("tst", "ewgvszdfv", 3000, null, new Action(()=>
+            //    {
+            //        testAction();
+            //    }));
+            //    //form.SetFormPosition(CalculateFormLocation(form));
+            //    //FormWithoutActivation.ShowInactiveTopmost(form);
+            //    form.Show();
+            //    System.Windows.Threading.Dispatcher.Run();
             //});
             //t.Start();
 
+        }
 
-            //Thread t = new Thread(() =>
-            //{
-            //    InfoForm.Show(text,
-            //    "Pavadinimas", 2000,
-            //    InfoForm.Enum_InfoFormImage.Precent,
-            //    null);
-            //});
-            //t.SetApartmentState(ApartmentState.STA);
-            //t.Start();
+        public void testAction()
+        {
 
         }
 
