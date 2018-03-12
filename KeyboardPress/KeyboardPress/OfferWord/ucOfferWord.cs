@@ -13,13 +13,12 @@ namespace KeyboardPress.OfferWord
 {
     public partial class ucOfferWord : UserControl
     {
-        DataTable dt;
+        private DataTable dt;
         public ucOfferWord()
         {
             InitializeComponent();
         }
-
-        //to do: apriboti, kad 'reiksme is' tik vienas zodis gali buti
+        
         private void ucOfferWord_Load(object sender, EventArgs e)
         {
             try
@@ -53,6 +52,15 @@ namespace KeyboardPress.OfferWord
                 if (changes == null)
                 {
                     MessageBox.Show("Nėra pakeistų duomenų");
+                    return;
+                }
+
+                var oneWordValidation = changes.AsEnumerable()
+                    .FirstOrDefault(x => !String.IsNullOrWhiteSpace(x.Field<string>("value1"))
+                        && (x.Field<string>("value1").Contains(' ') || x.Field<string>("value1").Contains('\t')));
+                if(oneWordValidation != null)
+                {
+                    MessageBox.Show("'Reikšmė iš' gali būti sudaryta tik iš vieno žodžio", "Informacija", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     return;
                 }
 

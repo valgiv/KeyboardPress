@@ -177,7 +177,6 @@ namespace KeyboardPress_Analyzer.Functions
         /// </summary>
         /// <param name="NLastKeyPressInSameWindow">nuo paskutinio tame lange arba nuo paskutinio KeyboardButtonsToSkipWordsCount</param>
         public void totalWordsCount_v2(ObjEvent_key[] NLastKeyPressInSameWindow)
-
         {
             // to do: fiksuoti klaidas
             try

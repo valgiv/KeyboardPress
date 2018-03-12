@@ -44,7 +44,6 @@ namespace KeyboardPress_Extensions.InfoForm
             try
             {
                 Size sz = TextRenderer.MeasureText(lblText.Text, lblText.Font, lblText.Size, TextFormatFlags.WordBreak);
-                //MessageBox.Show(sz.Width.ToString() + " - " + sz.Height.ToString()); //to do: jei sitas, tai klaida
                 if (sz.Width >= lblText.Width)
                     this.Width = sz.Width + pictureBox.Width + 40;
                 if (sz.Height >= lblText.Height)
@@ -52,7 +51,12 @@ namespace KeyboardPress_Extensions.InfoForm
             }
             catch(Exception ex)
             {
-                //to do: nustatyti kažkokį dydį klaidos atveju
+                //nice to have: nustatyti kažkokį dydį klaidos atveju
+                try
+                {
+
+                }
+                catch { }
             }
         }
 
