@@ -51,10 +51,11 @@ namespace KeyboardPress_Extensions.InfoForm
             }
             catch(Exception ex)
             {
-                //nice to have: nustatyti kažkokį dydį klaidos atveju
+                //nice to have: log klaidos atveju
                 try
                 {
-
+                    this.Width = 250;
+                    this.Height = 150;
                 }
                 catch { }
             }

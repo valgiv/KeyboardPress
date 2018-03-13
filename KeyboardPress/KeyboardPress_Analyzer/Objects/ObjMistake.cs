@@ -3,23 +3,30 @@ using System.Collections.Generic;
 
 namespace KeyboardPress_Analyzer.Objects
 {
-    public class ObjMistake : ObjDate
+    //public class ObjMistake : ObjDate
+    //{
+    //    public string Word { get; set; }   
+    //}
+
+    public class ObjMistakeChar : ObjDate
     {
-        public ObjMistake()
-        {
-            ModifiedCharacters = new List<Tuple<string, string>>();
-        }
+        public char? BeforeRemovedChar { get; set; }
 
-        public string CorrectWord { get; set; }
+        public char RemovedChar { get; set; }
 
-        public List<Tuple<string, string>> ModifiedCharacters {get;set;}
-
-        public int MistakesCount
-        {
-            get
-            {
-                return ModifiedCharacters.Count;
-            }
-        }
+        public char? ChangedChar { get; set; }
+        
     }
+
+    //public class ObjMistakeString : ObjMistake
+    //{
+    //    public ObjMistakeString()
+    //    {
+    //        ModifiedCharacters = new List<Tuple<string, string>>();
+    //    }
+
+    //    public List<Tuple<string, string>> ModifiedCharacters { get; set; }
+        
+    //}
+
 }
