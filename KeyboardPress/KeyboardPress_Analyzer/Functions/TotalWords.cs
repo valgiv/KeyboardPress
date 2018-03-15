@@ -189,11 +189,15 @@ namespace KeyboardPress_Analyzer.Functions
                 if (NLastKeyPressInSameWindow.LastOrDefault().EventObjDataType != EventDataType.SymbolAsciiCode)
                     return;
 
+                #region Char mistakes
+                ObjMistakeChar mistakeChar = new ObjMistakeChar();
+                #endregion
+
                 string newWord = "";
-                if (true)
-                {
-                    string json = Newtonsoft.Json.JsonConvert.SerializeObject(NLastKeyPressInSameWindow);
-                }
+                //if (true)
+                //{
+                //    string json = Newtonsoft.Json.JsonConvert.SerializeObject(NLastKeyPressInSameWindow);
+                //}
                 int cursorPos = 0;
                 int? cursorSelectBeginPos = null;
                 int eventK_index = 0;
@@ -231,6 +235,8 @@ namespace KeyboardPress_Analyzer.Functions
                                 }
                                 else
                                 {
+                                    AddCharMistake();
+
                                     newWord = newWord.Remove(cursorPos - 1, 1); //cursorPos-1 arba apkeisti vietom su cursorPos--
                                     cursorPos--;
                                     mistake = false;
@@ -248,6 +254,8 @@ namespace KeyboardPress_Analyzer.Functions
                             #region yra selectintas tekstas
                             if (eventK.KeyValue == 8)
                             {
+                                AddCharMistake(); //cia nebutinai
+
                                 // backspace:
                                 newWord = newWord.Remove((int)cursorSelectBeginPos > cursorPos ? cursorPos : (int)cursorSelectBeginPos, Math.Abs((int)cursorSelectBeginPos - cursorPos));
                                 cursorPos = (int)cursorSelectBeginPos > cursorPos ? cursorPos : (int)cursorSelectBeginPos;
@@ -256,6 +264,8 @@ namespace KeyboardPress_Analyzer.Functions
                             }
                             else
                             {
+                                AddCharMistake(); //cia nebutinai
+
                                 newWord = newWord.Remove((int)cursorSelectBeginPos > cursorPos ? cursorPos : (int)cursorSelectBeginPos, Math.Abs((int)cursorSelectBeginPos - cursorPos));
                                 cursorPos = (int)cursorSelectBeginPos > cursorPos ? cursorPos : (int)cursorSelectBeginPos;
                                 cursorSelectBeginPos = null;
@@ -279,6 +289,8 @@ namespace KeyboardPress_Analyzer.Functions
                                 //delete btn
                                 if (cursorPos + 1 <= newWord.Length)
                                 {
+                                    AddCharMistake();
+
                                     newWord = newWord.Remove(cursorPos, 1);
                                     mistake = true;
                                 }
@@ -298,6 +310,8 @@ namespace KeyboardPress_Analyzer.Functions
                             #region yra selectinamas tekstas
                             if (eventK.KeyValue == 46)
                             {
+                                AddCharMistake(); //cia nebutinai
+
                                 //delete btn
                                 int from = cursorPos < (int)cursorSelectBeginPos ? cursorPos : (int)cursorSelectBeginPos;
                                 int countLenght = Math.Abs((int)cursorSelectBeginPos - cursorPos);

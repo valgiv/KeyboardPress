@@ -15,7 +15,6 @@ namespace KeyboardPress_Analyzer.Objects
         public char RemovedChar { get; set; }
 
         public char? ChangedChar { get; set; }
-        
     }
 
     //public class ObjMistakeString : ObjMistake
