@@ -64,8 +64,12 @@ namespace KeyboardPress_Analyzer.Functions
             }
         }
 
-        protected void AddCharMistake(char? beforeRemovedChar, char removedChar, char? changedChar)
-        {
+        protected void AddCharMistake(char? beforeRemovedChar,
+            char removedChar,
+            char? changedChar)
+            {
+
+            Console.WriteLine($"AddCharMistake: {(beforeRemovedChar == null ? "null" : beforeRemovedChar.ToString())}, {removedChar.ToString()}, {(changedChar == null ? "null" : changedChar.ToString())}");
             AddCharMistake(new ObjMistakeChar()
             {
                 BeforeRemovedChar = beforeRemovedChar,
@@ -75,7 +79,10 @@ namespace KeyboardPress_Analyzer.Functions
             });
         }
 
-        
+        //protected void AddCharMistake()
+        //{
+        //    throw new NotImplementedException();
+        //}
 
     }
 
