@@ -360,8 +360,11 @@ testas";
             try
             {
                 List<ObjKeyPressCount> a = kpt.KeyPressCountObjList;
-                Keyboard k = new Keyboard(a);
-                k.ShowDialog();
+
+                //Keyboard k = new Keyboard(a);
+                //k.ShowDialog();
+
+                new EmptyForm(new KeyboardUc(a), "Karščio žemėlapis", true).ShowDialog();
             }
             catch (Exception ex)
             {

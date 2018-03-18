@@ -20,8 +20,8 @@ namespace KeyboardPress
         {
             try
             {
-                this.Width = uc.Width;
-                this.Height = uc.Height;
+                this.Width = uc.Width + 20;
+                this.Height = uc.Height + 35;
                 uc.Dock = DockStyle.Fill;
                 this.Controls.Add(uc);
             }

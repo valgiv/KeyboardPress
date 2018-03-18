@@ -25,6 +25,12 @@ namespace KeyboardPress
 
         private void Keyboard_Load(object sender, EventArgs e)
         {
+            this.Scale(new SizeF()
+            {
+                Height = 0.8f,
+                Width = 0.6f
+            });
+
             try
             {
                 uint maxCount = 0;
