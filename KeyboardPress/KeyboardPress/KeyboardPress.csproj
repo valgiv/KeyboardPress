@@ -71,12 +71,6 @@
     <Compile Include="EmptyForm.Designer.cs">
       <DependentUpon>EmptyForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Keyboard.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Keyboard.Designer.cs">
-      <DependentUpon>Keyboard.cs</DependentUpon>
-    </Compile>
     <Compile Include="KeyboardUc.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -99,9 +93,6 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="EmptyForm.resx">
       <DependentUpon>EmptyForm.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Keyboard.resx">
-      <DependentUpon>Keyboard.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="KeyboardUc.resx">
       <DependentUpon>KeyboardUc.cs</DependentUpon>

@@ -33,7 +33,7 @@ namespace KeyboardPress.OfferWord
 
         private void loadData()
         {
-            dt = DBHelper.GetDataTableDb($"SELECT record_id, value1, value2 FROM KP_OFFER_WORD WHERE user_guid_id = '{DBHelper.UserId}'");
+            dt = DBHelper.GetDataTableDb($"SELECT record_id, value1, value2 FROM KP_OFFER_WORD WHERE user_record_id = '{DBHelper.UserId}'");
             dt.AcceptChanges();
             dataGridView.DataSource = dt;
 
@@ -84,7 +84,7 @@ namespace KeyboardPress.OfferWord
                             MessageBox.Show("Turi būti nurodytos laukų 'Reikšmė iš' ir 'Reikšmė į' reikšmės");
                             return;
                         }
-                        sql += $"INSERT INTO KP_OFFER_WORD (value1, value2, user_guid_id) VALUES ('{change["value1"].ToString().Replace("'", "''")}', '{change["value2"].ToString().Replace("'", "''")}', '{DBHelper.UserId}')";
+                        sql += $"INSERT INTO KP_OFFER_WORD (value1, value2, user_record_id) VALUES ('{change["value1"].ToString().Replace("'", "''")}', '{change["value2"].ToString().Replace("'", "''")}', {DBHelper.UserId})";
                     }
                     else if (change.RowState == DataRowState.Deleted)
                     {

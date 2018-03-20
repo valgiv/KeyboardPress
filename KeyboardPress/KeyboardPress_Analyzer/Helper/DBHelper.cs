@@ -7,7 +7,7 @@ namespace KeyboardPress_Analyzer.Helper
 {
     public static class DBHelper
     {
-        private static Guid userId;
+        private static int userId = 0;
         private static string connStr;
 
         private static string ConnStr
@@ -25,22 +25,21 @@ Integrated Security=True";
                 return connStr;
             }
         }
-        public static Guid UserId
+        public static int UserId
         {
             get
             {
-                if(userId == null || userId == new Guid())
+                if(userId == 0)
                 {
-                    userId = SelectTopRow<Guid>("SELECT TOP 1 guid_id FROM KP_USER");
+                    userId = SelectTopRow<int>("SELECT TOP 1 record_id FROM KP_USER");
                 }
-                if(userId == null || userId == new Guid())
+                if(userId == 0)
                 {
-                    var tmp = Guid.NewGuid();
-                    if (ExecSqlDb($"INSERT INTO KP_USER (guid_id, name) VALUES ('{tmp}', '{tmp}')", true) != "OK")
+                    if (ExecSqlDb($"INSERT INTO KP_USER (name) VALUES ('{Guid.NewGuid()}')", true) != "OK")
                         throw new Exception("Klaida duomenų bazėje, nepavyksta sukurti vartotojo");
-                    userId = SelectTopRow<Guid>("SELECT TOP 1 guid_id FROM KP_USER");
+                    userId = SelectTopRow<int>("SELECT TOP 1 record_id FROM KP_USER");
 
-                    if (userId != tmp)
+                    if (userId == 0)
                         throw new Exception("Klaida. Nepavyksta gauti vartotojo");
                 }
                 

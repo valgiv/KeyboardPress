@@ -112,7 +112,11 @@ namespace KeyboardPress
                     };
                 }
 
-                var i = count / (maxCount / (heatMapColors.Length - 1));
+                long j = maxCount / (heatMapColors.Length - 1);
+                if (j == 0)
+                    return heatMapColors[0];
+
+                long i = count / j;
                 if (i < 0)
                     i = 0;
                 else if (i > heatMapColors.Length - 1)
