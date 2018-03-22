@@ -8,13 +8,15 @@ namespace KeyboardPress_Analyzer.Objects
     //    public string Word { get; set; }   
     //}
 
-    public class ObjMistakeChar : ObjDateAndDb
+    public class ObjMistakeChar : ObjDateWinAndDb
     {
         public char? BeforeRemovedChar { get; set; }
 
         public char RemovedChar { get; set; }
 
         public char? ChangedChar { get; set; }
+
+        //to do: padaryti lango kuriame padaryta klaida fiksavimą
     }
 
     //public class ObjMistakeString : ObjMistake

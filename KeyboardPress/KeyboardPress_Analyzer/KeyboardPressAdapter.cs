@@ -18,22 +18,25 @@ namespace KeyboardPress_Analyzer
     public class KeyboardPressAdapter : IKeyboardPressAdapter, IDatabase
     {
         /// <summary>
-        /// Pelės mygtukų paspaudimai
+        /// Pelės mygtukų paspaudimai /sukuriau vieta db saugojimui KP_EVENT_MOUSE
         /// </summary>
         private List<ObjEvent_mouse> mouseEvents;
 
         /// <summary>
         /// visi klaviatūros mygtukų paspaudimai
+        /// KP_EVENT_KEY_ALL
         /// </summary>
         private List<ObjEvent_key> keysEvents;
 
         /// <summary>
         /// klaviatūros mygtukų paspaudimų junginiai (gauti REZULTATAI) darantis įtaką rašomam tekstui
+        /// KP_EVENT_KEY_ALL
         /// </summary>
         private List<ObjEvent_key> keysCharsEvents;
-        
+
         /// <summary>
         /// Paspaudimų dažnumui skaičiuoti
+        /// KP_KEY_PRESS_COUNT
         /// </summary>
         private List<ObjKeyPressCount> keyPressCountObjList;
         

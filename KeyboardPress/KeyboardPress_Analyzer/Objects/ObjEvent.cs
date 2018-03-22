@@ -24,19 +24,21 @@ namespace KeyboardPress_Analyzer.Objects
         public bool? CtrlKeyPressed { get; set; }
     }
 
-    public class ObjEvent_base : ObjDateAndDb
+    public class ObjEvent_base : ObjDateWinAndDb
     {
         public EventType EventObjType { get; set; }
-        public string ActiveWindowName { get; set; }
+        
         public EventDataType EventObjDataType { get; set; }
     }
 
-    public class ObjDateAndDb
+    public class ObjDateWinAndDb
     {
-        public ObjDateAndDb()
+        public ObjDateWinAndDb()
         {
             EventTime = DateTime.Now;
         }
+
+        public string ActiveWindowName { get; set; }
 
         public DateTime EventTime { get; set; }
 

@@ -11,6 +11,10 @@ namespace KeyboardPress_Analyzer.Functions
     public class WritingMistakes : IDatabase
     {
         private object locker = new object();
+
+        /// <summary>
+        /// KP_MISTAKE_CHAR
+        /// </summary>
         public List<ObjMistakeChar> MistakesChar { get; set; }
         //public List<ObjMistakeString> MistakesString { get; set; }
 
