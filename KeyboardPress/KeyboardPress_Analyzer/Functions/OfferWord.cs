@@ -102,7 +102,7 @@ namespace KeyboardPress_Analyzer.Functions
         {
             try
             {
-                var dt = Helper.DBHelper.GetDataTableDb($"SELECT value1, value2 FROM KP_OFFER_WORD WHERE user_guid_id = '{DBHelper.UserId}'");
+                var dt = Helper.DBHelper.GetDataTableDb($"SELECT value1, value2 FROM KP_OFFER_WORD WHERE user_record_id = {DBHelper.UserId}");
                 if(dt != null && dt.Rows.Count > 0)
                 {
                     List<KeyValuePair<string, string>> lst = new List<KeyValuePair<string, string>>();

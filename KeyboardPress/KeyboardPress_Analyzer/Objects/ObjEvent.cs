@@ -41,9 +41,12 @@ namespace KeyboardPress_Analyzer.Objects
         public DateTime EventTime { get; set; }
     }
 
+    /// <summary>
+    /// yra klasifikatorius db KP_CLSF_EVENT_TYPE
+    /// </summary>
     public enum EventType
     {
-        KeyDown,
+        KeyDown = 1,
         KeyPress,
         MouseClick,
         MouseDoubleClick,
@@ -61,6 +64,9 @@ namespace KeyboardPress_Analyzer.Objects
         MouseWheelExt
     }
 
+    /// <summary>
+    /// klasifikatorius db KP_CLSF_EVENT_DATA_TYPE
+    /// </summary>
     public enum EventDataType
     {
         KeyboardButtonCode = 1,

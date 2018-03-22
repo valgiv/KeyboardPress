@@ -52,9 +52,7 @@ namespace KeyboardPress_Analyzer.Functions
             {
                 if (obj == null)
                     return;
-
-                obj.EventTime = DateTime.Now;
-
+                
                 lock (locker)
                 {
                     MistakesChar.Add(obj);
@@ -66,7 +64,25 @@ namespace KeyboardPress_Analyzer.Functions
             }
         }
 
-        
+        protected void AddCharMistake(char? beforeRemovedChar,
+            char removedChar,
+            char? changedChar)
+            {
+
+            Console.WriteLine($"AddCharMistake: {(beforeRemovedChar == null ? "null" : beforeRemovedChar.ToString())}, {removedChar.ToString()}, {(changedChar == null ? "null" : changedChar.ToString())}");
+            AddCharMistake(new ObjMistakeChar()
+            {
+                BeforeRemovedChar = beforeRemovedChar,
+                ChangedChar = changedChar,
+                RemovedChar = removedChar,
+                EventTime = DateTime.Now
+            });
+        }
+
+        //protected void AddCharMistake()
+        //{
+        //    throw new NotImplementedException();
+        //}
 
     }
 

@@ -39,6 +39,7 @@
             this.toolStripItem_debug = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripItem_cleanDebugWindow = new System.Windows.Forms.ToolStripMenuItem();
             this.administrationToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.offerWordToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.test2ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.apieToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.informacijaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -57,7 +58,6 @@
             this.tbLastWord = new System.Windows.Forms.TextBox();
             this.tbTotalWords = new System.Windows.Forms.TextBox();
             this.timer_workTime = new System.Windows.Forms.Timer(this.components);
-            this.offerWordToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip.SuspendLayout();
             this.statusStrip.SuspendLayout();
             this.panelDebug.SuspendLayout();
@@ -146,6 +146,13 @@
             this.administrationToolStripMenuItem.Size = new System.Drawing.Size(70, 20);
             this.administrationToolStripMenuItem.Text = "Valdymas";
             this.administrationToolStripMenuItem.Click += new System.EventHandler(this.testToolStripMenuItem_Click);
+            // 
+            // offerWordToolStripMenuItem
+            // 
+            this.offerWordToolStripMenuItem.Name = "offerWordToolStripMenuItem";
+            this.offerWordToolStripMenuItem.Size = new System.Drawing.Size(169, 22);
+            this.offerWordToolStripMenuItem.Text = "Reikšmių keitimas";
+            this.offerWordToolStripMenuItem.Click += new System.EventHandler(this.offerWordToolStripMenuItem_Click);
             // 
             // test2ToolStripMenuItem
             // 
@@ -302,13 +309,6 @@
             // 
             this.timer_workTime.Interval = 1000;
             this.timer_workTime.Tick += new System.EventHandler(this.timer_workTime_Tick);
-            // 
-            // oferWordToolStripMenuItem
-            // 
-            this.offerWordToolStripMenuItem.Name = "oferWordToolStripMenuItem";
-            this.offerWordToolStripMenuItem.Size = new System.Drawing.Size(169, 22);
-            this.offerWordToolStripMenuItem.Text = "Reikšmių keitimas";
-            this.offerWordToolStripMenuItem.Click += new System.EventHandler(this.offerWordToolStripMenuItem_Click);
             // 
             // MainForm
             // 
