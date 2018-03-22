@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace KeyboardPress_Analyzer.Functions
 {
-    public class WritingMistakes
+    public class WritingMistakes : IDatabase
     {
         private object locker = new object();
         public List<ObjMistakeChar> MistakesChar { get; set; }
@@ -77,6 +77,30 @@ namespace KeyboardPress_Analyzer.Functions
                 RemovedChar = removedChar,
                 EventTime = DateTime.Now
             });
+        }
+
+        public void Db_SaveChanges()
+        {
+            // to do:
+            throw new NotImplementedException();
+        }
+
+        public void Db_LoadData()
+        {
+            // to do:
+            throw new NotImplementedException();
+        }
+
+        public void Db_DelateDataFromDatabase()
+        {
+            // to do:
+            throw new NotImplementedException();
+        }
+
+        public void Db_DeleteDataFromLocalMemory()
+        {
+            // to do:
+            throw new NotImplementedException();
         }
 
         //protected void AddCharMistake()

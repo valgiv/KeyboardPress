@@ -8,6 +8,8 @@ namespace KeyboardPress_Analyzer.Functions
 {
     public class RestReminder
     {
+        // nice to have: saugoti/kaupti, kiek buvo pertraukų, kiek pertraukų ir t.t.
+
         private Stopwatch workStopwatch;
         private Stopwatch restStopwatch;
 

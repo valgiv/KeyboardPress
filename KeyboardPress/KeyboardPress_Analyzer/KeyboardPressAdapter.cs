@@ -15,7 +15,7 @@ using System.Windows.Forms;
 
 namespace KeyboardPress_Analyzer
 {
-    public class KeyboardPressAdapter : IKeyboardPressAdapter
+    public class KeyboardPressAdapter : IKeyboardPressAdapter, IDatabase
     {
         /// <summary>
         /// Pelės mygtukų paspaudimai
@@ -282,8 +282,29 @@ namespace KeyboardPress_Analyzer
 
             DebugHelper.AddInfoMsg(newRec.EventTime, $"{newRec.Key.ToString()} {newRec.KeyValue.ToString()} [{newRec.ActiveWindowName}]");
         }
-        
-        
 
+        public void Db_SaveChanges()
+        {
+            // to do:
+            throw new NotImplementedException();
+        }
+
+        public void Db_LoadData()
+        {
+            // to do:
+            throw new NotImplementedException();
+        }
+
+        public void Db_DelateDataFromDatabase()
+        {
+            // to do:
+            throw new NotImplementedException();
+        }
+
+        public void Db_DeleteDataFromLocalMemory()
+        {
+            // to do:
+            throw new NotImplementedException();
+        }
     }
 }

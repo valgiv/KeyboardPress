@@ -24,25 +24,27 @@ namespace KeyboardPress_Analyzer.Objects
         public bool? CtrlKeyPressed { get; set; }
     }
 
-    public class ObjEvent_base : ObjDate
+    public class ObjEvent_base : ObjDateAndDb
     {
         public EventType EventObjType { get; set; }
         public string ActiveWindowName { get; set; }
         public EventDataType EventObjDataType { get; set; }
     }
 
-    public class ObjDate
+    public class ObjDateAndDb
     {
-        public ObjDate()
+        public ObjDateAndDb()
         {
             EventTime = DateTime.Now;
         }
 
         public DateTime EventTime { get; set; }
+
+        public bool SavedInDB { get; set; }
     }
 
     /// <summary>
-    /// yra klasifikatorius db KP_CLSF_EVENT_TYPE
+    /// klasifikatorius db KP_CLSF_EVENT_TYPE
     /// </summary>
     public enum EventType
     {

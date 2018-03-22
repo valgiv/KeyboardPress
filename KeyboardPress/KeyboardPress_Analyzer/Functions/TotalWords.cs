@@ -10,7 +10,7 @@ using System.Windows.Forms;
 
 namespace KeyboardPress_Analyzer.Functions
 {
-    public class TotalWords : WritingMistakes
+    public class TotalWords : WritingMistakes, IDatabase
     {
         //private ulong totalWords_v1;
         //private ulong wordsWithMistakes_v1;
@@ -554,6 +554,28 @@ namespace KeyboardPress_Analyzer.Functions
             return true;
         }
 
+        public void Db_SaveChanges()
+        {
+            // to do:
+            throw new NotImplementedException();
+        }
 
+        public void Db_LoadData()
+        {
+            // to do:
+            throw new NotImplementedException();
+        }
+
+        public void Db_DelateDataFromDatabase()
+        {
+            // to do:
+            throw new NotImplementedException();
+        }
+
+        public void Db_DeleteDataFromLocalMemory()
+        {
+            // to do:
+            throw new NotImplementedException();
+        }
     }
 }

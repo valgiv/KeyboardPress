@@ -8,7 +8,7 @@ namespace KeyboardPress_Analyzer.Objects
     //    public string Word { get; set; }   
     //}
 
-    public class ObjMistakeChar : ObjDate
+    public class ObjMistakeChar : ObjDateAndDb
     {
         public char? BeforeRemovedChar { get; set; }
 

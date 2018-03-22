@@ -71,6 +71,7 @@
     <Compile Include="Functions\TotalWords.cs" />
     <Compile Include="Functions\WritingMistakes.cs" />
     <Compile Include="Helper\DBHelper.cs" />
+    <Compile Include="IDatabase.cs" />
     <Compile Include="KeyboardControlAdapter.cs" />
     <Compile Include="Objects\ObjEvent.cs" />
     <Compile Include="Helper\DebugHelper.cs" />
