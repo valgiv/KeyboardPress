@@ -2,6 +2,7 @@
 using KeyboardPress_Analyzer.Objects;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
@@ -16,6 +17,8 @@ namespace KeyboardPress_Analyzer.Functions
         //private ulong wordsWithMistakes_v1;
         //private List<string> tmpWrdsList_v1 = new List<string>();
 
+        //to do: ar netrūksta lock'ų?
+        
         private ulong totalWords_v2;
         private ulong wordsWithMistakes_v2;
         private List<string> tmpWrdsList_v2 = new List<string>();
@@ -556,26 +559,106 @@ namespace KeyboardPress_Analyzer.Functions
 
         public void Db_SaveChanges()
         {
-            // to do:
-            throw new NotImplementedException();
+            try
+            {
+                string sql = $@"
+IF EXISTS (SELECT record_id FROM KP_SYSTEM_PARAMETERS WHERE user_record_id = {DBHelper.UserId} AND name = '{nameof(totalWords_v2)}')
+BEGIN
+    UPDATE KP_SYSTEM_PARAMETERS
+        SET decimal_value = {totalWords_v2}, modified_date = '{DateTime.Now}'
+    WHERE user_record_id = {DBHelper.UserId} AND name = '{nameof(totalWords_v2)}'
+END
+ELSE BEGIN
+    INSERT INTO KP_SYSTEM_PARAMETERS (user_record_id, name, decimal_value, modified_date)
+        VALUES ({DBHelper.UserId}, '{nameof(totalWords_v2)}', {totalWords_v2}, '{DateTime.Now}')
+END
+
+IF EXISTS (SELECT record_id FROM KP_SYSTEM_PARAMETERS WHERE user_record_id = {DBHelper.UserId} AND name = '{nameof(wordsWithMistakes_v2)}')
+BEGIN
+    UPDATE KP_SYSTEM_PARAMETERS
+        SET decimal_value = {wordsWithMistakes_v2}, modified_date = '{DateTime.Now}'
+    WHERE user_record_id = {DBHelper.UserId} AND name = '{nameof(wordsWithMistakes_v2)}'
+END
+ELSE BEGIN
+    INSERT INTO KP_SYSTEM_PARAMETERS (user_record_id, name, decimal_value, modified_date)
+        VALUES ({DBHelper.UserId}, '{nameof(wordsWithMistakes_v2)}', {wordsWithMistakes_v2}, '{DateTime.Now}')
+END
+";
+
+                var result = DBHelper.ExecSqlDb(sql, true);
+                if (result != "OK")
+                    throw new Exception($"Failed {nameof(TotalWords)} {nameof(Db_SaveChanges)}: {result} (sql: {sql})");
+            }
+            catch(Exception ex)
+            {
+                LogHelper.LogErrorMsg(ex);
+                throw;
+            }
         }
 
         public void Db_LoadData()
         {
-            // to do:
-            throw new NotImplementedException();
+            try
+            {
+                var dt = DBHelper.GetDataTableDb($@"
+SELECT
+    SP.name, SP.decimal_value
+FROM KP_SYSTEM_PARAMETERS SP
+WHERE SP.user_record_id = {DBHelper.UserId}
+    AND SP.name IN ('{nameof(totalWords_v2)}', '{nameof(wordsWithMistakes_v2)}')");
+
+                if (dt == null)
+                    throw new Exception($"Failed {nameof(TotalWords)}.{nameof(Db_LoadData)} dataload");
+
+                var tw = dt.AsEnumerable().FirstOrDefault(x => x.Field<string>("name") == nameof(totalWords_v2));
+                if (tw != null)
+                    totalWords_v2 = System.Convert.ToUInt64(tw["decimal_value"]);
+                else
+                    totalWords_v2 = 0;
+
+                var twm = dt.AsEnumerable().FirstOrDefault(x => x.Field<string>("name") == nameof(wordsWithMistakes_v2));
+                if (twm != null)
+                    wordsWithMistakes_v2 = System.Convert.ToUInt64(twm["decimal_value"]);
+                else
+                    wordsWithMistakes_v2 = 0;
+            }
+            catch(Exception ex)
+            {
+                LogHelper.LogErrorMsg(ex);
+                throw;
+            }
         }
 
         public void Db_DelateDataFromDatabase()
         {
-            // to do:
-            throw new NotImplementedException();
+            try
+            {
+                string sql = $"DELETE FROM KP_SYSTEM_PARAMETERS WHERE user_record_id = {DBHelper.UserId} AND name IN ('{nameof(totalWords_v2)}', '{nameof(wordsWithMistakes_v2)}')";
+                var result = DBHelper.ExecSqlDb(sql, true);
+                if (result != "OK")
+                    throw new Exception($"Failed {nameof(TotalWords)} {nameof(Db_DelateDataFromDatabase)}: {result} (sql: {sql})");
+            }
+            catch(Exception ex)
+            {
+                LogHelper.LogErrorMsg(ex);
+                throw;
+            }
+
+            Db_DeleteDataFromLocalMemory();
         }
 
         public void Db_DeleteDataFromLocalMemory()
         {
-            // to do:
-            throw new NotImplementedException();
+            try
+            {
+                totalWords_v2 = 0;
+                wordsWithMistakes_v2 = 0;
+            }
+            catch(Exception ex)
+            {
+                LogHelper.LogErrorMsg(ex);
+                throw;
+            }
         }
     }
 }
