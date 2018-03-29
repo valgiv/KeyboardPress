@@ -67,6 +67,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Constants.cs" />
+    <Compile Include="DatabaseControl.cs" />
     <Compile Include="Functions\OfferWord.cs" />
     <Compile Include="Functions\TotalWords.cs" />
     <Compile Include="Functions\WritingMistakes.cs" />
@@ -82,6 +83,7 @@
     <Compile Include="KeyboardPressTracking.cs" />
     <Compile Include="Objects\ObjKeyPressCount.cs" />
     <Compile Include="Objects\ObjMistake.cs" />
+    <Compile Include="Objects\ObjWin.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Functions\RestReminder.cs" />
     <Compile Include="UiControls.cs" />

@@ -287,6 +287,8 @@ namespace KeyboardPress_Analyzer
             DebugHelper.AddInfoMsg(newRec.EventTime, $"{newRec.Key.ToString()} {newRec.KeyValue.ToString()} [{newRec.ActiveWindowName}]");
         }
 
+        #region IDatabase
+
         public void Db_SaveChanges()
         {
             try
@@ -509,5 +511,6 @@ DELETE FROM KP_KEYPRESS_COUNT WHERE user_record_id = {DBHelper.UserId}";
             }
         }
 
+        #endregion IDatabase
     }
 }

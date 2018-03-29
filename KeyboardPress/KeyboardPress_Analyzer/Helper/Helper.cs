@@ -111,8 +111,16 @@ namespace KeyboardPress_Analyzer.Helper
                 uint pid;
                 GetWindowThreadProcessId(hwnd, out pid);
                 Process p = Process.GetProcessById((int)pid);
-
-                return p.ProcessName.ToString();
+                string result = p.ProcessName;
+                try
+                {
+                    string name = p.MainModule.FileVersionInfo.FileDescription;
+                    if (!String.IsNullOrEmpty(name))
+                        result = name;
+                }
+                catch { }
+                
+                return result;
             }
             catch { return "z_unknown"; }
             
