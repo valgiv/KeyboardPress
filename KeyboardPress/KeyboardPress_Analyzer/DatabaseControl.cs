@@ -13,7 +13,7 @@ namespace KeyboardPress_Analyzer
     {
         public static List<ObjWin> WindowsList = new List<ObjWin>();
 
-        public static Tuple<int, string>[] GetWindowsByIds(int[] ids)
+        public static Tuple<int, string>[] GetWindowsByIds(params int[] ids)
         {
             try
             {
@@ -29,7 +29,7 @@ namespace KeyboardPress_Analyzer
             }
         }
 
-        public static Tuple<int, string>[] GetWindowsIdsByProcName(string[] procNames)
+        public static Tuple<int, string>[] GetWindowsIdsByProcName(params string[] procNames)
         {
             try
             {

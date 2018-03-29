@@ -192,7 +192,9 @@ namespace KeyboardPress_Analyzer
                     EventObjType = EventType.KeyPress,
                     KeyValue = e.KeyValue,
                     EventObjDataType = EventDataType.KeyboardButtonCode,
-                    Key = e.KeyCode.ToString()
+                    Key = e.KeyCode.ToString(),
+                    SavedInDB = false,
+                    EventTime = DateTime.Now
                 };
                 Add_ObjEvent_key(a);
             }
@@ -302,7 +304,9 @@ namespace KeyboardPress_Analyzer
                     EventObjType = EventType.KeyPress, //nes naudojamas bus ten kur generuojamos zodis
                     KeyValue = -1,
                     EventObjDataType = EventDataType.MouseClick,
-                    Key = "MouseClick"
+                    Key = "MouseClick",
+                    EventTime = DateTime.Now,
+                    SavedInDB = false
                 };
                 Add_ObjEvent_key(a);
             }

@@ -80,7 +80,9 @@ namespace KeyboardPress_Analyzer.Functions
                 BeforeRemovedChar = beforeRemovedChar,
                 ChangedChar = changedChar,
                 RemovedChar = removedChar,
-                EventTime = DateTime.Now
+                EventTime = DateTime.Now,
+                SavedInDB = false,
+                ActiveWindowName = Helper.Helper.GetActiveWindowTitle_v2()
             });
         }
 
@@ -130,11 +132,14 @@ ORDER BY record_id ASC");
                 if (dt == null || dt.Rows.Count == 0)
                     return;
 
+                
                 dt.AsEnumerable().ToList().ForEach(x =>
                 {
+                    var winName = DatabaseControl.GetWindowsByIds(x.Field<int>("win_id"));
+
                     MistakesChar.Add(new ObjMistakeChar()
                     {
-                        ActiveWindowName = "", //to do
+                        ActiveWindowName = winName != null && winName.Length > 0 ? winName[0].Item2 : Helper.Helper.unknownWindowName,
                         SavedInDB = true,
                         EventTime = x.Field<DateTime>("time"),
                         RemovedChar = x.Field<string>("removed_char")[0],

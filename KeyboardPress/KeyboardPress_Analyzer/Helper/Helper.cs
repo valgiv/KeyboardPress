@@ -14,6 +14,8 @@ namespace KeyboardPress_Analyzer.Helper
     {
         public static readonly int[] ltLettersArray = new int[] { 260, 261, 269, 268, 281, 280, 279, 278, 303, 303, 353, 352, 371, 370, 363, 362, 382, 381 };
 
+        public static readonly string unknownWindowName = "z_unknown";
+
         private static UiControls uiControls;
         public static UiControls UiControls
         {
@@ -122,7 +124,7 @@ namespace KeyboardPress_Analyzer.Helper
                 
                 return result;
             }
-            catch { return "z_unknown"; }
+            catch { return unknownWindowName; }
             
 
             /// nice to have:

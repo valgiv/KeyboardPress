@@ -205,7 +205,9 @@ namespace KeyboardPress_Analyzer
                 EventObjType = EventType.KeyPress,
                 KeyValue = (int)e.KeyChar,
                 Key = e.KeyChar.ToString(),
-                EventObjDataType = EventDataType.SymbolAsciiCode
+                EventObjDataType = EventDataType.SymbolAsciiCode,
+                SavedInDB = false,
+                EventTime = DateTime.Now
             };
 
             Add_ObjEvent_key(newRec);
@@ -258,7 +260,9 @@ namespace KeyboardPress_Analyzer
                 EventObjType = EventType.KeyDown,
                 ActiveWindowName = Helper.Helper.GetActiveWindowTitle_v2(),
                 KeyValue = e.KeyValue,
-                EventObjDataType = EventDataType.KeyboardButtonCode
+                EventObjDataType = EventDataType.KeyboardButtonCode,
+                SavedInDB = false,
+                EventTime = DateTime.Now
             };
             try
             {
@@ -296,12 +300,16 @@ namespace KeyboardPress_Analyzer
                 #region KP_EVENT_MOUSE
                 if (mouseEvents.Count(x=>x.SavedInDB == false) > 0)
                 {
+                    DatabaseControl.SaveWindows(mouseEvents.Where(x => x.SavedInDB == false).Select(x => x.ActiveWindowName).Distinct().ToArray());
+
                     string sql_KP_EVENT_MOUSE = "INSERT INTO KP_EVENT_MOUSE (event_type_id, event_data_type_id, win_id, time, x, y, user_record_id) VALUES";
                     mouseEvents.Where(x => x.SavedInDB == false).ToList().ForEach(x =>
                     {
+                        var win = DatabaseControl.GetWindowsIdsByProcName(x.ActiveWindowName);
+
                         sql_KP_EVENT_MOUSE += $@"
-({(int)x.EventObjType}, {(int)x.EventObjDataType}, null, '{x.EventTime}', {(x.X != null ? x.X.ToString() : "null")}, {(x.Y != null ? x.Y.ToString() : "null")}, {DBHelper.UserId}),";
-                    }); //to do: win_id
+({(int)x.EventObjType}, {(int)x.EventObjDataType}, {win[0].Item1}, '{x.EventTime}', {(x.X != null ? x.X.ToString() : "null")}, {(x.Y != null ? x.Y.ToString() : "null")}, {DBHelper.UserId}),";
+                    });
                     sql_KP_EVENT_MOUSE = sql_KP_EVENT_MOUSE.Remove(sql_KP_EVENT_MOUSE.Length - 1, 1);
                     var result_KP_EVENT_MOUSE = DBHelper.ExecSqlDb(sql_KP_EVENT_MOUSE, true);
                     if (result_KP_EVENT_MOUSE != "OK")
@@ -314,11 +322,15 @@ namespace KeyboardPress_Analyzer
                 #region KP_EVENT_KEY_ALL
                 if (keysEvents.Count(x => x.SavedInDB == false) > 0)
                 {
+                    DatabaseControl.SaveWindows(keysEvents.Where(x => x.SavedInDB == false).Select(y=>y.ActiveWindowName).Distinct().ToArray());
+
                     string sql_KP_EVENT_KEY_ALL = "INSERT INTO KP_EVENT_KEY_ALL (event_type_id, event_data_type_id, win_id, time, key, key_value, shift_press, ctrl_press, user_record_id) VALUES";
                     keysEvents.Where(x => x.SavedInDB == false).ToList().ForEach(x =>
                     {
+                        var win = DatabaseControl.GetWindowsIdsByProcName(x.ActiveWindowName);
+
                         sql_KP_EVENT_KEY_ALL += $@"
-({(int)x.EventObjType}, {(int)x.EventObjDataType}, null, '{x.EventTime}', '{x.Key}', {x.KeyValue}, {(x.ShiftKeyPressed != null ? ((bool)x.ShiftKeyPressed ? "1" : "0") : "null")}, {(x.CtrlKeyPressed != null ? ((bool)x.CtrlKeyPressed ? "1" : "0") : "null")}, {DBHelper.UserId}),";//to do: win_id
+({(int)x.EventObjType}, {(int)x.EventObjDataType}, {win[0].Item1}, '{x.EventTime}', '{x.Key}', {x.KeyValue}, {(x.ShiftKeyPressed != null ? ((bool)x.ShiftKeyPressed ? "1" : "0") : "null")}, {(x.CtrlKeyPressed != null ? ((bool)x.CtrlKeyPressed ? "1" : "0") : "null")}, {DBHelper.UserId}),";
                     });
                     sql_KP_EVENT_KEY_ALL = sql_KP_EVENT_KEY_ALL.Remove(sql_KP_EVENT_KEY_ALL.Length - 1, 1);
                     var result_KP_EVENT_KEY_ALL = DBHelper.ExecSqlDb(sql_KP_EVENT_KEY_ALL, true);
@@ -332,11 +344,15 @@ namespace KeyboardPress_Analyzer
                 #region KP_EVENT_KEY_CHAR
                 if (keysCharsEvents.Count(x => x.SavedInDB == false) > 0)
                 {
+                    DatabaseControl.SaveWindows(keysCharsEvents.Where(y => y.SavedInDB == false).Select(y=>y.ActiveWindowName).Distinct().ToArray());
+
                     string sql_KP_EVENT_KEY_CHAR = "INSERT INTO KP_EVENT_KEY_CHAR (event_type_id, event_data_type_id, win_id, time, key, key_value, shift_press, ctrl_press, user_record_id) VALUES";
                     keysCharsEvents.Where(x => x.SavedInDB == false).ToList().ForEach(x =>
                     {
+                        var win = DatabaseControl.GetWindowsIdsByProcName(x.ActiveWindowName);
+
                         sql_KP_EVENT_KEY_CHAR += $@"
-({(int)x.EventObjType}, {(int)x.EventObjDataType}, null, '{x.EventTime}', '{x.Key}', {x.KeyValue}, {(x.ShiftKeyPressed != null ? ((bool)x.ShiftKeyPressed ? "1" : "0") : "null")}, {(x.CtrlKeyPressed != null ? ((bool)x.CtrlKeyPressed ? "1" : "0") : "null")}, {DBHelper.UserId}),";//to do: win_id
+({(int)x.EventObjType}, {(int)x.EventObjDataType}, {win[0].Item1}, '{x.EventTime}', '{x.Key}', {x.KeyValue}, {(x.ShiftKeyPressed != null ? ((bool)x.ShiftKeyPressed ? "1" : "0") : "null")}, {(x.CtrlKeyPressed != null ? ((bool)x.CtrlKeyPressed ? "1" : "0") : "null")}, {DBHelper.UserId}),";
                     });
                     sql_KP_EVENT_KEY_CHAR = sql_KP_EVENT_KEY_CHAR.Remove(sql_KP_EVENT_KEY_CHAR.Length - 1, 1);
                     var result_KP_EVENT_KEY_CHAR = DBHelper.ExecSqlDb(sql_KP_EVENT_KEY_CHAR, true);
@@ -399,9 +415,11 @@ SELECT record_id, ascii_code, press_hold_count, press_release_count, user_record
                     //keysEvents
                     ds.Tables[0].AsEnumerable().ToList().ForEach(x =>
                     {
+                        var win = DatabaseControl.GetWindowsByIds(x.Field<int>("win_id"));
+
                         keysEvents.Add(new ObjEvent_key()
                         {
-                            ActiveWindowName = "", //to do
+                            ActiveWindowName = win != null && win.Length > 0 ? win[0].Item2 : Helper.Helper.unknownWindowName,
                             CtrlKeyPressed = x.Field<bool?>("ctrl_press").HasValue ? x.Field<bool?>("ctrl_press").Value : (bool?)null,
                             ShiftKeyPressed = x.Field<bool?>("shift_press").HasValue ? x.Field<bool?>("shift_press").Value : (bool?)null,
                             EventTime = x.Field<DateTime>("time"),
@@ -420,9 +438,10 @@ SELECT record_id, ascii_code, press_hold_count, press_release_count, user_record
                     //keysCharsEvents
                     ds.Tables[1].AsEnumerable().ToList().ForEach(x =>
                     {
+                        var win = DatabaseControl.GetWindowsByIds(x.Field<int>("record_id"));
                         keysCharsEvents.Add(new ObjEvent_key()
                         {
-                            ActiveWindowName = "", //to do
+                            ActiveWindowName = win != null && win.Length > 0 ? win[0].Item2 : Helper.Helper.unknownWindowName,
                             CtrlKeyPressed = x.Field<bool?>("ctrl_press").HasValue ? x.Field<bool?>("ctrl_press").Value : (bool?)null,
                             ShiftKeyPressed = x.Field<bool?>("shift_press").HasValue ? x.Field<bool?>("shift_press").Value : (bool?)null,
                             EventTime = x.Field<DateTime>("time"),
@@ -440,9 +459,11 @@ SELECT record_id, ascii_code, press_hold_count, press_release_count, user_record
                     //KP_EVENT_MOUSE
                     ds.Tables[2].AsEnumerable().ToList().ForEach(x =>
                     {
+                        var win = DatabaseControl.GetWindowsByIds(x.Field<int>("win_id"));
+
                         mouseEvents.Add(new ObjEvent_mouse()
                         {
-                            ActiveWindowName = "",//to do
+                            ActiveWindowName = win != null && win.Length > 0 ? win[0].Item2 : Helper.Helper.unknownWindowName,
                             EventTime = x.Field<DateTime>("time"),
                             EventObjDataType = (EventDataType)x.Field<int>("event_data_type_id"),
                             EventObjType = (EventType)x.Field<int>("event_type_id"),

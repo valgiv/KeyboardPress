@@ -15,8 +15,6 @@ namespace KeyboardPress_Analyzer.Objects
         public char RemovedChar { get; set; }
 
         public char? ChangedChar { get; set; }
-
-        //to do: padaryti lango kuriame padaryta klaida fiksavimą
     }
 
     //public class ObjMistakeString : ObjMistake
