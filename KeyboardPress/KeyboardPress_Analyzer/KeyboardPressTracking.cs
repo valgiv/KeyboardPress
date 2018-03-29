@@ -13,7 +13,7 @@ using System.Windows.Forms;
 
 namespace KeyboardPress_Analyzer
 {
-    public class KeyboardPressTracking : KeyboardPressAdapter
+    public class KeyboardPressTracking : KeyboardPressAdapter, IDatabase
     {
         private const ulong ulongMax = ulong.MaxValue;
         private const int lastRecordsToCheck = 30;
@@ -323,9 +323,7 @@ namespace KeyboardPress_Analyzer
             WorkInProgress();
         }
         #endregion
-
         
-
         #region count avrg
 
         public double countAvrgPressPerMin()
@@ -377,6 +375,41 @@ namespace KeyboardPress_Analyzer
         }
 
         #endregion count avrg
+
+        #region IDatabase
+        public void Db_SaveChanges()
+        {
+            if (TotalWordsClass != null)
+                TotalWordsClass.Db_SaveChanges(); //kartu ir Writing mistakes
+
+            base.Db_SaveChanges();
+        }
+
+        public void Db_LoadData()
+        {
+            if (TotalWordsClass != null)
+                TotalWordsClass.Db_LoadData(); //kartu ir Writing mistakes
+
+            base.Db_LoadData();
+        }
+
+        public void Db_DeleteDataFromDatabase()
+        {
+            if (TotalWordsClass != null)
+                TotalWordsClass.Db_DeleteDataFromDatabase(); //kartu ir Writing mistakes
+
+            base.Db_DeleteDataFromDatabase();
+        }
+
+        public void Db_DeleteDataFromLocalMemory()
+        {
+            if (TotalWordsClass != null)
+                TotalWordsClass.Db_DeleteDataFromLocalMemory(); //kartu ir Writing mistakes
+
+            base.Db_DeleteDataFromLocalMemory();
+        }
+
+        #endregion
 
     }
 }

@@ -8,6 +8,11 @@ namespace KeyboardPress_Analyzer.Objects
 {
     public class ObjKeyPressCount
     {
+        public ObjKeyPressCount()
+        {
+
+        }
+
         public ObjKeyPressCount(int asciiKeyCode)
         {
             this.AsciiKeyCode = asciiKeyCode;

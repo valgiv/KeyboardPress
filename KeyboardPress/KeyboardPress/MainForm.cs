@@ -387,5 +387,34 @@ testas";
                 LogHelper.LogErrorMsg(ex);
             }
         }
+
+        #region Data Database
+
+        private void loadDataDbToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (kpt != null)
+                kpt.Db_LoadData();
+        }
+
+        private void saveDataDbToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (kpt != null)
+                kpt.Db_SaveChanges();
+        }
+
+        private void deleteDataDbToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (kpt != null)
+                kpt.Db_DeleteDataFromDatabase();
+        }
+
+        private void deleteDataLocalMemoryToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (kpt != null)
+                kpt.Db_DeleteDataFromLocalMemory();
+        }
+
+        #endregion Data Database
+
     }
 }

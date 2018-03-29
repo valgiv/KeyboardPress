@@ -3,6 +3,7 @@ using KeyboardPress_Analyzer.Helper;
 using KeyboardPress_Analyzer.Objects;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Diagnostics;
 using System.Drawing;
 using System.Globalization;
@@ -288,26 +289,225 @@ namespace KeyboardPress_Analyzer
 
         public void Db_SaveChanges()
         {
-            // to do:
-            throw new NotImplementedException();
+            try
+            {
+                #region KP_EVENT_MOUSE
+                if (mouseEvents.Count(x=>x.SavedInDB == false) > 0)
+                {
+                    string sql_KP_EVENT_MOUSE = "INSERT INTO KP_EVENT_MOUSE (event_type_id, event_data_type_id, win_id, time, x, y, user_record_id) VALUES";
+                    mouseEvents.Where(x => x.SavedInDB == false).ToList().ForEach(x =>
+                    {
+                        sql_KP_EVENT_MOUSE += $@"
+({(int)x.EventObjType}, {(int)x.EventObjDataType}, null, '{x.EventTime}', {(x.X != null ? x.X.ToString() : "null")}, {(x.Y != null ? x.Y.ToString() : "null")}, {DBHelper.UserId}),";
+                    }); //to do: win_id
+                    sql_KP_EVENT_MOUSE = sql_KP_EVENT_MOUSE.Remove(sql_KP_EVENT_MOUSE.Length - 1, 1);
+                    var result_KP_EVENT_MOUSE = DBHelper.ExecSqlDb(sql_KP_EVENT_MOUSE, true);
+                    if (result_KP_EVENT_MOUSE != "OK")
+                        throw new Exception($"Failled {nameof(KeyboardPressAdapter)}.{nameof(Db_SaveChanges)} {result_KP_EVENT_MOUSE} (sql: {sql_KP_EVENT_MOUSE})");
+
+                    mouseEvents.Where(x => x.SavedInDB == false).ToList().ForEach(x => x.SavedInDB = true);
+                }
+                #endregion KP_EVENT_MOUSE
+
+                #region KP_EVENT_KEY_ALL
+                if (keysEvents.Count(x => x.SavedInDB == false) > 0)
+                {
+                    string sql_KP_EVENT_KEY_ALL = "INSERT INTO KP_EVENT_KEY_ALL (event_type_id, event_data_type_id, win_id, time, key, key_value, shift_press, ctrl_press, user_record_id) VALUES";
+                    keysEvents.Where(x => x.SavedInDB == false).ToList().ForEach(x =>
+                    {
+                        sql_KP_EVENT_KEY_ALL += $@"
+({(int)x.EventObjType}, {(int)x.EventObjDataType}, null, '{x.EventTime}', '{x.Key}', {x.KeyValue}, {(x.ShiftKeyPressed != null ? ((bool)x.ShiftKeyPressed ? "1" : "0") : "null")}, {(x.CtrlKeyPressed != null ? ((bool)x.CtrlKeyPressed ? "1" : "0") : "null")}, {DBHelper.UserId}),";//to do: win_id
+                    });
+                    sql_KP_EVENT_KEY_ALL = sql_KP_EVENT_KEY_ALL.Remove(sql_KP_EVENT_KEY_ALL.Length - 1, 1);
+                    var result_KP_EVENT_KEY_ALL = DBHelper.ExecSqlDb(sql_KP_EVENT_KEY_ALL, true);
+                    if(result_KP_EVENT_KEY_ALL != "OK")
+                        throw new Exception($"Failled {nameof(KeyboardPressAdapter)}.{nameof(Db_SaveChanges)} {result_KP_EVENT_KEY_ALL} (sql: {sql_KP_EVENT_KEY_ALL})");
+
+                    keysEvents.Where(x => x.SavedInDB == false).ToList().ForEach(x => x.SavedInDB = true);
+                }
+                #endregion KP_EVENT_KEY_ALL
+
+                #region KP_EVENT_KEY_CHAR
+                if (keysCharsEvents.Count(x => x.SavedInDB == false) > 0)
+                {
+                    string sql_KP_EVENT_KEY_CHAR = "INSERT INTO KP_EVENT_KEY_CHAR (event_type_id, event_data_type_id, win_id, time, key, key_value, shift_press, ctrl_press, user_record_id) VALUES";
+                    keysCharsEvents.Where(x => x.SavedInDB == false).ToList().ForEach(x =>
+                    {
+                        sql_KP_EVENT_KEY_CHAR += $@"
+({(int)x.EventObjType}, {(int)x.EventObjDataType}, null, '{x.EventTime}', '{x.Key}', {x.KeyValue}, {(x.ShiftKeyPressed != null ? ((bool)x.ShiftKeyPressed ? "1" : "0") : "null")}, {(x.CtrlKeyPressed != null ? ((bool)x.CtrlKeyPressed ? "1" : "0") : "null")}, {DBHelper.UserId}),";//to do: win_id
+                    });
+                    sql_KP_EVENT_KEY_CHAR = sql_KP_EVENT_KEY_CHAR.Remove(sql_KP_EVENT_KEY_CHAR.Length - 1, 1);
+                    var result_KP_EVENT_KEY_CHAR = DBHelper.ExecSqlDb(sql_KP_EVENT_KEY_CHAR, true);
+                    if (result_KP_EVENT_KEY_CHAR != "OK")
+                        throw new Exception($"Failled {nameof(KeyboardPressAdapter)}.{nameof(Db_SaveChanges)} {result_KP_EVENT_KEY_CHAR} (sql: {sql_KP_EVENT_KEY_CHAR})");
+
+                    keysCharsEvents.Where(x => x.SavedInDB == false).ToList().ForEach(x => x.SavedInDB = true);
+                }
+                #endregion KP_EVENT_KEY_CHAR
+
+                #region keyPressCountObjList - KP_KEYPRESS_COUNT
+
+                string sql = "";
+                keyPressCountObjList.ForEach(x =>
+                {
+                    sql += $@"
+UPDATE KP_KEY_PRESS_COUNT
+    SET press_hold_count = {x.PressHoldCount}, press_release_count = {x.PressReleaseCount}
+WHERE ascii_code = {x.AsciiKeyCode} AND user_record_id = {DBHelper.UserId}
+IF @@ROWCOUNT = 0
+    INSERT INTO KP_KEY_PRESS_COUNT (ascii_code, press_hold_count, press_release_count, user_record_id)
+        VALUES ({x.AsciiKeyCode}, {x.PressHoldCount}, {x.PressReleaseCount}, {DBHelper.UserId})";
+                });
+                var result = DBHelper.ExecSqlDb(sql, true);
+                if (result != "OK")
+                    throw new Exception($"Failled {nameof(KeyboardPressAdapter)}.{nameof(Db_SaveChanges)} {result} (sql: {sql})");
+                
+                #endregion keyPressCountObjList - KP_KEYPRESS_COUNT
+            }
+            catch (Exception ex)
+            {
+                LogHelper.LogErrorMsg(ex);
+                throw;
+            }
         }
 
         public void Db_LoadData()
         {
-            // to do:
-            throw new NotImplementedException();
+            try
+            {
+                mouseEvents = new List<ObjEvent_mouse>();
+                keysEvents = new List<ObjEvent_key>();
+                keysCharsEvents = new List<ObjEvent_key>();
+                keyPressCountObjList = new List<ObjKeyPressCount>();
+
+                string sql = $@"
+SELECT record_id, event_type_id, event_data_type_id, win_id, time, key, key_value, shift_press, ctrl_press, user_record_id FROM KP_EVENT_KEY_ALL WHERE user_record_id = {DBHelper.UserId}
+SELECT record_id, event_type_id, event_data_type_id, win_id, time, key, key_value, shift_press, ctrl_press, user_record_id FROM KP_EVENT_KEY_CHAR WHERE user_record_id = {DBHelper.UserId}
+SELECT record_id, event_type_id, event_data_type_id, win_id, time, x, y, user_record_id FROM KP_EVENT_MOUSE WHERE user_record_id = {DBHelper.UserId}
+SELECT record_id, ascii_code, press_hold_count, press_release_count, user_record_id FROM KP_KEYPRESS_COUNT WHERE user_record_id = {DBHelper.UserId}";
+
+                var ds = DBHelper.GetDataSetDb(sql);
+
+                if (ds == null || ds.Tables.Count != 4)
+                    throw new Exception($"Failled {nameof(KeyboardPressAdapter)}.{nameof(Db_LoadData)} data load (sql: {sql})");
+
+                if(ds.Tables[0].Rows.Count > 0)
+                {
+                    //KP_EVENT_KEY_ALL
+                    //keysEvents
+                    ds.Tables[0].AsEnumerable().ToList().ForEach(x =>
+                    {
+                        keysEvents.Add(new ObjEvent_key()
+                        {
+                            ActiveWindowName = "", //to do
+                            CtrlKeyPressed = x.Field<bool?>("ctrl_press").HasValue ? x.Field<bool?>("ctrl_press").Value : (bool?)null,
+                            ShiftKeyPressed = x.Field<bool?>("shift_press").HasValue ? x.Field<bool?>("shift_press").Value : (bool?)null,
+                            EventTime = x.Field<DateTime>("time"),
+                            SavedInDB = true,
+                            EventObjDataType = (EventDataType)x.Field<int>("event_data_type_id"),
+                            EventObjType = (EventType)x.Field<int>("event_type_id"),
+                            Key = x.Field<string>("key"),
+                            KeyValue = x.Field<int>("key_value")
+                        });
+                    });
+                }
+
+                if (ds.Tables[1].Rows.Count > 0)
+                {
+                    //KP_EVENT_KEY_CHAR
+                    //keysCharsEvents
+                    ds.Tables[1].AsEnumerable().ToList().ForEach(x =>
+                    {
+                        keysCharsEvents.Add(new ObjEvent_key()
+                        {
+                            ActiveWindowName = "", //to do
+                            CtrlKeyPressed = x.Field<bool?>("ctrl_press").HasValue ? x.Field<bool?>("ctrl_press").Value : (bool?)null,
+                            ShiftKeyPressed = x.Field<bool?>("shift_press").HasValue ? x.Field<bool?>("shift_press").Value : (bool?)null,
+                            EventTime = x.Field<DateTime>("time"),
+                            SavedInDB = true,
+                            EventObjDataType = (EventDataType)x.Field<int>("event_data_type_id"),
+                            EventObjType = (EventType)x.Field<int>("event_type_id"),
+                            Key = x.Field<string>("key"),
+                            KeyValue = x.Field<int>("key_value")
+                        });
+                    });
+                }
+
+                if (ds.Tables[2].Rows.Count > 0)
+                {
+                    //KP_EVENT_MOUSE
+                    ds.Tables[2].AsEnumerable().ToList().ForEach(x =>
+                    {
+                        mouseEvents.Add(new ObjEvent_mouse()
+                        {
+                            ActiveWindowName = "",//to do
+                            EventTime = x.Field<DateTime>("time"),
+                            EventObjDataType = (EventDataType)x.Field<int>("event_data_type_id"),
+                            EventObjType = (EventType)x.Field<int>("event_type_id"),
+                            SavedInDB = true,
+                            X = x.Field<int>("x"),
+                            Y = x.Field<int>("y")
+                        });
+                    });
+                }
+
+                if (ds.Tables[3].Rows.Count > 0)
+                {
+                    //KP_KEYPRESS_COUNT
+                    ds.Tables[3].AsEnumerable().ToList().ForEach(x =>
+                    {
+                        keyPressCountObjList.Add(new ObjKeyPressCount()
+                        {
+                            AsciiKeyCode = x.Field<int>("ascii_code"),
+                            PressHoldCount = x.Field<uint>("press_hold_count"),
+                            PressReleaseCount = x.Field<uint>("press_release_count")
+                        });
+                    });
+                }
+            }
+            catch(Exception ex)
+            {
+                LogHelper.LogErrorMsg(ex);
+                throw;
+            }
         }
 
-        public void Db_DelateDataFromDatabase()
+        public void Db_DeleteDataFromDatabase()
         {
-            // to do:
-            throw new NotImplementedException();
+            try
+            {
+                string sql = $@"
+DELETE FROM KP_EVENT_KEY_ALL WHERE user_record_id = {DBHelper.UserId}
+DELETE FROM KP_EVENT_KEY_CHAR WHERE user_record_id = {DBHelper.UserId}
+DELETE FROM KP_EVENT_MOUSE WHERE user_record_id = {DBHelper.UserId}
+DELETE FROM KP_KEYPRESS_COUNT WHERE user_record_id = {DBHelper.UserId}";
+
+                var result = DBHelper.ExecSqlDb(sql, true);
+                if (result != "OK")
+                    throw new Exception($"Failled {nameof(KeyboardPressAdapter)}.{nameof(Db_DeleteDataFromDatabase)} {result} (sql: {sql})");
+            }
+            catch (Exception ex)
+            {
+                LogHelper.LogErrorMsg(ex);
+                throw;
+            }
         }
 
         public void Db_DeleteDataFromLocalMemory()
         {
-            // to do:
-            throw new NotImplementedException();
+            try
+            {
+                mouseEvents = new List<ObjEvent_mouse>();
+                keysEvents = new List<ObjEvent_key>();
+                keysCharsEvents = new List<ObjEvent_key>();
+                keyPressCountObjList = new List<ObjKeyPressCount>();
+            }
+            catch (Exception ex)
+            {
+                LogHelper.LogErrorMsg(ex);
+                throw;
+            }
         }
+
     }
 }

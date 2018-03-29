@@ -58,6 +58,11 @@
             this.tbLastWord = new System.Windows.Forms.TextBox();
             this.tbTotalWords = new System.Windows.Forms.TextBox();
             this.timer_workTime = new System.Windows.Forms.Timer(this.components);
+            this.dBToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.loadDataDbToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.saveDataDbToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.deleteDataDbToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.deleteDataLocalMemoryToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip.SuspendLayout();
             this.statusStrip.SuspendLayout();
             this.panelDebug.SuspendLayout();
@@ -72,7 +77,8 @@
             this.administrationToolStripMenuItem,
             this.test2ToolStripMenuItem,
             this.apieToolStripMenuItem,
-            this.karščioŽemėlapisToolStripMenuItem});
+            this.karščioŽemėlapisToolStripMenuItem,
+            this.dBToolStripMenuItem});
             this.menuStrip.Location = new System.Drawing.Point(0, 0);
             this.menuStrip.Name = "menuStrip";
             this.menuStrip.Size = new System.Drawing.Size(673, 24);
@@ -310,6 +316,45 @@
             this.timer_workTime.Interval = 1000;
             this.timer_workTime.Tick += new System.EventHandler(this.timer_workTime_Tick);
             // 
+            // dBToolStripMenuItem
+            // 
+            this.dBToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.loadDataDbToolStripMenuItem,
+            this.saveDataDbToolStripMenuItem,
+            this.deleteDataDbToolStripMenuItem,
+            this.deleteDataLocalMemoryToolStripMenuItem});
+            this.dBToolStripMenuItem.Name = "dBToolStripMenuItem";
+            this.dBToolStripMenuItem.Size = new System.Drawing.Size(34, 20);
+            this.dBToolStripMenuItem.Text = "DB";
+            // 
+            // loadDataDbToolStripMenuItem
+            // 
+            this.loadDataDbToolStripMenuItem.Name = "loadDataDbToolStripMenuItem";
+            this.loadDataDbToolStripMenuItem.Size = new System.Drawing.Size(181, 22);
+            this.loadDataDbToolStripMenuItem.Text = "Užkrauti";
+            this.loadDataDbToolStripMenuItem.Click += new System.EventHandler(this.loadDataDbToolStripMenuItem_Click);
+            // 
+            // saveDataDbToolStripMenuItem
+            // 
+            this.saveDataDbToolStripMenuItem.Name = "saveDataDbToolStripMenuItem";
+            this.saveDataDbToolStripMenuItem.Size = new System.Drawing.Size(181, 22);
+            this.saveDataDbToolStripMenuItem.Text = "Išsaugoti";
+            this.saveDataDbToolStripMenuItem.Click += new System.EventHandler(this.saveDataDbToolStripMenuItem_Click);
+            // 
+            // deleteDataDbToolStripMenuItem
+            // 
+            this.deleteDataDbToolStripMenuItem.Name = "deleteDataDbToolStripMenuItem";
+            this.deleteDataDbToolStripMenuItem.Size = new System.Drawing.Size(181, 22);
+            this.deleteDataDbToolStripMenuItem.Text = "Pašalinti";
+            this.deleteDataDbToolStripMenuItem.Click += new System.EventHandler(this.deleteDataDbToolStripMenuItem_Click);
+            // 
+            // deleteDataLocalMemoryToolStripMenuItem
+            // 
+            this.deleteDataLocalMemoryToolStripMenuItem.Name = "deleteDataLocalMemoryToolStripMenuItem";
+            this.deleteDataLocalMemoryToolStripMenuItem.Size = new System.Drawing.Size(181, 22);
+            this.deleteDataLocalMemoryToolStripMenuItem.Text = "Pašalinti iš atminties";
+            this.deleteDataLocalMemoryToolStripMenuItem.Click += new System.EventHandler(this.deleteDataLocalMemoryToolStripMenuItem_Click);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -368,6 +413,11 @@
         private System.Windows.Forms.Label lblLastWordWithMistake;
         private System.Windows.Forms.ToolStripMenuItem karščioŽemėlapisToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem offerWordToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem dBToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem loadDataDbToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem saveDataDbToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem deleteDataDbToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem deleteDataLocalMemoryToolStripMenuItem;
     }
 }
 

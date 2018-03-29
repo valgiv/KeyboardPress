@@ -12,7 +12,7 @@ namespace KeyboardPress_Analyzer
 
         void Db_LoadData();
 
-        void Db_DelateDataFromDatabase();
+        void Db_DeleteDataFromDatabase();
 
         void Db_DeleteDataFromLocalMemory();
     }

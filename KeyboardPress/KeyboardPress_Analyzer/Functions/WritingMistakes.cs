@@ -2,6 +2,7 @@
 using KeyboardPress_Analyzer.Objects;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -85,32 +86,100 @@ namespace KeyboardPress_Analyzer.Functions
 
         public void Db_SaveChanges()
         {
-            // to do:
-            throw new NotImplementedException();
+            try
+            {
+                var toSave = MistakesChar.Count(x=>x.SavedInDB == false);
+                if (MistakesChar.Count(x => x.SavedInDB == false) == 0)
+                    return;
+
+                
+                string sql = "INSERT INTO KP_MISTAKE_CHAR (before_removed_char, removed_char, changed_char, win_id, time, user_record_id) VALUES";
+                var mis = MistakesChar.Where(x => x.SavedInDB == false).ToList();
+                mis.ForEach(x =>
+                {
+                    sql += $@"
+    ('{x.BeforeRemovedChar}', '{x.RemovedChar}', '{x.ChangedChar}', null, '{x.EventTime}', {DBHelper.UserId}),";
+                });
+                sql = sql.Remove(sql.Length - 1, 1);
+                
+                var result = DBHelper.ExecSqlDb(sql, true);
+                if (result != "OK")
+                    throw new Exception($"Failled {nameof(WritingMistakes)}.{nameof(Db_SaveChanges)} {result} (sql: {sql})");
+
+                mis.ForEach(x => x.SavedInDB = true);
+            }
+            catch(Exception ex)
+            {
+                LogHelper.LogErrorMsg(ex);
+                throw;
+            }
         }
 
         public void Db_LoadData()
         {
-            // to do:
-            throw new NotImplementedException();
+            try
+            {
+                MistakesChar = new List<ObjMistakeChar>();
+
+                var dt = DBHelper.GetDataTableDb($@"
+SELECT record_id, before_removed_char, removed_char, changed_char, win_id, time, user_record_id
+FROM KP_MISTAKE_CHAR
+WHERE user_record_id = {DBHelper.UserId}
+ORDER BY record_id ASC");
+
+                if (dt == null || dt.Rows.Count == 0)
+                    return;
+
+                dt.AsEnumerable().ToList().ForEach(x =>
+                {
+                    MistakesChar.Add(new ObjMistakeChar()
+                    {
+                        ActiveWindowName = "", //to do
+                        SavedInDB = true,
+                        EventTime = x.Field<DateTime>("time"),
+                        RemovedChar = x.Field<string>("removed_char")[0],
+                        BeforeRemovedChar = String.IsNullOrEmpty(x.Field<string>("before_removed_char")) ? (char?)null : (char?)x.Field<string>("before_removed_char")[0],
+                        ChangedChar = String.IsNullOrEmpty(x.Field<string>("changed_char")) ? (char?)null : (char?)x.Field<string>("changed_char")[0]
+                    });
+                });
+            }
+            catch(Exception ex)
+            {
+                LogHelper.LogErrorMsg(ex);
+                throw;
+            }
         }
 
-        public void Db_DelateDataFromDatabase()
+        public void Db_DeleteDataFromDatabase()
         {
-            // to do:
-            throw new NotImplementedException();
+            try
+            {
+                string sql = $"DELETE FROM KP_MISTAKE_CHAR WHERE user_record_id = {DBHelper.UserId}";
+                var result = DBHelper.ExecSqlDb(sql, true);
+
+                if (result != "OK")
+                    throw new Exception($"Failled {nameof(WritingMistakes)}.{nameof(Db_DeleteDataFromDatabase)} {result} (sql: {sql})");
+            }
+            catch (Exception ex)
+            {
+                LogHelper.LogErrorMsg(ex);
+                throw;
+            }
         }
 
         public void Db_DeleteDataFromLocalMemory()
         {
-            // to do:
-            throw new NotImplementedException();
+            try
+            {
+                MistakesChar = new List<ObjMistakeChar>();
+            }
+            catch (Exception ex)
+            {
+                LogHelper.LogErrorMsg(ex);
+                throw;
+            }
         }
-
-        //protected void AddCharMistake()
-        //{
-        //    throw new NotImplementedException();
-        //}
+        
 
     }
 

@@ -594,6 +594,8 @@ END
                 LogHelper.LogErrorMsg(ex);
                 throw;
             }
+
+            base.Db_SaveChanges();
         }
 
         public void Db_LoadData()
@@ -627,22 +629,26 @@ WHERE SP.user_record_id = {DBHelper.UserId}
                 LogHelper.LogErrorMsg(ex);
                 throw;
             }
+
+            base.Db_LoadData();
         }
 
-        public void Db_DelateDataFromDatabase()
+        public void Db_DeleteDataFromDatabase()
         {
             try
             {
                 string sql = $"DELETE FROM KP_SYSTEM_PARAMETERS WHERE user_record_id = {DBHelper.UserId} AND name IN ('{nameof(totalWords_v2)}', '{nameof(wordsWithMistakes_v2)}')";
                 var result = DBHelper.ExecSqlDb(sql, true);
                 if (result != "OK")
-                    throw new Exception($"Failed {nameof(TotalWords)} {nameof(Db_DelateDataFromDatabase)}: {result} (sql: {sql})");
+                    throw new Exception($"Failed {nameof(TotalWords)} {nameof(Db_DeleteDataFromDatabase)}: {result} (sql: {sql})");
             }
             catch(Exception ex)
             {
                 LogHelper.LogErrorMsg(ex);
                 throw;
             }
+
+            base.Db_DeleteDataFromDatabase();
 
             Db_DeleteDataFromLocalMemory();
         }
@@ -659,6 +665,8 @@ WHERE SP.user_record_id = {DBHelper.UserId}
                 LogHelper.LogErrorMsg(ex);
                 throw;
             }
+
+            base.Db_DeleteDataFromLocalMemory();
         }
     }
 }
