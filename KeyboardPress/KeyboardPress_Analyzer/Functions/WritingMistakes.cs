@@ -95,7 +95,7 @@ namespace KeyboardPress_Analyzer.Functions
                     return;
 
                 
-                string sql = "INSERT INTO KP_MISTAKE_CHAR (before_removed_char, removed_char, changed_char, win_id, time, user_record_id) VALUES";
+                string sql = "INSERT INTO KP_MISTAKE_CHAR (before_removed_char, removed_char, changed_char, win_id, [time], user_record_id) VALUES";
                 var mis = MistakesChar.Where(x => x.SavedInDB == false).ToList();
                 mis.ForEach(x =>
                 {
@@ -124,7 +124,7 @@ namespace KeyboardPress_Analyzer.Functions
                 MistakesChar = new List<ObjMistakeChar>();
 
                 var dt = DBHelper.GetDataTableDb($@"
-SELECT record_id, before_removed_char, removed_char, changed_char, win_id, time, user_record_id
+SELECT record_id, before_removed_char, removed_char, changed_char, win_id, [time], user_record_id
 FROM KP_MISTAKE_CHAR
 WHERE user_record_id = {DBHelper.UserId}
 ORDER BY record_id ASC");

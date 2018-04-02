@@ -79,6 +79,9 @@ namespace KeyboardPress_Analyzer
                     sql += $"INSERT INTO KP_WINDOWS (proc_name) VALUES ('{x.ToString()}') ";
                 });
 
+                if (String.IsNullOrWhiteSpace(sql))
+                    return;
+
                 var result = DBHelper.ExecSqlDb(sql, true);
                 if (result != "OK")
                     throw new Exception($"Failled {nameof(DatabaseControl)}.{nameof(SaveWindows)} {result} (sql: {sql})");

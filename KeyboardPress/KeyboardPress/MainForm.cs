@@ -392,26 +392,54 @@ testas";
 
         private void loadDataDbToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (kpt != null)
-                kpt.Db_LoadData();
+            try
+            {
+                if (kpt != null)
+                    kpt.Db_LoadData();
+            }
+            catch(Exception ex)
+            {
+                LogHelper.ShowErrorMsgWithLog($"Klaida užkraunant duomenis iš duomenų bazės: {ex.Message}", ex);
+            }
         }
 
         private void saveDataDbToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (kpt != null)
-                kpt.Db_SaveChanges();
+            try
+            {
+                if (kpt != null)
+                    kpt.Db_SaveChanges();
+            }
+            catch(Exception ex)
+            {
+                LogHelper.ShowErrorMsgWithLog($"Klaida išsaugant duomenis į duomenų bazę: {ex.Message}", ex);
+            }
         }
 
         private void deleteDataDbToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (kpt != null)
-                kpt.Db_DeleteDataFromDatabase();
+            try
+            {
+                if (kpt != null)
+                    kpt.Db_DeleteDataFromDatabase();
+            }
+            catch (Exception ex)
+            {
+                LogHelper.ShowErrorMsgWithLog($"Klaida šalinant duomenis iš duomenų bazės: {ex.Message}", ex);
+            }
         }
 
         private void deleteDataLocalMemoryToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (kpt != null)
-                kpt.Db_DeleteDataFromLocalMemory();
+            try
+            {
+                if (kpt != null)
+                    kpt.Db_DeleteDataFromLocalMemory();
+            }
+            catch (Exception ex)
+            {
+                LogHelper.ShowErrorMsgWithLog($"Klaida šalinant duomenis į lokalios atminties: {ex.Message}", ex);
+            }
         }
 
         #endregion Data Database
