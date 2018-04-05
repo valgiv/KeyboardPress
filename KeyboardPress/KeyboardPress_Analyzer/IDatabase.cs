@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace KeyboardPress_Analyzer
 {
-    interface IDatabase
+    public interface IDatabase
     {
         void Db_SaveChanges();
 

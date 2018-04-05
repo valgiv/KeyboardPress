@@ -72,9 +72,9 @@ namespace KeyboardPress_Analyzer.Functions
         protected void AddCharMistake(char? beforeRemovedChar,
             char removedChar,
             char? changedChar)
-            {
+        {
 
-            Console.WriteLine($"AddCharMistake: {(beforeRemovedChar == null ? "null" : beforeRemovedChar.ToString())}, {removedChar.ToString()}, {(changedChar == null ? "null" : changedChar.ToString())}");
+            Console.WriteLine($"AddCharMistake: '{(beforeRemovedChar == null ? "null" : beforeRemovedChar.ToString())}', '{removedChar.ToString()}', '{(changedChar == null ? "null" : changedChar.ToString())}'");
             AddCharMistake(new ObjMistakeChar()
             {
                 BeforeRemovedChar = beforeRemovedChar,
@@ -93,14 +93,21 @@ namespace KeyboardPress_Analyzer.Functions
                 var toSave = MistakesChar.Count(x=>x.SavedInDB == false);
                 if (MistakesChar.Count(x => x.SavedInDB == false) == 0)
                     return;
-
                 
                 string sql = "INSERT INTO KP_MISTAKE_CHAR (before_removed_char, removed_char, changed_char, win_id, [time], user_record_id) VALUES";
                 var mis = MistakesChar.Where(x => x.SavedInDB == false).ToList();
+
+                var windowsNames = mis.Select(x => x.ActiveWindowName).Distinct().ToArray();
+                DatabaseControl.SaveWindows(windowsNames);
+                var winInf = DatabaseControl.GetWindowsIdsByProcName(windowsNames);
+                
+
                 mis.ForEach(x =>
                 {
+                    var wf = winInf.FirstOrDefault(y => y.Item2 == x.ActiveWindowName);
+
                     sql += $@"
-    ('{x.BeforeRemovedChar}', '{x.RemovedChar}', '{x.ChangedChar}', null, '{x.EventTime}', {DBHelper.UserId}),";
+    ('{x.BeforeRemovedChar}', '{x.RemovedChar}', '{x.ChangedChar}', {(wf != null && !String.IsNullOrEmpty(wf.Item2) ? wf.Item1.ToString() : "null")}, '{x.EventTime.ToString("yyyy-MM-dd HH:mm:ss.fff")}', {DBHelper.UserId}),";
                 });
                 sql = sql.Remove(sql.Length - 1, 1);
                 

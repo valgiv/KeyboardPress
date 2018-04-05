@@ -14,7 +14,7 @@ using System.Windows.Forms;
 using KeyboardPress_Analyzer.Objects;
 using KeyboardPress.OfferWord;
 using KeyboardPress_Extensions.InfoForm;
-
+using System.Configuration;
 
 namespace KeyboardPress
 {
@@ -23,6 +23,8 @@ namespace KeyboardPress
     {
         private KeyboardPressTracking kpt;
         private Task logInfoTask;
+
+        bool periodicalDbSaveChanges = false;
 
         public MainForm()
         {
@@ -33,10 +35,12 @@ namespace KeyboardPress
         
         private void StartUp()
         {
+            LoadConfiguration();
+
             TestDBConnectionOnLoad();
 
             SetControls();
-
+            
             toolStripItem_debug.Checked = true;
             toolStripItem_debug_Click(null, null);
 
@@ -50,8 +54,23 @@ namespace KeyboardPress
             logInfoTask.Start();
 
             this.notifyIcon.Visible = true;
+            
+            Db_LoadData();
         }
-        
+
+        private void LoadConfiguration()
+        {
+            try
+            {
+                if (ConfigurationManager.AppSettings["PeriodicalDbSaveChanges"].ToString() == "1" || ConfigurationManager.AppSettings["PeriodicalDbSaveChanges"].ToString().ToLower() == "true")
+                    periodicalDbSaveChanges = true;
+            }
+            catch(Exception ex)
+            {
+                LogHelper.ShowErrorMsgWithLog("Klaida skaitant konfigūracijos failą", ex);
+            }
+        }
+
         #region ToolStrip meniu items
 
         private void toolStripItem_debug_Click(object sender, EventArgs e)
@@ -115,10 +134,10 @@ namespace KeyboardPress
             }
         }
 
-        private void toolStripItem_clean_Click(object sender, EventArgs e)
-        {
-            CleanData();
-        }
+        //private void toolStripItem_clean_Click(object sender, EventArgs e)
+        //{
+        //    CleanData();
+        //}
 
         private void toolStripItem_cleanDebugWindow_Click(object sender, EventArgs e)
         {
@@ -149,6 +168,8 @@ namespace KeyboardPress
             {
                 if (kpt != null)
                     kpt.StopHookWork();
+
+                Db_SaveChanges();
             }
             catch (Exception ex)
             {
@@ -187,18 +208,18 @@ namespace KeyboardPress
             }
         }
 
-        public void CleanData()
-        {
-            try
-            {
-                kpt.CleanData();
-            }
-            catch(Exception ex)
-            {
-                LogHelper.LogErrorMsg(ex);
-                MessageBox.Show("Klaida inicijuojant surinktų duomenų šalinimą");
-            }
-        }
+        //public void CleanData()
+        //{
+        //    try
+        //    {
+        //        kpt.CleanData();
+        //    }
+        //    catch(Exception ex)
+        //    {
+        //        LogHelper.LogErrorMsg(ex);
+        //        MessageBox.Show("Klaida inicijuojant surinktų duomenų šalinimą");
+        //    }
+        //}
 
         private void notifyIcon_MouseClick(object sender, MouseEventArgs e)
         {
@@ -257,8 +278,16 @@ namespace KeyboardPress
                     Console.WriteLine("started LogInfo() method...");
                     LogHelper.LogInfoMsg(Environment.NewLine + baloonInfoString());
 
+                    
                     //Thread.Sleep(1800000); //1 800 000 milliseconds = 30 minutes
                     Thread.Sleep(300000); //5min
+
+                    if (periodicalDbSaveChanges)
+                    {
+                        LogHelper.LogInfoMsg(Environment.NewLine + "Periodinis duomenų saugojimas į db - pradedamas");
+                        Db_SaveChanges();
+                        LogHelper.LogInfoMsg(Environment.NewLine + "Periodinis duomenų saugojimas į db - įvykdytas");
+                    }
                 }
                 catch{}
             }
@@ -392,53 +421,112 @@ testas";
 
         private void loadDataDbToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            try
-            {
-                if (kpt != null)
-                    kpt.Db_LoadData();
-            }
-            catch(Exception ex)
-            {
-                LogHelper.ShowErrorMsgWithLog($"Klaida užkraunant duomenis iš duomenų bazės: {ex.Message}", ex);
-            }
+            Db_LoadData();
+            LogHelper.ShowInfoMsgWithLog("Duomenys sėkmingai užkrauti");
         }
 
         private void saveDataDbToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            try
-            {
-                if (kpt != null)
-                    kpt.Db_SaveChanges();
-            }
-            catch(Exception ex)
-            {
-                LogHelper.ShowErrorMsgWithLog($"Klaida išsaugant duomenis į duomenų bazę: {ex.Message}", ex);
-            }
+            Db_SaveChanges();
+            LogHelper.ShowInfoMsgWithLog("Duomenys sėkmingai išsaugoti");
         }
 
         private void deleteDataDbToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            try
-            {
-                if (kpt != null)
-                    kpt.Db_DeleteDataFromDatabase();
-            }
-            catch (Exception ex)
-            {
-                LogHelper.ShowErrorMsgWithLog($"Klaida šalinant duomenis iš duomenų bazės: {ex.Message}", ex);
-            }
+            if(Db_DeleteDataFromDatabase())
+            LogHelper.ShowInfoMsgWithLog("Duomenys sėkmingai pašalinti");
         }
 
         private void deleteDataLocalMemoryToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            if(Db_DeleteDataFromLocalMemory())
+                LogHelper.ShowInfoMsgWithLog("Duomenys iš lokalios atminties sėkmingai pašalinti");
+        }
+
+        private bool Db_SaveChanges(bool silentMode = false)
+        {
             try
             {
+                this.Cursor = Cursors.WaitCursor;
+
+                if (kpt != null)
+                    kpt.Db_SaveChanges();
+                return true;
+            }
+            catch (Exception ex)
+            {
+                if (!silentMode)
+                    LogHelper.ShowErrorMsgWithLog($"Klaida išsaugant duomenis į duomenų bazę: {ex.Message}", ex);
+                else
+                    LogHelper.LogInfoMsg($"Klaida išsaugant duomenis į duomenų bazę: {ex.Message}");
+                return false;
+            }
+            finally
+            {
+                this.Cursor = Cursors.Default;
+            }
+        }
+
+        private bool Db_LoadData()
+        {
+            try
+            {
+                this.Cursor = Cursors.WaitCursor;
+
+                if (kpt != null)
+                    kpt.Db_LoadData();
+                return true;
+            }
+            catch (Exception ex)
+            {
+                LogHelper.ShowErrorMsgWithLog($"Klaida užkraunant duomenis iš duomenų bazės: {ex.Message}", ex);
+                return false;
+            }
+            finally
+            {
+                this.Cursor = Cursors.Default;
+            }
+        }
+
+        private bool Db_DeleteDataFromDatabase()
+        {
+            try
+            {
+                this.Cursor = Cursors.WaitCursor;
+
+                if (kpt != null)
+                    kpt.Db_DeleteDataFromDatabase();
+                return true;
+            }
+            catch (Exception ex)
+            {
+                LogHelper.ShowErrorMsgWithLog($"Klaida šalinant duomenis iš duomenų bazės: {ex.Message}", ex);
+                return false;
+            }
+            finally
+            {
+                this.Cursor = Cursors.Default;
+            }
+        }
+
+        private bool Db_DeleteDataFromLocalMemory()
+        {
+            try
+            {
+                this.Cursor = Cursors.WaitCursor;
+
                 if (kpt != null)
                     kpt.Db_DeleteDataFromLocalMemory();
+                return true;
             }
             catch (Exception ex)
             {
                 LogHelper.ShowErrorMsgWithLog($"Klaida šalinant duomenis į lokalios atminties: {ex.Message}", ex);
+                return false;
+            }
+            finally
+            {
+                this.Cursor = Cursors.Default;
             }
         }
 

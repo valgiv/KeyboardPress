@@ -9,6 +9,7 @@ using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using System.Transactions;
 using System.Windows.Forms;
 
 namespace KeyboardPress_Analyzer
@@ -102,10 +103,10 @@ namespace KeyboardPress_Analyzer
         #endregion
 
         #region interface overrides
-        public override void CleanData()
-        {
-            base.CleanData();
-        }
+        //public override void CleanData()
+        //{
+        //    base.CleanData();
+        //}
 
         public override void StopHookWork()
         {
@@ -315,6 +316,8 @@ namespace KeyboardPress_Analyzer
                 LogHelper.LogErrorMsg(ex);
                 MessageBox.Show(ex.Message, $"Error on {nameof(GlobalHookMouseDown)}");
             }
+
+            base.GlobalHookMouseDown(sender, e);
         }
 
         protected override void GlobalHook_MouseWheel(object sender, MouseEventArgs e)
@@ -383,34 +386,112 @@ namespace KeyboardPress_Analyzer
         #region IDatabase
         public void Db_SaveChanges()
         {
-            if (TotalWordsClass != null)
-                TotalWordsClass.Db_SaveChanges(); //kartu ir Writing mistakes
+            try
+            {
+                bool needToStop = base.Working;
+                if (needToStop)
+                    base.StopHookWork();
 
-            base.Db_SaveChanges();
+                base.StopHookWork();
+
+                using (var tran = new TransactionScope())
+                {
+                    if (TotalWordsClass != null)
+                        TotalWordsClass.Db_SaveChanges(); //kartu ir Writing mistakes
+
+                    base.Db_SaveChanges();
+
+                    tran.Complete();
+                }
+
+                if(needToStop)
+                    base.StartHookWork();
+            }
+            catch
+            {
+                throw;
+            }
         }
 
         public void Db_LoadData()
         {
-            if (TotalWordsClass != null)
-                TotalWordsClass.Db_LoadData(); //kartu ir Writing mistakes
+            try
+            {
+                bool needToStop = base.Working;
+                if (needToStop)
+                    base.StopHookWork();
 
-            base.Db_LoadData();
+                using (var tran = new TransactionScope())
+                {
+                    if (TotalWordsClass != null)
+                        TotalWordsClass.Db_LoadData(); //kartu ir Writing mistakes
+
+                    base.Db_LoadData();
+
+                    tran.Complete();
+                }
+
+                if (needToStop)
+                    base.StartHookWork();
+            }
+            catch
+            {
+                throw;
+            }
         }
 
         public void Db_DeleteDataFromDatabase()
         {
-            if (TotalWordsClass != null)
-                TotalWordsClass.Db_DeleteDataFromDatabase(); //kartu ir Writing mistakes
+            try
+            {
+                bool needToStop = base.Working;
+                if (needToStop)
+                    base.StopHookWork();
+                
+                using (var tran = new TransactionScope())
+                {
+                    if (TotalWordsClass != null)
+                        TotalWordsClass.Db_DeleteDataFromDatabase(); //kartu ir Writing mistakes
 
-            base.Db_DeleteDataFromDatabase();
+                    base.Db_DeleteDataFromDatabase();
+
+                    tran.Complete();
+                }
+
+                if(needToStop)
+                    base.StartHookWork();
+            }
+            catch
+            {
+                throw;
+            }
         }
 
         public void Db_DeleteDataFromLocalMemory()
         {
-            if (TotalWordsClass != null)
-                TotalWordsClass.Db_DeleteDataFromLocalMemory(); //kartu ir Writing mistakes
+            try
+            {
+                bool needToStop = base.Working;
+                if(needToStop)
+                    base.StopHookWork();
 
-            base.Db_DeleteDataFromLocalMemory();
+                using (var tran = new TransactionScope())
+                {
+                    if (TotalWordsClass != null)
+                        TotalWordsClass.Db_DeleteDataFromLocalMemory(); //kartu ir Writing mistakes
+
+                    base.Db_DeleteDataFromLocalMemory();
+
+                    tran.Complete();
+                }
+
+                if(needToStop)
+                    base.StartHookWork();
+            }
+            catch
+            {
+                throw;
+            }
         }
 
         #endregion

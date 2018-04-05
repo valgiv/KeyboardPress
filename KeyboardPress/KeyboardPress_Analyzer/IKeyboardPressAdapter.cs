@@ -20,10 +20,10 @@ namespace KeyboardPress_Analyzer
         /// </summary>
         void StopHookWork();
 
-        /// <summary>
-        /// Cleans saved data
-        /// </summary>
-        void CleanData();
+        ///// <summary>
+        ///// Cleans saved data
+        ///// </summary>
+        //void CleanData();
         
 
 

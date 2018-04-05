@@ -78,6 +78,17 @@ namespace KeyboardPress_Analyzer.Helper
             }
         }
 
+        public static void ShowInfoMsgWithLog(string infoMsg)
+        {
+            ShowInfoMsgWithLog(infoMsg, infoMsg);
+        }
+
+        public static void ShowInfoMsgWithLog(string infoMsg, string infoMsgLog)
+        {
+            MessageBox.Show(infoMsg, "Informacija", MessageBoxButtons.OK, MessageBoxIcon.Information, MessageBoxDefaultButton.Button1);
+            LogInfoMsg(infoMsgLog);
+        }
+
         private static void WriteToFile(string text)
         {
             Directory.CreateDirectory(Path.GetDirectoryName(LogDir));

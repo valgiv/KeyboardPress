@@ -74,6 +74,9 @@ namespace KeyboardPress_Analyzer
             {
                 string sql = "";
 
+                if (WindowsList == null || WindowsList.Count < 1)
+                    ReloadWindowsList();
+
                 proccessNames.Distinct().Where(x => !(WindowsList.Select(y => y.proc_name).ToArray()).Contains(x)).ToList().ForEach(x =>
                 {
                     sql += $"INSERT INTO KP_WINDOWS (proc_name) VALUES ('{x.ToString()}') ";

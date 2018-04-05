@@ -260,10 +260,10 @@ namespace KeyboardPress_Analyzer.Functions
                                 }
                                 else
                                 {
-                                    AddCharMistake(
+                                     AddCharMistake(
                                         Func_beforeMistakeChar(newWord, cursorPos - 2),
                                         newWord[cursorPos - 1],
-                                        Func_afterMistakeChar(newWord, cursorPos));
+                                        Func_afterMistakeChar(newWord, cursorPos + 1)); // +1
 
                                     newWord = newWord.Remove(cursorPos - 1, 1); //cursorPos-1 arba apkeisti vietom su cursorPos--
                                     cursorPos--;
@@ -287,7 +287,9 @@ namespace KeyboardPress_Analyzer.Functions
                                     AddCharMistake(
                                         Func_beforeMistakeChar(newWord, ((int)cursorSelectBeginPos > cursorPos ? cursorPos : (int)cursorSelectBeginPos) - 1),
                                         newWord[(int)cursorSelectBeginPos > cursorPos ? cursorPos : (int)cursorSelectBeginPos],
-                                        Func_afterMistakeChar(newWord, ((int)cursorSelectBeginPos > cursorPos ? cursorPos : (int)cursorSelectBeginPos) + 1));
+                                        //Func_afterMistakeChar(newWord, ((int)cursorSelectBeginPos > cursorPos ? cursorPos : (int)cursorSelectBeginPos) + 1)
+                                        Func_afterMistakeChar(newWord, eventK_index + 1)
+                                        );
                                 //else
                                 //    AddCharMistake(); // gal nereikia?
 
@@ -317,7 +319,9 @@ namespace KeyboardPress_Analyzer.Functions
                                 cursorPos++;
 
                                 if (saveMistake && c != null)
-                                     AddCharMistake(befC, (char)c, newWord.Length - 1 >= cursorPos - 1 ? (char?)newWord[cursorPos-1] : null);
+                                     AddCharMistake(befC,
+                                         (char)c,
+                                         newWord.Length - 1 >= cursorPos - 1 ? (char?)newWord[cursorPos-1] : null);
                             }
                             #endregion yra selectintas tekstas
                         }
@@ -359,6 +363,7 @@ namespace KeyboardPress_Analyzer.Functions
                             #region yra selectinamas tekstas
                             if (eventK.KeyValue == 46)
                             {
+                                //delete btn
                                 bool saveMistake = false;
                                 char? befC = null;
                                 char? c = null;
@@ -380,7 +385,9 @@ namespace KeyboardPress_Analyzer.Functions
                                 mistake = true;
 
                                 if (saveMistake && c != null)
-                                     AddCharMistake(befC, (char)c, newWord.Length - 1 >= cursorPos ? (char?)newWord[cursorPos] : null);
+                                     AddCharMistake(befC,
+                                         (char)c,
+                                         newWord.Length - 1 >= cursorPos ? (char?)newWord[cursorPos] : null);
                             }
                             else
                             {
