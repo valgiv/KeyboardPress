@@ -73,6 +73,7 @@
     <Content Include="sql\count_data_from_tables.sql" />
     <Content Include="sql\delete_data_from_tables.sql" />
     <Content Include="sql\select_from_all_tables.sql" />
+    <Content Include="ToDoList.txt" />
   </ItemGroup>
   <Import Project="$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets" Condition="Exists('$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets')" />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

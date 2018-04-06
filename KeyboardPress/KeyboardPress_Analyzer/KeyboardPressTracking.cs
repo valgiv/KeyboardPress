@@ -305,7 +305,7 @@ namespace KeyboardPress_Analyzer
                     EventObjType = EventType.KeyPress, //nes naudojamas bus ten kur generuojamos zodis
                     KeyValue = -1,
                     EventObjDataType = EventDataType.MouseClick,
-                    Key = "MouseClick",
+                    Key = "MouseClick", //įrašas neina į db pagal šį pavadinimą
                     EventTime = DateTime.Now,
                     SavedInDB = false
                 };

@@ -380,7 +380,7 @@ namespace KeyboardPress_Analyzer
                     DatabaseControl.SaveWindows(keysCharsEvents.Where(y => y.SavedInDB == false).Select(y=>y.ActiveWindowName).Distinct().ToArray());
 
                     string sql_KP_EVENT_KEY_CHAR = "INSERT INTO KP_EVENT_KEY_CHAR (event_type_id, event_data_type_id, win_id, [time], [key], key_value, shift_press, ctrl_press, user_record_id) VALUES";
-                    keysCharsEvents.Where(x => x.SavedInDB == false).ToList().ForEach(x =>
+                    keysCharsEvents.Where(x => x.SavedInDB == false && x.Key.ToString() != "MouseClick").ToList().ForEach(x =>
                     {
                         var win = DatabaseControl.GetWindowsIdsByProcName(x.ActiveWindowName);
 
