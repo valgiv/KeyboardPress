@@ -126,7 +126,14 @@ namespace KeyboardPress_Analyzer.Helper
                     {
                         if (!debugRichTextBox.InvokeRequired)
                         {
-                            debugRichTextBox.Text += $"{dateTime.ToString("yyyy-MM-dd HH:mm:ss.fff", CultureInfo.InvariantCulture)}: {msg}\n";
+                            //if (debugRichTextBox.Lines.Length > 100)
+                            //{
+                            //    debugRichTextBox.Select(0, debugRichTextBox.GetFirstCharIndexFromLine(debugRichTextBox.Lines.Length - 50));
+                            //    debugRichTextBox.SelectedText = Environment.NewLine;
+                            //}
+
+                            //debugRichTextBox.Text += $"{dateTime.ToString("yyyy-MM-dd HH:mm:ss.fff", CultureInfo.InvariantCulture)}: {msg}\n";
+                            debugRichTextBox.AppendText($"{dateTime.ToString("yyyy-MM-dd HH:mm:ss.fff", CultureInfo.InvariantCulture)}: {msg}\n");
                             debugRichTextBox.SelectionStart = debugRichTextBox.Text.Length;
                             debugRichTextBox.ScrollToCaret();
                         }
@@ -134,7 +141,14 @@ namespace KeyboardPress_Analyzer.Helper
                         {
                             debugRichTextBox.BeginInvoke(new MethodInvoker(delegate
                             {
-                                debugRichTextBox.Text += $"{dateTime.ToString("yyyy-MM-dd HH:mm:ss.fff", CultureInfo.InvariantCulture)}: {msg}\n";
+                                //if (debugRichTextBox.Lines.Length > 100)
+                                //{
+                                //    debugRichTextBox.Select(0, debugRichTextBox.GetFirstCharIndexFromLine(debugRichTextBox.Lines.Length - 50));
+                                //    debugRichTextBox.SelectedText = Environment.NewLine;
+                                //}
+
+                                //debugRichTextBox.Text += $"{dateTime.ToString("yyyy-MM-dd HH:mm:ss.fff", CultureInfo.InvariantCulture)}: {msg}\n";
+                                debugRichTextBox.AppendText($"{dateTime.ToString("yyyy-MM-dd HH:mm:ss.fff", CultureInfo.InvariantCulture)}: {msg}\n");
                                 debugRichTextBox.SelectionStart = debugRichTextBox.Text.Length;
                                 debugRichTextBox.ScrollToCaret();
                             }));

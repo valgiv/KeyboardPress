@@ -2,6 +2,10 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using KeyboardPress_Analyzer.Functions;
 using KeyboardPress_Analyzer.Objects;
+using System.Collections.Generic;
+using KeyboardPress_Analyzer.Helper;
+
+using System.Diagnostics;
 
 namespace UnitTestProject
 {
@@ -183,8 +187,43 @@ namespace UnitTestProject
             string jsonstr = "[{\"Key\":\"a\",\"KeyValue\":97,\"ShiftKeyPressed\":null,\"CtrlKeyPressed\":null,\"EventObjType\":1,\"ActiveWindowName\":\"Untitled - Notepad\",\"EventObjDataType\":2,\"EventTime\":\"2018-01-13T18:03:14.4766168+02:00\"},{\"Key\":\"b\",\"KeyValue\":98,\"ShiftKeyPressed\":null,\"CtrlKeyPressed\":null,\"EventObjType\":1,\"ActiveWindowName\":\"Untitled - Notepad\",\"EventObjDataType\":2,\"EventTime\":\"2018-01-13T18:03:14.6956293+02:00\"},{\"Key\":\"c\",\"KeyValue\":99,\"ShiftKeyPressed\":null,\"CtrlKeyPressed\":null,\"EventObjType\":1,\"ActiveWindowName\":\"Untitled - Notepad\",\"EventObjDataType\":2,\"EventTime\":\"2018-01-13T18:03:15.0116474+02:00\"},{\"Key\":\"Left\",\"KeyValue\":37,\"ShiftKeyPressed\":false,\"CtrlKeyPressed\":false,\"EventObjType\":1,\"ActiveWindowName\":\"Untitled - Notepad\",\"EventObjDataType\":1,\"EventTime\":\"2018-01-13T18:03:15.4936749+02:00\"},{\"Key\":\"Left\",\"KeyValue\":37,\"ShiftKeyPressed\":true,\"CtrlKeyPressed\":false,\"EventObjType\":1,\"ActiveWindowName\":\"Untitled - Notepad\",\"EventObjDataType\":1,\"EventTime\":\"2018-01-13T18:03:15.826694+02:00\"},{\"Key\":\"Delete\",\"KeyValue\":46,\"ShiftKeyPressed\":false,\"CtrlKeyPressed\":false,\"EventObjType\":1,\"ActiveWindowName\":\"Untitled - Notepad\",\"EventObjDataType\":1,\"EventTime\":\"2018-01-13T18:03:16.6777427+02:00\"},{\"Key\":\"Right\",\"KeyValue\":39,\"ShiftKeyPressed\":false,\"CtrlKeyPressed\":false,\"EventObjType\":1,\"ActiveWindowName\":\"Untitled - Notepad\",\"EventObjDataType\":1,\"EventTime\":\"2018-01-13T18:03:17.2837773+02:00\"},{\"Key\":\" \",\"KeyValue\":32,\"ShiftKeyPressed\":null,\"CtrlKeyPressed\":null,\"EventObjType\":1,\"ActiveWindowName\":\"Untitled - Notepad\",\"EventObjDataType\":2,\"EventTime\":\"2018-01-13T18:03:17.7778056+02:00\"}]";
             totalWrds.totalWordsCount_v2(Newtonsoft.Json.JsonConvert.DeserializeObject<ObjEvent_key[]>(jsonstr));
         }
-        
 
+        [TestMethod]
+        public void Test_outOfMemoryList()
+        {
+            List<ObjEvent_key> lst = new List<ObjEvent_key>();
+            int i = 0;
+            int i2 = 0;
+            while (true)
+            {
+                try
+                {
+                    i++;
+                    i2 = lst.Count;
+                    lst.Add(new ObjEvent_key()
+                    {
+                        EventObjDataType = EventDataType.KeyboardButtonCode,
+                        SavedInDB = false,
+                        ActiveWindowName = "asdasdasdasdasdasdasdasd",
+                        CtrlKeyPressed = false,
+                        EventObjType = EventType.KeyPress,
+                        EventTime = new DateTime(2008, 1, 12),
+                        Key = "a",
+                        KeyValue = 65,
+                        ShiftKeyPressed = false
+                    });
+                }
+                catch(Exception ex) //~30mln. 16GB ram
+                {
+                    var deletedItems = new List<ObjEvent_key>();
+                    Stopwatch s = new Stopwatch();
+                    s.Start();
+                    Helper.DeleteFromBegin(ref lst, 10000000);
+                    s.Stop();
+                    var a = s.ElapsedMilliseconds;
+                }
+            }
+        }
 
     }
 }

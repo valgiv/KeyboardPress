@@ -45,28 +45,25 @@ namespace KeyboardPress_Analyzer.Helper
 
             return temp;
         }
-
-        public static void DeleteFromBegin<T>(ref List<T> list, int itemsToDelete, ref List<T> deletedItemslist)
+        
+        // ištestuotas metodas, veikia gerai, 10mln. pašalina per ~0,25s
+        public static void DeleteFromBegin<T>(ref List<T> list, int itemsToDelete)
         {
             if (list == null)
                 throw new ArgumentNullException(nameof(list));
 
             if (itemsToDelete < 1)
                 throw new ArgumentOutOfRangeException(nameof(itemsToDelete));
-            
-            for(int i = 0; i<itemsToDelete; i++)
-            {
-                if (list.LongCount() > 0)
-                {
-                    if (deletedItemslist != null)
-                        deletedItemslist.Add(list[0]);
-                    list.RemoveAt(0);
-                }
-                else
-                {
-                    break;
-                }
-            }
+
+            //for(int i = 0; i<itemsToDelete; i++)
+            //{
+            //    if (list.LongCount() > 0)
+            //        list.RemoveAt(0);
+            //    else
+            //        break;
+            //}
+            itemsToDelete = list.LongCount() < itemsToDelete ? (int)list.LongCount() : itemsToDelete;
+            list.RemoveRange(0, itemsToDelete - 1);
         }
         
         //--

@@ -98,5 +98,29 @@ namespace KeyboardPress_Analyzer
             }
         }
 
+        public static string CreateInsertSqlClause(string insertBaseSql, string[] valuesSql)
+        {
+            string result = "";
+
+            string valuesStr = "";
+            int counter = 0;
+            foreach(string s in valuesSql)
+            {
+                valuesStr += $"{Environment.NewLine}{s}";
+                counter++;
+                if(counter%100 == 0)
+                {
+                    result += $"{Environment.NewLine}{insertBaseSql} {valuesStr.Remove(valuesStr.Length - 1, 1)}";
+
+                    valuesStr = "";
+                    counter = 0;
+                }
+            }
+            if(counter > 0)
+                result += $"{Environment.NewLine}{insertBaseSql} {valuesStr.Remove(valuesStr.Length - 1, 1)}";
+
+            return result;
+        }
+
     }
 }

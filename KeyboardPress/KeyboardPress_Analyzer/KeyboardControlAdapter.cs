@@ -25,13 +25,6 @@ namespace KeyboardPress_Analyzer
         /// <param name="dwExtraInfo">An additional value associated with the key stroke</param>
         [DllImport("user32.dll")]
         private static extern void keybd_event(byte bVk, byte bScan, uint dwFlags, uint dwExtraInfo);
-
-        public static void tst()
-        {
-            Thread.Sleep(10000);
-
-            keybd_event((byte)0x4D, 0, 0x0001 | 0, 0);
-        }
         
         public static void pressButton(int keyboardKey, bool makeApplicationDoEvents = false)
         {

@@ -94,28 +94,30 @@ namespace KeyboardPress_Analyzer.Functions
                 if (MistakesChar.Count(x => x.SavedInDB == false) == 0)
                     return;
                 
-                string sql = "INSERT INTO KP_MISTAKE_CHAR (before_removed_char, removed_char, changed_char, win_id, [time], user_record_id) VALUES";
+                string sqlMain = "INSERT INTO KP_MISTAKE_CHAR (before_removed_char, removed_char, changed_char, win_id, [time], user_record_id) VALUES";
                 var mis = MistakesChar.Where(x => x.SavedInDB == false).ToList();
 
                 var windowsNames = mis.Select(x => x.ActiveWindowName).Distinct().ToArray();
                 DatabaseControl.SaveWindows(windowsNames);
                 var winInf = DatabaseControl.GetWindowsIdsByProcName(windowsNames);
-                
 
+                var sqlValues = new List<string>();
                 mis.ForEach(x =>
                 {
                     var wf = winInf.FirstOrDefault(y => y.Item2 == x.ActiveWindowName);
 
-                    sql += $@"
-    ('{x.BeforeRemovedChar}', '{x.RemovedChar}', '{x.ChangedChar}', {(wf != null && !String.IsNullOrEmpty(wf.Item2) ? wf.Item1.ToString() : "null")}, '{x.EventTime.ToString("yyyy-MM-dd HH:mm:ss.fff")}', {DBHelper.UserId}),";
+                    sqlValues.Add($"('{x.BeforeRemovedChar}', '{x.RemovedChar}', '{x.ChangedChar}', {(wf != null && !String.IsNullOrEmpty(wf.Item2) ? wf.Item1.ToString() : "null")}, '{x.EventTime.ToString("yyyy-MM-dd HH:mm:ss.fff")}', {DBHelper.UserId}),");
                 });
-                sql = sql.Remove(sql.Length - 1, 1);
-                
-                var result = DBHelper.ExecSqlDb(sql, true);
-                if (result != "OK")
-                    throw new Exception($"Failled {nameof(WritingMistakes)}.{nameof(Db_SaveChanges)} {result} (sql: {sql})");
 
-                mis.ForEach(x => x.SavedInDB = true);
+                var sql = DatabaseControl.CreateInsertSqlClause(sqlMain, sqlValues.ToArray());
+                if (!String.IsNullOrEmpty(sql))
+                {
+                    var result = DBHelper.ExecSqlDb(sql, true);
+                    if (result != "OK")
+                        throw new Exception($"Failled {nameof(WritingMistakes)}.{nameof(Db_SaveChanges)} {result} (sql: {sql})");
+
+                    mis.ForEach(x => x.SavedInDB = true);
+                }
             }
             catch(Exception ex)
             {

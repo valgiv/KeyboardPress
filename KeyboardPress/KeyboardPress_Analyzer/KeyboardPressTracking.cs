@@ -12,6 +12,8 @@ using System.Threading.Tasks;
 using System.Transactions;
 using System.Windows.Forms;
 
+using System.Diagnostics;
+
 namespace KeyboardPress_Analyzer
 {
     public class KeyboardPressTracking : KeyboardPressAdapter, IDatabase
@@ -113,7 +115,10 @@ namespace KeyboardPress_Analyzer
             base.StopHookWork();
 
             if (restReminder != null)
+            {
                 restReminder.Stop();
+                restReminder = null;
+            }
         }
 
         public override void StartHookWork()
@@ -199,16 +204,8 @@ namespace KeyboardPress_Analyzer
                 };
                 Add_ObjEvent_key(a);
             }
-            
-            try
-            {
-                base.GlobalHookKeyDown(sender, e);
-                
-            }
-            catch(Exception ex)
-            {
-                MessageBox.Show(ex.Message, $"Error on {nameof(GlobalHookKeyDown)}");
-            }
+
+            base.GlobalHookKeyDown(sender, e);
         }
 
         /// <summary>
@@ -220,7 +217,6 @@ namespace KeyboardPress_Analyzer
         {
             try
             {
-                // nice to have: ar bazineje klaseje netruksta lock'o?
                 base.GlobalHookKeyPress(sender, e);
 
                 ObjEvent_key lastRec = null;

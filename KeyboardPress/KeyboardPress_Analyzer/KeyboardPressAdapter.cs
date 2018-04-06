@@ -5,12 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Diagnostics;
-using System.Drawing;
-using System.Globalization;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
 using System.Windows.Forms;
 
 
@@ -142,19 +137,7 @@ namespace KeyboardPress_Analyzer
         #endregion auto-properties(get-set)
 
         #region IKeyboardPressTracking
-
-        //public virtual void CleanData()
-        //{
-        //    if (keysEvents != null)
-        //        keysEvents.Clear();
-
-        //    if (keysCharsEvents != null)
-        //        keysCharsEvents.Clear();
-
-        //    if (mouseEvents != null)
-        //        mouseEvents.Clear();
-        //}
-
+        
         public virtual void StopHookWork()
         {
             if (m_GlobalHook == null)
@@ -166,10 +149,9 @@ namespace KeyboardPress_Analyzer
 
             m_GlobalHook.MouseDown -= GlobalHookMouseDown;
             m_GlobalHook.MouseWheel -= GlobalHook_MouseWheel;
-            //m_GlobalHook.MouseClick -= GlobalHook_MouseClick;
 
             m_GlobalHook.Dispose();
-            m_GlobalHook = null; //to do: patestuoti kaip veikia sustabdzius ir vel paleidus
+            m_GlobalHook = null;
 
             stopWach.Stop();
 
@@ -187,26 +169,24 @@ namespace KeyboardPress_Analyzer
 
             m_GlobalHook.MouseDown += GlobalHookMouseDown;
             m_GlobalHook.MouseWheel += GlobalHook_MouseWheel;
-            //m_GlobalHook.MouseClick += GlobalHook_MouseClick;
 
             stopWach.Start();
 
             working = true;
         }
-
-
-
+        
         #endregion IKeyboardPressTracking
 
         #region GlobalHook_Mouse
         
         protected virtual void GlobalHook_MouseWheel(object sender, MouseEventArgs e)
         {
-
         }
 
         protected virtual void GlobalHookMouseDown(object sender, MouseEventArgs e)
         {
+            // to do: gal i6kelti i perrasancia klase, galima isvengti dvigumo lango gavimo
+
             mouseEvents.Add(new ObjEvent_mouse()
             {
                 ActiveWindowName = Helper.Helper.GetActiveWindowTitle_v2(),
@@ -232,6 +212,8 @@ namespace KeyboardPress_Analyzer
         /// <param name="e"></param>
         protected virtual void GlobalHookKeyPress(object sender, KeyPressEventArgs e)
         {
+            // to do: ar klaseje netruksta lock'o?
+
             var newRec = new ObjEvent_key()
             {
                 ActiveWindowName = Helper.Helper.GetActiveWindowTitle_v2(),
@@ -244,8 +226,7 @@ namespace KeyboardPress_Analyzer
             };
 
             Add_ObjEvent_key(newRec);
-
-
+            
             DebugHelper.AddInfoMsg(newRec.EventTime, $"{newRec.Key.ToString()} {newRec.KeyValue.ToString()} [{newRec.ActiveWindowName}]");
         }
         
@@ -260,8 +241,7 @@ namespace KeyboardPress_Analyzer
                 LogHelper.LogErrorMsg(oomEx);
                 LogHelper.LogInfoMsg($"BANDOMA PAŠALINTI DALĮ ELEMENTŲ IŠ {nameof(keysCharsEvents)}");
                 DebugHelper.AddInfoMsg($"BANDOMA PAŠALINTI DALĮ ELEMENTŲ IŠ {nameof(keysCharsEvents)}");
-                var deletedItems = new List<ObjEvent_key>();
-                Helper.Helper.DeleteFromBegin(ref keysCharsEvents, 100, ref deletedItems);
+                Helper.Helper.DeleteFromBegin(ref keysCharsEvents, 100);
                 keysCharsEvents.Add(newRec);
             }
             catch (Exception ex)
@@ -287,6 +267,8 @@ namespace KeyboardPress_Analyzer
 
         protected virtual void GlobalHookKeyDown(object sender, KeyEventArgs e)
         {
+            // to do: gal i6kelti?
+
             var newRec = new ObjEvent_key()
             {
                 Key = e.KeyData.ToString(),
@@ -306,8 +288,7 @@ namespace KeyboardPress_Analyzer
                 LogHelper.LogErrorMsg(oomEx);
                 LogHelper.LogInfoMsg($"BANDOMA PAŠALINTI DALĮ ELEMENTŲ IŠ {nameof(keysEvents)}");
                 DebugHelper.AddInfoMsg($"BANDOMA PAŠALINTI DALĮ ELEMENTŲ IŠ {nameof(keysEvents)}");
-                var deletedItems = new List<ObjEvent_key>();
-                Helper.Helper.DeleteFromBegin(ref keysEvents, 100, ref deletedItems);
+                Helper.Helper.DeleteFromBegin(ref keysEvents, 100);
                 keysEvents.Add(newRec);
             }
             catch (Exception ex)
@@ -336,19 +317,22 @@ namespace KeyboardPress_Analyzer
                     DatabaseControl.SaveWindows(mouseEvents.Where(x => x.SavedInDB == false).Select(x => x.ActiveWindowName).Distinct().ToArray());
 
                     string sql_KP_EVENT_MOUSE = "INSERT INTO KP_EVENT_MOUSE (event_type_id, event_data_type_id, win_id, [time], x, y, user_record_id) VALUES";
+                    List<string> sql_values_KP_EVENT_MOUSE = new List<string>();
                     mouseEvents.Where(x => x.SavedInDB == false).ToList().ForEach(x =>
                     {
                         var win = DatabaseControl.GetWindowsIdsByProcName(x.ActiveWindowName);
 
-                        sql_KP_EVENT_MOUSE += $@"
-({(int)x.EventObjType}, {(int)x.EventObjDataType}, {win[0].Item1}, '{x.EventTime.ToString("yyyy-MM-dd HH:mm:ss.fff")}', {(x.X != null ? x.X.ToString() : "null")}, {(x.Y != null ? x.Y.ToString() : "null")}, {DBHelper.UserId}),";
+                        sql_values_KP_EVENT_MOUSE.Add($"({(int)x.EventObjType}, {(int)x.EventObjDataType}, {win[0].Item1}, '{x.EventTime.ToString("yyyy-MM-dd HH:mm:ss.fff")}', {(x.X != null ? x.X.ToString() : "null")}, {(x.Y != null ? x.Y.ToString() : "null")}, {DBHelper.UserId}),");
                     });
-                    sql_KP_EVENT_MOUSE = sql_KP_EVENT_MOUSE.Remove(sql_KP_EVENT_MOUSE.Length - 1, 1);
-                    var result_KP_EVENT_MOUSE = DBHelper.ExecSqlDb(sql_KP_EVENT_MOUSE, true);
-                    if (result_KP_EVENT_MOUSE != "OK")
-                        throw new Exception($"Failled {nameof(KeyboardPressAdapter)}.{nameof(Db_SaveChanges)}.[KP_EVENT_MOUSE] {result_KP_EVENT_MOUSE} (sql: {sql_KP_EVENT_MOUSE})");
+                    sql_KP_EVENT_MOUSE = DatabaseControl.CreateInsertSqlClause(sql_KP_EVENT_MOUSE, sql_values_KP_EVENT_MOUSE.ToArray());
+                    if (!String.IsNullOrEmpty(sql_KP_EVENT_MOUSE))
+                    {
+                        var result_KP_EVENT_MOUSE = DBHelper.ExecSqlDb(sql_KP_EVENT_MOUSE, true);
+                        if (result_KP_EVENT_MOUSE != "OK")
+                            throw new Exception($"Failled {nameof(KeyboardPressAdapter)}.{nameof(Db_SaveChanges)}.[KP_EVENT_MOUSE] {result_KP_EVENT_MOUSE} (sql: {sql_KP_EVENT_MOUSE})");
 
-                    mouseEvents.Where(x => x.SavedInDB == false).ToList().ForEach(x => x.SavedInDB = true);
+                        mouseEvents.Where(x => x.SavedInDB == false).ToList().ForEach(x => x.SavedInDB = true);
+                    }
                 }
                 #endregion KP_EVENT_MOUSE
 
@@ -358,19 +342,22 @@ namespace KeyboardPress_Analyzer
                     DatabaseControl.SaveWindows(keysEvents.Where(x => x.SavedInDB == false).Select(y=>y.ActiveWindowName).Distinct().ToArray());
 
                     string sql_KP_EVENT_KEY_ALL = "INSERT INTO KP_EVENT_KEY_ALL (event_type_id, event_data_type_id, win_id, [time], [key], key_value, shift_press, ctrl_press, user_record_id) VALUES";
+                    List<string> sql_values_KP_EVENT_KEY_ALL = new List<string>();
                     keysEvents.Where(x => x.SavedInDB == false).ToList().ForEach(x =>
                     {
                         var win = DatabaseControl.GetWindowsIdsByProcName(x.ActiveWindowName);
 
-                        sql_KP_EVENT_KEY_ALL += $@"
-({(int)x.EventObjType}, {(int)x.EventObjDataType}, {win[0].Item1}, '{x.EventTime.ToString("yyyy-MM-dd HH:mm:ss.fff")}', '{x.Key}', {x.KeyValue}, {(x.ShiftKeyPressed != null ? ((bool)x.ShiftKeyPressed ? "1" : "0") : "null")}, {(x.CtrlKeyPressed != null ? ((bool)x.CtrlKeyPressed ? "1" : "0") : "null")}, {DBHelper.UserId}),";
+                        sql_values_KP_EVENT_KEY_ALL.Add($"({(int)x.EventObjType}, {(int)x.EventObjDataType}, {win[0].Item1}, '{x.EventTime.ToString("yyyy-MM-dd HH:mm:ss.fff")}', '{x.Key}', {x.KeyValue}, {(x.ShiftKeyPressed != null ? ((bool)x.ShiftKeyPressed ? "1" : "0") : "null")}, {(x.CtrlKeyPressed != null ? ((bool)x.CtrlKeyPressed ? "1" : "0") : "null")}, {DBHelper.UserId}),");
                     });
-                    sql_KP_EVENT_KEY_ALL = sql_KP_EVENT_KEY_ALL.Remove(sql_KP_EVENT_KEY_ALL.Length - 1, 1);
-                    var result_KP_EVENT_KEY_ALL = DBHelper.ExecSqlDb(sql_KP_EVENT_KEY_ALL, true);
-                    if(result_KP_EVENT_KEY_ALL != "OK")
-                        throw new Exception($"Failled {nameof(KeyboardPressAdapter)}.{nameof(Db_SaveChanges)}.[KP_EVENT_KEY_ALL] {result_KP_EVENT_KEY_ALL} (sql: {sql_KP_EVENT_KEY_ALL})");
+                    sql_KP_EVENT_KEY_ALL = DatabaseControl.CreateInsertSqlClause(sql_KP_EVENT_KEY_ALL, sql_values_KP_EVENT_KEY_ALL.ToArray());
+                    if (!String.IsNullOrEmpty(sql_KP_EVENT_KEY_ALL))
+                    {
+                        var result_KP_EVENT_KEY_ALL = DBHelper.ExecSqlDb(sql_KP_EVENT_KEY_ALL, true);
+                        if (result_KP_EVENT_KEY_ALL != "OK")
+                            throw new Exception($"Failled {nameof(KeyboardPressAdapter)}.{nameof(Db_SaveChanges)}.[KP_EVENT_KEY_ALL] {result_KP_EVENT_KEY_ALL} (sql: {sql_KP_EVENT_KEY_ALL})");
 
-                    keysEvents.Where(x => x.SavedInDB == false).ToList().ForEach(x => x.SavedInDB = true);
+                        keysEvents.Where(x => x.SavedInDB == false).ToList().ForEach(x => x.SavedInDB = true);
+                    }
                 }
                 #endregion KP_EVENT_KEY_ALL
 
@@ -380,19 +367,22 @@ namespace KeyboardPress_Analyzer
                     DatabaseControl.SaveWindows(keysCharsEvents.Where(y => y.SavedInDB == false).Select(y=>y.ActiveWindowName).Distinct().ToArray());
 
                     string sql_KP_EVENT_KEY_CHAR = "INSERT INTO KP_EVENT_KEY_CHAR (event_type_id, event_data_type_id, win_id, [time], [key], key_value, shift_press, ctrl_press, user_record_id) VALUES";
+                    var sql_values_KP_EVENT_KEY_CHAR = new List<string>();
                     keysCharsEvents.Where(x => x.SavedInDB == false && x.Key.ToString() != "MouseClick").ToList().ForEach(x =>
                     {
                         var win = DatabaseControl.GetWindowsIdsByProcName(x.ActiveWindowName);
 
-                        sql_KP_EVENT_KEY_CHAR += $@"
-({(int)x.EventObjType}, {(int)x.EventObjDataType}, {win[0].Item1}, '{x.EventTime.ToString("yyyy-MM-dd HH:mm:ss.fff")}', '{x.Key}', {x.KeyValue}, {(x.ShiftKeyPressed != null ? ((bool)x.ShiftKeyPressed ? "1" : "0") : "null")}, {(x.CtrlKeyPressed != null ? ((bool)x.CtrlKeyPressed ? "1" : "0") : "null")}, {DBHelper.UserId}),";
+                        sql_values_KP_EVENT_KEY_CHAR.Add($"({(int)x.EventObjType}, {(int)x.EventObjDataType}, {win[0].Item1}, '{x.EventTime.ToString("yyyy-MM-dd HH:mm:ss.fff")}', '{x.Key}', {x.KeyValue}, {(x.ShiftKeyPressed != null ? ((bool)x.ShiftKeyPressed ? "1" : "0") : "null")}, {(x.CtrlKeyPressed != null ? ((bool)x.CtrlKeyPressed ? "1" : "0") : "null")}, {DBHelper.UserId}),");
                     });
-                    sql_KP_EVENT_KEY_CHAR = sql_KP_EVENT_KEY_CHAR.Remove(sql_KP_EVENT_KEY_CHAR.Length - 1, 1);
-                    var result_KP_EVENT_KEY_CHAR = DBHelper.ExecSqlDb(sql_KP_EVENT_KEY_CHAR, true);
-                    if (result_KP_EVENT_KEY_CHAR != "OK")
-                        throw new Exception($"Failled {nameof(KeyboardPressAdapter)}.{nameof(Db_SaveChanges)}.[KP_EVENT_KEY_CHAR] {result_KP_EVENT_KEY_CHAR} (sql: {sql_KP_EVENT_KEY_CHAR})");
+                    sql_KP_EVENT_KEY_CHAR = DatabaseControl.CreateInsertSqlClause(sql_KP_EVENT_KEY_CHAR, sql_values_KP_EVENT_KEY_CHAR.ToArray());
+                    if (!String.IsNullOrEmpty(sql_KP_EVENT_KEY_CHAR))
+                    {
+                        var result_KP_EVENT_KEY_CHAR = DBHelper.ExecSqlDb(sql_KP_EVENT_KEY_CHAR, true);
+                        if (result_KP_EVENT_KEY_CHAR != "OK")
+                            throw new Exception($"Failled {nameof(KeyboardPressAdapter)}.{nameof(Db_SaveChanges)}.[KP_EVENT_KEY_CHAR] {result_KP_EVENT_KEY_CHAR} (sql: {sql_KP_EVENT_KEY_CHAR})");
 
-                    keysCharsEvents.Where(x => x.SavedInDB == false).ToList().ForEach(x => x.SavedInDB = true);
+                        keysCharsEvents.Where(x => x.SavedInDB == false).ToList().ForEach(x => x.SavedInDB = true);
+                    }
                 }
                 #endregion KP_EVENT_KEY_CHAR
 
