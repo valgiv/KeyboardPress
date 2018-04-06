@@ -55,11 +55,11 @@ namespace KeyboardPress_Analyzer.Functions
                         {
                             if (!confirm)
                             {
-                                ow_notifyIcon.ShowBalloonTip(1000, "", $"Siūlomas tekstas: {pair.Value}", ToolTipIcon.Info); // nice to have: reikia pamastyti kaip uzdaryti siulymus
-                                needHideMsg = true;
+                                //ow_notifyIcon.ShowBalloonTip(1000, "", $"Siūlomas tekstas: {pair.Value}", ToolTipIcon.Info); // nice to have: reikia pamastyti kaip uzdaryti siulymus
+                                //needHideMsg = true;
                                 //
                                 InfoForm.Show($"Siūlomas tekstas: {pair.Value}",
-                                   "Pavadinimas", 2000,
+                                   "Siūlymas", 2000,
                                    InfoForm.Enum_InfoFormImage.Precent,
                                    null);
                                 //
@@ -81,11 +81,12 @@ namespace KeyboardPress_Analyzer.Functions
                         }
                         else
                         {
-                            if (needHideMsg)
-                            {
-                                ow_notifyIcon.HideBalloonTip();
-                                needHideMsg = false;
-                            }
+                            //if (needHideMsg)
+                            //{
+                            //    ow_notifyIcon.HideBalloonTip();
+                            //    needHideMsg = false;
+                            //}
+                            // nice to have: išjungti InfoForm.Show pasiūlymo rodymą
                         }
                     }
                 }

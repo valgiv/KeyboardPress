@@ -17,7 +17,7 @@ namespace KeyboardPress_Analyzer.Functions
         //private ulong wordsWithMistakes_v1;
         //private List<string> tmpWrdsList_v1 = new List<string>();
 
-        //to do: ar netrūksta lock'ų?
+        //nice to have: ar netrūksta lock'ų?
         
         private ulong totalWords_v2;
         private ulong wordsWithMistakes_v2;

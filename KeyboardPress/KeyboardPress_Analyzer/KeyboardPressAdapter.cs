@@ -11,7 +11,7 @@ using System.Windows.Forms;
 
 namespace KeyboardPress_Analyzer
 {
-    // to do: ar klaseje netruksta lock'o?
+    // nice to have: ar klaseje netruksta lock'o?
 
     public class KeyboardPressAdapter : IKeyboardPressAdapter, IDatabase
     {
@@ -187,7 +187,7 @@ namespace KeyboardPress_Analyzer
 
         protected virtual void GlobalHookMouseDown(object sender, MouseEventArgs e)
         {
-            // to do: gal i6kelti i perrasancia klase, galima isvengti dvigumo lango gavimo
+            // nice to have: galima būtų iškelti į perrašančią klasę, galima išvengti dvigumo lango gavimo
             var obj = new ObjEvent_mouse()
             {
                 ActiveWindowName = Helper.Helper.GetActiveWindowTitle_v2(),
@@ -440,10 +440,21 @@ IF @@ROWCOUNT = 0
                 keyPressCountObjList = new List<ObjKeyPressCount>();
 
                 string sql = $@"
-SELECT record_id, CAST(event_type_id AS SMALLINT) as event_type_id, CAST(event_data_type_id AS SMALLINT) as event_data_type_id, win_id, [time], [key], key_value, shift_press, ctrl_press, user_record_id FROM KP_EVENT_KEY_ALL WHERE user_record_id = {DBHelper.UserId}
-SELECT record_id, CAST(event_type_id AS SMALLINT) as event_type_id, CAST(event_data_type_id AS SMALLINT) as event_data_type_id, win_id, [time], [key], key_value, shift_press, ctrl_press, user_record_id FROM KP_EVENT_KEY_CHAR WHERE user_record_id = {DBHelper.UserId}
-SELECT record_id, CAST(event_type_id AS SMALLINT) as event_type_id, CAST(event_data_type_id AS SMALLINT) as event_data_type_id, win_id, [time], x, y, user_record_id FROM KP_EVENT_MOUSE WHERE user_record_id = {DBHelper.UserId}
-SELECT record_id, ascii_code, press_hold_count, press_release_count, user_record_id FROM KP_KEY_PRESS_COUNT WHERE user_record_id = {DBHelper.UserId}";
+SELECT TOP 0 record_id, CAST(event_type_id AS SMALLINT) as event_type_id, CAST(event_data_type_id AS SMALLINT) as event_data_type_id, win_id, [time], [key], key_value, shift_press, ctrl_press, user_record_id
+FROM KP_EVENT_KEY_ALL
+WHERE user_record_id = {DBHelper.UserId}
+
+SELECT TOP 0 record_id, CAST(event_type_id AS SMALLINT) as event_type_id, CAST(event_data_type_id AS SMALLINT) as event_data_type_id, win_id, [time], [key], key_value, shift_press, ctrl_press, user_record_id
+FROM KP_EVENT_KEY_CHAR
+WHERE user_record_id = {DBHelper.UserId}
+
+SELECT TOP 0 record_id, CAST(event_type_id AS SMALLINT) as event_type_id, CAST(event_data_type_id AS SMALLINT) as event_data_type_id, win_id, [time], x, y, user_record_id
+FROM KP_EVENT_MOUSE
+WHERE user_record_id = {DBHelper.UserId}
+
+SELECT record_id, ascii_code, press_hold_count, press_release_count, user_record_id
+FROM KP_KEY_PRESS_COUNT
+WHERE user_record_id = {DBHelper.UserId}";
 
                 var ds = DBHelper.GetDataSetDb(sql);
 

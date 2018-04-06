@@ -13,6 +13,7 @@ using System.Transactions;
 using System.Windows.Forms;
 
 using System.Diagnostics;
+using KeyboardPress_Extensions.InfoForm;
 
 namespace KeyboardPress_Analyzer
 {
@@ -135,7 +136,11 @@ namespace KeyboardPress_Analyzer
         #region Rest reminder
         private void RestReminder_TimeToRest(object sender, EventArgs e)
         {
-            notifyIcon.ShowBalloonTip(1000, "restTime", "restTime", ToolTipIcon.Warning);
+            //notifyIcon.ShowBalloonTip(1000, "restTime", "restTime", ToolTipIcon.Warning);
+            InfoForm.Show($"Pernelyk ilgas darbas kenkia Jūsų sveikatai. Prie kompiutero jau dirbate daugiau nei {restReminder.WorkStopwatch.Elapsed.TotalMinutes} minutes. Siūloma pailsėti bent {restReminder.RestTimeSeconds} sekundžių.",
+                "Laikas poilsiui", 5000,
+                InfoForm.Enum_InfoFormImage.HeadMind,
+                null);
         }
 
         private void WorkInProgress()

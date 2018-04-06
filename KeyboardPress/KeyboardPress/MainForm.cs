@@ -224,7 +224,11 @@ namespace KeyboardPress
         private void notifyIcon_MouseClick(object sender, MouseEventArgs e)
         {
             string info = baloonInfoString();
-            notifyIcon.ShowBalloonTip(500, "", info, ToolTipIcon.None);
+            //notifyIcon.ShowBalloonTip(500, "", info, ToolTipIcon.None);
+            InfoForm.Show($"{info}",
+                "Informacija", 5000,
+                InfoForm.Enum_InfoFormImage.HeadMind,
+                null);
         }
 
         private void notifyIcon_MouseDoubleClick(object sender, MouseEventArgs e)

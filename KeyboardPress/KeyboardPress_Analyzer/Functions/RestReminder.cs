@@ -36,6 +36,16 @@ namespace KeyboardPress_Analyzer.Functions
             workTask = new Task(() => { workInProgress(); });
         }
 
+        public Stopwatch WorkStopwatch
+        {
+            get { return workStopwatch; }
+        }
+
+        public int RestTimeSeconds
+        {
+            get { return restTimeSeconds; }
+        }
+
         private void workInProgress()
         {
             while (runTask)
