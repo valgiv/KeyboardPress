@@ -191,37 +191,58 @@ namespace UnitTestProject
         [TestMethod]
         public void Test_outOfMemoryList()
         {
-            List<ObjEvent_key> lst = new List<ObjEvent_key>();
-            int i = 0;
-            int i2 = 0;
-            while (true)
+            try
             {
-                try
+                var obj = new ObjEvent_key()
+                {
+                    EventObjDataType = EventDataType.KeyboardButtonCode,
+                    SavedInDB = false,
+                    ActiveWindowName = "asdasdasdasdasdasdasdasd",
+                    CtrlKeyPressed = false,
+                    EventObjType = EventType.KeyPress,
+                    EventTime = new DateTime(2008, 1, 12),
+                    Key = "a",
+                    KeyValue = 65,
+                    ShiftKeyPressed = false
+                };
+
+                List<ObjEvent_key> lst = new List<ObjEvent_key>();
+                int i = 0;
+                int i2 = 0;
+                while (true)
                 {
                     i++;
                     i2 = lst.Count;
-                    lst.Add(new ObjEvent_key()
-                    {
-                        EventObjDataType = EventDataType.KeyboardButtonCode,
-                        SavedInDB = false,
-                        ActiveWindowName = "asdasdasdasdasdasdasdasd",
-                        CtrlKeyPressed = false,
-                        EventObjType = EventType.KeyPress,
-                        EventTime = new DateTime(2008, 1, 12),
-                        Key = "a",
-                        KeyValue = 65,
-                        ShiftKeyPressed = false
-                    });
+                    Add_Obj<ObjEvent_key>(ref lst, obj);
                 }
-                catch(Exception ex) //~30mln. 16GB ram
-                {
-                    var deletedItems = new List<ObjEvent_key>();
-                    Stopwatch s = new Stopwatch();
-                    s.Start();
-                    Helper.DeleteFromBegin(ref lst, 10000000);
-                    s.Stop();
-                    var a = s.ElapsedMilliseconds;
-                }
+            }
+            catch(Exception ex)
+            {
+
+            }
+        }
+
+        protected void Add_Obj<T>(ref List<T> lst, T obj)
+        {
+            try
+            {
+                lst.Add(obj);
+            }
+            catch (OutOfMemoryException oomEx)
+            {
+                LogHelper.LogErrorMsg(oomEx);
+                LogHelper.LogInfoMsg($"BANDOMA PAŠALINTI DALĮ ELEMENTŲ IŠ {nameof(T)}");
+                DebugHelper.AddInfoMsg($"BANDOMA PAŠALINTI DALĮ ELEMENTŲ IŠ {nameof(T)}");
+                Stopwatch st = new Stopwatch();
+                st.Start();
+                Helper.DeleteFromBegin(ref lst, 10000000);
+                st.Stop();
+                var a = st.ElapsedMilliseconds;
+                lst.Add(obj);
+            }
+            catch
+            {
+                throw;
             }
         }
 

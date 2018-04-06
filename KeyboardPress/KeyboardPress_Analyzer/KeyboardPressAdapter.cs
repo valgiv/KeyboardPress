@@ -11,6 +11,8 @@ using System.Windows.Forms;
 
 namespace KeyboardPress_Analyzer
 {
+    // to do: ar klaseje netruksta lock'o?
+
     public class KeyboardPressAdapter : IKeyboardPressAdapter, IDatabase
     {
         /// <summary>
@@ -186,8 +188,7 @@ namespace KeyboardPress_Analyzer
         protected virtual void GlobalHookMouseDown(object sender, MouseEventArgs e)
         {
             // to do: gal i6kelti i perrasancia klase, galima isvengti dvigumo lango gavimo
-
-            mouseEvents.Add(new ObjEvent_mouse()
+            var obj = new ObjEvent_mouse()
             {
                 ActiveWindowName = Helper.Helper.GetActiveWindowTitle_v2(),
                 EventObjDataType = EventDataType.MouseClick,
@@ -196,13 +197,10 @@ namespace KeyboardPress_Analyzer
                 EventTime = DateTime.Now,
                 X = e.X,
                 Y = e.Y
-            });
-
-            //to do: apspresti out of memory exception atvejį
+            };
+            Add_Obj<ObjEvent_mouse>(ref mouseEvents, obj);
         }
-
-
-
+        
         #endregion GlobalHook_Mouse
 
         /// <summary>
@@ -212,8 +210,6 @@ namespace KeyboardPress_Analyzer
         /// <param name="e"></param>
         protected virtual void GlobalHookKeyPress(object sender, KeyPressEventArgs e)
         {
-            // to do: ar klaseje netruksta lock'o?
-
             var newRec = new ObjEvent_key()
             {
                 ActiveWindowName = Helper.Helper.GetActiveWindowTitle_v2(),
@@ -229,7 +225,7 @@ namespace KeyboardPress_Analyzer
             
             DebugHelper.AddInfoMsg(newRec.EventTime, $"{newRec.Key.ToString()} {newRec.KeyValue.ToString()} [{newRec.ActiveWindowName}]");
         }
-        
+
         protected void Add_ObjEvent_key(ObjEvent_key newRec)
         {
             try
@@ -241,15 +237,35 @@ namespace KeyboardPress_Analyzer
                 LogHelper.LogErrorMsg(oomEx);
                 LogHelper.LogInfoMsg($"BANDOMA PAŠALINTI DALĮ ELEMENTŲ IŠ {nameof(keysCharsEvents)}");
                 DebugHelper.AddInfoMsg($"BANDOMA PAŠALINTI DALĮ ELEMENTŲ IŠ {nameof(keysCharsEvents)}");
-                Helper.Helper.DeleteFromBegin(ref keysCharsEvents, 100);
+                Helper.Helper.DeleteFromBegin(ref keysCharsEvents, 5000);
                 keysCharsEvents.Add(newRec);
             }
-            catch (Exception ex)
+            catch
             {
-                throw ex;
+                throw;
             }
         }
 
+        protected void Add_Obj<T>(ref List<T> lst, T obj)
+        {
+            try
+            {
+                lst.Add(obj);
+            }
+            catch (OutOfMemoryException oomEx)
+            {
+                LogHelper.LogErrorMsg(oomEx);
+                LogHelper.LogInfoMsg($"BANDOMA PAŠALINTI DALĮ ELEMENTŲ IŠ {nameof(T)}");
+                DebugHelper.AddInfoMsg($"BANDOMA PAŠALINTI DALĮ ELEMENTŲ IŠ {nameof(T)}");
+                Helper.Helper.DeleteFromBegin(ref lst, 5000);
+                lst.Add(obj);
+            }
+            catch
+            {
+                throw;
+            }
+        }
+        
         protected virtual void GlobalHookKeyUp(object sender, KeyEventArgs e)
         {
             var rec = keyPressCountObjList.FirstOrDefault(x => x.AsciiKeyCode == e.KeyValue);
@@ -267,8 +283,6 @@ namespace KeyboardPress_Analyzer
 
         protected virtual void GlobalHookKeyDown(object sender, KeyEventArgs e)
         {
-            // to do: gal i6kelti?
-
             var newRec = new ObjEvent_key()
             {
                 Key = e.KeyData.ToString(),
@@ -288,12 +302,12 @@ namespace KeyboardPress_Analyzer
                 LogHelper.LogErrorMsg(oomEx);
                 LogHelper.LogInfoMsg($"BANDOMA PAŠALINTI DALĮ ELEMENTŲ IŠ {nameof(keysEvents)}");
                 DebugHelper.AddInfoMsg($"BANDOMA PAŠALINTI DALĮ ELEMENTŲ IŠ {nameof(keysEvents)}");
-                Helper.Helper.DeleteFromBegin(ref keysEvents, 100);
+                Helper.Helper.DeleteFromBegin(ref keysEvents, 5000);
                 keysEvents.Add(newRec);
             }
-            catch (Exception ex)
+            catch
             {
-                throw ex;
+                throw;
             }
             
             var rec = keyPressCountObjList.FirstOrDefault(x => x.AsciiKeyCode == e.KeyValue);
