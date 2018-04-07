@@ -55,6 +55,13 @@
             this.panelDebug = new System.Windows.Forms.Panel();
             this.richTB_debug = new System.Windows.Forms.RichTextBox();
             this.panelMain = new System.Windows.Forms.Panel();
+            this.tabControlMain = new System.Windows.Forms.TabControl();
+            this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.tabPage3 = new System.Windows.Forms.TabPage();
+            this.tabPage4 = new System.Windows.Forms.TabPage();
+            this.tabPage5 = new System.Windows.Forms.TabPage();
+            this.tabPage6 = new System.Windows.Forms.TabPage();
             this.lblLastWordWithMistake = new System.Windows.Forms.Label();
             this.lblLastWord = new System.Windows.Forms.Label();
             this.lblTotalWords = new System.Windows.Forms.Label();
@@ -66,6 +73,8 @@
             this.statusStrip.SuspendLayout();
             this.panelDebug.SuspendLayout();
             this.panelMain.SuspendLayout();
+            this.tabControlMain.SuspendLayout();
+            this.tabPage1.SuspendLayout();
             this.SuspendLayout();
             // 
             // menuStrip
@@ -80,7 +89,7 @@
             this.dBToolStripMenuItem});
             this.menuStrip.Location = new System.Drawing.Point(0, 0);
             this.menuStrip.Name = "menuStrip";
-            this.menuStrip.Size = new System.Drawing.Size(673, 24);
+            this.menuStrip.Size = new System.Drawing.Size(1084, 24);
             this.menuStrip.TabIndex = 0;
             this.menuStrip.Text = "menuStrip";
             // 
@@ -233,9 +242,9 @@
             this.statusStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripStatusLabel_info,
             this.toolStripStatusLabel_totalWorkTime});
-            this.statusStrip.Location = new System.Drawing.Point(0, 290);
+            this.statusStrip.Location = new System.Drawing.Point(0, 385);
             this.statusStrip.Name = "statusStrip";
-            this.statusStrip.Size = new System.Drawing.Size(673, 22);
+            this.statusStrip.Size = new System.Drawing.Size(1084, 22);
             this.statusStrip.TabIndex = 1;
             this.statusStrip.Text = "statusStrip";
             // 
@@ -248,7 +257,7 @@
             // toolStripStatusLabel_totalWorkTime
             // 
             this.toolStripStatusLabel_totalWorkTime.Name = "toolStripStatusLabel_totalWorkTime";
-            this.toolStripStatusLabel_totalWorkTime.Size = new System.Drawing.Size(627, 17);
+            this.toolStripStatusLabel_totalWorkTime.Size = new System.Drawing.Size(1038, 17);
             this.toolStripStatusLabel_totalWorkTime.Spring = true;
             this.toolStripStatusLabel_totalWorkTime.Text = "--";
             this.toolStripStatusLabel_totalWorkTime.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
@@ -257,9 +266,9 @@
             // 
             this.panelDebug.Controls.Add(this.richTB_debug);
             this.panelDebug.Dock = System.Windows.Forms.DockStyle.Right;
-            this.panelDebug.Location = new System.Drawing.Point(339, 24);
+            this.panelDebug.Location = new System.Drawing.Point(750, 24);
             this.panelDebug.Name = "panelDebug";
-            this.panelDebug.Size = new System.Drawing.Size(334, 266);
+            this.panelDebug.Size = new System.Drawing.Size(334, 361);
             this.panelDebug.TabIndex = 2;
             // 
             // richTB_debug
@@ -270,28 +279,113 @@
             this.richTB_debug.Location = new System.Drawing.Point(0, 0);
             this.richTB_debug.Name = "richTB_debug";
             this.richTB_debug.ReadOnly = true;
-            this.richTB_debug.Size = new System.Drawing.Size(334, 266);
+            this.richTB_debug.Size = new System.Drawing.Size(334, 361);
             this.richTB_debug.TabIndex = 0;
             this.richTB_debug.Text = "";
             // 
             // panelMain
             // 
             this.panelMain.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
-            this.panelMain.Controls.Add(this.lblLastWordWithMistake);
-            this.panelMain.Controls.Add(this.lblLastWord);
-            this.panelMain.Controls.Add(this.lblTotalWords);
-            this.panelMain.Controls.Add(this.tbTotalWordsWithMistakes);
-            this.panelMain.Controls.Add(this.tbLastWord);
-            this.panelMain.Controls.Add(this.tbTotalWords);
+            this.panelMain.Controls.Add(this.tabControlMain);
             this.panelMain.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panelMain.Location = new System.Drawing.Point(0, 24);
             this.panelMain.Name = "panelMain";
-            this.panelMain.Size = new System.Drawing.Size(339, 266);
+            this.panelMain.Size = new System.Drawing.Size(750, 361);
             this.panelMain.TabIndex = 3;
+            // 
+            // tabControlMain
+            // 
+            this.tabControlMain.Alignment = System.Windows.Forms.TabAlignment.Left;
+            this.tabControlMain.Controls.Add(this.tabPage1);
+            this.tabControlMain.Controls.Add(this.tabPage2);
+            this.tabControlMain.Controls.Add(this.tabPage3);
+            this.tabControlMain.Controls.Add(this.tabPage4);
+            this.tabControlMain.Controls.Add(this.tabPage5);
+            this.tabControlMain.Controls.Add(this.tabPage6);
+            this.tabControlMain.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tabControlMain.DrawMode = System.Windows.Forms.TabDrawMode.OwnerDrawFixed;
+            this.tabControlMain.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.tabControlMain.ItemSize = new System.Drawing.Size(30, 120);
+            this.tabControlMain.Location = new System.Drawing.Point(0, 0);
+            this.tabControlMain.Multiline = true;
+            this.tabControlMain.Name = "tabControlMain";
+            this.tabControlMain.SelectedIndex = 0;
+            this.tabControlMain.Size = new System.Drawing.Size(750, 361);
+            this.tabControlMain.SizeMode = System.Windows.Forms.TabSizeMode.Fixed;
+            this.tabControlMain.TabIndex = 10;
+            this.tabControlMain.DrawItem += new System.Windows.Forms.DrawItemEventHandler(this.tabControlMain_DrawItem);
+            this.tabControlMain.SelectedIndexChanged += new System.EventHandler(this.tabControlMain_SelectedIndexChanged);
+            // 
+            // tabPage1
+            // 
+            this.tabPage1.Controls.Add(this.lblTotalWords);
+            this.tabPage1.Controls.Add(this.lblLastWordWithMistake);
+            this.tabPage1.Controls.Add(this.tbTotalWords);
+            this.tabPage1.Controls.Add(this.lblLastWord);
+            this.tabPage1.Controls.Add(this.tbLastWord);
+            this.tabPage1.Controls.Add(this.tbTotalWordsWithMistakes);
+            this.tabPage1.Location = new System.Drawing.Point(124, 4);
+            this.tabPage1.Name = "tabPage1";
+            this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage1.Size = new System.Drawing.Size(622, 353);
+            this.tabPage1.TabIndex = 0;
+            this.tabPage1.Text = "Informacija";
+            this.tabPage1.UseVisualStyleBackColor = true;
+            // 
+            // tabPage2
+            // 
+            this.tabPage2.Location = new System.Drawing.Point(124, 4);
+            this.tabPage2.Name = "tabPage2";
+            this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage2.Size = new System.Drawing.Size(296, 347);
+            this.tabPage2.TabIndex = 1;
+            this.tabPage2.Text = "Pelė";
+            this.tabPage2.UseVisualStyleBackColor = true;
+            // 
+            // tabPage3
+            // 
+            this.tabPage3.Location = new System.Drawing.Point(124, 4);
+            this.tabPage3.Name = "tabPage3";
+            this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage3.Size = new System.Drawing.Size(296, 347);
+            this.tabPage3.TabIndex = 2;
+            this.tabPage3.Text = "Klaviatūra";
+            this.tabPage3.UseVisualStyleBackColor = true;
+            // 
+            // tabPage4
+            // 
+            this.tabPage4.Location = new System.Drawing.Point(124, 4);
+            this.tabPage4.Name = "tabPage4";
+            this.tabPage4.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage4.Size = new System.Drawing.Size(296, 347);
+            this.tabPage4.TabIndex = 3;
+            this.tabPage4.Text = "Klaidos";
+            this.tabPage4.UseVisualStyleBackColor = true;
+            // 
+            // tabPage5
+            // 
+            this.tabPage5.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.tabPage5.Location = new System.Drawing.Point(124, 4);
+            this.tabPage5.Name = "tabPage5";
+            this.tabPage5.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage5.Size = new System.Drawing.Size(296, 347);
+            this.tabPage5.TabIndex = 4;
+            this.tabPage5.Text = "Klaviatūros karštis";
+            this.tabPage5.UseVisualStyleBackColor = true;
+            // 
+            // tabPage6
+            // 
+            this.tabPage6.Location = new System.Drawing.Point(124, 4);
+            this.tabPage6.Name = "tabPage6";
+            this.tabPage6.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage6.Size = new System.Drawing.Size(296, 347);
+            this.tabPage6.TabIndex = 5;
+            this.tabPage6.Text = "tabPage6";
+            this.tabPage6.UseVisualStyleBackColor = true;
             // 
             // lblLastWordWithMistake
             // 
-            this.lblLastWordWithMistake.Location = new System.Drawing.Point(3, 187);
+            this.lblLastWordWithMistake.Location = new System.Drawing.Point(6, 107);
             this.lblLastWordWithMistake.Name = "lblLastWordWithMistake";
             this.lblLastWordWithMistake.Size = new System.Drawing.Size(115, 29);
             this.lblLastWordWithMistake.TabIndex = 9;
@@ -299,7 +393,7 @@
             // 
             // lblLastWord
             // 
-            this.lblLastWord.Location = new System.Drawing.Point(3, 158);
+            this.lblLastWord.Location = new System.Drawing.Point(6, 78);
             this.lblLastWord.Name = "lblLastWord";
             this.lblLastWord.Size = new System.Drawing.Size(115, 29);
             this.lblLastWord.TabIndex = 8;
@@ -308,7 +402,7 @@
             // lblTotalWords
             // 
             this.lblTotalWords.AutoSize = true;
-            this.lblTotalWords.Location = new System.Drawing.Point(3, 135);
+            this.lblTotalWords.Location = new System.Drawing.Point(6, 55);
             this.lblTotalWords.Name = "lblTotalWords";
             this.lblTotalWords.Size = new System.Drawing.Size(63, 13);
             this.lblTotalWords.TabIndex = 7;
@@ -317,7 +411,7 @@
             // tbTotalWordsWithMistakes
             // 
             this.tbTotalWordsWithMistakes.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
-            this.tbTotalWordsWithMistakes.Location = new System.Drawing.Point(147, 187);
+            this.tbTotalWordsWithMistakes.Location = new System.Drawing.Point(150, 107);
             this.tbTotalWordsWithMistakes.Name = "tbTotalWordsWithMistakes";
             this.tbTotalWordsWithMistakes.ReadOnly = true;
             this.tbTotalWordsWithMistakes.Size = new System.Drawing.Size(155, 20);
@@ -326,7 +420,7 @@
             // tbLastWord
             // 
             this.tbLastWord.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
-            this.tbLastWord.Location = new System.Drawing.Point(147, 158);
+            this.tbLastWord.Location = new System.Drawing.Point(150, 78);
             this.tbLastWord.Name = "tbLastWord";
             this.tbLastWord.ReadOnly = true;
             this.tbLastWord.Size = new System.Drawing.Size(155, 20);
@@ -335,7 +429,7 @@
             // tbTotalWords
             // 
             this.tbTotalWords.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
-            this.tbTotalWords.Location = new System.Drawing.Point(147, 132);
+            this.tbTotalWords.Location = new System.Drawing.Point(150, 52);
             this.tbTotalWords.Name = "tbTotalWords";
             this.tbTotalWords.ReadOnly = true;
             this.tbTotalWords.Size = new System.Drawing.Size(155, 20);
@@ -350,7 +444,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(673, 312);
+            this.ClientSize = new System.Drawing.Size(1084, 407);
             this.Controls.Add(this.panelMain);
             this.Controls.Add(this.panelDebug);
             this.Controls.Add(this.statusStrip);
@@ -368,7 +462,9 @@
             this.statusStrip.PerformLayout();
             this.panelDebug.ResumeLayout(false);
             this.panelMain.ResumeLayout(false);
-            this.panelMain.PerformLayout();
+            this.tabControlMain.ResumeLayout(false);
+            this.tabPage1.ResumeLayout(false);
+            this.tabPage1.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -408,6 +504,13 @@
         private System.Windows.Forms.ToolStripMenuItem saveDataDbToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem deleteDataDbToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem deleteDataLocalMemoryToolStripMenuItem;
+        private System.Windows.Forms.TabControl tabControlMain;
+        private System.Windows.Forms.TabPage tabPage1;
+        private System.Windows.Forms.TabPage tabPage2;
+        private System.Windows.Forms.TabPage tabPage3;
+        private System.Windows.Forms.TabPage tabPage4;
+        private System.Windows.Forms.TabPage tabPage5;
+        private System.Windows.Forms.TabPage tabPage6;
     }
 }
 

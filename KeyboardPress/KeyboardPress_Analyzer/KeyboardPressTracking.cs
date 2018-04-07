@@ -136,13 +136,18 @@ namespace KeyboardPress_Analyzer
         #region Rest reminder
         private void RestReminder_TimeToRest(object sender, EventArgs e)
         {
-            //notifyIcon.ShowBalloonTip(1000, "restTime", "restTime", ToolTipIcon.Warning);
-            InfoForm.Show($@"Pernelyk ilgas darbas kenkia Jūsų sveikatai.
+            Task t = new Task(() =>
+            {
+                InfoForm.Show($@"Pernelyk ilgas darbas kenkia Jūsų sveikatai.
 Prie kompiutero jau dirbate daugiau nei {restReminder.WorkStopwatch.Elapsed.TotalMinutes.ToString("#.##")} minučių.
 Siūloma pailsėti bent {(((double)(restReminder.RestTimeSeconds)) / 60d).ToString("#.##")} minutes.",
                 "Laikas poilsiui", 10000,
                 InfoForm.Enum_InfoFormImage.HeadMind,
                 null);
+            });
+            t.Start();
+            //notifyIcon.ShowBalloonTip(1000, "restTime", "restTime", ToolTipIcon.Warning);
+            
         }
 
         private void WorkInProgress()

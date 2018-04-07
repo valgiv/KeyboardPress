@@ -224,7 +224,6 @@ namespace KeyboardPress
         private void notifyIcon_MouseClick(object sender, MouseEventArgs e)
         {
             string info = baloonInfoString();
-            //notifyIcon.ShowBalloonTip(500, "", info, ToolTipIcon.None);
             InfoForm.Show($"{info}",
                 "Informacija", 5000,
                 InfoForm.Enum_InfoFormImage.HeadMind,
@@ -451,8 +450,6 @@ testas";
         {
             try
             {
-                this.Cursor = Cursors.WaitCursor;
-
                 if (kpt != null)
                     kpt.Db_SaveChanges();
                 return true;
@@ -464,10 +461,6 @@ testas";
                 else
                     LogHelper.LogInfoMsg($"Klaida išsaugant duomenis į duomenų bazę: {ex.Message}");
                 return false;
-            }
-            finally
-            {
-                this.Cursor = Cursors.Default;
             }
         }
 
@@ -536,5 +529,38 @@ testas";
 
         #endregion Data Database
 
+        private void tabControlMain_DrawItem(object sender, DrawItemEventArgs e)
+        {
+            var g = e.Graphics;
+            var text = this.tabControlMain.TabPages[e.Index].Text;
+            var sizeText = g.MeasureString(text, this.tabControlMain.Font);
+
+            var x = e.Bounds.Left + 3;
+            var y = e.Bounds.Top + (e.Bounds.Height - sizeText.Height) / 2;
+
+            //
+            SolidBrush _TextBrush = null;
+            Font _Font = null;
+            if (e.State == DrawItemState.Selected)
+            {
+                _TextBrush = new SolidBrush(Color.Black);
+                //g.FillRectangle(Brushes.Gray, e.Bounds);
+                _Font = new Font(this.tabControlMain.Font, FontStyle.Bold);
+            }
+            else
+            {
+                _TextBrush = new SolidBrush(Color.Black);
+                _Font = this.tabControlMain.Font;
+            }
+            //
+
+            //g.DrawString(text, this.tabControlMain.Font, Brushes.Black, x, y);
+            g.DrawString(text, _Font, _TextBrush, x, y);
+        }
+        
+        private void tabControlMain_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            //tabControlMain.TabPages[2].Text = "tst";
+        }
     }
 }

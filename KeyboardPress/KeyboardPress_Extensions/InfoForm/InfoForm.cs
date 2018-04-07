@@ -142,6 +142,9 @@ namespace KeyboardPress_Extensions.InfoForm
 
     public class InfoForm
     {
+        /// <summary>
+        /// Reikia stengtis kviesti iš kitos gijos (nes kartais viskas pakimba), kitu atveju labai gerai ištestuoti
+        /// </summary>
         public static void Show(string Message, string Title, int ShowTimeMiliseconds, Enum_InfoFormImage Image, Action ClickAct)
         {
             try
@@ -172,8 +175,7 @@ namespace KeyboardPress_Extensions.InfoForm
                 form.SetFormPosition(CalculateFormLocation(form));
                 //FormWithoutActivation.ShowInactiveTopmost(form);
                 form.Show();
-                System.Windows.Threading.Dispatcher.Run(); // to do: kažkas labai negerai
-                
+                System.Windows.Threading.Dispatcher.Run(); // dėl šito reikia stengtis kviesti ne iš pagrindinės gijos
             }
             catch(Exception ex)
             {
