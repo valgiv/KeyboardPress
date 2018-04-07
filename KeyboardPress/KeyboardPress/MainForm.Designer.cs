@@ -39,7 +39,6 @@
             this.toolStripItem_cleanDebugWindow = new System.Windows.Forms.ToolStripMenuItem();
             this.administrationToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.offerWordToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.test2ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.apieToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.informacijaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.karščioŽemėlapisToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -57,18 +56,36 @@
             this.panelMain = new System.Windows.Forms.Panel();
             this.tabControlMain = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.tbRestTime = new System.Windows.Forms.TextBox();
+            this.label7 = new System.Windows.Forms.Label();
+            this.label6 = new System.Windows.Forms.Label();
+            this.label5 = new System.Windows.Forms.Label();
+            this.label4 = new System.Windows.Forms.Label();
+            this.tbWorkTime = new System.Windows.Forms.TextBox();
+            this.tbMouseWheelRatio = new System.Windows.Forms.TextBox();
+            this.tbRightMousePress = new System.Windows.Forms.TextBox();
+            this.tbLeftMousePress = new System.Windows.Forms.TextBox();
+            this.tbMousePress = new System.Windows.Forms.TextBox();
+            this.tbKeyPress = new System.Windows.Forms.TextBox();
+            this.label3 = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
+            this.label1 = new System.Windows.Forms.Label();
+            this.lblTotalWords = new System.Windows.Forms.Label();
+            this.lblLastWordWithMistake = new System.Windows.Forms.Label();
+            this.tbTotalWords = new System.Windows.Forms.TextBox();
+            this.lblLastWord = new System.Windows.Forms.Label();
+            this.tbLastWord = new System.Windows.Forms.TextBox();
+            this.tbTotalWordsWithMistakes = new System.Windows.Forms.TextBox();
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.tabPage3 = new System.Windows.Forms.TabPage();
             this.tabPage4 = new System.Windows.Forms.TabPage();
-            this.tabPage5 = new System.Windows.Forms.TabPage();
+            this.tabKeyboardHeatMap = new System.Windows.Forms.TabPage();
             this.tabPage6 = new System.Windows.Forms.TabPage();
-            this.lblLastWordWithMistake = new System.Windows.Forms.Label();
-            this.lblLastWord = new System.Windows.Forms.Label();
-            this.lblTotalWords = new System.Windows.Forms.Label();
-            this.tbTotalWordsWithMistakes = new System.Windows.Forms.TextBox();
-            this.tbLastWord = new System.Windows.Forms.TextBox();
-            this.tbTotalWords = new System.Windows.Forms.TextBox();
             this.timer_workTime = new System.Windows.Forms.Timer(this.components);
+            this.tbMouseWheelUp = new System.Windows.Forms.TextBox();
+            this.tbMouseWheelDown = new System.Windows.Forms.TextBox();
+            this.label8 = new System.Windows.Forms.Label();
+            this.label9 = new System.Windows.Forms.Label();
             this.menuStrip.SuspendLayout();
             this.statusStrip.SuspendLayout();
             this.panelDebug.SuspendLayout();
@@ -83,7 +100,6 @@
             this.menuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.setingsToolStripMenuItem,
             this.administrationToolStripMenuItem,
-            this.test2ToolStripMenuItem,
             this.apieToolStripMenuItem,
             this.karščioŽemėlapisToolStripMenuItem,
             this.dBToolStripMenuItem});
@@ -151,7 +167,6 @@
             this.administrationToolStripMenuItem.Name = "administrationToolStripMenuItem";
             this.administrationToolStripMenuItem.Size = new System.Drawing.Size(70, 20);
             this.administrationToolStripMenuItem.Text = "Valdymas";
-            this.administrationToolStripMenuItem.Click += new System.EventHandler(this.testToolStripMenuItem_Click);
             // 
             // offerWordToolStripMenuItem
             // 
@@ -159,13 +174,6 @@
             this.offerWordToolStripMenuItem.Size = new System.Drawing.Size(169, 22);
             this.offerWordToolStripMenuItem.Text = "Reikšmių keitimas";
             this.offerWordToolStripMenuItem.Click += new System.EventHandler(this.offerWordToolStripMenuItem_Click);
-            // 
-            // test2ToolStripMenuItem
-            // 
-            this.test2ToolStripMenuItem.Name = "test2ToolStripMenuItem";
-            this.test2ToolStripMenuItem.Size = new System.Drawing.Size(44, 20);
-            this.test2ToolStripMenuItem.Text = "test2";
-            this.test2ToolStripMenuItem.Click += new System.EventHandler(this.test2ToolStripMenuItem_Click);
             // 
             // apieToolStripMenuItem
             // 
@@ -178,7 +186,7 @@
             // informacijaToolStripMenuItem
             // 
             this.informacijaToolStripMenuItem.Name = "informacijaToolStripMenuItem";
-            this.informacijaToolStripMenuItem.Size = new System.Drawing.Size(134, 22);
+            this.informacijaToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.informacijaToolStripMenuItem.Text = "Informacija";
             // 
             // karščioŽemėlapisToolStripMenuItem
@@ -300,7 +308,7 @@
             this.tabControlMain.Controls.Add(this.tabPage2);
             this.tabControlMain.Controls.Add(this.tabPage3);
             this.tabControlMain.Controls.Add(this.tabPage4);
-            this.tabControlMain.Controls.Add(this.tabPage5);
+            this.tabControlMain.Controls.Add(this.tabKeyboardHeatMap);
             this.tabControlMain.Controls.Add(this.tabPage6);
             this.tabControlMain.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tabControlMain.DrawMode = System.Windows.Forms.TabDrawMode.OwnerDrawFixed;
@@ -318,6 +326,24 @@
             // 
             // tabPage1
             // 
+            this.tabPage1.Controls.Add(this.label9);
+            this.tabPage1.Controls.Add(this.label8);
+            this.tabPage1.Controls.Add(this.tbMouseWheelDown);
+            this.tabPage1.Controls.Add(this.tbMouseWheelUp);
+            this.tabPage1.Controls.Add(this.tbRestTime);
+            this.tabPage1.Controls.Add(this.label7);
+            this.tabPage1.Controls.Add(this.label6);
+            this.tabPage1.Controls.Add(this.label5);
+            this.tabPage1.Controls.Add(this.label4);
+            this.tabPage1.Controls.Add(this.tbWorkTime);
+            this.tabPage1.Controls.Add(this.tbMouseWheelRatio);
+            this.tabPage1.Controls.Add(this.tbRightMousePress);
+            this.tabPage1.Controls.Add(this.tbLeftMousePress);
+            this.tabPage1.Controls.Add(this.tbMousePress);
+            this.tabPage1.Controls.Add(this.tbKeyPress);
+            this.tabPage1.Controls.Add(this.label3);
+            this.tabPage1.Controls.Add(this.label2);
+            this.tabPage1.Controls.Add(this.label1);
             this.tabPage1.Controls.Add(this.lblTotalWords);
             this.tabPage1.Controls.Add(this.lblLastWordWithMistake);
             this.tabPage1.Controls.Add(this.tbTotalWords);
@@ -332,12 +358,192 @@
             this.tabPage1.Text = "Informacija";
             this.tabPage1.UseVisualStyleBackColor = true;
             // 
+            // tbRestTime
+            // 
+            this.tbRestTime.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
+            this.tbRestTime.Location = new System.Drawing.Point(225, 313);
+            this.tbRestTime.Name = "tbRestTime";
+            this.tbRestTime.ReadOnly = true;
+            this.tbRestTime.Size = new System.Drawing.Size(155, 20);
+            this.tbRestTime.TabIndex = 23;
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(131, 316);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(88, 13);
+            this.label7.TabIndex = 22;
+            this.label7.Text = "Pertraukos laikas";
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(153, 290);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(66, 13);
+            this.label6.TabIndex = 21;
+            this.label6.Text = "Darbo laikas";
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(77, 186);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(142, 13);
+            this.label5.TabIndex = 20;
+            this.label5.Text = "D. pelės klavišų paspaudimų";
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(84, 160);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(135, 13);
+            this.label4.TabIndex = 19;
+            this.label4.Text = "K. pelės klvišo paspaudimų";
+            // 
+            // tbWorkTime
+            // 
+            this.tbWorkTime.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
+            this.tbWorkTime.Location = new System.Drawing.Point(225, 287);
+            this.tbWorkTime.Name = "tbWorkTime";
+            this.tbWorkTime.ReadOnly = true;
+            this.tbWorkTime.Size = new System.Drawing.Size(155, 20);
+            this.tbWorkTime.TabIndex = 18;
+            // 
+            // tbMouseWheelRatio
+            // 
+            this.tbMouseWheelRatio.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
+            this.tbMouseWheelRatio.Location = new System.Drawing.Point(225, 261);
+            this.tbMouseWheelRatio.Name = "tbMouseWheelRatio";
+            this.tbMouseWheelRatio.ReadOnly = true;
+            this.tbMouseWheelRatio.Size = new System.Drawing.Size(155, 20);
+            this.tbMouseWheelRatio.TabIndex = 17;
+            // 
+            // tbRightMousePress
+            // 
+            this.tbRightMousePress.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
+            this.tbRightMousePress.Location = new System.Drawing.Point(225, 183);
+            this.tbRightMousePress.Name = "tbRightMousePress";
+            this.tbRightMousePress.ReadOnly = true;
+            this.tbRightMousePress.Size = new System.Drawing.Size(155, 20);
+            this.tbRightMousePress.TabIndex = 16;
+            // 
+            // tbLeftMousePress
+            // 
+            this.tbLeftMousePress.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
+            this.tbLeftMousePress.Location = new System.Drawing.Point(225, 157);
+            this.tbLeftMousePress.Name = "tbLeftMousePress";
+            this.tbLeftMousePress.ReadOnly = true;
+            this.tbLeftMousePress.Size = new System.Drawing.Size(155, 20);
+            this.tbLeftMousePress.TabIndex = 15;
+            // 
+            // tbMousePress
+            // 
+            this.tbMousePress.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
+            this.tbMousePress.Location = new System.Drawing.Point(225, 131);
+            this.tbMousePress.Name = "tbMousePress";
+            this.tbMousePress.ReadOnly = true;
+            this.tbMousePress.Size = new System.Drawing.Size(155, 20);
+            this.tbMousePress.TabIndex = 14;
+            // 
+            // tbKeyPress
+            // 
+            this.tbKeyPress.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
+            this.tbKeyPress.Location = new System.Drawing.Point(225, 105);
+            this.tbKeyPress.Name = "tbKeyPress";
+            this.tbKeyPress.ReadOnly = true;
+            this.tbKeyPress.Size = new System.Drawing.Size(155, 20);
+            this.tbKeyPress.TabIndex = 13;
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(61, 264);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(158, 13);
+            this.label3.TabIndex = 12;
+            this.label3.Text = "Pelės ratuko naudojimo santykis";
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(118, 108);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(101, 13);
+            this.label2.TabIndex = 11;
+            this.label2.Text = "Klavišų paspaudimų";
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(104, 134);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(115, 13);
+            this.label1.TabIndex = 10;
+            this.label1.Text = "Viso palės paspaudimų";
+            // 
+            // lblTotalWords
+            // 
+            this.lblTotalWords.AutoSize = true;
+            this.lblTotalWords.Location = new System.Drawing.Point(156, 30);
+            this.lblTotalWords.Name = "lblTotalWords";
+            this.lblTotalWords.Size = new System.Drawing.Size(63, 13);
+            this.lblTotalWords.TabIndex = 7;
+            this.lblTotalWords.Text = "Viso žodžių:";
+            // 
+            // lblLastWordWithMistake
+            // 
+            this.lblLastWordWithMistake.AutoSize = true;
+            this.lblLastWordWithMistake.Location = new System.Drawing.Point(13, 82);
+            this.lblLastWordWithMistake.Name = "lblLastWordWithMistake";
+            this.lblLastWordWithMistake.Size = new System.Drawing.Size(206, 13);
+            this.lblLastWordWithMistake.TabIndex = 9;
+            this.lblLastWordWithMistake.Text = "Viso žodžių, kuriuos rašant taisytos klaidos";
+            // 
+            // tbTotalWords
+            // 
+            this.tbTotalWords.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
+            this.tbTotalWords.Location = new System.Drawing.Point(225, 27);
+            this.tbTotalWords.Name = "tbTotalWords";
+            this.tbTotalWords.ReadOnly = true;
+            this.tbTotalWords.Size = new System.Drawing.Size(155, 20);
+            this.tbTotalWords.TabIndex = 2;
+            // 
+            // lblLastWord
+            // 
+            this.lblLastWord.AutoSize = true;
+            this.lblLastWord.Location = new System.Drawing.Point(81, 56);
+            this.lblLastWord.Name = "lblLastWord";
+            this.lblLastWord.Size = new System.Drawing.Size(138, 13);
+            this.lblLastWord.TabIndex = 8;
+            this.lblLastWord.Text = "Paskutinis užfiksuotas žodis";
+            // 
+            // tbLastWord
+            // 
+            this.tbLastWord.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
+            this.tbLastWord.Location = new System.Drawing.Point(225, 53);
+            this.tbLastWord.Name = "tbLastWord";
+            this.tbLastWord.ReadOnly = true;
+            this.tbLastWord.Size = new System.Drawing.Size(155, 20);
+            this.tbLastWord.TabIndex = 3;
+            // 
+            // tbTotalWordsWithMistakes
+            // 
+            this.tbTotalWordsWithMistakes.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
+            this.tbTotalWordsWithMistakes.Location = new System.Drawing.Point(225, 79);
+            this.tbTotalWordsWithMistakes.Name = "tbTotalWordsWithMistakes";
+            this.tbTotalWordsWithMistakes.ReadOnly = true;
+            this.tbTotalWordsWithMistakes.Size = new System.Drawing.Size(155, 20);
+            this.tbTotalWordsWithMistakes.TabIndex = 4;
+            // 
             // tabPage2
             // 
             this.tabPage2.Location = new System.Drawing.Point(124, 4);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(296, 347);
+            this.tabPage2.Size = new System.Drawing.Size(622, 353);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Pelė";
             this.tabPage2.UseVisualStyleBackColor = true;
@@ -347,7 +553,7 @@
             this.tabPage3.Location = new System.Drawing.Point(124, 4);
             this.tabPage3.Name = "tabPage3";
             this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage3.Size = new System.Drawing.Size(296, 347);
+            this.tabPage3.Size = new System.Drawing.Size(622, 353);
             this.tabPage3.TabIndex = 2;
             this.tabPage3.Text = "Klaviatūra";
             this.tabPage3.UseVisualStyleBackColor = true;
@@ -357,88 +563,72 @@
             this.tabPage4.Location = new System.Drawing.Point(124, 4);
             this.tabPage4.Name = "tabPage4";
             this.tabPage4.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage4.Size = new System.Drawing.Size(296, 347);
+            this.tabPage4.Size = new System.Drawing.Size(622, 353);
             this.tabPage4.TabIndex = 3;
             this.tabPage4.Text = "Klaidos";
             this.tabPage4.UseVisualStyleBackColor = true;
             // 
-            // tabPage5
+            // tabKeyboardHeatMap
             // 
-            this.tabPage5.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.tabPage5.Location = new System.Drawing.Point(124, 4);
-            this.tabPage5.Name = "tabPage5";
-            this.tabPage5.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage5.Size = new System.Drawing.Size(296, 347);
-            this.tabPage5.TabIndex = 4;
-            this.tabPage5.Text = "Klaviatūros karštis";
-            this.tabPage5.UseVisualStyleBackColor = true;
+            this.tabKeyboardHeatMap.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.tabKeyboardHeatMap.Location = new System.Drawing.Point(124, 4);
+            this.tabKeyboardHeatMap.Name = "tabKeyboardHeatMap";
+            this.tabKeyboardHeatMap.Padding = new System.Windows.Forms.Padding(3);
+            this.tabKeyboardHeatMap.Size = new System.Drawing.Size(622, 353);
+            this.tabKeyboardHeatMap.TabIndex = 4;
+            this.tabKeyboardHeatMap.Text = "Klaviatūros karštis";
+            this.tabKeyboardHeatMap.UseVisualStyleBackColor = true;
             // 
             // tabPage6
             // 
             this.tabPage6.Location = new System.Drawing.Point(124, 4);
             this.tabPage6.Name = "tabPage6";
             this.tabPage6.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage6.Size = new System.Drawing.Size(296, 347);
+            this.tabPage6.Size = new System.Drawing.Size(622, 353);
             this.tabPage6.TabIndex = 5;
             this.tabPage6.Text = "tabPage6";
             this.tabPage6.UseVisualStyleBackColor = true;
-            // 
-            // lblLastWordWithMistake
-            // 
-            this.lblLastWordWithMistake.Location = new System.Drawing.Point(6, 107);
-            this.lblLastWordWithMistake.Name = "lblLastWordWithMistake";
-            this.lblLastWordWithMistake.Size = new System.Drawing.Size(115, 29);
-            this.lblLastWordWithMistake.TabIndex = 9;
-            this.lblLastWordWithMistake.Text = "Viso žodžių, kuriuos rašant taisytos klaidos";
-            // 
-            // lblLastWord
-            // 
-            this.lblLastWord.Location = new System.Drawing.Point(6, 78);
-            this.lblLastWord.Name = "lblLastWord";
-            this.lblLastWord.Size = new System.Drawing.Size(115, 29);
-            this.lblLastWord.TabIndex = 8;
-            this.lblLastWord.Text = "Paskutinis užfiksuotas žodis";
-            // 
-            // lblTotalWords
-            // 
-            this.lblTotalWords.AutoSize = true;
-            this.lblTotalWords.Location = new System.Drawing.Point(6, 55);
-            this.lblTotalWords.Name = "lblTotalWords";
-            this.lblTotalWords.Size = new System.Drawing.Size(63, 13);
-            this.lblTotalWords.TabIndex = 7;
-            this.lblTotalWords.Text = "Viso žodžių:";
-            // 
-            // tbTotalWordsWithMistakes
-            // 
-            this.tbTotalWordsWithMistakes.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
-            this.tbTotalWordsWithMistakes.Location = new System.Drawing.Point(150, 107);
-            this.tbTotalWordsWithMistakes.Name = "tbTotalWordsWithMistakes";
-            this.tbTotalWordsWithMistakes.ReadOnly = true;
-            this.tbTotalWordsWithMistakes.Size = new System.Drawing.Size(155, 20);
-            this.tbTotalWordsWithMistakes.TabIndex = 4;
-            // 
-            // tbLastWord
-            // 
-            this.tbLastWord.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
-            this.tbLastWord.Location = new System.Drawing.Point(150, 78);
-            this.tbLastWord.Name = "tbLastWord";
-            this.tbLastWord.ReadOnly = true;
-            this.tbLastWord.Size = new System.Drawing.Size(155, 20);
-            this.tbLastWord.TabIndex = 3;
-            // 
-            // tbTotalWords
-            // 
-            this.tbTotalWords.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
-            this.tbTotalWords.Location = new System.Drawing.Point(150, 52);
-            this.tbTotalWords.Name = "tbTotalWords";
-            this.tbTotalWords.ReadOnly = true;
-            this.tbTotalWords.Size = new System.Drawing.Size(155, 20);
-            this.tbTotalWords.TabIndex = 2;
             // 
             // timer_workTime
             // 
             this.timer_workTime.Interval = 1000;
             this.timer_workTime.Tick += new System.EventHandler(this.timer_workTime_Tick);
+            // 
+            // tbMouseWheelUp
+            // 
+            this.tbMouseWheelUp.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
+            this.tbMouseWheelUp.Location = new System.Drawing.Point(225, 209);
+            this.tbMouseWheelUp.Name = "tbMouseWheelUp";
+            this.tbMouseWheelUp.ReadOnly = true;
+            this.tbMouseWheelUp.Size = new System.Drawing.Size(155, 20);
+            this.tbMouseWheelUp.TabIndex = 24;
+            // 
+            // tbMouseWheelDown
+            // 
+            this.tbMouseWheelDown.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
+            this.tbMouseWheelDown.Location = new System.Drawing.Point(225, 235);
+            this.tbMouseWheelDown.Name = "tbMouseWheelDown";
+            this.tbMouseWheelDown.ReadOnly = true;
+            this.tbMouseWheelDown.Size = new System.Drawing.Size(155, 20);
+            this.tbMouseWheelDown.TabIndex = 25;
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Location = new System.Drawing.Point(104, 212);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(111, 13);
+            this.label8.TabIndex = 26;
+            this.label8.Text = "Pelės ratukas aukštyn";
+            // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.Location = new System.Drawing.Point(115, 238);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(104, 13);
+            this.label9.TabIndex = 27;
+            this.label9.Text = "Pelės ratukas žemyn";
             // 
             // MainForm
             // 
@@ -490,7 +680,6 @@
         private System.Windows.Forms.ToolStripMenuItem informacijaToolStripMenuItem;
         private System.Windows.Forms.Timer timer_workTime;
         private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel_totalWorkTime;
-        private System.Windows.Forms.ToolStripMenuItem test2ToolStripMenuItem;
         private System.Windows.Forms.TextBox tbTotalWords;
         private System.Windows.Forms.Label lblLastWord;
         private System.Windows.Forms.Label lblTotalWords;
@@ -509,8 +698,26 @@
         private System.Windows.Forms.TabPage tabPage2;
         private System.Windows.Forms.TabPage tabPage3;
         private System.Windows.Forms.TabPage tabPage4;
-        private System.Windows.Forms.TabPage tabPage5;
+        private System.Windows.Forms.TabPage tabKeyboardHeatMap;
         private System.Windows.Forms.TabPage tabPage6;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.TextBox tbLeftMousePress;
+        private System.Windows.Forms.TextBox tbMousePress;
+        private System.Windows.Forms.TextBox tbKeyPress;
+        private System.Windows.Forms.TextBox tbRestTime;
+        private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.TextBox tbWorkTime;
+        private System.Windows.Forms.TextBox tbMouseWheelRatio;
+        private System.Windows.Forms.TextBox tbRightMousePress;
+        private System.Windows.Forms.TextBox tbMouseWheelDown;
+        private System.Windows.Forms.TextBox tbMouseWheelUp;
+        private System.Windows.Forms.Label label9;
+        private System.Windows.Forms.Label label8;
     }
 }
 

@@ -101,21 +101,26 @@ namespace KeyboardPress_Analyzer
         public EnumUiControlTag Tag { get; set; }
     }
 
+    //to do: jie saugočiau totalWork time, tada galima būtų apskaičiuoti avg reikšmes
     public enum EnumUiControlTag
     {
-        TotalKeyPress,
-        TotalMousePress,
-        TotalWords,
-        TotalMouseWheelUp,
-        TotalMouseWheelDown,
-        LastWord,
-        TotalWordsMistakes,
+        TotalKeyPress,//+
+        TotalMousePress,//+
+        TotalWords, //+
+        TotalMouseWheelUp,//+
+        TotalMouseWheelDown,//+
+        TotalMouseWhellRatio,//+
+        LastWord, //+
+        TotalWordsMistakes, //+
         AvrgPressPerMin,
         AvrgPressPerHour,
         AvrgMousePressPerMin,
         AvrgMousePressPerHour,
         AvrgWordsPerMin,
         AvrgWordsPerHour,
-
+        TotalMouseLeftPress,//+
+        TotalMouseRightPress,//+
+        CurrentWorkTime,//+
+        CurrentRestTime//+
     }
 }

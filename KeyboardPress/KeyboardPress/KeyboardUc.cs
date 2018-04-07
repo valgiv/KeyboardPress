@@ -33,34 +33,8 @@ namespace KeyboardPress
         {
             try
             {
-                uint maxCount = 0;
-                Data.ForEach(x =>
-                {
-                    if (maxCount < x.PressHoldCount)
-                        maxCount = x.PressHoldCount;
-                });
+                ReloadData(Data);
 
-                foreach (var control in this.panel.Controls)
-                {
-                    if (control is Button)
-                    {
-                        if (((Button)control).Tag.ToString() != "")
-                        {
-                            var iLine = Data.FirstOrDefault(x => x.AsciiKeyCode == System.Convert.ToInt32(((Button)control).Tag.ToString()));
-                            if (iLine != null)
-                            {
-                                // v1:
-                                //int value = getColor(System.Convert.ToInt32(iLine.PressHoldCount.ToString()), maxCount);
-                                //((Button)control).BackColor = Color.FromArgb(255, value, value);
-
-                                // v2:
-                                var cnt = getColor_v2(System.Convert.ToInt32(iLine.PressHoldCount.ToString()), maxCount);
-                                if (cnt != null)
-                                    ((Button)control).BackColor = (Color)cnt;
-                            }
-                        }
-                    }
-                }
                 this.SizeChanged += new System.EventHandler(this.KeyboardUc_SizeChanged);
             }
             catch (Exception ex)
@@ -69,7 +43,39 @@ namespace KeyboardPress
             }
         }
 
-        
+        public void ReloadData(List<ObjKeyPressCount> data)
+        {
+            Data = data;
+
+            uint maxCount = 0;
+            Data.ForEach(x =>
+            {
+                if (maxCount < x.PressHoldCount)
+                    maxCount = x.PressHoldCount;
+            });
+
+            foreach (var control in this.panel.Controls)
+            {
+                if (control is Button)
+                {
+                    if (((Button)control).Tag.ToString() != "")
+                    {
+                        var iLine = Data.FirstOrDefault(x => x.AsciiKeyCode == System.Convert.ToInt32(((Button)control).Tag.ToString()));
+                        if (iLine != null)
+                        {
+                            // v1:
+                            //int value = getColor(System.Convert.ToInt32(iLine.PressHoldCount.ToString()), maxCount);
+                            //((Button)control).BackColor = Color.FromArgb(255, value, value);
+
+                            // v2:
+                            var cnt = getColor_v2(System.Convert.ToInt32(iLine.PressHoldCount.ToString()), maxCount);
+                            if (cnt != null)
+                                ((Button)control).BackColor = (Color)cnt;
+                        }
+                    }
+                }
+            }
+        }
 
         private int getColor(int count, uint maxCount)
         {

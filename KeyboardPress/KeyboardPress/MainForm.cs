@@ -30,9 +30,13 @@ namespace KeyboardPress
         {
             InitializeComponent();
             this.Text = "Keyboard Press Analyzer";
-
         }
         
+        public KeyboardPressTracking Kpt
+        {
+            get { return kpt; }
+        }
+
         private void StartUp()
         {
             LoadConfiguration();
@@ -133,12 +137,7 @@ namespace KeyboardPress
                 toolStripItem_start.Checked = true;
             }
         }
-
-        //private void toolStripItem_clean_Click(object sender, EventArgs e)
-        //{
-        //    CleanData();
-        //}
-
+        
         private void toolStripItem_cleanDebugWindow_Click(object sender, EventArgs e)
         {
             richTB_debug.Text = "";
@@ -207,20 +206,7 @@ namespace KeyboardPress
                 MessageBox.Show("Klaida sustabdant klavišų paspaudimų fiksavimą");
             }
         }
-
-        //public void CleanData()
-        //{
-        //    try
-        //    {
-        //        kpt.CleanData();
-        //    }
-        //    catch(Exception ex)
-        //    {
-        //        LogHelper.LogErrorMsg(ex);
-        //        MessageBox.Show("Klaida inicijuojant surinktų duomenų šalinimą");
-        //    }
-        //}
-
+        
         private void notifyIcon_MouseClick(object sender, MouseEventArgs e)
         {
             string info = baloonInfoString();
@@ -259,7 +245,7 @@ namespace KeyboardPress
 {Environment.NewLine}Klavišų paspaudimų: {kpt.TotalKeyPress.ToString()}
 {Environment.NewLine}Žodžių: {kpt.TotalWords.ToString()}
 {Environment.NewLine}Pelės ratuko naudojimo santykis: {kpt.TotalMouseWheelUp}/{kpt.TotalMouseWheelDown}
-{Environment.NewLine}Per: {kpt.StopWach.Elapsed.ToString(@"dd\.hh\:mm\:ss")}";
+{Environment.NewLine}Nuo paskutinio įjungimo prabėgo: {kpt.StopWach.Elapsed.ToString(@"dd\.hh\:mm\:ss")}";
         }
 
         private void SetControls()
@@ -267,6 +253,15 @@ namespace KeyboardPress
             Helper.UiControls.Add(tbTotalWords, EnumUiControlTag.TotalWords);
             Helper.UiControls.Add(tbLastWord, EnumUiControlTag.LastWord);
             Helper.UiControls.Add(tbTotalWordsWithMistakes, EnumUiControlTag.TotalWordsMistakes);
+            Helper.UiControls.Add(tbKeyPress, EnumUiControlTag.TotalKeyPress);
+            Helper.UiControls.Add(tbMousePress, EnumUiControlTag.TotalMousePress);
+            Helper.UiControls.Add(tbLeftMousePress, EnumUiControlTag.TotalMouseLeftPress);
+            Helper.UiControls.Add(tbRightMousePress, EnumUiControlTag.TotalMouseRightPress);
+            Helper.UiControls.Add(tbMouseWheelRatio, EnumUiControlTag.TotalMouseWhellRatio);
+            Helper.UiControls.Add(tbWorkTime, EnumUiControlTag.CurrentWorkTime);
+            Helper.UiControls.Add(tbRestTime, EnumUiControlTag.CurrentRestTime);
+            Helper.UiControls.Add(tbMouseWheelUp, EnumUiControlTag.TotalMouseWheelUp);
+            Helper.UiControls.Add(tbMouseWheelDown, EnumUiControlTag.TotalMouseWheelDown);
         }
 
         /// <summary>
@@ -283,7 +278,7 @@ namespace KeyboardPress
 
                     
                     //Thread.Sleep(1800000); //1 800 000 milliseconds = 30 minutes
-                    Thread.Sleep(300000); //5min
+                    Thread.Sleep(600000); //10min
 
                     if (periodicalDbSaveChanges)
                     {
@@ -296,11 +291,6 @@ namespace KeyboardPress
             }
         }
         
-        private void testToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-
-        }
-
         private void timer_workTime_Tick(object sender, EventArgs e)
         {
             if (kpt == null || kpt.StopWach == null)
@@ -308,75 +298,7 @@ namespace KeyboardPress
 
             toolStripStatusLabel_totalWorkTime.Text = kpt.StopWach.Elapsed.ToString(@"dd\.hh\:mm\:ss");
         }
-
-        private void test2ToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            //InfoForm.Show(2000, InfoForm.Enum_InfoFormImage.BulbBlack);
-            
-            //InfoForm.Show(2000, InfoForm.Enum_InfoFormImage.BulbQ);
-
-            //InfoForm.Show(2000, InfoForm.Enum_InfoFormImage.HeadConfig);
-
-            //InfoForm.Show(2000, InfoForm.Enum_InfoFormImage.HeadMind);
-
-            string text = @"Labas
-1
-2
--33333333333333333333333333333333333333333333333-
-4
-5
-6
-7
-8
-testas";
-
-            //InfoForm.Show(text,
-            //    "Pavadinimas", 2000,
-            //    InfoForm.Enum_InfoFormImage.Precent,
-            //    null);
-
-            Task t = new Task(() =>
-            {
-                InfoForm.Show(text,
-                "Pavadinimas", 2000,
-                InfoForm.Enum_InfoFormImage.Precent,
-                null);
-            });
-            t.Start();
-
-            //Thread t = new Thread(delegate ()
-            //{
-            //    var form = new InfoFormDialog("tst", "ewgvszdfv", 3000, null, null);
-            //    //form.SetFormPosition(CalculateFormLocation(form));
-            //    //FormWithoutActivation.ShowInactiveTopmost(form);
-            //    form.Show();
-            //    System.Windows.Threading.Dispatcher.Run();
-            //});
-            ////t.SetApartmentState(ApartmentState.STA);
-            //t.Start();
-
-
-
-            //Task t = new Task(() =>
-            //{
-            //    var form = new InfoFormDialog("tst", "ewgvszdfv", 3000, null, new Action(()=>
-            //    {
-            //        testAction();
-            //    }));
-            //    //form.SetFormPosition(CalculateFormLocation(form));
-            //    //FormWithoutActivation.ShowInactiveTopmost(form);
-            //    form.Show();
-            //    System.Windows.Threading.Dispatcher.Run();
-            //});
-            //t.Start();
-
-        }
-
-        public void testAction()
-        {
-
-        }
-
+        
         private void TestDBConnectionOnLoad()
         {
             if(!DBHelper.TestConnection())
@@ -392,10 +314,7 @@ testas";
             try
             {
                 List<ObjKeyPressCount> a = kpt.KeyPressCountObjList;
-
-                //Keyboard k = new Keyboard(a);
-                //k.ShowDialog();
-
+                
                 new EmptyForm(new KeyboardUc(a), "Karščio žemėlapis", true).ShowDialog();
             }
             catch (Exception ex)
@@ -437,7 +356,7 @@ testas";
         private void deleteDataDbToolStripMenuItem_Click(object sender, EventArgs e)
         {
             if(Db_DeleteDataFromDatabase())
-            LogHelper.ShowInfoMsgWithLog("Duomenys sėkmingai pašalinti");
+                LogHelper.ShowInfoMsgWithLog("Duomenys sėkmingai pašalinti");
         }
 
         private void deleteDataLocalMemoryToolStripMenuItem_Click(object sender, EventArgs e)
@@ -557,10 +476,22 @@ testas";
             //g.DrawString(text, this.tabControlMain.Font, Brushes.Black, x, y);
             g.DrawString(text, _Font, _TextBrush, x, y);
         }
-        
+
+        private UcTabKeyboardHeatMap ucHeatMap = null;
         private void tabControlMain_SelectedIndexChanged(object sender, EventArgs e)
         {
-            //tabControlMain.TabPages[2].Text = "tst";
+            //clears controls
+            tabKeyboardHeatMap.Controls.Clear();
+            if (ucHeatMap != null)
+                ucHeatMap.Dispose();
+            ucHeatMap = null;
+
+            if (tabControlMain.SelectedIndex == 4)
+            {
+                ucHeatMap = new UcTabKeyboardHeatMap();
+                ucHeatMap.Dock = DockStyle.Fill;
+                tabKeyboardHeatMap.Controls.Add(ucHeatMap);
+            }
         }
     }
 }

@@ -11,8 +11,6 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Transactions;
 using System.Windows.Forms;
-
-using System.Diagnostics;
 using KeyboardPress_Extensions.InfoForm;
 
 namespace KeyboardPress_Analyzer

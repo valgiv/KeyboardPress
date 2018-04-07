@@ -17,6 +17,8 @@ namespace KeyboardPress_Analyzer.Functions
         private KeyValuePair<string, string>[] offerWordTemplate_pairs;
         private NotifyIcon ow_notifyIcon;
 
+        //20180408 padaryti siulymu/panaudotų siūlymų skaiciavima
+
         public OfferWord(NotifyIcon ni)
         {
             if (ni == null)
