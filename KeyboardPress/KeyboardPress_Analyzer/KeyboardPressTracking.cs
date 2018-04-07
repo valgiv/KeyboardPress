@@ -137,8 +137,10 @@ namespace KeyboardPress_Analyzer
         private void RestReminder_TimeToRest(object sender, EventArgs e)
         {
             //notifyIcon.ShowBalloonTip(1000, "restTime", "restTime", ToolTipIcon.Warning);
-            InfoForm.Show($"Pernelyk ilgas darbas kenkia Jūsų sveikatai. Prie kompiutero jau dirbate daugiau nei {restReminder.WorkStopwatch.Elapsed.TotalMinutes} minutes. Siūloma pailsėti bent {restReminder.RestTimeSeconds} sekundžių.",
-                "Laikas poilsiui", 5000,
+            InfoForm.Show($@"Pernelyk ilgas darbas kenkia Jūsų sveikatai.
+Prie kompiutero jau dirbate daugiau nei {restReminder.WorkStopwatch.Elapsed.TotalMinutes.ToString("#.##")} minučių.
+Siūloma pailsėti bent {(((double)(restReminder.RestTimeSeconds)) / 60d).ToString("#.##")} minutes.",
+                "Laikas poilsiui", 10000,
                 InfoForm.Enum_InfoFormImage.HeadMind,
                 null);
         }
@@ -197,7 +199,7 @@ namespace KeyboardPress_Analyzer
                 //nes keičia kursoriaus poziciją
                 var a = new ObjEvent_key()
                 {
-                    ActiveWindowName = Helper.Helper.GetActiveWindowTitle_v2(),
+                    ActiveWindowName = Helper.Helper.GetActiveWindowTitle_v3(),
                     ShiftKeyPressed = e.Shift,
                     CtrlKeyPressed = e.Control,
                     EventObjType = EventType.KeyPress,
@@ -300,7 +302,7 @@ namespace KeyboardPress_Analyzer
                 //pelės paspaudimas gali keisti kursoriaus poziciją
                 var a = new ObjEvent_key()
                 {
-                    ActiveWindowName = Helper.Helper.GetActiveWindowTitle_v2(),
+                    ActiveWindowName = Helper.Helper.GetActiveWindowTitle_v3(),
                     ShiftKeyPressed = null,
                     CtrlKeyPressed = null,
                     EventObjType = EventType.KeyPress, //nes naudojamas bus ten kur generuojamos zodis

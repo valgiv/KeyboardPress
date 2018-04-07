@@ -82,7 +82,7 @@ namespace KeyboardPress_Analyzer.Functions
                 RemovedChar = removedChar,
                 EventTime = DateTime.Now,
                 SavedInDB = false,
-                ActiveWindowName = Helper.Helper.GetActiveWindowTitle_v2()
+                ActiveWindowName = Helper.Helper.GetActiveWindowTitle_v3()
             });
         }
 

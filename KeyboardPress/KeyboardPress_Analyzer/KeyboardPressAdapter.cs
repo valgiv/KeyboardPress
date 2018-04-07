@@ -146,8 +146,9 @@ namespace KeyboardPress_Analyzer
                 return;
 
             m_GlobalHook.KeyDown -= GlobalHookKeyDown;
-            m_GlobalHook.KeyUp -= GlobalHookKeyUp;
             m_GlobalHook.KeyPress -= GlobalHookKeyPress;
+            m_GlobalHook.KeyUp -= GlobalHookKeyUp;
+
 
             m_GlobalHook.MouseDown -= GlobalHookMouseDown;
             m_GlobalHook.MouseWheel -= GlobalHook_MouseWheel;
@@ -190,7 +191,7 @@ namespace KeyboardPress_Analyzer
             // nice to have: galima būtų iškelti į perrašančią klasę, galima išvengti dvigumo lango gavimo
             var obj = new ObjEvent_mouse()
             {
-                ActiveWindowName = Helper.Helper.GetActiveWindowTitle_v2(),
+                ActiveWindowName = Helper.Helper.GetActiveWindowTitle_v3(),
                 EventObjDataType = EventDataType.MouseClick,
                 SavedInDB = false,
                 EventObjType = EventType.MouseDown,
@@ -212,7 +213,7 @@ namespace KeyboardPress_Analyzer
         {
             var newRec = new ObjEvent_key()
             {
-                ActiveWindowName = Helper.Helper.GetActiveWindowTitle_v2(),
+                ActiveWindowName = Helper.Helper.GetActiveWindowTitle_v3(),
                 EventObjType = EventType.KeyPress,
                 KeyValue = (int)e.KeyChar,
                 Key = e.KeyChar.ToString(),
@@ -223,7 +224,7 @@ namespace KeyboardPress_Analyzer
 
             Add_ObjEvent_key(newRec);
             
-            DebugHelper.AddInfoMsg(newRec.EventTime, $"{newRec.Key.ToString()} {newRec.KeyValue.ToString()} [{newRec.ActiveWindowName}]");
+            //DebugHelper.AddInfoMsg(newRec.EventTime, $"{newRec.Key.ToString()} {newRec.KeyValue.ToString()} [{newRec.ActiveWindowName}]");
         }
 
         protected void Add_ObjEvent_key(ObjEvent_key newRec)
@@ -287,7 +288,7 @@ namespace KeyboardPress_Analyzer
             {
                 Key = e.KeyData.ToString(),
                 EventObjType = EventType.KeyDown,
-                ActiveWindowName = Helper.Helper.GetActiveWindowTitle_v2(),
+                ActiveWindowName = Helper.Helper.GetActiveWindowTitle_v3(),
                 KeyValue = e.KeyValue,
                 EventObjDataType = EventDataType.KeyboardButtonCode,
                 SavedInDB = false,

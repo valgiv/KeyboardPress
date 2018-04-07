@@ -102,6 +102,30 @@ namespace KeyboardPress_Analyzer.Helper
         [DllImport("user32.dll")]
         static extern IntPtr GetWindowThreadProcessId(IntPtr hWnd, out uint ProcessId);
 
+
+        private static string LastWindow = "";
+        private static DateTime LastWindowTime = DateTime.MinValue;
+        /// <summary>
+        /// paotimizuotas v2 veikimas, traukiama nauja reikšmė, jei prieštai buvo traukta daugiau nei prieš 1.5 sekundės
+        /// </summary>
+        /// <returns></returns>
+        public static string GetActiveWindowTitle_v3()
+        {
+            try
+            {
+                if((DateTime.Now - LastWindowTime).TotalSeconds > 1.5)
+                {
+                    LastWindowTime = DateTime.Now;
+                    LastWindow = GetActiveWindowTitle_v2();
+                }
+                return LastWindow;
+            }
+            catch
+            {
+                return unknownWindowName;
+            }
+        }
+
         public static string GetActiveWindowTitle_v2()
         {
             try

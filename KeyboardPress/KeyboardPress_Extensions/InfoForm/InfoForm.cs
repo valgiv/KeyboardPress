@@ -172,7 +172,8 @@ namespace KeyboardPress_Extensions.InfoForm
                 form.SetFormPosition(CalculateFormLocation(form));
                 //FormWithoutActivation.ShowInactiveTopmost(form);
                 form.Show();
-                System.Windows.Threading.Dispatcher.Run();
+                System.Windows.Threading.Dispatcher.Run(); // to do: kažkas labai negerai
+                
             }
             catch(Exception ex)
             {

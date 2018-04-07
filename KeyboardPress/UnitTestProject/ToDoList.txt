@@ -2,6 +2,21 @@
 
 
 
-nice to have: pradejo kibti kai spaudi klavisa ir laikai (tik su ijungtu debug mode) ka=ko padaryti nelabai eina
 
 to do: mastyt kas bus su debug langu, jei liks, tai pildyti normaliau
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
