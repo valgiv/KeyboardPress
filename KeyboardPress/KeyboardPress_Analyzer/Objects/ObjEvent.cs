@@ -10,6 +10,7 @@ namespace KeyboardPress_Analyzer.Objects
     {
         public int? X { get; set; }
         public int? Y { get; set; }
+        public MouseKeys MouseKey { get; set; }
     }
 
     public class ObjEvent_key : ObjEvent_base
@@ -43,6 +44,16 @@ namespace KeyboardPress_Analyzer.Objects
         public DateTime EventTime { get; set; }
 
         public bool SavedInDB { get; set; }
+    }
+
+    public enum MouseKeys
+    {
+        Unknown = 1,
+        Left,
+        Right,
+        Middle,
+        XButton1,
+        XButton2
     }
 
     /// <summary>

@@ -101,9 +101,10 @@ namespace KeyboardPress_Analyzer
         public EnumUiControlTag Tag { get; set; }
     }
 
-    //to do: jie saugočiau totalWork time, tada galima būtų apskaičiuoti avg reikšmes
+    //to do: jei saugočiau totalWork time, tada galima būtų apskaičiuoti avg reikšmes
     public enum EnumUiControlTag
     {
+        TotalKeyPressRelease,//+
         TotalKeyPress,//+
         TotalMousePress,//+
         TotalWords, //+

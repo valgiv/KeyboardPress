@@ -253,15 +253,20 @@ namespace KeyboardPress
             Helper.UiControls.Add(tbTotalWords, EnumUiControlTag.TotalWords);
             Helper.UiControls.Add(tbLastWord, EnumUiControlTag.LastWord);
             Helper.UiControls.Add(tbTotalWordsWithMistakes, EnumUiControlTag.TotalWordsMistakes);
+            Helper.UiControls.Add(tbKeyPressRelease, EnumUiControlTag.TotalKeyPressRelease);
             Helper.UiControls.Add(tbKeyPress, EnumUiControlTag.TotalKeyPress);
             Helper.UiControls.Add(tbMousePress, EnumUiControlTag.TotalMousePress);
             Helper.UiControls.Add(tbLeftMousePress, EnumUiControlTag.TotalMouseLeftPress);
             Helper.UiControls.Add(tbRightMousePress, EnumUiControlTag.TotalMouseRightPress);
-            Helper.UiControls.Add(tbMouseWheelRatio, EnumUiControlTag.TotalMouseWhellRatio);
-            Helper.UiControls.Add(tbWorkTime, EnumUiControlTag.CurrentWorkTime);
-            Helper.UiControls.Add(tbRestTime, EnumUiControlTag.CurrentRestTime);
             Helper.UiControls.Add(tbMouseWheelUp, EnumUiControlTag.TotalMouseWheelUp);
             Helper.UiControls.Add(tbMouseWheelDown, EnumUiControlTag.TotalMouseWheelDown);
+            
+            Helper.UiControls.Add(tbWorkTime, EnumUiControlTag.CurrentWorkTime);
+            Helper.UiControls.Add(tbRestTime, EnumUiControlTag.CurrentRestTime);
+
+            Helper.UiControls.Add(tbMouseWheelRatio, EnumUiControlTag.TotalMouseWhellRatio); //išskaičiuojamas atskirai
+
+
         }
 
         /// <summary>

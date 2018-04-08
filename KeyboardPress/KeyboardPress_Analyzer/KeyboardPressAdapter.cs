@@ -18,7 +18,7 @@ namespace KeyboardPress_Analyzer
         /// <summary>
         /// Pelės mygtukų paspaudimai /sukuriau vieta db saugojimui KP_EVENT_MOUSE
         /// </summary>
-        private List<ObjEvent_mouse> mouseEvents;
+        protected List<ObjEvent_mouse> mouseEvents;
 
         /// <summary>
         /// visi klaviatūros mygtukų paspaudimai
@@ -188,18 +188,42 @@ namespace KeyboardPress_Analyzer
 
         protected virtual void GlobalHookMouseDown(object sender, MouseEventArgs e)
         {
-            // nice to have: galima būtų iškelti į perrašančią klasę, galima išvengti dvigumo lango gavimo
-            var obj = new ObjEvent_mouse()
-            {
-                ActiveWindowName = Helper.Helper.GetActiveWindowTitle_v3(),
-                EventObjDataType = EventDataType.MouseClick,
-                SavedInDB = false,
-                EventObjType = EventType.MouseDown,
-                EventTime = DateTime.Now,
-                X = e.X,
-                Y = e.Y
-            };
-            Add_Obj<ObjEvent_mouse>(ref mouseEvents, obj);
+            // done: iškelta į perrašančią klasę, taip optimizuojant
+            //var obj = new ObjEvent_mouse()
+            //{
+            //    ActiveWindowName = Helper.Helper.GetActiveWindowTitle_v3(),
+            //    EventObjDataType = EventDataType.MouseClick,
+            //    SavedInDB = false,
+            //    EventObjType = EventType.MouseDown,
+            //    EventTime = DateTime.Now,
+            //    X = e.X,
+            //    Y = e.Y
+            //};
+
+            //switch (e.Button)
+            //{
+            //    case MouseButtons.Left:
+            //        obj.MouseKey = MouseKeys.Left;
+            //        break;
+            //    case MouseButtons.Right:
+            //        obj.MouseKey = MouseKeys.Right;
+            //        break;
+            //    case MouseButtons.Middle:
+            //        obj.MouseKey = MouseKeys.Middle;
+            //        break;
+            //    case MouseButtons.XButton1:
+            //        obj.MouseKey = MouseKeys.XButton1;
+            //        break;
+            //    case MouseButtons.XButton2:
+            //        obj.MouseKey = MouseKeys.XButton2;
+            //        break;
+            //    case MouseButtons.None:
+            //    default:
+            //        obj.MouseKey = MouseKeys.Unknown;
+            //        break;
+            //} 
+
+            //Add_Obj<ObjEvent_mouse>(ref mouseEvents, obj);
         }
         
         #endregion GlobalHook_Mouse
@@ -331,13 +355,13 @@ namespace KeyboardPress_Analyzer
                 {
                     DatabaseControl.SaveWindows(mouseEvents.Where(x => x.SavedInDB == false).Select(x => x.ActiveWindowName).Distinct().ToArray());
 
-                    string sql_KP_EVENT_MOUSE = "INSERT INTO KP_EVENT_MOUSE (event_type_id, event_data_type_id, win_id, [time], x, y, user_record_id) VALUES";
+                    string sql_KP_EVENT_MOUSE = "INSERT INTO KP_EVENT_MOUSE (event_type_id, event_data_type_id, win_id, [time], x, y, user_record_id, mouse_key_id) VALUES";
                     List<string> sql_values_KP_EVENT_MOUSE = new List<string>();
                     mouseEvents.Where(x => x.SavedInDB == false).ToList().ForEach(x =>
                     {
                         var win = DatabaseControl.GetWindowsIdsByProcName(x.ActiveWindowName);
 
-                        sql_values_KP_EVENT_MOUSE.Add($"({(int)x.EventObjType}, {(int)x.EventObjDataType}, {win[0].Item1}, '{x.EventTime.ToString("yyyy-MM-dd HH:mm:ss.fff")}', {(x.X != null ? x.X.ToString() : "null")}, {(x.Y != null ? x.Y.ToString() : "null")}, {DBHelper.UserId}),");
+                        sql_values_KP_EVENT_MOUSE.Add($"({(int)x.EventObjType}, {(int)x.EventObjDataType}, {win[0].Item1}, '{x.EventTime.ToString("yyyy-MM-dd HH:mm:ss.fff")}', {(x.X != null ? x.X.ToString() : "null")}, {(x.Y != null ? x.Y.ToString() : "null")}, {DBHelper.UserId}, {(int)x.MouseKey}),");
                     });
                     sql_KP_EVENT_MOUSE = DatabaseControl.CreateInsertSqlClause(sql_KP_EVENT_MOUSE, sql_values_KP_EVENT_MOUSE.ToArray());
                     if (!String.IsNullOrEmpty(sql_KP_EVENT_MOUSE))
@@ -449,7 +473,7 @@ SELECT TOP 0 record_id, CAST(event_type_id AS SMALLINT) as event_type_id, CAST(e
 FROM KP_EVENT_KEY_CHAR
 WHERE user_record_id = {DBHelper.UserId}
 
-SELECT TOP 0 record_id, CAST(event_type_id AS SMALLINT) as event_type_id, CAST(event_data_type_id AS SMALLINT) as event_data_type_id, win_id, [time], x, y, user_record_id
+SELECT TOP 0 record_id, CAST(event_type_id AS SMALLINT) as event_type_id, CAST(event_data_type_id AS SMALLINT) as event_data_type_id, win_id, [time], x, y, user_record_id, mouse_key_id
 FROM KP_EVENT_MOUSE
 WHERE user_record_id = {DBHelper.UserId}
 
@@ -522,7 +546,8 @@ WHERE user_record_id = {DBHelper.UserId}";
                             EventObjType = (EventType)x.Field<Int16>("event_type_id"),
                             SavedInDB = true,
                             X = x.Field<Int16>("x"),
-                            Y = x.Field<Int16>("y")
+                            Y = x.Field<Int16>("y"),
+                            MouseKey = (MouseKeys)x.Field<Int16>("mouse_key_id")
                         });
                     });
                 }

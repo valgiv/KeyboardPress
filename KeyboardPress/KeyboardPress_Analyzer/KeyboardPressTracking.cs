@@ -12,6 +12,7 @@ using System.Threading.Tasks;
 using System.Transactions;
 using System.Windows.Forms;
 using KeyboardPress_Extensions.InfoForm;
+using System.Data;
 
 namespace KeyboardPress_Analyzer
 {
@@ -21,9 +22,11 @@ namespace KeyboardPress_Analyzer
         private const int lastRecordsToCheck = 30;
         private const int maxLastRecordToCheckForWord = 40;
 
+        private ulong totalKeyPressRelease;
         private ulong totalKeyPress;
         private ulong totalMousePress;
-        
+        private ulong totalMouseLeftPress;
+        private ulong totalMouseRightPress;
         private ulong totalMouseWheelUp;
         private ulong totalMouseWheelDown;
         
@@ -34,18 +37,18 @@ namespace KeyboardPress_Analyzer
         private TotalWords TotalWordsClass;
         private OfferWord OfferWordClass;
 
-        public List<object> UiControls;
+        //public List<object> UiControls;
 
         #region get set
         public ulong TotalKeyPress
         {
             get
             {
-                return totalKeyPress;
+                return totalKeyPressRelease;
             }
             set
             {
-                totalKeyPress = value;
+                totalKeyPressRelease = value;
             }
         }
 
@@ -95,13 +98,14 @@ namespace KeyboardPress_Analyzer
                 totalMouseWheelDown = value;
             }
         }
+        
+        #endregion
 
         public void Reload_OfferWordClass_Data()
         {
             if (OfferWordClass != null)
                 OfferWordClass.reloadOfferWord();
         }
-        #endregion
 
         #region interface overrides
         //public override void CleanData()
@@ -158,11 +162,14 @@ Siūloma pailsėti bent {(((double)(restReminder.RestTimeSeconds)) / 60d).ToStri
         #region construkctor
         public KeyboardPressTracking(NotifyIcon NotifyIcon) : base()
         {
-            totalKeyPress = 0;
+            totalKeyPressRelease = 0;
             totalMousePress = 0;
             totalMouseWheelUp = 0;
             totalMouseWheelDown = 0;
-            
+            totalMouseLeftPress = 0;
+            totalMouseRightPress = 0;
+            totalKeyPress = 0;
+
             notifyIcon = NotifyIcon;
 
             TotalWordsClass = new TotalWords();
@@ -177,8 +184,11 @@ Siūloma pailsėti bent {(((double)(restReminder.RestTimeSeconds)) / 60d).ToStri
             {
                 base.GlobalHookKeyUp(sender, e);
 
-                if (totalKeyPress < ulongMax)
-                    totalKeyPress++;
+                if (totalKeyPressRelease < ulongMax)
+                {
+                    totalKeyPressRelease++;
+                    Helper.Helper.UiControls.SetText(totalKeyPressRelease.ToString(), EnumUiControlTag.TotalKeyPressRelease);
+                }
                 else
                     DebugHelper.AddErrorMsg("Pasiektas maksimalus sumuojamas klavišų paspaudimų kiekis");
 
@@ -216,6 +226,12 @@ Siūloma pailsėti bent {(((double)(restReminder.RestTimeSeconds)) / 60d).ToStri
             }
 
             base.GlobalHookKeyDown(sender, e);
+
+            if(totalKeyPress < ulongMax)
+            {
+                totalKeyPress++;
+                Helper.Helper.UiControls.SetText(totalKeyPress.ToString(), EnumUiControlTag.TotalKeyPress);
+            }
         }
 
         /// <summary>
@@ -299,13 +315,64 @@ Siūloma pailsėti bent {(((double)(restReminder.RestTimeSeconds)) / 60d).ToStri
                 if (totalMousePress < ulongMax)
                 {
                     totalMousePress++;
+                    Helper.Helper.UiControls.SetText(totalMousePress.ToString(), EnumUiControlTag.TotalMousePress);
                 }
                 WorkInProgress();
+
+                string winTitle = Helper.Helper.GetActiveWindowTitle_v3();
+
+                #region atkelta iš base klasės
+                var obj = new ObjEvent_mouse()
+                {
+                    ActiveWindowName = winTitle,
+                    EventObjDataType = EventDataType.MouseClick,
+                    SavedInDB = false,
+                    EventObjType = EventType.MouseDown,
+                    EventTime = DateTime.Now,
+                    X = e.X,
+                    Y = e.Y
+                };
+
+                switch (e.Button)
+                {
+                    case MouseButtons.Left:
+                        obj.MouseKey = MouseKeys.Left;
+                        if (totalMouseLeftPress < ulongMax)
+                        {
+                            totalMouseLeftPress++;
+                            Helper.Helper.UiControls.SetText(totalMouseLeftPress.ToString(), EnumUiControlTag.TotalMouseLeftPress);
+                        }
+                        break;
+                    case MouseButtons.Right:
+                        obj.MouseKey = MouseKeys.Right;
+                        if (totalMouseRightPress < ulongMax)
+                        {
+                            totalMouseRightPress++;
+                            Helper.Helper.UiControls.SetText(totalMouseRightPress.ToString(), EnumUiControlTag.TotalMouseRightPress);
+                        }
+                        break;
+                    case MouseButtons.Middle:
+                        obj.MouseKey = MouseKeys.Middle;
+                        break;
+                    case MouseButtons.XButton1:
+                        obj.MouseKey = MouseKeys.XButton1;
+                        break;
+                    case MouseButtons.XButton2:
+                        obj.MouseKey = MouseKeys.XButton2;
+                        break;
+                    case MouseButtons.None:
+                    default:
+                        obj.MouseKey = MouseKeys.Unknown;
+                        break;
+                }
+
+                Add_Obj<ObjEvent_mouse>(ref mouseEvents, obj);
+                #endregion
 
                 //pelės paspaudimas gali keisti kursoriaus poziciją
                 var a = new ObjEvent_key()
                 {
-                    ActiveWindowName = Helper.Helper.GetActiveWindowTitle_v3(),
+                    ActiveWindowName = winTitle,
                     ShiftKeyPressed = null,
                     CtrlKeyPressed = null,
                     EventObjType = EventType.KeyPress, //nes naudojamas bus ten kur generuojamos zodis
@@ -322,16 +389,22 @@ Siūloma pailsėti bent {(((double)(restReminder.RestTimeSeconds)) / 60d).ToStri
                 LogHelper.LogErrorMsg(ex);
                 MessageBox.Show(ex.Message, $"Error on {nameof(GlobalHookMouseDown)}");
             }
-
-            base.GlobalHookMouseDown(sender, e);
+            
+            //base.GlobalHookMouseDown(sender, e); //viskas iškelta čianais
         }
 
         protected override void GlobalHook_MouseWheel(object sender, MouseEventArgs e)
         {
             if (e.Delta > 0)
+            {
                 totalMouseWheelUp++;
+                Helper.Helper.UiControls.SetText(totalMouseWheelUp.ToString(), EnumUiControlTag.TotalMouseWheelUp);
+            }
             else
+            {
                 totalMouseWheelDown++;
+                Helper.Helper.UiControls.SetText(totalMouseWheelDown.ToString(), EnumUiControlTag.TotalMouseWheelDown);
+            }
 
             WorkInProgress();
         }
@@ -339,53 +412,53 @@ Siūloma pailsėti bent {(((double)(restReminder.RestTimeSeconds)) / 60d).ToStri
         
         #region count avrg
 
-        public double countAvrgPressPerMin()
-        {
-            if (KeysEvents.LongCount() == 0 || StopWach.ElapsedMilliseconds == 0)
-                return 0;
+        //public double countAvrgPressPerMin()
+        //{
+        //    if (KeysEvents.LongCount() == 0 || StopWach.ElapsedMilliseconds == 0)
+        //        return 0;
             
-            return KeysEvents.LongCount() / TimeSpan.FromMilliseconds(StopWach.ElapsedMilliseconds).TotalMinutes;
-        }
+        //    return KeysEvents.LongCount() / TimeSpan.FromMilliseconds(StopWach.ElapsedMilliseconds).TotalMinutes;
+        //}
 
-        public double countAvrgPressPerHour()
-        {
-            if (KeysEvents.LongCount() == 0 || StopWach.ElapsedMilliseconds == 0)
-                return 0;
+        //public double countAvrgPressPerHour()
+        //{
+        //    if (KeysEvents.LongCount() == 0 || StopWach.ElapsedMilliseconds == 0)
+        //        return 0;
 
-            return KeysEvents.LongCount() / TimeSpan.FromMilliseconds(StopWach.ElapsedMilliseconds).TotalHours;
-        }
+        //    return KeysEvents.LongCount() / TimeSpan.FromMilliseconds(StopWach.ElapsedMilliseconds).TotalHours;
+        //}
 
-        public double countAvrgMousePressPerMin()
-        {
-            if (totalMousePress == 0 || StopWach.ElapsedMilliseconds == 0)
-                return 0;
+        //public double countAvrgMousePressPerMin()
+        //{
+        //    if (totalMousePress == 0 || StopWach.ElapsedMilliseconds == 0)
+        //        return 0;
 
-            return totalMousePress / TimeSpan.FromMilliseconds(StopWach.ElapsedMilliseconds).TotalMinutes;
-        }
+        //    return totalMousePress / TimeSpan.FromMilliseconds(StopWach.ElapsedMilliseconds).TotalMinutes;
+        //}
 
-        public double countAvrgMousePressPerHour()
-        {
-            if (totalMousePress == 0 || StopWach.ElapsedMilliseconds == 0)
-                return 0;
+        //public double countAvrgMousePressPerHour()
+        //{
+        //    if (totalMousePress == 0 || StopWach.ElapsedMilliseconds == 0)
+        //        return 0;
 
-            return totalMousePress / TimeSpan.FromMilliseconds(StopWach.ElapsedMilliseconds).TotalHours;
-        }
+        //    return totalMousePress / TimeSpan.FromMilliseconds(StopWach.ElapsedMilliseconds).TotalHours;
+        //}
 
-        public double countAvrgWordsPerMin()
-        {
-            if (TotalWordsClass.TotalWordsCount_v2 == 0 || StopWach.ElapsedMilliseconds == 0)
-                return 0;
+        //public double countAvrgWordsPerMin()
+        //{
+        //    if (TotalWordsClass.TotalWordsCount_v2 == 0 || StopWach.ElapsedMilliseconds == 0)
+        //        return 0;
 
-            return TotalWordsClass.TotalWordsCount_v2 / TimeSpan.FromMilliseconds(StopWach.ElapsedMilliseconds).TotalMinutes;
-        }
+        //    return TotalWordsClass.TotalWordsCount_v2 / TimeSpan.FromMilliseconds(StopWach.ElapsedMilliseconds).TotalMinutes;
+        //}
 
-        public double countAvrgWordsPerHour()
-        {
-            if (TotalWordsClass.TotalWordsCount_v2 == 0 || StopWach.ElapsedMilliseconds == 0)
-                return 0;
+        //public double countAvrgWordsPerHour()
+        //{
+        //    if (TotalWordsClass.TotalWordsCount_v2 == 0 || StopWach.ElapsedMilliseconds == 0)
+        //        return 0;
 
-            return TimeSpan.FromMilliseconds(StopWach.ElapsedMilliseconds).TotalHours;
-        }
+        //    return TimeSpan.FromMilliseconds(StopWach.ElapsedMilliseconds).TotalHours;
+        //}
 
         #endregion count avrg
 
@@ -402,6 +475,46 @@ Siūloma pailsėti bent {(((double)(restReminder.RestTimeSeconds)) / 60d).ToStri
 
                 using (var tran = new TransactionScope())
                 {
+                    #region KP_SYSTEM_PARAMETERS
+                    Func<string, string, string> FuncFormat_KP_SYSTEM_PARAMETERS_sql = (value, name) =>
+                    {
+                        string sql_result = $@"
+IF EXISTS (SELECT record_id FROM KP_SYSTEM_PARAMETERS WHERE user_record_id = {DBHelper.UserId} AND name = '{name}')
+BEGIN
+    UPDATE KP_SYSTEM_PARAMETERS
+        SET decimal_value = {value}, modified_date = '{DateTime.Now}'
+    WHERE user_record_id = {DBHelper.UserId} AND name = '{name}'
+END
+ELSE BEGIN
+    INSERT INTO KP_SYSTEM_PARAMETERS (user_record_id, name, decimal_value, modified_date)
+        VALUES ({DBHelper.UserId}, '{name}', {value}, '{DateTime.Now}')
+END";
+                        return sql_result;
+                    };
+
+                    try
+                    {
+                        string sql_KP_SYSTEM_PARAMETERS = "";
+                        sql_KP_SYSTEM_PARAMETERS += FuncFormat_KP_SYSTEM_PARAMETERS_sql(totalKeyPressRelease.ToString(), nameof(totalKeyPressRelease));
+                        sql_KP_SYSTEM_PARAMETERS += FuncFormat_KP_SYSTEM_PARAMETERS_sql(totalMousePress.ToString(), nameof(totalMousePress));
+                        sql_KP_SYSTEM_PARAMETERS += FuncFormat_KP_SYSTEM_PARAMETERS_sql(totalMouseLeftPress.ToString(), nameof(totalMouseLeftPress));
+                        sql_KP_SYSTEM_PARAMETERS += FuncFormat_KP_SYSTEM_PARAMETERS_sql(totalMouseRightPress.ToString(), nameof(totalMouseRightPress));
+                        sql_KP_SYSTEM_PARAMETERS += FuncFormat_KP_SYSTEM_PARAMETERS_sql(totalMouseWheelUp.ToString(), nameof(totalMouseWheelUp));
+                        sql_KP_SYSTEM_PARAMETERS += FuncFormat_KP_SYSTEM_PARAMETERS_sql(totalMouseWheelDown.ToString(), nameof(totalMouseWheelDown));
+                        sql_KP_SYSTEM_PARAMETERS += FuncFormat_KP_SYSTEM_PARAMETERS_sql(totalKeyPress.ToString(), nameof(totalKeyPress));
+                        
+
+                        var result = DBHelper.ExecSqlDb(sql_KP_SYSTEM_PARAMETERS, true);
+                        if (result != "OK")
+                            throw new Exception($"Failed {nameof(KeyboardPressTracking)} {nameof(Db_SaveChanges)}[KP_SYSTEM_PARAMETERS]: {result} (sql: {sql_KP_SYSTEM_PARAMETERS})");
+                    }
+                    catch(Exception ex)
+                    {
+                        LogHelper.LogErrorMsg(ex);
+                        throw;
+                    }
+                    #endregion KP_SYSTEM_PARAMETERS
+
                     if (TotalWordsClass != null)
                         TotalWordsClass.Db_SaveChanges(); //kartu ir Writing mistakes
 
@@ -429,6 +542,43 @@ Siūloma pailsėti bent {(((double)(restReminder.RestTimeSeconds)) / 60d).ToStri
 
                 using (var tran = new TransactionScope())
                 {
+                    #region KP_SYSTEM_PARAMETERS
+                    try
+                    {
+                        var dt = DBHelper.GetDataTableDb($@"
+SELECT
+    SP.name, SP.decimal_value
+FROM KP_SYSTEM_PARAMETERS SP
+WHERE SP.user_record_id = {DBHelper.UserId}
+    AND SP.name IN ('{nameof(totalKeyPressRelease)}', '{nameof(totalMousePress)}', '{nameof(totalMouseLeftPress)}', '{nameof(totalMouseRightPress)}', '{nameof(totalMouseWheelUp)}', '{nameof(totalMouseWheelDown)}', '{nameof(totalKeyPress)}')");
+
+                        if (dt == null)
+                            throw new Exception($"{nameof(KeyboardPressTracking)}.{nameof(Db_LoadData)} [KP_SYSTEM_PARAMETERS] dataload");
+
+                        Func<DataTable, string, ulong> FuncFillValueFromDt = (dataTable, parameterName) =>
+                        {
+                            var va = dataTable.AsEnumerable().FirstOrDefault(x => x.Field<string>("name") == parameterName);
+                            if (va == null)
+                                return 0;
+                            else
+                                return System.Convert.ToUInt64(va["decimal_value"]);
+                        };
+
+                        totalKeyPressRelease = FuncFillValueFromDt(dt, nameof(totalKeyPressRelease));
+                        totalMousePress = FuncFillValueFromDt(dt, nameof(totalMousePress));
+                        totalMouseLeftPress = FuncFillValueFromDt(dt, nameof(totalMouseLeftPress));
+                        totalMouseRightPress = FuncFillValueFromDt(dt, nameof(totalMouseRightPress));
+                        totalMouseWheelUp = FuncFillValueFromDt(dt, nameof(totalMouseWheelUp));
+                        totalMouseWheelDown = FuncFillValueFromDt(dt, nameof(totalMouseWheelDown));
+                        totalKeyPress = FuncFillValueFromDt(dt, nameof(totalKeyPress));
+                    }
+                    catch(Exception ex)
+                    {
+                        LogHelper.LogErrorMsg(ex);
+                        throw;
+                    }
+                    #endregion LP_SYSTEM_PARAMETERS
+
                     if (TotalWordsClass != null)
                         TotalWordsClass.Db_LoadData(); //kartu ir Writing mistakes
 
@@ -439,6 +589,14 @@ Siūloma pailsėti bent {(((double)(restReminder.RestTimeSeconds)) / 60d).ToStri
 
                 if (needToStop)
                     base.StartHookWork();
+
+                Helper.Helper.UiControls.SetText(totalKeyPressRelease.ToString(), EnumUiControlTag.TotalKeyPressRelease);
+                Helper.Helper.UiControls.SetText(totalMousePress.ToString(), EnumUiControlTag.TotalMousePress);
+                Helper.Helper.UiControls.SetText(totalMouseLeftPress.ToString(), EnumUiControlTag.TotalMouseLeftPress);
+                Helper.Helper.UiControls.SetText(totalMouseRightPress.ToString(), EnumUiControlTag.TotalMouseRightPress);
+                Helper.Helper.UiControls.SetText(totalMouseWheelUp.ToString(), EnumUiControlTag.TotalMouseWheelUp);
+                Helper.Helper.UiControls.SetText(totalMouseWheelDown.ToString(), EnumUiControlTag.TotalMouseWheelDown);
+                Helper.Helper.UiControls.SetText(totalKeyPress.ToString(), EnumUiControlTag.TotalKeyPress);
             }
             catch
             {
@@ -456,10 +614,28 @@ Siūloma pailsėti bent {(((double)(restReminder.RestTimeSeconds)) / 60d).ToStri
                 
                 using (var tran = new TransactionScope())
                 {
+                    #region KP_SYSTEM_PARAMETERS
+                    try
+                    {
+                        string sql_del_KP_SYSTEM_PARAMETERS = $@"DELETE FROM KP_SYSTEM_PARAMETERS WHERE user_record_id = {DBHelper.UserId} AND name IN ('{nameof(totalKeyPressRelease)}', '{nameof(totalMousePress)}', '{nameof(totalMouseLeftPress)}', '{nameof(totalMouseRightPress)}', '{nameof(totalMouseWheelUp)}', '{nameof(totalMouseWheelDown)}', '{nameof(totalKeyPress)}')";
+                        var result = DBHelper.ExecSqlDb(sql_del_KP_SYSTEM_PARAMETERS, true);
+                        if (result != "OK")
+                            throw new Exception($"Failed {nameof(KeyboardPressTracking)} {nameof(Db_DeleteDataFromDatabase)} [KP_SYSTEM_PARAMETERS]: {result} (sql: {sql_del_KP_SYSTEM_PARAMETERS})");
+                    }
+                    catch(Exception ex)
+                    {
+                        LogHelper.LogErrorMsg(ex);
+                        throw;
+                    }
+                    
+                    #endregion LP_SYSTEM_PARAMETERS
+
                     if (TotalWordsClass != null)
                         TotalWordsClass.Db_DeleteDataFromDatabase(); //kartu ir Writing mistakes
 
                     base.Db_DeleteDataFromDatabase();
+
+                    Db_DeleteDataFromLocalMemory();
 
                     tran.Complete();
                 }
@@ -483,6 +659,16 @@ Siūloma pailsėti bent {(((double)(restReminder.RestTimeSeconds)) / 60d).ToStri
 
                 using (var tran = new TransactionScope())
                 {
+                    #region KP_SYSTEM_PARAMETERS
+                    totalKeyPressRelease = 0;
+                    totalMousePress = 0;
+                    totalMouseLeftPress = 0;
+                    totalMouseRightPress = 0;
+                    totalMouseWheelUp = 0;
+                    totalMouseWheelDown = 0;
+                    totalKeyPress = 0;
+                    #endregion
+
                     if (TotalWordsClass != null)
                         TotalWordsClass.Db_DeleteDataFromLocalMemory(); //kartu ir Writing mistakes
 
@@ -493,6 +679,14 @@ Siūloma pailsėti bent {(((double)(restReminder.RestTimeSeconds)) / 60d).ToStri
 
                 if(needToStop)
                     base.StartHookWork();
+
+                Helper.Helper.UiControls.SetText(totalKeyPressRelease.ToString(), EnumUiControlTag.TotalKeyPressRelease);
+                Helper.Helper.UiControls.SetText(totalMousePress.ToString(), EnumUiControlTag.TotalMousePress);
+                Helper.Helper.UiControls.SetText(totalMouseLeftPress.ToString(), EnumUiControlTag.TotalMouseLeftPress);
+                Helper.Helper.UiControls.SetText(totalMouseRightPress.ToString(), EnumUiControlTag.TotalMouseRightPress);
+                Helper.Helper.UiControls.SetText(totalMouseWheelUp.ToString(), EnumUiControlTag.TotalMouseWheelUp);
+                Helper.Helper.UiControls.SetText(totalMouseWheelDown.ToString(), EnumUiControlTag.TotalMouseWheelDown);
+                Helper.Helper.UiControls.SetText(totalKeyPress.ToString(), EnumUiControlTag.TotalKeyPress);
             }
             catch
             {

@@ -267,7 +267,7 @@ namespace KeyboardPress_Analyzer.Functions
 
                                     newWord = newWord.Remove(cursorPos - 1, 1); //cursorPos-1 arba apkeisti vietom su cursorPos--
                                     cursorPos--;
-                                    mistake = false;
+                                    mistake = true;
                                 }
                             }
                             else
@@ -408,7 +408,7 @@ namespace KeyboardPress_Analyzer.Functions
                     totalWords_v2++;
                     tmpWrdsList_v2.Add(newWord);
                     if (mistake)
-                        wordsWithMistakes_v2++;
+                         wordsWithMistakes_v2++;
 
                     Helper.Helper.UiControls.SetText(totalWords_v2.ToString(), EnumUiControlTag.TotalWords);
                     Helper.Helper.UiControls.SetText(newWord, EnumUiControlTag.LastWord);
@@ -630,6 +630,9 @@ WHERE SP.user_record_id = {DBHelper.UserId}
                     wordsWithMistakes_v2 = System.Convert.ToUInt64(twm["decimal_value"]);
                 else
                     wordsWithMistakes_v2 = 0;
+
+                Helper.Helper.UiControls.SetText(totalWords_v2.ToString(), EnumUiControlTag.TotalWords);
+                Helper.Helper.UiControls.SetText(wordsWithMistakes_v2.ToString(), EnumUiControlTag.TotalWordsMistakes);
             }
             catch(Exception ex)
             {
@@ -674,6 +677,9 @@ WHERE SP.user_record_id = {DBHelper.UserId}
             }
 
             base.Db_DeleteDataFromLocalMemory();
+
+            Helper.Helper.UiControls.SetText(totalWords_v2.ToString(), EnumUiControlTag.TotalWords);
+            Helper.Helper.UiControls.SetText(wordsWithMistakes_v2.ToString(), EnumUiControlTag.TotalWordsMistakes);
         }
     }
 }
