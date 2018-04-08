@@ -38,8 +38,29 @@ namespace KeyboardPress_Analyzer
         private OfferWord OfferWordClass;
 
         //public List<object> UiControls;
-
+        
         #region get set
+        
+        public Stopwatch RestReminderWorkTime
+        {
+            get
+            {
+                if(restReminder != null)
+                    return restReminder.WorkStopwatch;
+                return null;
+            }
+        }
+
+        public Stopwatch RestReminderRestTime
+        {
+            get
+            {
+                if (restReminder != null)
+                    return restReminder.RestStopWatch;
+                return null;
+            }
+        }
+
         public ulong TotalKeyPress
         {
             get

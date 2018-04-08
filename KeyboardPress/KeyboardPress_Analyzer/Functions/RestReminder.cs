@@ -41,6 +41,11 @@ namespace KeyboardPress_Analyzer.Functions
             get { return workStopwatch; }
         }
 
+        public Stopwatch RestStopWatch
+        {
+            get { return restStopwatch; }
+        }
+
         public int RestTimeSeconds
         {
             get { return restTimeSeconds; }

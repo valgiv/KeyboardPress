@@ -17,8 +17,7 @@ namespace KeyboardPress_Extensions.InfoForm
         private bool opacityUp = true;
         private int showTimeMiliseconds = 0;
         private Action action = null;
-
-        //to do: pakoreguoti ant restreminder, kad gražiau rodytu teksta, ant iconTray padaryti paspaudimo event'ą
+        
         public InfoFormDialog(string Message, string Title, int ShowTimeMiliseconds, Image Image, Action ClickAct)
         {
             InitializeComponent();

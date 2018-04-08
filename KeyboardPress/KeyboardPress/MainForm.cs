@@ -260,10 +260,10 @@ namespace KeyboardPress
             Helper.UiControls.Add(tbRightMousePress, EnumUiControlTag.TotalMouseRightPress);
             Helper.UiControls.Add(tbMouseWheelUp, EnumUiControlTag.TotalMouseWheelUp);
             Helper.UiControls.Add(tbMouseWheelDown, EnumUiControlTag.TotalMouseWheelDown);
-            
-            Helper.UiControls.Add(tbWorkTime, EnumUiControlTag.CurrentWorkTime);
-            Helper.UiControls.Add(tbRestTime, EnumUiControlTag.CurrentRestTime);
+            Helper.UiControls.Add(tbWorkTime, EnumUiControlTag.CurrentWorkTime); //ant timer'io
+            Helper.UiControls.Add(tbRestTime, EnumUiControlTag.CurrentRestTime); //ant timer'io
 
+            Helper.UiControls.Add(tbMouseKeyboardRatio, EnumUiControlTag.MouseKeyboardRatio); //išskaičiuojamas atskirai
             Helper.UiControls.Add(tbMouseWheelRatio, EnumUiControlTag.TotalMouseWhellRatio); //išskaičiuojamas atskirai
 
 
@@ -497,6 +497,20 @@ namespace KeyboardPress
                 ucHeatMap.Dock = DockStyle.Fill;
                 tabKeyboardHeatMap.Controls.Add(ucHeatMap);
             }
+        }
+
+        private void timer_uiUpdateTrigger_Tick(object sender, EventArgs e)
+        {
+            try
+            {
+                Task t = new Task(() =>
+                {
+                    Helper.UiControls.SetText(kpt.RestReminderWorkTime.Elapsed.ToString(@"dd\.hh\:mm\:ss"), EnumUiControlTag.CurrentWorkTime);
+                    Helper.UiControls.SetText(kpt.RestReminderRestTime.Elapsed.ToString(@"dd\.hh\:mm\:ss"), EnumUiControlTag.CurrentRestTime);
+                });
+                t.Start();
+            }
+            catch { }
         }
     }
 }

@@ -56,6 +56,8 @@
             this.panelMain = new System.Windows.Forms.Panel();
             this.tabControlMain = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.label11 = new System.Windows.Forms.Label();
+            this.tbKeyPress = new System.Windows.Forms.TextBox();
             this.tbMousePress = new System.Windows.Forms.TextBox();
             this.label10 = new System.Windows.Forms.Label();
             this.label9 = new System.Windows.Forms.Label();
@@ -86,8 +88,9 @@
             this.tabKeyboardHeatMap = new System.Windows.Forms.TabPage();
             this.tabPage6 = new System.Windows.Forms.TabPage();
             this.timer_workTime = new System.Windows.Forms.Timer(this.components);
-            this.tbKeyPress = new System.Windows.Forms.TextBox();
-            this.label11 = new System.Windows.Forms.Label();
+            this.timer_uiUpdateTrigger = new System.Windows.Forms.Timer(this.components);
+            this.tbMouseKeyboardRatio = new System.Windows.Forms.TextBox();
+            this.label1 = new System.Windows.Forms.Label();
             this.menuStrip.SuspendLayout();
             this.statusStrip.SuspendLayout();
             this.panelDebug.SuspendLayout();
@@ -328,6 +331,8 @@
             // 
             // tabPage1
             // 
+            this.tabPage1.Controls.Add(this.label1);
+            this.tabPage1.Controls.Add(this.tbMouseKeyboardRatio);
             this.tabPage1.Controls.Add(this.label11);
             this.tabPage1.Controls.Add(this.tbKeyPress);
             this.tabPage1.Controls.Add(this.tbMousePress);
@@ -361,6 +366,24 @@
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Informacija";
             this.tabPage1.UseVisualStyleBackColor = true;
+            // 
+            // label11
+            // 
+            this.label11.AutoSize = true;
+            this.label11.Location = new System.Drawing.Point(118, 134);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(101, 13);
+            this.label11.TabIndex = 31;
+            this.label11.Text = "Klavišų nuspaudimų";
+            // 
+            // tbKeyPress
+            // 
+            this.tbKeyPress.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
+            this.tbKeyPress.Location = new System.Drawing.Point(225, 131);
+            this.tbKeyPress.Name = "tbKeyPress";
+            this.tbKeyPress.ReadOnly = true;
+            this.tbKeyPress.Size = new System.Drawing.Size(155, 20);
+            this.tbKeyPress.TabIndex = 30;
             // 
             // tbMousePress
             // 
@@ -634,23 +657,29 @@
             this.timer_workTime.Interval = 1000;
             this.timer_workTime.Tick += new System.EventHandler(this.timer_workTime_Tick);
             // 
-            // tbKeyPress
+            // timer_uiUpdateTrigger
             // 
-            this.tbKeyPress.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
-            this.tbKeyPress.Location = new System.Drawing.Point(225, 131);
-            this.tbKeyPress.Name = "tbKeyPress";
-            this.tbKeyPress.ReadOnly = true;
-            this.tbKeyPress.Size = new System.Drawing.Size(155, 20);
-            this.tbKeyPress.TabIndex = 30;
+            this.timer_uiUpdateTrigger.Enabled = true;
+            this.timer_uiUpdateTrigger.Interval = 3000;
+            this.timer_uiUpdateTrigger.Tick += new System.EventHandler(this.timer_uiUpdateTrigger_Tick);
             // 
-            // label11
+            // tbMouseKeyboardRatio
             // 
-            this.label11.AutoSize = true;
-            this.label11.Location = new System.Drawing.Point(118, 134);
-            this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(101, 13);
-            this.label11.TabIndex = 31;
-            this.label11.Text = "Klavišų nuspaudimų";
+            this.tbMouseKeyboardRatio.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
+            this.tbMouseKeyboardRatio.Location = new System.Drawing.Point(225, 364);
+            this.tbMouseKeyboardRatio.Name = "tbMouseKeyboardRatio";
+            this.tbMouseKeyboardRatio.ReadOnly = true;
+            this.tbMouseKeyboardRatio.Size = new System.Drawing.Size(155, 20);
+            this.tbMouseKeyboardRatio.TabIndex = 32;
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(38, 367);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(181, 13);
+            this.label1.TabIndex = 33;
+            this.label1.Text = "Pelės/klaviatūros naudojimo santykis";
             // 
             // MainForm
             // 
@@ -742,6 +771,9 @@
         private System.Windows.Forms.Label label10;
         private System.Windows.Forms.Label label11;
         private System.Windows.Forms.TextBox tbKeyPress;
+        private System.Windows.Forms.Timer timer_uiUpdateTrigger;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.TextBox tbMouseKeyboardRatio;
     }
 }
 

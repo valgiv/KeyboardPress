@@ -113,15 +113,18 @@ namespace KeyboardPress_Analyzer
         TotalMouseWhellRatio,//+
         LastWord, //+
         TotalWordsMistakes, //+
+
         AvrgPressPerMin,
         AvrgPressPerHour,
         AvrgMousePressPerMin,
         AvrgMousePressPerHour,
         AvrgWordsPerMin,
         AvrgWordsPerHour,
+
         TotalMouseLeftPress,//+
         TotalMouseRightPress,//+
         CurrentWorkTime,//+
-        CurrentRestTime//+
+        CurrentRestTime,//+
+        MouseKeyboardRatio
     }
 }
