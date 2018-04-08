@@ -38,6 +38,8 @@ namespace KeyboardPress_Analyzer
         private OfferWord OfferWordClass;
 
         //public List<object> UiControls;
+
+        public CustomStopWatch TotalWorkStopWatch = null;
         
         #region get set
         
@@ -60,8 +62,8 @@ namespace KeyboardPress_Analyzer
                 return null;
             }
         }
-
-        public ulong TotalKeyPress
+        
+        public ulong TotalKeyPressRelease
         {
             get
             {
@@ -71,6 +73,11 @@ namespace KeyboardPress_Analyzer
             {
                 totalKeyPressRelease = value;
             }
+        }
+
+        public ulong TotalKeyPres
+        {
+            get { return totalKeyPress; }
         }
 
         public ulong TotalMousePress
@@ -143,6 +150,9 @@ namespace KeyboardPress_Analyzer
                 restReminder.Stop();
                 restReminder = null;
             }
+
+            if (TotalWorkStopWatch.IsRunning)
+                TotalWorkStopWatch.Stop();
         }
 
         public override void StartHookWork()
@@ -153,6 +163,9 @@ namespace KeyboardPress_Analyzer
                 restReminder = new RestReminder();
             restReminder.TimeToRest += RestReminder_TimeToRest;
             restReminder.Start();
+
+            if (!TotalWorkStopWatch.IsRunning)
+                TotalWorkStopWatch.Start();
         }
         #endregion
 
@@ -195,6 +208,8 @@ Siūloma pailsėti bent {(((double)(restReminder.RestTimeSeconds)) / 60d).ToStri
 
             TotalWordsClass = new TotalWords();
             OfferWordClass = new OfferWord(NotifyIcon);
+
+            TotalWorkStopWatch = new CustomStopWatch(null);
         }
         #endregion
 
@@ -524,6 +539,18 @@ END";
                         sql_KP_SYSTEM_PARAMETERS += FuncFormat_KP_SYSTEM_PARAMETERS_sql(totalMouseWheelDown.ToString(), nameof(totalMouseWheelDown));
                         sql_KP_SYSTEM_PARAMETERS += FuncFormat_KP_SYSTEM_PARAMETERS_sql(totalKeyPress.ToString(), nameof(totalKeyPress));
                         
+                        string string_value = $"{TotalWorkStopWatch.Elapsed.Days};{TotalWorkStopWatch.Elapsed.Hours};{TotalWorkStopWatch.Elapsed.Minutes};{TotalWorkStopWatch.Elapsed.Seconds}";
+                        sql_KP_SYSTEM_PARAMETERS += $@"
+IF EXISTS (SELECT record_id FROM KP_SYSTEM_PARAMETERS WHERE user_record_id = {DBHelper.UserId} AND name = '{nameof(TotalWorkStopWatch)}')
+BEGIN
+    UPDATE KP_SYSTEM_PARAMETERS
+        SET string_value = '{string_value}', modified_date = '{DateTime.Now}'
+    WHERE user_record_id = {DBHelper.UserId} AND name = '{nameof(TotalWorkStopWatch)}'
+END
+ELSE BEGIN
+    INSERT INTO KP_SYSTEM_PARAMETERS (user_record_id, name, string_value, modified_date)
+        VALUES ({DBHelper.UserId}, '{nameof(TotalWorkStopWatch)}', '{string_value}', '{DateTime.Now}')
+END";
 
                         var result = DBHelper.ExecSqlDb(sql_KP_SYSTEM_PARAMETERS, true);
                         if (result != "OK")
@@ -568,10 +595,10 @@ END";
                     {
                         var dt = DBHelper.GetDataTableDb($@"
 SELECT
-    SP.name, SP.decimal_value
+    SP.name, SP.decimal_value, SP.string_value
 FROM KP_SYSTEM_PARAMETERS SP
 WHERE SP.user_record_id = {DBHelper.UserId}
-    AND SP.name IN ('{nameof(totalKeyPressRelease)}', '{nameof(totalMousePress)}', '{nameof(totalMouseLeftPress)}', '{nameof(totalMouseRightPress)}', '{nameof(totalMouseWheelUp)}', '{nameof(totalMouseWheelDown)}', '{nameof(totalKeyPress)}')");
+    AND SP.name IN ('{nameof(totalKeyPressRelease)}', '{nameof(totalMousePress)}', '{nameof(totalMouseLeftPress)}', '{nameof(totalMouseRightPress)}', '{nameof(totalMouseWheelUp)}', '{nameof(totalMouseWheelDown)}', '{nameof(totalKeyPress)}', '{nameof(TotalWorkStopWatch)}')");
 
                         if (dt == null)
                             throw new Exception($"{nameof(KeyboardPressTracking)}.{nameof(Db_LoadData)} [KP_SYSTEM_PARAMETERS] dataload");
@@ -592,6 +619,22 @@ WHERE SP.user_record_id = {DBHelper.UserId}
                         totalMouseWheelUp = FuncFillValueFromDt(dt, nameof(totalMouseWheelUp));
                         totalMouseWheelDown = FuncFillValueFromDt(dt, nameof(totalMouseWheelDown));
                         totalKeyPress = FuncFillValueFromDt(dt, nameof(totalKeyPress));
+
+                        var totalWT = dt.AsEnumerable().FirstOrDefault(x => x.Field<string>("name") == (nameof(TotalWorkStopWatch)));
+                        if (totalWT == null)
+                        {
+                            TotalWorkStopWatch.StartOffset = null;
+                        }
+                        else
+                        {
+                            var data = totalWT["string_value"].ToString().Split(';');
+                            if (data.Length != 4)
+                                throw new Exception($"Duomenų bazėje netinkamai suformuota {nameof(TotalWorkStopWatch)} pradinė reikšmė");
+                            TotalWorkStopWatch.StartOffset = new TimeSpan(System.Convert.ToInt32(data[0]), //days
+                                System.Convert.ToInt32(data[1]), //h
+                                System.Convert.ToInt32(data[2]), //m
+                                System.Convert.ToInt32(data[3])); //s
+                        }
                     }
                     catch(Exception ex)
                     {
@@ -638,7 +681,7 @@ WHERE SP.user_record_id = {DBHelper.UserId}
                     #region KP_SYSTEM_PARAMETERS
                     try
                     {
-                        string sql_del_KP_SYSTEM_PARAMETERS = $@"DELETE FROM KP_SYSTEM_PARAMETERS WHERE user_record_id = {DBHelper.UserId} AND name IN ('{nameof(totalKeyPressRelease)}', '{nameof(totalMousePress)}', '{nameof(totalMouseLeftPress)}', '{nameof(totalMouseRightPress)}', '{nameof(totalMouseWheelUp)}', '{nameof(totalMouseWheelDown)}', '{nameof(totalKeyPress)}')";
+                        string sql_del_KP_SYSTEM_PARAMETERS = $@"DELETE FROM KP_SYSTEM_PARAMETERS WHERE user_record_id = {DBHelper.UserId} AND name IN ('{nameof(totalKeyPressRelease)}', '{nameof(totalMousePress)}', '{nameof(totalMouseLeftPress)}', '{nameof(totalMouseRightPress)}', '{nameof(totalMouseWheelUp)}', '{nameof(totalMouseWheelDown)}', '{nameof(totalKeyPress)}', '{nameof(TotalWorkStopWatch)}')";
                         var result = DBHelper.ExecSqlDb(sql_del_KP_SYSTEM_PARAMETERS, true);
                         if (result != "OK")
                             throw new Exception($"Failed {nameof(KeyboardPressTracking)} {nameof(Db_DeleteDataFromDatabase)} [KP_SYSTEM_PARAMETERS]: {result} (sql: {sql_del_KP_SYSTEM_PARAMETERS})");
@@ -688,6 +731,8 @@ WHERE SP.user_record_id = {DBHelper.UserId}
                     totalMouseWheelUp = 0;
                     totalMouseWheelDown = 0;
                     totalKeyPress = 0;
+                    TotalWorkStopWatch.StartOffset = null;
+                    TotalWorkStopWatch.Restart();
                     #endregion
 
                     if (TotalWordsClass != null)

@@ -116,6 +116,8 @@ namespace KeyboardPress_Analyzer
 
         AvrgPressPerMin,
         AvrgPressPerHour,
+        AvrgPressReleasePerMin,
+        AvrgPressReleasePerHour,
         AvrgMousePressPerMin,
         AvrgMousePressPerHour,
         AvrgWordsPerMin,
@@ -125,6 +127,8 @@ namespace KeyboardPress_Analyzer
         TotalMouseRightPress,//+
         CurrentWorkTime,//+
         CurrentRestTime,//+
-        MouseKeyboardRatio
+        MouseKeyboardRatio,
+
+        TotalProgramWorkTime
     }
 }

@@ -242,7 +242,7 @@ namespace KeyboardPress
             if (kpt == null) return "";
 
             return $@"Pelės paspaudimų: {kpt.TotalMousePress.ToString()}
-{Environment.NewLine}Klavišų paspaudimų: {kpt.TotalKeyPress.ToString()}
+{Environment.NewLine}Klavišų paspaudimų: {kpt.TotalKeyPressRelease.ToString()}
 {Environment.NewLine}Žodžių: {kpt.TotalWords.ToString()}
 {Environment.NewLine}Pelės ratuko naudojimo santykis: {kpt.TotalMouseWheelUp}/{kpt.TotalMouseWheelDown}
 {Environment.NewLine}Nuo paskutinio įjungimo prabėgo: {kpt.StopWach.Elapsed.ToString(@"dd\.hh\:mm\:ss")}";
@@ -262,6 +262,16 @@ namespace KeyboardPress
             Helper.UiControls.Add(tbMouseWheelDown, EnumUiControlTag.TotalMouseWheelDown);
             Helper.UiControls.Add(tbWorkTime, EnumUiControlTag.CurrentWorkTime); //ant timer'io
             Helper.UiControls.Add(tbRestTime, EnumUiControlTag.CurrentRestTime); //ant timer'io
+            Helper.UiControls.Add(tbTotalWorkTime, EnumUiControlTag.TotalProgramWorkTime); //ant timer'io
+
+            Helper.UiControls.Add(tbAvgMousePressMin, EnumUiControlTag.AvrgMousePressPerMin); //ant timer'io
+            Helper.UiControls.Add(tbAvgMousePressH, EnumUiControlTag.AvrgMousePressPerHour); //ant timer'io
+            Helper.UiControls.Add(tbAvgWrdMin, EnumUiControlTag.AvrgWordsPerMin); //ant timer'io
+            Helper.UiControls.Add(tbAvgWrdH, EnumUiControlTag.AvrgWordsPerHour); //ant timer'io
+            Helper.UiControls.Add(tbAvgPressReleaseMin, EnumUiControlTag.AvrgPressReleasePerMin); //ant timer'io
+            Helper.UiControls.Add(tbAvgPressReleaseH, EnumUiControlTag.AvrgPressReleasePerHour); //ant timer'io
+            Helper.UiControls.Add(tbAvgPressMin, EnumUiControlTag.AvrgPressPerMin); //ant timer'io
+            Helper.UiControls.Add(tbAvgPressH, EnumUiControlTag.AvrgPressPerHour); //ant timer'io
 
             Helper.UiControls.Add(tbMouseKeyboardRatio, EnumUiControlTag.MouseKeyboardRatio); //išskaičiuojamas atskirai
             Helper.UiControls.Add(tbMouseWheelRatio, EnumUiControlTag.TotalMouseWhellRatio); //išskaičiuojamas atskirai
@@ -505,8 +515,27 @@ namespace KeyboardPress
             {
                 Task t = new Task(() =>
                 {
-                    Helper.UiControls.SetText(kpt.RestReminderWorkTime.Elapsed.ToString(@"dd\.hh\:mm\:ss"), EnumUiControlTag.CurrentWorkTime);
-                    Helper.UiControls.SetText(kpt.RestReminderRestTime.Elapsed.ToString(@"dd\.hh\:mm\:ss"), EnumUiControlTag.CurrentRestTime);
+                    if(kpt != null)
+                    {
+                        if(kpt.RestReminderWorkTime != null)
+                            Helper.UiControls.SetText(kpt.RestReminderWorkTime.Elapsed.ToString(@"dd\.hh\:mm\:ss"), EnumUiControlTag.CurrentWorkTime);
+                        if(kpt.RestReminderRestTime != null)
+                            Helper.UiControls.SetText(kpt.RestReminderRestTime.Elapsed.ToString(@"dd\.hh\:mm\:ss"), EnumUiControlTag.CurrentRestTime);
+                        if(kpt.TotalWorkStopWatch != null)
+                            Helper.UiControls.SetText(kpt.TotalWorkStopWatch.Elapsed.ToString(@"dd\.hh\:mm\:ss"), EnumUiControlTag.TotalProgramWorkTime);
+
+                        var totalMin = kpt.TotalWorkStopWatch.Elapsed.TotalMinutes;
+                        var totalH = kpt.TotalWorkStopWatch.Elapsed.TotalHours;
+
+                        Helper.UiControls.SetText((kpt.TotalMousePress / totalMin).ToString(), EnumUiControlTag.AvrgMousePressPerMin);
+                        Helper.UiControls.SetText((kpt.TotalMousePress / totalH).ToString(), EnumUiControlTag.AvrgMousePressPerHour);
+                        Helper.UiControls.SetText((System.Convert.ToInt32(tbTotalWords.Text) / totalMin).ToString(), EnumUiControlTag.AvrgWordsPerMin);
+                        Helper.UiControls.SetText((System.Convert.ToInt32(tbTotalWords.Text) / totalH).ToString(), EnumUiControlTag.AvrgWordsPerHour);
+                        Helper.UiControls.SetText((kpt.TotalKeyPressRelease / totalMin).ToString(), EnumUiControlTag.AvrgPressReleasePerMin);
+                        Helper.UiControls.SetText((kpt.TotalKeyPressRelease / totalH).ToString(), EnumUiControlTag.AvrgPressReleasePerHour);
+                        Helper.UiControls.SetText((kpt.TotalKeyPres / totalMin).ToString(), EnumUiControlTag.AvrgPressPerMin);
+                        Helper.UiControls.SetText((kpt.TotalKeyPres / totalH).ToString(), EnumUiControlTag.AvrgPressPerHour);
+                    }
                 });
                 t.Start();
             }

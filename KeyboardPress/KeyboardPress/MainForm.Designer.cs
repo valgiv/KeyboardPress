@@ -55,7 +55,9 @@
             this.richTB_debug = new System.Windows.Forms.RichTextBox();
             this.panelMain = new System.Windows.Forms.Panel();
             this.tabControlMain = new System.Windows.Forms.TabControl();
-            this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.tabPageMainInfo = new System.Windows.Forms.TabPage();
+            this.label1 = new System.Windows.Forms.Label();
+            this.tbMouseKeyboardRatio = new System.Windows.Forms.TextBox();
             this.label11 = new System.Windows.Forms.Label();
             this.tbKeyPress = new System.Windows.Forms.TextBox();
             this.tbMousePress = new System.Windows.Forms.TextBox();
@@ -89,14 +91,30 @@
             this.tabPage6 = new System.Windows.Forms.TabPage();
             this.timer_workTime = new System.Windows.Forms.Timer(this.components);
             this.timer_uiUpdateTrigger = new System.Windows.Forms.Timer(this.components);
-            this.tbMouseKeyboardRatio = new System.Windows.Forms.TextBox();
-            this.label1 = new System.Windows.Forms.Label();
+            this.tbTotalWorkTime = new System.Windows.Forms.TextBox();
+            this.label12 = new System.Windows.Forms.Label();
+            this.label13 = new System.Windows.Forms.Label();
+            this.tbAvgMousePressMin = new System.Windows.Forms.TextBox();
+            this.tbAvgMousePressH = new System.Windows.Forms.TextBox();
+            this.label14 = new System.Windows.Forms.Label();
+            this.tbAvgWrdMin = new System.Windows.Forms.TextBox();
+            this.label15 = new System.Windows.Forms.Label();
+            this.tbAvgWrdH = new System.Windows.Forms.TextBox();
+            this.label16 = new System.Windows.Forms.Label();
+            this.tbAvgPressReleaseMin = new System.Windows.Forms.TextBox();
+            this.label17 = new System.Windows.Forms.Label();
+            this.label18 = new System.Windows.Forms.Label();
+            this.tbAvgPressReleaseH = new System.Windows.Forms.TextBox();
+            this.tbAvgPressH = new System.Windows.Forms.TextBox();
+            this.label19 = new System.Windows.Forms.Label();
+            this.tbAvgPressMin = new System.Windows.Forms.TextBox();
+            this.label20 = new System.Windows.Forms.Label();
             this.menuStrip.SuspendLayout();
             this.statusStrip.SuspendLayout();
             this.panelDebug.SuspendLayout();
             this.panelMain.SuspendLayout();
             this.tabControlMain.SuspendLayout();
-            this.tabPage1.SuspendLayout();
+            this.tabPageMainInfo.SuspendLayout();
             this.SuspendLayout();
             // 
             // menuStrip
@@ -110,7 +128,7 @@
             this.dBToolStripMenuItem});
             this.menuStrip.Location = new System.Drawing.Point(0, 0);
             this.menuStrip.Name = "menuStrip";
-            this.menuStrip.Size = new System.Drawing.Size(1084, 24);
+            this.menuStrip.Size = new System.Drawing.Size(1116, 24);
             this.menuStrip.TabIndex = 0;
             this.menuStrip.Text = "menuStrip";
             // 
@@ -257,7 +275,7 @@
             this.toolStripStatusLabel_totalWorkTime});
             this.statusStrip.Location = new System.Drawing.Point(0, 420);
             this.statusStrip.Name = "statusStrip";
-            this.statusStrip.Size = new System.Drawing.Size(1084, 22);
+            this.statusStrip.Size = new System.Drawing.Size(1116, 22);
             this.statusStrip.TabIndex = 1;
             this.statusStrip.Text = "statusStrip";
             // 
@@ -270,7 +288,7 @@
             // toolStripStatusLabel_totalWorkTime
             // 
             this.toolStripStatusLabel_totalWorkTime.Name = "toolStripStatusLabel_totalWorkTime";
-            this.toolStripStatusLabel_totalWorkTime.Size = new System.Drawing.Size(1038, 17);
+            this.toolStripStatusLabel_totalWorkTime.Size = new System.Drawing.Size(1070, 17);
             this.toolStripStatusLabel_totalWorkTime.Spring = true;
             this.toolStripStatusLabel_totalWorkTime.Text = "--";
             this.toolStripStatusLabel_totalWorkTime.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
@@ -279,7 +297,7 @@
             // 
             this.panelDebug.Controls.Add(this.richTB_debug);
             this.panelDebug.Dock = System.Windows.Forms.DockStyle.Right;
-            this.panelDebug.Location = new System.Drawing.Point(750, 24);
+            this.panelDebug.Location = new System.Drawing.Point(782, 24);
             this.panelDebug.Name = "panelDebug";
             this.panelDebug.Size = new System.Drawing.Size(334, 396);
             this.panelDebug.TabIndex = 2;
@@ -303,13 +321,13 @@
             this.panelMain.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panelMain.Location = new System.Drawing.Point(0, 24);
             this.panelMain.Name = "panelMain";
-            this.panelMain.Size = new System.Drawing.Size(750, 396);
+            this.panelMain.Size = new System.Drawing.Size(782, 396);
             this.panelMain.TabIndex = 3;
             // 
             // tabControlMain
             // 
             this.tabControlMain.Alignment = System.Windows.Forms.TabAlignment.Left;
-            this.tabControlMain.Controls.Add(this.tabPage1);
+            this.tabControlMain.Controls.Add(this.tabPageMainInfo);
             this.tabControlMain.Controls.Add(this.tabPage2);
             this.tabControlMain.Controls.Add(this.tabPage3);
             this.tabControlMain.Controls.Add(this.tabPage4);
@@ -323,54 +341,90 @@
             this.tabControlMain.Multiline = true;
             this.tabControlMain.Name = "tabControlMain";
             this.tabControlMain.SelectedIndex = 0;
-            this.tabControlMain.Size = new System.Drawing.Size(750, 396);
+            this.tabControlMain.Size = new System.Drawing.Size(782, 396);
             this.tabControlMain.SizeMode = System.Windows.Forms.TabSizeMode.Fixed;
             this.tabControlMain.TabIndex = 10;
             this.tabControlMain.DrawItem += new System.Windows.Forms.DrawItemEventHandler(this.tabControlMain_DrawItem);
             this.tabControlMain.SelectedIndexChanged += new System.EventHandler(this.tabControlMain_SelectedIndexChanged);
             // 
-            // tabPage1
+            // tabPageMainInfo
             // 
-            this.tabPage1.Controls.Add(this.label1);
-            this.tabPage1.Controls.Add(this.tbMouseKeyboardRatio);
-            this.tabPage1.Controls.Add(this.label11);
-            this.tabPage1.Controls.Add(this.tbKeyPress);
-            this.tabPage1.Controls.Add(this.tbMousePress);
-            this.tabPage1.Controls.Add(this.label10);
-            this.tabPage1.Controls.Add(this.label9);
-            this.tabPage1.Controls.Add(this.label8);
-            this.tabPage1.Controls.Add(this.tbMouseWheelDown);
-            this.tabPage1.Controls.Add(this.tbMouseWheelUp);
-            this.tabPage1.Controls.Add(this.tbRestTime);
-            this.tabPage1.Controls.Add(this.label7);
-            this.tabPage1.Controls.Add(this.label6);
-            this.tabPage1.Controls.Add(this.label5);
-            this.tabPage1.Controls.Add(this.label4);
-            this.tabPage1.Controls.Add(this.tbWorkTime);
-            this.tabPage1.Controls.Add(this.tbMouseWheelRatio);
-            this.tabPage1.Controls.Add(this.tbRightMousePress);
-            this.tabPage1.Controls.Add(this.tbLeftMousePress);
-            this.tabPage1.Controls.Add(this.tbKeyPressRelease);
-            this.tabPage1.Controls.Add(this.label3);
-            this.tabPage1.Controls.Add(this.label2);
-            this.tabPage1.Controls.Add(this.lblTotalWords);
-            this.tabPage1.Controls.Add(this.lblLastWordWithMistake);
-            this.tabPage1.Controls.Add(this.tbTotalWords);
-            this.tabPage1.Controls.Add(this.lblLastWord);
-            this.tabPage1.Controls.Add(this.tbLastWord);
-            this.tabPage1.Controls.Add(this.tbTotalWordsWithMistakes);
-            this.tabPage1.Location = new System.Drawing.Point(124, 4);
-            this.tabPage1.Name = "tabPage1";
-            this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(622, 388);
-            this.tabPage1.TabIndex = 0;
-            this.tabPage1.Text = "Informacija";
-            this.tabPage1.UseVisualStyleBackColor = true;
+            this.tabPageMainInfo.Controls.Add(this.tbAvgPressH);
+            this.tabPageMainInfo.Controls.Add(this.label19);
+            this.tabPageMainInfo.Controls.Add(this.tbAvgPressMin);
+            this.tabPageMainInfo.Controls.Add(this.label20);
+            this.tabPageMainInfo.Controls.Add(this.tbAvgPressReleaseH);
+            this.tabPageMainInfo.Controls.Add(this.label18);
+            this.tabPageMainInfo.Controls.Add(this.tbAvgPressReleaseMin);
+            this.tabPageMainInfo.Controls.Add(this.label17);
+            this.tabPageMainInfo.Controls.Add(this.tbAvgWrdH);
+            this.tabPageMainInfo.Controls.Add(this.label16);
+            this.tabPageMainInfo.Controls.Add(this.tbAvgWrdMin);
+            this.tabPageMainInfo.Controls.Add(this.label15);
+            this.tabPageMainInfo.Controls.Add(this.tbAvgMousePressH);
+            this.tabPageMainInfo.Controls.Add(this.label14);
+            this.tabPageMainInfo.Controls.Add(this.tbAvgMousePressMin);
+            this.tabPageMainInfo.Controls.Add(this.label13);
+            this.tabPageMainInfo.Controls.Add(this.label12);
+            this.tabPageMainInfo.Controls.Add(this.tbTotalWorkTime);
+            this.tabPageMainInfo.Controls.Add(this.label1);
+            this.tabPageMainInfo.Controls.Add(this.tbMouseKeyboardRatio);
+            this.tabPageMainInfo.Controls.Add(this.label11);
+            this.tabPageMainInfo.Controls.Add(this.tbKeyPress);
+            this.tabPageMainInfo.Controls.Add(this.tbMousePress);
+            this.tabPageMainInfo.Controls.Add(this.label10);
+            this.tabPageMainInfo.Controls.Add(this.label9);
+            this.tabPageMainInfo.Controls.Add(this.label8);
+            this.tabPageMainInfo.Controls.Add(this.tbMouseWheelDown);
+            this.tabPageMainInfo.Controls.Add(this.tbMouseWheelUp);
+            this.tabPageMainInfo.Controls.Add(this.tbRestTime);
+            this.tabPageMainInfo.Controls.Add(this.label7);
+            this.tabPageMainInfo.Controls.Add(this.label6);
+            this.tabPageMainInfo.Controls.Add(this.label5);
+            this.tabPageMainInfo.Controls.Add(this.label4);
+            this.tabPageMainInfo.Controls.Add(this.tbWorkTime);
+            this.tabPageMainInfo.Controls.Add(this.tbMouseWheelRatio);
+            this.tabPageMainInfo.Controls.Add(this.tbRightMousePress);
+            this.tabPageMainInfo.Controls.Add(this.tbLeftMousePress);
+            this.tabPageMainInfo.Controls.Add(this.tbKeyPressRelease);
+            this.tabPageMainInfo.Controls.Add(this.label3);
+            this.tabPageMainInfo.Controls.Add(this.label2);
+            this.tabPageMainInfo.Controls.Add(this.lblTotalWords);
+            this.tabPageMainInfo.Controls.Add(this.lblLastWordWithMistake);
+            this.tabPageMainInfo.Controls.Add(this.tbTotalWords);
+            this.tabPageMainInfo.Controls.Add(this.lblLastWord);
+            this.tabPageMainInfo.Controls.Add(this.tbLastWord);
+            this.tabPageMainInfo.Controls.Add(this.tbTotalWordsWithMistakes);
+            this.tabPageMainInfo.Location = new System.Drawing.Point(124, 4);
+            this.tabPageMainInfo.Name = "tabPageMainInfo";
+            this.tabPageMainInfo.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPageMainInfo.Size = new System.Drawing.Size(654, 388);
+            this.tabPageMainInfo.TabIndex = 0;
+            this.tabPageMainInfo.Text = "Informacija";
+            this.tabPageMainInfo.UseVisualStyleBackColor = true;
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(27, 340);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(181, 13);
+            this.label1.TabIndex = 33;
+            this.label1.Text = "Pelės/klaviatūros naudojimo santykis";
+            // 
+            // tbMouseKeyboardRatio
+            // 
+            this.tbMouseKeyboardRatio.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
+            this.tbMouseKeyboardRatio.Location = new System.Drawing.Point(214, 337);
+            this.tbMouseKeyboardRatio.Name = "tbMouseKeyboardRatio";
+            this.tbMouseKeyboardRatio.ReadOnly = true;
+            this.tbMouseKeyboardRatio.Size = new System.Drawing.Size(155, 20);
+            this.tbMouseKeyboardRatio.TabIndex = 32;
             // 
             // label11
             // 
             this.label11.AutoSize = true;
-            this.label11.Location = new System.Drawing.Point(118, 134);
+            this.label11.Location = new System.Drawing.Point(107, 107);
             this.label11.Name = "label11";
             this.label11.Size = new System.Drawing.Size(101, 13);
             this.label11.TabIndex = 31;
@@ -379,7 +433,7 @@
             // tbKeyPress
             // 
             this.tbKeyPress.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
-            this.tbKeyPress.Location = new System.Drawing.Point(225, 131);
+            this.tbKeyPress.Location = new System.Drawing.Point(214, 104);
             this.tbKeyPress.Name = "tbKeyPress";
             this.tbKeyPress.ReadOnly = true;
             this.tbKeyPress.Size = new System.Drawing.Size(155, 20);
@@ -388,7 +442,7 @@
             // tbMousePress
             // 
             this.tbMousePress.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
-            this.tbMousePress.Location = new System.Drawing.Point(225, 157);
+            this.tbMousePress.Location = new System.Drawing.Point(214, 130);
             this.tbMousePress.Name = "tbMousePress";
             this.tbMousePress.ReadOnly = true;
             this.tbMousePress.Size = new System.Drawing.Size(155, 20);
@@ -397,7 +451,7 @@
             // label10
             // 
             this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(104, 160);
+            this.label10.Location = new System.Drawing.Point(93, 133);
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(115, 13);
             this.label10.TabIndex = 28;
@@ -406,7 +460,7 @@
             // label9
             // 
             this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(115, 263);
+            this.label9.Location = new System.Drawing.Point(104, 236);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(104, 13);
             this.label9.TabIndex = 27;
@@ -415,7 +469,7 @@
             // label8
             // 
             this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(104, 237);
+            this.label8.Location = new System.Drawing.Point(93, 210);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(111, 13);
             this.label8.TabIndex = 26;
@@ -424,7 +478,7 @@
             // tbMouseWheelDown
             // 
             this.tbMouseWheelDown.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
-            this.tbMouseWheelDown.Location = new System.Drawing.Point(225, 260);
+            this.tbMouseWheelDown.Location = new System.Drawing.Point(214, 233);
             this.tbMouseWheelDown.Name = "tbMouseWheelDown";
             this.tbMouseWheelDown.ReadOnly = true;
             this.tbMouseWheelDown.Size = new System.Drawing.Size(155, 20);
@@ -433,7 +487,7 @@
             // tbMouseWheelUp
             // 
             this.tbMouseWheelUp.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
-            this.tbMouseWheelUp.Location = new System.Drawing.Point(225, 234);
+            this.tbMouseWheelUp.Location = new System.Drawing.Point(214, 207);
             this.tbMouseWheelUp.Name = "tbMouseWheelUp";
             this.tbMouseWheelUp.ReadOnly = true;
             this.tbMouseWheelUp.Size = new System.Drawing.Size(155, 20);
@@ -442,7 +496,7 @@
             // tbRestTime
             // 
             this.tbRestTime.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
-            this.tbRestTime.Location = new System.Drawing.Point(225, 338);
+            this.tbRestTime.Location = new System.Drawing.Point(214, 311);
             this.tbRestTime.Name = "tbRestTime";
             this.tbRestTime.ReadOnly = true;
             this.tbRestTime.Size = new System.Drawing.Size(155, 20);
@@ -451,7 +505,7 @@
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(131, 341);
+            this.label7.Location = new System.Drawing.Point(120, 314);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(88, 13);
             this.label7.TabIndex = 22;
@@ -460,7 +514,7 @@
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(153, 315);
+            this.label6.Location = new System.Drawing.Point(142, 288);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(66, 13);
             this.label6.TabIndex = 21;
@@ -469,7 +523,7 @@
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(77, 211);
+            this.label5.Location = new System.Drawing.Point(66, 184);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(142, 13);
             this.label5.TabIndex = 20;
@@ -478,7 +532,7 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(84, 185);
+            this.label4.Location = new System.Drawing.Point(73, 158);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(135, 13);
             this.label4.TabIndex = 19;
@@ -487,7 +541,7 @@
             // tbWorkTime
             // 
             this.tbWorkTime.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
-            this.tbWorkTime.Location = new System.Drawing.Point(225, 312);
+            this.tbWorkTime.Location = new System.Drawing.Point(214, 285);
             this.tbWorkTime.Name = "tbWorkTime";
             this.tbWorkTime.ReadOnly = true;
             this.tbWorkTime.Size = new System.Drawing.Size(155, 20);
@@ -496,7 +550,7 @@
             // tbMouseWheelRatio
             // 
             this.tbMouseWheelRatio.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
-            this.tbMouseWheelRatio.Location = new System.Drawing.Point(225, 286);
+            this.tbMouseWheelRatio.Location = new System.Drawing.Point(214, 259);
             this.tbMouseWheelRatio.Name = "tbMouseWheelRatio";
             this.tbMouseWheelRatio.ReadOnly = true;
             this.tbMouseWheelRatio.Size = new System.Drawing.Size(155, 20);
@@ -505,7 +559,7 @@
             // tbRightMousePress
             // 
             this.tbRightMousePress.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
-            this.tbRightMousePress.Location = new System.Drawing.Point(225, 208);
+            this.tbRightMousePress.Location = new System.Drawing.Point(214, 181);
             this.tbRightMousePress.Name = "tbRightMousePress";
             this.tbRightMousePress.ReadOnly = true;
             this.tbRightMousePress.Size = new System.Drawing.Size(155, 20);
@@ -514,7 +568,7 @@
             // tbLeftMousePress
             // 
             this.tbLeftMousePress.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
-            this.tbLeftMousePress.Location = new System.Drawing.Point(225, 182);
+            this.tbLeftMousePress.Location = new System.Drawing.Point(214, 155);
             this.tbLeftMousePress.Name = "tbLeftMousePress";
             this.tbLeftMousePress.ReadOnly = true;
             this.tbLeftMousePress.Size = new System.Drawing.Size(155, 20);
@@ -523,7 +577,7 @@
             // tbKeyPressRelease
             // 
             this.tbKeyPressRelease.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
-            this.tbKeyPressRelease.Location = new System.Drawing.Point(225, 105);
+            this.tbKeyPressRelease.Location = new System.Drawing.Point(214, 78);
             this.tbKeyPressRelease.Name = "tbKeyPressRelease";
             this.tbKeyPressRelease.ReadOnly = true;
             this.tbKeyPressRelease.Size = new System.Drawing.Size(155, 20);
@@ -532,7 +586,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(61, 289);
+            this.label3.Location = new System.Drawing.Point(50, 262);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(158, 13);
             this.label3.TabIndex = 12;
@@ -541,7 +595,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(118, 108);
+            this.label2.Location = new System.Drawing.Point(107, 81);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(101, 13);
             this.label2.TabIndex = 11;
@@ -550,7 +604,7 @@
             // lblTotalWords
             // 
             this.lblTotalWords.AutoSize = true;
-            this.lblTotalWords.Location = new System.Drawing.Point(156, 30);
+            this.lblTotalWords.Location = new System.Drawing.Point(145, 3);
             this.lblTotalWords.Name = "lblTotalWords";
             this.lblTotalWords.Size = new System.Drawing.Size(63, 13);
             this.lblTotalWords.TabIndex = 7;
@@ -559,7 +613,7 @@
             // lblLastWordWithMistake
             // 
             this.lblLastWordWithMistake.AutoSize = true;
-            this.lblLastWordWithMistake.Location = new System.Drawing.Point(13, 82);
+            this.lblLastWordWithMistake.Location = new System.Drawing.Point(2, 55);
             this.lblLastWordWithMistake.Name = "lblLastWordWithMistake";
             this.lblLastWordWithMistake.Size = new System.Drawing.Size(206, 13);
             this.lblLastWordWithMistake.TabIndex = 9;
@@ -568,7 +622,7 @@
             // tbTotalWords
             // 
             this.tbTotalWords.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
-            this.tbTotalWords.Location = new System.Drawing.Point(225, 27);
+            this.tbTotalWords.Location = new System.Drawing.Point(214, 0);
             this.tbTotalWords.Name = "tbTotalWords";
             this.tbTotalWords.ReadOnly = true;
             this.tbTotalWords.Size = new System.Drawing.Size(155, 20);
@@ -577,7 +631,7 @@
             // lblLastWord
             // 
             this.lblLastWord.AutoSize = true;
-            this.lblLastWord.Location = new System.Drawing.Point(81, 56);
+            this.lblLastWord.Location = new System.Drawing.Point(70, 29);
             this.lblLastWord.Name = "lblLastWord";
             this.lblLastWord.Size = new System.Drawing.Size(138, 13);
             this.lblLastWord.TabIndex = 8;
@@ -586,7 +640,7 @@
             // tbLastWord
             // 
             this.tbLastWord.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
-            this.tbLastWord.Location = new System.Drawing.Point(225, 53);
+            this.tbLastWord.Location = new System.Drawing.Point(214, 26);
             this.tbLastWord.Name = "tbLastWord";
             this.tbLastWord.ReadOnly = true;
             this.tbLastWord.Size = new System.Drawing.Size(155, 20);
@@ -595,7 +649,7 @@
             // tbTotalWordsWithMistakes
             // 
             this.tbTotalWordsWithMistakes.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
-            this.tbTotalWordsWithMistakes.Location = new System.Drawing.Point(225, 79);
+            this.tbTotalWordsWithMistakes.Location = new System.Drawing.Point(214, 52);
             this.tbTotalWordsWithMistakes.Name = "tbTotalWordsWithMistakes";
             this.tbTotalWordsWithMistakes.ReadOnly = true;
             this.tbTotalWordsWithMistakes.Size = new System.Drawing.Size(155, 20);
@@ -663,29 +717,173 @@
             this.timer_uiUpdateTrigger.Interval = 3000;
             this.timer_uiUpdateTrigger.Tick += new System.EventHandler(this.timer_uiUpdateTrigger_Tick);
             // 
-            // tbMouseKeyboardRatio
+            // tbTotalWorkTime
             // 
-            this.tbMouseKeyboardRatio.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
-            this.tbMouseKeyboardRatio.Location = new System.Drawing.Point(225, 364);
-            this.tbMouseKeyboardRatio.Name = "tbMouseKeyboardRatio";
-            this.tbMouseKeyboardRatio.ReadOnly = true;
-            this.tbMouseKeyboardRatio.Size = new System.Drawing.Size(155, 20);
-            this.tbMouseKeyboardRatio.TabIndex = 32;
+            this.tbTotalWorkTime.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
+            this.tbTotalWorkTime.Location = new System.Drawing.Point(214, 363);
+            this.tbTotalWorkTime.Name = "tbTotalWorkTime";
+            this.tbTotalWorkTime.ReadOnly = true;
+            this.tbTotalWorkTime.Size = new System.Drawing.Size(155, 20);
+            this.tbTotalWorkTime.TabIndex = 34;
             // 
-            // label1
+            // label12
             // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(38, 367);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(181, 13);
-            this.label1.TabIndex = 33;
-            this.label1.Text = "Pelės/klaviatūros naudojimo santykis";
+            this.label12.AutoSize = true;
+            this.label12.Location = new System.Drawing.Point(107, 366);
+            this.label12.Name = "label12";
+            this.label12.Size = new System.Drawing.Size(101, 13);
+            this.label12.TabIndex = 35;
+            this.label12.Text = "Visas veikimo laikas";
+            // 
+            // label13
+            // 
+            this.label13.AutoSize = true;
+            this.label13.Location = new System.Drawing.Point(375, 133);
+            this.label13.Name = "label13";
+            this.label13.Size = new System.Drawing.Size(153, 13);
+            this.label13.TabIndex = 36;
+            this.label13.Text = "Vid. pelės paspaudimų per min.";
+            // 
+            // tbAvgMousePressMin
+            // 
+            this.tbAvgMousePressMin.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
+            this.tbAvgMousePressMin.Location = new System.Drawing.Point(533, 130);
+            this.tbAvgMousePressMin.Name = "tbAvgMousePressMin";
+            this.tbAvgMousePressMin.ReadOnly = true;
+            this.tbAvgMousePressMin.Size = new System.Drawing.Size(115, 20);
+            this.tbAvgMousePressMin.TabIndex = 37;
+            // 
+            // tbAvgMousePressH
+            // 
+            this.tbAvgMousePressH.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
+            this.tbAvgMousePressH.Location = new System.Drawing.Point(533, 155);
+            this.tbAvgMousePressH.Name = "tbAvgMousePressH";
+            this.tbAvgMousePressH.ReadOnly = true;
+            this.tbAvgMousePressH.Size = new System.Drawing.Size(115, 20);
+            this.tbAvgMousePressH.TabIndex = 39;
+            // 
+            // label14
+            // 
+            this.label14.AutoSize = true;
+            this.label14.Location = new System.Drawing.Point(375, 158);
+            this.label14.Name = "label14";
+            this.label14.Size = new System.Drawing.Size(140, 13);
+            this.label14.TabIndex = 38;
+            this.label14.Text = "Vid. pelės paspaudimų per h";
+            // 
+            // tbAvgWrdMin
+            // 
+            this.tbAvgWrdMin.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
+            this.tbAvgWrdMin.Location = new System.Drawing.Point(533, 181);
+            this.tbAvgWrdMin.Name = "tbAvgWrdMin";
+            this.tbAvgWrdMin.ReadOnly = true;
+            this.tbAvgWrdMin.Size = new System.Drawing.Size(115, 20);
+            this.tbAvgWrdMin.TabIndex = 41;
+            // 
+            // label15
+            // 
+            this.label15.AutoSize = true;
+            this.label15.Location = new System.Drawing.Point(375, 184);
+            this.label15.Name = "label15";
+            this.label15.Size = new System.Drawing.Size(109, 13);
+            this.label15.TabIndex = 40;
+            this.label15.Text = "Vid. užfiks. ž. per min.";
+            // 
+            // tbAvgWrdH
+            // 
+            this.tbAvgWrdH.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
+            this.tbAvgWrdH.Location = new System.Drawing.Point(533, 207);
+            this.tbAvgWrdH.Name = "tbAvgWrdH";
+            this.tbAvgWrdH.ReadOnly = true;
+            this.tbAvgWrdH.Size = new System.Drawing.Size(115, 20);
+            this.tbAvgWrdH.TabIndex = 43;
+            // 
+            // label16
+            // 
+            this.label16.AutoSize = true;
+            this.label16.Location = new System.Drawing.Point(375, 210);
+            this.label16.Name = "label16";
+            this.label16.Size = new System.Drawing.Size(96, 13);
+            this.label16.TabIndex = 42;
+            this.label16.Text = "Vid. užfiks. ž. per h";
+            // 
+            // tbAvgPressReleaseMin
+            // 
+            this.tbAvgPressReleaseMin.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
+            this.tbAvgPressReleaseMin.Location = new System.Drawing.Point(533, 233);
+            this.tbAvgPressReleaseMin.Name = "tbAvgPressReleaseMin";
+            this.tbAvgPressReleaseMin.ReadOnly = true;
+            this.tbAvgPressReleaseMin.Size = new System.Drawing.Size(115, 20);
+            this.tbAvgPressReleaseMin.TabIndex = 45;
+            // 
+            // label17
+            // 
+            this.label17.AutoSize = true;
+            this.label17.Location = new System.Drawing.Point(375, 236);
+            this.label17.Name = "label17";
+            this.label17.Size = new System.Drawing.Size(161, 13);
+            this.label17.TabIndex = 44;
+            this.label17.Text = "Vid. klavišų paspaudimų per min.";
+            // 
+            // label18
+            // 
+            this.label18.AutoSize = true;
+            this.label18.Location = new System.Drawing.Point(380, 262);
+            this.label18.Name = "label18";
+            this.label18.Size = new System.Drawing.Size(148, 13);
+            this.label18.TabIndex = 46;
+            this.label18.Text = "Vid. klavišų paspaudimų per h";
+            // 
+            // tbAvgPressReleaseH
+            // 
+            this.tbAvgPressReleaseH.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
+            this.tbAvgPressReleaseH.Location = new System.Drawing.Point(533, 259);
+            this.tbAvgPressReleaseH.Name = "tbAvgPressReleaseH";
+            this.tbAvgPressReleaseH.ReadOnly = true;
+            this.tbAvgPressReleaseH.Size = new System.Drawing.Size(115, 20);
+            this.tbAvgPressReleaseH.TabIndex = 47;
+            // 
+            // tbAvgPressH
+            // 
+            this.tbAvgPressH.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
+            this.tbAvgPressH.Location = new System.Drawing.Point(533, 307);
+            this.tbAvgPressH.Name = "tbAvgPressH";
+            this.tbAvgPressH.ReadOnly = true;
+            this.tbAvgPressH.Size = new System.Drawing.Size(115, 20);
+            this.tbAvgPressH.TabIndex = 51;
+            // 
+            // label19
+            // 
+            this.label19.AutoSize = true;
+            this.label19.Location = new System.Drawing.Point(375, 310);
+            this.label19.Name = "label19";
+            this.label19.Size = new System.Drawing.Size(104, 13);
+            this.label19.TabIndex = 50;
+            this.label19.Text = "Vid. klav. nusp per h";
+            // 
+            // tbAvgPressMin
+            // 
+            this.tbAvgPressMin.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
+            this.tbAvgPressMin.Location = new System.Drawing.Point(533, 282);
+            this.tbAvgPressMin.Name = "tbAvgPressMin";
+            this.tbAvgPressMin.ReadOnly = true;
+            this.tbAvgPressMin.Size = new System.Drawing.Size(115, 20);
+            this.tbAvgPressMin.TabIndex = 49;
+            // 
+            // label20
+            // 
+            this.label20.AutoSize = true;
+            this.label20.Location = new System.Drawing.Point(375, 285);
+            this.label20.Name = "label20";
+            this.label20.Size = new System.Drawing.Size(114, 13);
+            this.label20.TabIndex = 48;
+            this.label20.Text = "Vid. klav. nusp per min";
             // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1084, 442);
+            this.ClientSize = new System.Drawing.Size(1116, 442);
             this.Controls.Add(this.panelMain);
             this.Controls.Add(this.panelDebug);
             this.Controls.Add(this.statusStrip);
@@ -704,8 +902,8 @@
             this.panelDebug.ResumeLayout(false);
             this.panelMain.ResumeLayout(false);
             this.tabControlMain.ResumeLayout(false);
-            this.tabPage1.ResumeLayout(false);
-            this.tabPage1.PerformLayout();
+            this.tabPageMainInfo.ResumeLayout(false);
+            this.tabPageMainInfo.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -745,7 +943,7 @@
         private System.Windows.Forms.ToolStripMenuItem deleteDataDbToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem deleteDataLocalMemoryToolStripMenuItem;
         private System.Windows.Forms.TabControl tabControlMain;
-        private System.Windows.Forms.TabPage tabPage1;
+        private System.Windows.Forms.TabPage tabPageMainInfo;
         private System.Windows.Forms.TabPage tabPage2;
         private System.Windows.Forms.TabPage tabPage3;
         private System.Windows.Forms.TabPage tabPage4;
@@ -774,6 +972,24 @@
         private System.Windows.Forms.Timer timer_uiUpdateTrigger;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.TextBox tbMouseKeyboardRatio;
+        private System.Windows.Forms.Label label12;
+        private System.Windows.Forms.TextBox tbTotalWorkTime;
+        private System.Windows.Forms.TextBox tbAvgMousePressMin;
+        private System.Windows.Forms.Label label13;
+        private System.Windows.Forms.TextBox tbAvgMousePressH;
+        private System.Windows.Forms.Label label14;
+        private System.Windows.Forms.TextBox tbAvgPressReleaseMin;
+        private System.Windows.Forms.Label label17;
+        private System.Windows.Forms.TextBox tbAvgWrdH;
+        private System.Windows.Forms.Label label16;
+        private System.Windows.Forms.TextBox tbAvgWrdMin;
+        private System.Windows.Forms.Label label15;
+        private System.Windows.Forms.TextBox tbAvgPressReleaseH;
+        private System.Windows.Forms.Label label18;
+        private System.Windows.Forms.TextBox tbAvgPressH;
+        private System.Windows.Forms.Label label19;
+        private System.Windows.Forms.TextBox tbAvgPressMin;
+        private System.Windows.Forms.Label label20;
     }
 }
 
