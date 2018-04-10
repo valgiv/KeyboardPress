@@ -227,6 +227,8 @@ namespace KeyboardPress
                     null);
             });
             t.Start();
+
+
         }
 
         private void notifyIcon_MouseDoubleClick(object sender, MouseEventArgs e)
@@ -343,7 +345,7 @@ namespace KeyboardPress
             {
                 List<ObjKeyPressCount> a = kpt.KeyPressCountObjList;
                 
-                new EmptyForm(new UcKeyboard(a), "Karščio žemėlapis", true).ShowDialog();
+                new EmptyForm(new UcKeyboard(a), "Karščio žemėlapis", true).Show();
             }
             catch (Exception ex)
             {

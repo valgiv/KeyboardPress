@@ -167,8 +167,8 @@ namespace KeyboardPress_Extensions.InfoForm
                 var form = new InfoFormDialog(Message, Title, ShowTimeMiliseconds, img, ClickAct);
                 form.SetFormPosition(CalculateFormLocation(form));
                 //FormWithoutActivation.ShowInactiveTopmost(form);
-                form.Show();
-                System.Windows.Threading.Dispatcher.Run(); // dėl šito reikia stengtis kviesti ne iš pagrindinės gijos
+                form.ShowDialog();
+                //System.Windows.Threading.Dispatcher.Run(); // dėl šito reikia stengtis kviesti ne iš pagrindinės gijos
             }
             catch(Exception ex)
             {
