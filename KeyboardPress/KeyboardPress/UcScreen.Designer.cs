@@ -30,12 +30,12 @@
         {
             this.SuspendLayout();
             // 
-            // ucScreen
+            // UcScreen
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.SystemColors.GradientInactiveCaption;
-            this.Name = "ucScreen";
+            this.BackColor = System.Drawing.SystemColors.Control;
+            this.Name = "UcScreen";
             this.Size = new System.Drawing.Size(365, 248);
             this.Paint += new System.Windows.Forms.PaintEventHandler(this.ucScreen_Paint);
             this.ResumeLayout(false);

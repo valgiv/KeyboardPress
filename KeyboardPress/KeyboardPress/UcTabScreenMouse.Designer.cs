@@ -37,10 +37,14 @@
             // dtpFrom
             // 
             this.dtpFrom.Value = new System.DateTime(2018, 4, 10, 0, 0, 0, 0);
+            this.dtpFrom.ValueChanged += new System.EventHandler(this.dtp_ValueChanged);
+            this.dtpFrom.MouseDown += new System.Windows.Forms.MouseEventHandler(this.dtp_MouseDown);
             // 
             // dtpTo
             // 
             this.dtpTo.Value = new System.DateTime(2018, 4, 10, 23, 59, 59, 0);
+            this.dtpTo.ValueChanged += new System.EventHandler(this.dtp_ValueChanged);
+            this.dtpTo.MouseDown += new System.Windows.Forms.MouseEventHandler(this.dtp_MouseDown);
             // 
             // btnRefresh
             // 
@@ -49,6 +53,7 @@
             // cbProgram
             // 
             this.cbProgram.Size = new System.Drawing.Size(167, 21);
+            this.cbProgram.SelectedIndexChanged += new System.EventHandler(this.cbProgram_SelectedIndexChanged);
             // 
             // panelTop
             // 

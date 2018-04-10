@@ -16,6 +16,8 @@ namespace KeyboardPress
         private DataTable dt = null;
         private DateTime dtLoadDate = DateTime.Now;
 
+        private bool FilterValueChanged = false;
+
         public UcTabScreenMouse()
         {
             InitializeComponent();
@@ -39,14 +41,20 @@ namespace KeyboardPress
                     uc.Dock = DockStyle.Fill;
                     this.panelScreen.Controls.Add(uc);
 
-                    uc.MouseEvents = GetDataByFilter(firstLoad);// MF.Kpt.MouseEvents;
+                    uc.MouseEvents = GetDataByFilter(firstLoad);
                     uc.TryRedraw();
                 }
                 else
                 {
-                    uc.MouseEvents = GetDataByFilter(firstLoad);// MF.Kpt.MouseEvents;
-                    uc.TryRedraw();
+                    var data = GetDataByFilter(firstLoad);
+                    if(FilterValueChanged || data.Count() != uc.MouseEvents.Count())
+                    {
+                        uc.MouseEvents = data;
+                        uc.TryRedraw();
+                    }
                 }
+
+                FilterValueChanged = false;
             }
             catch(Exception ex)
             {
@@ -118,5 +126,20 @@ WHERE user_record_id = {DBHelper.UserId}";
             return result;
         }
 
+        private void cbProgram_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            FilterValueChanged = true;
+
+        }
+
+        private void dtp_ValueChanged(object sender, EventArgs e)
+        {
+            FilterValueChanged = true;
+        }
+
+        private void dtp_MouseDown(object sender, MouseEventArgs e)
+        {
+            FilterValueChanged = true;
+        }
     }
 }

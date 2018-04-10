@@ -45,6 +45,8 @@ namespace KeyboardPress
             g.DrawLine(blackpen, 0 + minPix, drawScreenH + minPix, drawScreenW + minPix, drawScreenH + minPix); //apatinė briauna
             g.DrawLine(blackpen, 0 + minPix, 0 + minPix, 0 + minPix, drawScreenH + minPix); //kaire
             g.DrawLine(blackpen, drawScreenW + minPix, 0 + minPix, drawScreenW + minPix, drawScreenH + minPix); //desine
+
+            g.FillRectangle(Brushes.LightBlue, 0 + minPix, 0 + minPix, drawScreenW + 1, drawScreenH + 1);
             #endregion
 
             SolidBrush semiTransBrush = new SolidBrush(Color.FromArgb(25, 0, 0, 255)); //pirmas skaicius ryskumas, kiti spalvos
