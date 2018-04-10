@@ -11,7 +11,6 @@ namespace KeyboardPress
     public partial class UcKeyboard : UserControl
     {
         private List<ObjKeyPressCount> Data;
-        private Color[] heatMapColors;
 
         public UcKeyboard(List<ObjKeyPressCount> data)
         {
@@ -87,43 +86,41 @@ namespace KeyboardPress
 
             return maxValue - System.Convert.ToInt32(res);
         }
-        
+
+        public readonly Color[] HeatMapColors = new Color[]
+        {
+            System.Drawing.ColorTranslator.FromHtml("#8d8dfc"),
+            System.Drawing.ColorTranslator.FromHtml("#8dbbfc"),
+            System.Drawing.ColorTranslator.FromHtml("#8de7fc"),
+            System.Drawing.ColorTranslator.FromHtml("#8dfce5"),
+            System.Drawing.ColorTranslator.FromHtml("#8dfcb9"),
+            System.Drawing.ColorTranslator.FromHtml("#8dfc8d"),
+            System.Drawing.ColorTranslator.FromHtml("#bbfc8d"),
+            System.Drawing.ColorTranslator.FromHtml("#e9fc8d"),
+            System.Drawing.ColorTranslator.FromHtml("#fce28d"),
+            System.Drawing.ColorTranslator.FromHtml("#ffc7a5"),
+            System.Drawing.ColorTranslator.FromHtml("#fc8d8d")
+        };
+
         private Color? getColor_v2(int count, uint maxCount)
         {
             try
             {
                 if (count == 0)
                     return null;
+                
 
-                if (heatMapColors == null || heatMapColors.Count() < 1)
-                {
-                    heatMapColors = new Color[]
-                    {
-                    System.Drawing.ColorTranslator.FromHtml("#8d8dfc"),
-                    System.Drawing.ColorTranslator.FromHtml("#8dbbfc"),
-                    System.Drawing.ColorTranslator.FromHtml("#8de7fc"),
-                    System.Drawing.ColorTranslator.FromHtml("#8dfce5"),
-                    System.Drawing.ColorTranslator.FromHtml("#8dfcb9"),
-                    System.Drawing.ColorTranslator.FromHtml("#8dfc8d"),
-                    System.Drawing.ColorTranslator.FromHtml("#bbfc8d"),
-                    System.Drawing.ColorTranslator.FromHtml("#e9fc8d"),
-                    System.Drawing.ColorTranslator.FromHtml("#fce28d"),
-                    System.Drawing.ColorTranslator.FromHtml("#ffc7a5"),
-                    System.Drawing.ColorTranslator.FromHtml("#fc8d8d")
-                    };
-                }
-
-                long j = maxCount / (heatMapColors.Length - 1);
+                long j = maxCount / (HeatMapColors.Length - 1);
                 if (j == 0)
-                    return heatMapColors[0];
+                    return HeatMapColors[0];
 
                 long i = count / j;
                 if (i < 0)
                     i = 0;
-                else if (i > heatMapColors.Length - 1)
-                    i = heatMapColors.Length - 1;
+                else if (i > HeatMapColors.Length - 1)
+                    i = HeatMapColors.Length - 1;
                 
-                return heatMapColors[i];
+                return HeatMapColors[i];
             }
             catch(Exception ex)
             {

@@ -28,13 +28,18 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.dtpFrom = new System.Windows.Forms.DateTimePicker();
             this.dtpTo = new System.Windows.Forms.DateTimePicker();
             this.btnRefresh = new System.Windows.Forms.Button();
             this.cbProgram = new System.Windows.Forms.ComboBox();
             this.panelTop = new System.Windows.Forms.Panel();
+            this.checkBoxAutoRefresh = new System.Windows.Forms.CheckBox();
+            this.numericUpDownRefreshSeconds = new System.Windows.Forms.NumericUpDown();
             this.panelCenter = new System.Windows.Forms.Panel();
+            this.timerRefresh = new System.Windows.Forms.Timer(this.components);
             this.panelTop.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownRefreshSeconds)).BeginInit();
             this.SuspendLayout();
             // 
             // dtpFrom
@@ -65,6 +70,7 @@
             this.btnRefresh.TabIndex = 2;
             this.btnRefresh.Text = "Atnaujinti duomenis";
             this.btnRefresh.UseVisualStyleBackColor = true;
+            this.btnRefresh.Click += new System.EventHandler(this.btnRefresh_Click);
             // 
             // cbProgram
             // 
@@ -77,6 +83,8 @@
             // 
             // panelTop
             // 
+            this.panelTop.Controls.Add(this.checkBoxAutoRefresh);
+            this.panelTop.Controls.Add(this.numericUpDownRefreshSeconds);
             this.panelTop.Controls.Add(this.dtpFrom);
             this.panelTop.Controls.Add(this.cbProgram);
             this.panelTop.Controls.Add(this.dtpTo);
@@ -84,16 +92,53 @@
             this.panelTop.Dock = System.Windows.Forms.DockStyle.Top;
             this.panelTop.Location = new System.Drawing.Point(0, 0);
             this.panelTop.Name = "panelTop";
-            this.panelTop.Size = new System.Drawing.Size(513, 30);
+            this.panelTop.Size = new System.Drawing.Size(637, 30);
             this.panelTop.TabIndex = 4;
+            // 
+            // checkBoxAutoRefresh
+            // 
+            this.checkBoxAutoRefresh.AutoSize = true;
+            this.checkBoxAutoRefresh.Location = new System.Drawing.Point(587, 7);
+            this.checkBoxAutoRefresh.Name = "checkBoxAutoRefresh";
+            this.checkBoxAutoRefresh.Size = new System.Drawing.Size(47, 17);
+            this.checkBoxAutoRefresh.TabIndex = 5;
+            this.checkBoxAutoRefresh.Text = "auto";
+            this.checkBoxAutoRefresh.UseVisualStyleBackColor = true;
+            this.checkBoxAutoRefresh.Click += new System.EventHandler(this.checkBoxAutoRefresh_Click);
+            // 
+            // numericUpDownRefreshSeconds
+            // 
+            this.numericUpDownRefreshSeconds.Location = new System.Drawing.Point(546, 5);
+            this.numericUpDownRefreshSeconds.Maximum = new decimal(new int[] {
+            60,
+            0,
+            0,
+            0});
+            this.numericUpDownRefreshSeconds.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.numericUpDownRefreshSeconds.Name = "numericUpDownRefreshSeconds";
+            this.numericUpDownRefreshSeconds.Size = new System.Drawing.Size(35, 20);
+            this.numericUpDownRefreshSeconds.TabIndex = 4;
+            this.numericUpDownRefreshSeconds.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
             // 
             // panelCenter
             // 
             this.panelCenter.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panelCenter.Location = new System.Drawing.Point(0, 30);
             this.panelCenter.Name = "panelCenter";
-            this.panelCenter.Size = new System.Drawing.Size(513, 256);
+            this.panelCenter.Size = new System.Drawing.Size(637, 256);
             this.panelCenter.TabIndex = 5;
+            // 
+            // timerRefresh
+            // 
+            this.timerRefresh.Tick += new System.EventHandler(this.timerRefresh_Tick);
             // 
             // UcBase
             // 
@@ -102,9 +147,11 @@
             this.Controls.Add(this.panelCenter);
             this.Controls.Add(this.panelTop);
             this.Name = "UcBase";
-            this.Size = new System.Drawing.Size(513, 286);
+            this.Size = new System.Drawing.Size(637, 286);
             this.Load += new System.EventHandler(this.UcBase_Load);
             this.panelTop.ResumeLayout(false);
+            this.panelTop.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownRefreshSeconds)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -117,5 +164,8 @@
         protected System.Windows.Forms.ComboBox cbProgram;
         protected System.Windows.Forms.Panel panelTop;
         protected System.Windows.Forms.Panel panelCenter;
+        protected System.Windows.Forms.NumericUpDown numericUpDownRefreshSeconds;
+        protected System.Windows.Forms.CheckBox checkBoxAutoRefresh;
+        private System.Windows.Forms.Timer timerRefresh;
     }
 }

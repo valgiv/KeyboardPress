@@ -472,7 +472,7 @@ SELECT TOP 0 record_id, CAST(event_type_id AS SMALLINT) as event_type_id, CAST(e
 FROM KP_EVENT_KEY_CHAR
 WHERE user_record_id = {DBHelper.UserId}
 
-SELECT TOP 0 record_id, CAST(event_type_id AS SMALLINT) as event_type_id, CAST(event_data_type_id AS SMALLINT) as event_data_type_id, win_id, [time], x, y, user_record_id, mouse_key_id
+SELECT TOP 0 record_id, CAST(event_type_id AS SMALLINT) as event_type_id, CAST(event_data_type_id AS SMALLINT) as event_data_type_id, win_id, [time], x, y, user_record_id, CAST(mouse_key_id AS SMALLINT) as mouse_key_id
 FROM KP_EVENT_MOUSE
 WHERE user_record_id = {DBHelper.UserId}
 

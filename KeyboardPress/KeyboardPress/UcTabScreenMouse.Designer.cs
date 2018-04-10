@@ -31,6 +31,7 @@
             this.panelScreen = new System.Windows.Forms.Panel();
             this.panelTop.SuspendLayout();
             this.panelCenter.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownRefreshSeconds)).BeginInit();
             this.SuspendLayout();
             // 
             // dtpFrom
@@ -43,7 +44,11 @@
             // 
             // btnRefresh
             // 
-            this.btnRefresh.Click += new System.EventHandler(this.btnRefresh_Click);
+            this.btnRefresh.Location = new System.Drawing.Point(392, 4);
+            // 
+            // cbProgram
+            // 
+            this.cbProgram.Size = new System.Drawing.Size(167, 21);
             // 
             // panelTop
             // 
@@ -71,9 +76,10 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Name = "UcTabScreenMouse";
             this.Size = new System.Drawing.Size(544, 324);
-            this.Load += new System.EventHandler(this.UcTabScreenMouse_Load);
             this.panelTop.ResumeLayout(false);
+            this.panelTop.PerformLayout();
             this.panelCenter.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownRefreshSeconds)).EndInit();
             this.ResumeLayout(false);
 
         }
