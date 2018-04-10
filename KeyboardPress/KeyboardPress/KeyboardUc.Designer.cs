@@ -197,7 +197,7 @@
             this.button125.Name = "button125";
             this.button125.Size = new System.Drawing.Size(55, 35);
             this.button125.TabIndex = 228;
-            this.button125.Tag = "17";
+            this.button125.Tag = "163";
             this.button125.Text = "Ctrl";
             this.button125.UseVisualStyleBackColor = true;
             // 
@@ -229,7 +229,7 @@
             this.button128.Name = "button128";
             this.button128.Size = new System.Drawing.Size(45, 35);
             this.button128.TabIndex = 225;
-            this.button128.Tag = "18";
+            this.button128.Tag = "165";
             this.button128.Text = "Alt";
             this.button128.UseVisualStyleBackColor = true;
             // 
@@ -250,7 +250,7 @@
             this.button130.Name = "button130";
             this.button130.Size = new System.Drawing.Size(45, 35);
             this.button130.TabIndex = 223;
-            this.button130.Tag = "18";
+            this.button130.Tag = "164";
             this.button130.Text = "Alt";
             this.button130.UseVisualStyleBackColor = true;
             // 
@@ -272,7 +272,7 @@
             this.button132.Name = "button132";
             this.button132.Size = new System.Drawing.Size(56, 35);
             this.button132.TabIndex = 221;
-            this.button132.Tag = "17";
+            this.button132.Tag = "162";
             this.button132.Text = "Ctrl";
             this.button132.UseVisualStyleBackColor = true;
             // 
@@ -337,7 +337,7 @@
             this.button97.Name = "button97";
             this.button97.Size = new System.Drawing.Size(96, 35);
             this.button97.TabIndex = 215;
-            this.button97.Tag = "16";
+            this.button97.Tag = "161";
             this.button97.Text = "Shift";
             this.button97.UseVisualStyleBackColor = true;
             // 
@@ -458,7 +458,7 @@
             this.button110.Name = "button110";
             this.button110.Size = new System.Drawing.Size(97, 35);
             this.button110.TabIndex = 204;
-            this.button110.Tag = "16";
+            this.button110.Tag = "160";
             this.button110.Text = "Shift";
             this.button110.UseVisualStyleBackColor = true;
             // 

@@ -106,7 +106,7 @@ namespace KeyboardPress_Analyzer.Functions
                 {
                     var wf = winInf.FirstOrDefault(y => y.Item2 == x.ActiveWindowName);
 
-                    sqlValues.Add($"('{x.BeforeRemovedChar}', '{x.RemovedChar}', '{x.ChangedChar}', {(wf != null && !String.IsNullOrEmpty(wf.Item2) ? wf.Item1.ToString() : "null")}, '{x.EventTime.ToString("yyyy-MM-dd HH:mm:ss.fff")}', {DBHelper.UserId}),");
+                    sqlValues.Add($"('{(x.BeforeRemovedChar == null ? "null" : x.BeforeRemovedChar.ToString().Replace("'", "''"))}', '{x.RemovedChar}', '{(x.ChangedChar == null ? "null" : x.ChangedChar.ToString().Replace("'", "''"))}', {(wf != null && !String.IsNullOrEmpty(wf.Item2) ? wf.Item1.ToString() : "null")}, '{x.EventTime.ToString("yyyy-MM-dd HH:mm:ss.fff")}', {DBHelper.UserId}),");
                 });
 
                 var sql = DatabaseControl.CreateInsertSqlClause(sqlMain, sqlValues.ToArray());

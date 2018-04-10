@@ -386,7 +386,7 @@ namespace KeyboardPress_Analyzer
                     {
                         var win = DatabaseControl.GetWindowsIdsByProcName(x.ActiveWindowName);
 
-                        sql_values_KP_EVENT_KEY_ALL.Add($"({(int)x.EventObjType}, {(int)x.EventObjDataType}, {win[0].Item1}, '{x.EventTime.ToString("yyyy-MM-dd HH:mm:ss.fff")}', '{x.Key}', {x.KeyValue}, {(x.ShiftKeyPressed != null ? ((bool)x.ShiftKeyPressed ? "1" : "0") : "null")}, {(x.CtrlKeyPressed != null ? ((bool)x.CtrlKeyPressed ? "1" : "0") : "null")}, {DBHelper.UserId}),");
+                        sql_values_KP_EVENT_KEY_ALL.Add($"({(int)x.EventObjType}, {(int)x.EventObjDataType}, {win[0].Item1}, '{x.EventTime.ToString("yyyy-MM-dd HH:mm:ss.fff")}', '{x.Key.Replace("'", "''")}', {x.KeyValue}, {(x.ShiftKeyPressed != null ? ((bool)x.ShiftKeyPressed ? "1" : "0") : "null")}, {(x.CtrlKeyPressed != null ? ((bool)x.CtrlKeyPressed ? "1" : "0") : "null")}, {DBHelper.UserId}),");
                     });
                     sql_KP_EVENT_KEY_ALL = DatabaseControl.CreateInsertSqlClause(sql_KP_EVENT_KEY_ALL, sql_values_KP_EVENT_KEY_ALL.ToArray());
                     if (!String.IsNullOrEmpty(sql_KP_EVENT_KEY_ALL))
@@ -411,7 +411,7 @@ namespace KeyboardPress_Analyzer
                     {
                         var win = DatabaseControl.GetWindowsIdsByProcName(x.ActiveWindowName);
 
-                        sql_values_KP_EVENT_KEY_CHAR.Add($"({(int)x.EventObjType}, {(int)x.EventObjDataType}, {win[0].Item1}, '{x.EventTime.ToString("yyyy-MM-dd HH:mm:ss.fff")}', '{x.Key}', {x.KeyValue}, {(x.ShiftKeyPressed != null ? ((bool)x.ShiftKeyPressed ? "1" : "0") : "null")}, {(x.CtrlKeyPressed != null ? ((bool)x.CtrlKeyPressed ? "1" : "0") : "null")}, {DBHelper.UserId}),");
+                        sql_values_KP_EVENT_KEY_CHAR.Add($"({(int)x.EventObjType}, {(int)x.EventObjDataType}, {win[0].Item1}, '{x.EventTime.ToString("yyyy-MM-dd HH:mm:ss.fff")}', '{x.Key.Replace("'", "''")}', {x.KeyValue}, {(x.ShiftKeyPressed != null ? ((bool)x.ShiftKeyPressed ? "1" : "0") : "null")}, {(x.CtrlKeyPressed != null ? ((bool)x.CtrlKeyPressed ? "1" : "0") : "null")}, {DBHelper.UserId}),");
                     });
                     sql_KP_EVENT_KEY_CHAR = DatabaseControl.CreateInsertSqlClause(sql_KP_EVENT_KEY_CHAR, sql_values_KP_EVENT_KEY_CHAR.ToArray());
                     if (!String.IsNullOrEmpty(sql_KP_EVENT_KEY_CHAR))

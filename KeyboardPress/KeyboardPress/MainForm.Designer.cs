@@ -56,6 +56,24 @@
             this.panelMain = new System.Windows.Forms.Panel();
             this.tabControlMain = new System.Windows.Forms.TabControl();
             this.tabPageMainInfo = new System.Windows.Forms.TabPage();
+            this.tbAvgPressH = new System.Windows.Forms.TextBox();
+            this.label19 = new System.Windows.Forms.Label();
+            this.tbAvgPressMin = new System.Windows.Forms.TextBox();
+            this.label20 = new System.Windows.Forms.Label();
+            this.tbAvgPressReleaseH = new System.Windows.Forms.TextBox();
+            this.label18 = new System.Windows.Forms.Label();
+            this.tbAvgPressReleaseMin = new System.Windows.Forms.TextBox();
+            this.label17 = new System.Windows.Forms.Label();
+            this.tbAvgWrdH = new System.Windows.Forms.TextBox();
+            this.label16 = new System.Windows.Forms.Label();
+            this.tbAvgWrdMin = new System.Windows.Forms.TextBox();
+            this.label15 = new System.Windows.Forms.Label();
+            this.tbAvgMousePressH = new System.Windows.Forms.TextBox();
+            this.label14 = new System.Windows.Forms.Label();
+            this.tbAvgMousePressMin = new System.Windows.Forms.TextBox();
+            this.label13 = new System.Windows.Forms.Label();
+            this.label12 = new System.Windows.Forms.Label();
+            this.tbTotalWorkTime = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.tbMouseKeyboardRatio = new System.Windows.Forms.TextBox();
             this.label11 = new System.Windows.Forms.Label();
@@ -91,24 +109,6 @@
             this.tabPage6 = new System.Windows.Forms.TabPage();
             this.timer_workTime = new System.Windows.Forms.Timer(this.components);
             this.timer_uiUpdateTrigger = new System.Windows.Forms.Timer(this.components);
-            this.tbTotalWorkTime = new System.Windows.Forms.TextBox();
-            this.label12 = new System.Windows.Forms.Label();
-            this.label13 = new System.Windows.Forms.Label();
-            this.tbAvgMousePressMin = new System.Windows.Forms.TextBox();
-            this.tbAvgMousePressH = new System.Windows.Forms.TextBox();
-            this.label14 = new System.Windows.Forms.Label();
-            this.tbAvgWrdMin = new System.Windows.Forms.TextBox();
-            this.label15 = new System.Windows.Forms.Label();
-            this.tbAvgWrdH = new System.Windows.Forms.TextBox();
-            this.label16 = new System.Windows.Forms.Label();
-            this.tbAvgPressReleaseMin = new System.Windows.Forms.TextBox();
-            this.label17 = new System.Windows.Forms.Label();
-            this.label18 = new System.Windows.Forms.Label();
-            this.tbAvgPressReleaseH = new System.Windows.Forms.TextBox();
-            this.tbAvgPressH = new System.Windows.Forms.TextBox();
-            this.label19 = new System.Windows.Forms.Label();
-            this.tbAvgPressMin = new System.Windows.Forms.TextBox();
-            this.label20 = new System.Windows.Forms.Label();
             this.menuStrip.SuspendLayout();
             this.statusStrip.SuspendLayout();
             this.panelDebug.SuspendLayout();
@@ -403,6 +403,168 @@
             this.tabPageMainInfo.Text = "Informacija";
             this.tabPageMainInfo.UseVisualStyleBackColor = true;
             // 
+            // tbAvgPressH
+            // 
+            this.tbAvgPressH.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
+            this.tbAvgPressH.Location = new System.Drawing.Point(533, 307);
+            this.tbAvgPressH.Name = "tbAvgPressH";
+            this.tbAvgPressH.ReadOnly = true;
+            this.tbAvgPressH.Size = new System.Drawing.Size(115, 20);
+            this.tbAvgPressH.TabIndex = 51;
+            // 
+            // label19
+            // 
+            this.label19.AutoSize = true;
+            this.label19.Location = new System.Drawing.Point(375, 310);
+            this.label19.Name = "label19";
+            this.label19.Size = new System.Drawing.Size(104, 13);
+            this.label19.TabIndex = 50;
+            this.label19.Text = "Vid. klav. nusp per h";
+            // 
+            // tbAvgPressMin
+            // 
+            this.tbAvgPressMin.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
+            this.tbAvgPressMin.Location = new System.Drawing.Point(533, 282);
+            this.tbAvgPressMin.Name = "tbAvgPressMin";
+            this.tbAvgPressMin.ReadOnly = true;
+            this.tbAvgPressMin.Size = new System.Drawing.Size(115, 20);
+            this.tbAvgPressMin.TabIndex = 49;
+            // 
+            // label20
+            // 
+            this.label20.AutoSize = true;
+            this.label20.Location = new System.Drawing.Point(375, 285);
+            this.label20.Name = "label20";
+            this.label20.Size = new System.Drawing.Size(114, 13);
+            this.label20.TabIndex = 48;
+            this.label20.Text = "Vid. klav. nusp per min";
+            // 
+            // tbAvgPressReleaseH
+            // 
+            this.tbAvgPressReleaseH.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
+            this.tbAvgPressReleaseH.Location = new System.Drawing.Point(533, 259);
+            this.tbAvgPressReleaseH.Name = "tbAvgPressReleaseH";
+            this.tbAvgPressReleaseH.ReadOnly = true;
+            this.tbAvgPressReleaseH.Size = new System.Drawing.Size(115, 20);
+            this.tbAvgPressReleaseH.TabIndex = 47;
+            // 
+            // label18
+            // 
+            this.label18.AutoSize = true;
+            this.label18.Location = new System.Drawing.Point(380, 262);
+            this.label18.Name = "label18";
+            this.label18.Size = new System.Drawing.Size(148, 13);
+            this.label18.TabIndex = 46;
+            this.label18.Text = "Vid. klavišų paspaudimų per h";
+            // 
+            // tbAvgPressReleaseMin
+            // 
+            this.tbAvgPressReleaseMin.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
+            this.tbAvgPressReleaseMin.Location = new System.Drawing.Point(533, 233);
+            this.tbAvgPressReleaseMin.Name = "tbAvgPressReleaseMin";
+            this.tbAvgPressReleaseMin.ReadOnly = true;
+            this.tbAvgPressReleaseMin.Size = new System.Drawing.Size(115, 20);
+            this.tbAvgPressReleaseMin.TabIndex = 45;
+            // 
+            // label17
+            // 
+            this.label17.AutoSize = true;
+            this.label17.Location = new System.Drawing.Point(375, 236);
+            this.label17.Name = "label17";
+            this.label17.Size = new System.Drawing.Size(161, 13);
+            this.label17.TabIndex = 44;
+            this.label17.Text = "Vid. klavišų paspaudimų per min.";
+            // 
+            // tbAvgWrdH
+            // 
+            this.tbAvgWrdH.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
+            this.tbAvgWrdH.Location = new System.Drawing.Point(533, 207);
+            this.tbAvgWrdH.Name = "tbAvgWrdH";
+            this.tbAvgWrdH.ReadOnly = true;
+            this.tbAvgWrdH.Size = new System.Drawing.Size(115, 20);
+            this.tbAvgWrdH.TabIndex = 43;
+            // 
+            // label16
+            // 
+            this.label16.AutoSize = true;
+            this.label16.Location = new System.Drawing.Point(375, 210);
+            this.label16.Name = "label16";
+            this.label16.Size = new System.Drawing.Size(96, 13);
+            this.label16.TabIndex = 42;
+            this.label16.Text = "Vid. užfiks. ž. per h";
+            // 
+            // tbAvgWrdMin
+            // 
+            this.tbAvgWrdMin.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
+            this.tbAvgWrdMin.Location = new System.Drawing.Point(533, 181);
+            this.tbAvgWrdMin.Name = "tbAvgWrdMin";
+            this.tbAvgWrdMin.ReadOnly = true;
+            this.tbAvgWrdMin.Size = new System.Drawing.Size(115, 20);
+            this.tbAvgWrdMin.TabIndex = 41;
+            // 
+            // label15
+            // 
+            this.label15.AutoSize = true;
+            this.label15.Location = new System.Drawing.Point(375, 184);
+            this.label15.Name = "label15";
+            this.label15.Size = new System.Drawing.Size(109, 13);
+            this.label15.TabIndex = 40;
+            this.label15.Text = "Vid. užfiks. ž. per min.";
+            // 
+            // tbAvgMousePressH
+            // 
+            this.tbAvgMousePressH.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
+            this.tbAvgMousePressH.Location = new System.Drawing.Point(533, 155);
+            this.tbAvgMousePressH.Name = "tbAvgMousePressH";
+            this.tbAvgMousePressH.ReadOnly = true;
+            this.tbAvgMousePressH.Size = new System.Drawing.Size(115, 20);
+            this.tbAvgMousePressH.TabIndex = 39;
+            // 
+            // label14
+            // 
+            this.label14.AutoSize = true;
+            this.label14.Location = new System.Drawing.Point(375, 158);
+            this.label14.Name = "label14";
+            this.label14.Size = new System.Drawing.Size(140, 13);
+            this.label14.TabIndex = 38;
+            this.label14.Text = "Vid. pelės paspaudimų per h";
+            // 
+            // tbAvgMousePressMin
+            // 
+            this.tbAvgMousePressMin.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
+            this.tbAvgMousePressMin.Location = new System.Drawing.Point(533, 130);
+            this.tbAvgMousePressMin.Name = "tbAvgMousePressMin";
+            this.tbAvgMousePressMin.ReadOnly = true;
+            this.tbAvgMousePressMin.Size = new System.Drawing.Size(115, 20);
+            this.tbAvgMousePressMin.TabIndex = 37;
+            // 
+            // label13
+            // 
+            this.label13.AutoSize = true;
+            this.label13.Location = new System.Drawing.Point(375, 133);
+            this.label13.Name = "label13";
+            this.label13.Size = new System.Drawing.Size(153, 13);
+            this.label13.TabIndex = 36;
+            this.label13.Text = "Vid. pelės paspaudimų per min.";
+            // 
+            // label12
+            // 
+            this.label12.AutoSize = true;
+            this.label12.Location = new System.Drawing.Point(107, 366);
+            this.label12.Name = "label12";
+            this.label12.Size = new System.Drawing.Size(101, 13);
+            this.label12.TabIndex = 35;
+            this.label12.Text = "Visas veikimo laikas";
+            // 
+            // tbTotalWorkTime
+            // 
+            this.tbTotalWorkTime.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
+            this.tbTotalWorkTime.Location = new System.Drawing.Point(214, 363);
+            this.tbTotalWorkTime.Name = "tbTotalWorkTime";
+            this.tbTotalWorkTime.ReadOnly = true;
+            this.tbTotalWorkTime.Size = new System.Drawing.Size(155, 20);
+            this.tbTotalWorkTime.TabIndex = 34;
+            // 
             // label1
             // 
             this.label1.AutoSize = true;
@@ -438,6 +600,7 @@
             this.tbKeyPress.ReadOnly = true;
             this.tbKeyPress.Size = new System.Drawing.Size(155, 20);
             this.tbKeyPress.TabIndex = 30;
+            this.tbKeyPress.TextChanged += new System.EventHandler(this.tbMouseKeyboardRatioChange);
             // 
             // tbMousePress
             // 
@@ -447,6 +610,7 @@
             this.tbMousePress.ReadOnly = true;
             this.tbMousePress.Size = new System.Drawing.Size(155, 20);
             this.tbMousePress.TabIndex = 29;
+            this.tbMousePress.TextChanged += new System.EventHandler(this.tbMouseKeyboardRatioChange);
             // 
             // label10
             // 
@@ -483,6 +647,7 @@
             this.tbMouseWheelDown.ReadOnly = true;
             this.tbMouseWheelDown.Size = new System.Drawing.Size(155, 20);
             this.tbMouseWheelDown.TabIndex = 25;
+            this.tbMouseWheelDown.TextChanged += new System.EventHandler(this.tbMouseWheel_TextChanged);
             // 
             // tbMouseWheelUp
             // 
@@ -492,6 +657,7 @@
             this.tbMouseWheelUp.ReadOnly = true;
             this.tbMouseWheelUp.Size = new System.Drawing.Size(155, 20);
             this.tbMouseWheelUp.TabIndex = 24;
+            this.tbMouseWheelUp.TextChanged += new System.EventHandler(this.tbMouseWheel_TextChanged);
             // 
             // tbRestTime
             // 
@@ -582,6 +748,7 @@
             this.tbKeyPressRelease.ReadOnly = true;
             this.tbKeyPressRelease.Size = new System.Drawing.Size(155, 20);
             this.tbKeyPressRelease.TabIndex = 13;
+            this.tbKeyPressRelease.TextChanged += new System.EventHandler(this.tbMouseKeyboardRatioChange);
             // 
             // label3
             // 
@@ -660,7 +827,7 @@
             this.tabPage2.Location = new System.Drawing.Point(124, 4);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(622, 388);
+            this.tabPage2.Size = new System.Drawing.Size(654, 388);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Pelė";
             this.tabPage2.UseVisualStyleBackColor = true;
@@ -670,7 +837,7 @@
             this.tabPage3.Location = new System.Drawing.Point(124, 4);
             this.tabPage3.Name = "tabPage3";
             this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage3.Size = new System.Drawing.Size(622, 388);
+            this.tabPage3.Size = new System.Drawing.Size(654, 388);
             this.tabPage3.TabIndex = 2;
             this.tabPage3.Text = "Klaviatūra";
             this.tabPage3.UseVisualStyleBackColor = true;
@@ -680,7 +847,7 @@
             this.tabPage4.Location = new System.Drawing.Point(124, 4);
             this.tabPage4.Name = "tabPage4";
             this.tabPage4.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage4.Size = new System.Drawing.Size(622, 388);
+            this.tabPage4.Size = new System.Drawing.Size(654, 388);
             this.tabPage4.TabIndex = 3;
             this.tabPage4.Text = "Klaidos";
             this.tabPage4.UseVisualStyleBackColor = true;
@@ -691,7 +858,7 @@
             this.tabKeyboardHeatMap.Location = new System.Drawing.Point(124, 4);
             this.tabKeyboardHeatMap.Name = "tabKeyboardHeatMap";
             this.tabKeyboardHeatMap.Padding = new System.Windows.Forms.Padding(3);
-            this.tabKeyboardHeatMap.Size = new System.Drawing.Size(622, 388);
+            this.tabKeyboardHeatMap.Size = new System.Drawing.Size(654, 388);
             this.tabKeyboardHeatMap.TabIndex = 4;
             this.tabKeyboardHeatMap.Text = "Klaviatūros karštis";
             this.tabKeyboardHeatMap.UseVisualStyleBackColor = true;
@@ -701,7 +868,7 @@
             this.tabPage6.Location = new System.Drawing.Point(124, 4);
             this.tabPage6.Name = "tabPage6";
             this.tabPage6.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage6.Size = new System.Drawing.Size(622, 388);
+            this.tabPage6.Size = new System.Drawing.Size(654, 388);
             this.tabPage6.TabIndex = 5;
             this.tabPage6.Text = "tabPage6";
             this.tabPage6.UseVisualStyleBackColor = true;
@@ -716,168 +883,6 @@
             this.timer_uiUpdateTrigger.Enabled = true;
             this.timer_uiUpdateTrigger.Interval = 3000;
             this.timer_uiUpdateTrigger.Tick += new System.EventHandler(this.timer_uiUpdateTrigger_Tick);
-            // 
-            // tbTotalWorkTime
-            // 
-            this.tbTotalWorkTime.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
-            this.tbTotalWorkTime.Location = new System.Drawing.Point(214, 363);
-            this.tbTotalWorkTime.Name = "tbTotalWorkTime";
-            this.tbTotalWorkTime.ReadOnly = true;
-            this.tbTotalWorkTime.Size = new System.Drawing.Size(155, 20);
-            this.tbTotalWorkTime.TabIndex = 34;
-            // 
-            // label12
-            // 
-            this.label12.AutoSize = true;
-            this.label12.Location = new System.Drawing.Point(107, 366);
-            this.label12.Name = "label12";
-            this.label12.Size = new System.Drawing.Size(101, 13);
-            this.label12.TabIndex = 35;
-            this.label12.Text = "Visas veikimo laikas";
-            // 
-            // label13
-            // 
-            this.label13.AutoSize = true;
-            this.label13.Location = new System.Drawing.Point(375, 133);
-            this.label13.Name = "label13";
-            this.label13.Size = new System.Drawing.Size(153, 13);
-            this.label13.TabIndex = 36;
-            this.label13.Text = "Vid. pelės paspaudimų per min.";
-            // 
-            // tbAvgMousePressMin
-            // 
-            this.tbAvgMousePressMin.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
-            this.tbAvgMousePressMin.Location = new System.Drawing.Point(533, 130);
-            this.tbAvgMousePressMin.Name = "tbAvgMousePressMin";
-            this.tbAvgMousePressMin.ReadOnly = true;
-            this.tbAvgMousePressMin.Size = new System.Drawing.Size(115, 20);
-            this.tbAvgMousePressMin.TabIndex = 37;
-            // 
-            // tbAvgMousePressH
-            // 
-            this.tbAvgMousePressH.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
-            this.tbAvgMousePressH.Location = new System.Drawing.Point(533, 155);
-            this.tbAvgMousePressH.Name = "tbAvgMousePressH";
-            this.tbAvgMousePressH.ReadOnly = true;
-            this.tbAvgMousePressH.Size = new System.Drawing.Size(115, 20);
-            this.tbAvgMousePressH.TabIndex = 39;
-            // 
-            // label14
-            // 
-            this.label14.AutoSize = true;
-            this.label14.Location = new System.Drawing.Point(375, 158);
-            this.label14.Name = "label14";
-            this.label14.Size = new System.Drawing.Size(140, 13);
-            this.label14.TabIndex = 38;
-            this.label14.Text = "Vid. pelės paspaudimų per h";
-            // 
-            // tbAvgWrdMin
-            // 
-            this.tbAvgWrdMin.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
-            this.tbAvgWrdMin.Location = new System.Drawing.Point(533, 181);
-            this.tbAvgWrdMin.Name = "tbAvgWrdMin";
-            this.tbAvgWrdMin.ReadOnly = true;
-            this.tbAvgWrdMin.Size = new System.Drawing.Size(115, 20);
-            this.tbAvgWrdMin.TabIndex = 41;
-            // 
-            // label15
-            // 
-            this.label15.AutoSize = true;
-            this.label15.Location = new System.Drawing.Point(375, 184);
-            this.label15.Name = "label15";
-            this.label15.Size = new System.Drawing.Size(109, 13);
-            this.label15.TabIndex = 40;
-            this.label15.Text = "Vid. užfiks. ž. per min.";
-            // 
-            // tbAvgWrdH
-            // 
-            this.tbAvgWrdH.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
-            this.tbAvgWrdH.Location = new System.Drawing.Point(533, 207);
-            this.tbAvgWrdH.Name = "tbAvgWrdH";
-            this.tbAvgWrdH.ReadOnly = true;
-            this.tbAvgWrdH.Size = new System.Drawing.Size(115, 20);
-            this.tbAvgWrdH.TabIndex = 43;
-            // 
-            // label16
-            // 
-            this.label16.AutoSize = true;
-            this.label16.Location = new System.Drawing.Point(375, 210);
-            this.label16.Name = "label16";
-            this.label16.Size = new System.Drawing.Size(96, 13);
-            this.label16.TabIndex = 42;
-            this.label16.Text = "Vid. užfiks. ž. per h";
-            // 
-            // tbAvgPressReleaseMin
-            // 
-            this.tbAvgPressReleaseMin.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
-            this.tbAvgPressReleaseMin.Location = new System.Drawing.Point(533, 233);
-            this.tbAvgPressReleaseMin.Name = "tbAvgPressReleaseMin";
-            this.tbAvgPressReleaseMin.ReadOnly = true;
-            this.tbAvgPressReleaseMin.Size = new System.Drawing.Size(115, 20);
-            this.tbAvgPressReleaseMin.TabIndex = 45;
-            // 
-            // label17
-            // 
-            this.label17.AutoSize = true;
-            this.label17.Location = new System.Drawing.Point(375, 236);
-            this.label17.Name = "label17";
-            this.label17.Size = new System.Drawing.Size(161, 13);
-            this.label17.TabIndex = 44;
-            this.label17.Text = "Vid. klavišų paspaudimų per min.";
-            // 
-            // label18
-            // 
-            this.label18.AutoSize = true;
-            this.label18.Location = new System.Drawing.Point(380, 262);
-            this.label18.Name = "label18";
-            this.label18.Size = new System.Drawing.Size(148, 13);
-            this.label18.TabIndex = 46;
-            this.label18.Text = "Vid. klavišų paspaudimų per h";
-            // 
-            // tbAvgPressReleaseH
-            // 
-            this.tbAvgPressReleaseH.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
-            this.tbAvgPressReleaseH.Location = new System.Drawing.Point(533, 259);
-            this.tbAvgPressReleaseH.Name = "tbAvgPressReleaseH";
-            this.tbAvgPressReleaseH.ReadOnly = true;
-            this.tbAvgPressReleaseH.Size = new System.Drawing.Size(115, 20);
-            this.tbAvgPressReleaseH.TabIndex = 47;
-            // 
-            // tbAvgPressH
-            // 
-            this.tbAvgPressH.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
-            this.tbAvgPressH.Location = new System.Drawing.Point(533, 307);
-            this.tbAvgPressH.Name = "tbAvgPressH";
-            this.tbAvgPressH.ReadOnly = true;
-            this.tbAvgPressH.Size = new System.Drawing.Size(115, 20);
-            this.tbAvgPressH.TabIndex = 51;
-            // 
-            // label19
-            // 
-            this.label19.AutoSize = true;
-            this.label19.Location = new System.Drawing.Point(375, 310);
-            this.label19.Name = "label19";
-            this.label19.Size = new System.Drawing.Size(104, 13);
-            this.label19.TabIndex = 50;
-            this.label19.Text = "Vid. klav. nusp per h";
-            // 
-            // tbAvgPressMin
-            // 
-            this.tbAvgPressMin.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
-            this.tbAvgPressMin.Location = new System.Drawing.Point(533, 282);
-            this.tbAvgPressMin.Name = "tbAvgPressMin";
-            this.tbAvgPressMin.ReadOnly = true;
-            this.tbAvgPressMin.Size = new System.Drawing.Size(115, 20);
-            this.tbAvgPressMin.TabIndex = 49;
-            // 
-            // label20
-            // 
-            this.label20.AutoSize = true;
-            this.label20.Location = new System.Drawing.Point(375, 285);
-            this.label20.Name = "label20";
-            this.label20.Size = new System.Drawing.Size(114, 13);
-            this.label20.TabIndex = 48;
-            this.label20.Text = "Vid. klav. nusp per min";
             // 
             // MainForm
             // 

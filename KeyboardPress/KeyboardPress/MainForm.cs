@@ -527,19 +527,53 @@ namespace KeyboardPress
                         var totalMin = kpt.TotalWorkStopWatch.Elapsed.TotalMinutes;
                         var totalH = kpt.TotalWorkStopWatch.Elapsed.TotalHours;
 
-                        Helper.UiControls.SetText((kpt.TotalMousePress / totalMin).ToString(), EnumUiControlTag.AvrgMousePressPerMin);
-                        Helper.UiControls.SetText((kpt.TotalMousePress / totalH).ToString(), EnumUiControlTag.AvrgMousePressPerHour);
-                        Helper.UiControls.SetText((System.Convert.ToInt32(tbTotalWords.Text) / totalMin).ToString(), EnumUiControlTag.AvrgWordsPerMin);
-                        Helper.UiControls.SetText((System.Convert.ToInt32(tbTotalWords.Text) / totalH).ToString(), EnumUiControlTag.AvrgWordsPerHour);
-                        Helper.UiControls.SetText((kpt.TotalKeyPressRelease / totalMin).ToString(), EnumUiControlTag.AvrgPressReleasePerMin);
-                        Helper.UiControls.SetText((kpt.TotalKeyPressRelease / totalH).ToString(), EnumUiControlTag.AvrgPressReleasePerHour);
-                        Helper.UiControls.SetText((kpt.TotalKeyPres / totalMin).ToString(), EnumUiControlTag.AvrgPressPerMin);
-                        Helper.UiControls.SetText((kpt.TotalKeyPres / totalH).ToString(), EnumUiControlTag.AvrgPressPerHour);
+                        Helper.UiControls.SetText((kpt.TotalMousePress / totalMin).ToString("00.00"), EnumUiControlTag.AvrgMousePressPerMin);
+                        Helper.UiControls.SetText((kpt.TotalMousePress / totalH).ToString("00.00"), EnumUiControlTag.AvrgMousePressPerHour);
+                        Helper.UiControls.SetText((System.Convert.ToInt32(tbTotalWords.Text) / totalMin).ToString("00.00"), EnumUiControlTag.AvrgWordsPerMin);
+                        Helper.UiControls.SetText((System.Convert.ToInt32(tbTotalWords.Text) / totalH).ToString("00.00"), EnumUiControlTag.AvrgWordsPerHour);
+                        Helper.UiControls.SetText((kpt.TotalKeyPressRelease / totalMin).ToString("00.00"), EnumUiControlTag.AvrgPressReleasePerMin);
+                        Helper.UiControls.SetText((kpt.TotalKeyPressRelease / totalH).ToString("00.00"), EnumUiControlTag.AvrgPressReleasePerHour);
+                        Helper.UiControls.SetText((kpt.TotalKeyPres / totalMin).ToString("00.00"), EnumUiControlTag.AvrgPressPerMin);
+                        Helper.UiControls.SetText((kpt.TotalKeyPres / totalH).ToString("00.00"), EnumUiControlTag.AvrgPressPerHour);
                     }
                 });
                 t.Start();
             }
             catch { }
         }
+
+        private void tbMouseWheel_TextChanged(object sender, EventArgs e)
+        {
+            try
+            {
+                decimal up = 1, down = 1;
+                if (!String.IsNullOrEmpty(tbMouseWheelUp.Text))
+                    up = System.Convert.ToDecimal(tbMouseWheelUp.Text);
+                if (!String.IsNullOrEmpty(tbMouseWheelDown.Text))
+                    down = System.Convert.ToDecimal(tbMouseWheelDown.Text);
+
+                tbMouseWheelRatio.Text = $"{(up/down).ToString("0.00")} - {(down/up).ToString("0.00")}";
+            }
+            catch { }
+        }
+
+        private void tbMouseKeyboardRatioChange(object sender, EventArgs e)
+        {
+            try
+            {
+                decimal m = 1, kp = 1, kr = 1;
+                if (!String.IsNullOrEmpty(tbMousePress.Text))
+                    m = System.Convert.ToDecimal(tbMousePress.Text);
+                if (!String.IsNullOrEmpty(tbKeyPressRelease.Text))
+                    kr = System.Convert.ToDecimal(tbKeyPressRelease.Text);
+                if (!String.IsNullOrEmpty(tbKeyPress.Text))
+                    kp = System.Convert.ToDecimal(tbKeyPress.Text);
+
+                tbMouseKeyboardRatio.Text = $"{(m/kp).ToString("0.00")} - {(m/kr).ToString("0.00")}";
+            }
+            catch { }
+        }
+
+
     }
 }

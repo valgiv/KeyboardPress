@@ -79,7 +79,7 @@ namespace KeyboardPress_Analyzer
 
                 proccessNames.Distinct().Where(x => !(WindowsList.Select(y => y.proc_name).ToArray()).Contains(x)).ToList().ForEach(x =>
                 {
-                    sql += $"INSERT INTO KP_WINDOWS (proc_name) VALUES ('{x.ToString()}') ";
+                    sql += $"INSERT INTO KP_WINDOWS (proc_name) VALUES ('{x.ToString().Replace("'", "''")}') ";
                 });
 
                 if (String.IsNullOrWhiteSpace(sql))
