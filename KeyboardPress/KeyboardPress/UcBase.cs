@@ -22,9 +22,10 @@ namespace KeyboardPress
 
         private void UcBase_Load(object sender, EventArgs e)
         {
-            if (this.ParentForm.GetType() != typeof(MainForm))
-                throw new NotSupportedException("Netinkamai kviečiama klasė. Klasė gali būti iškviesta tik iš MainForm klasės");
-            else
+            //to do: cia kazka pakeisti, nes neleidzia programint
+            //if (this.ParentForm.GetType() != typeof(MainForm))
+            //    throw new NotSupportedException("Netinkamai kviečiama klasė. Klasė gali būti iškviesta tik iš MainForm klasės");
+            //else
                 MF = (MainForm)this.ParentForm;
 
             LoadComboBoxValues();

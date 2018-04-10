@@ -2,11 +2,9 @@
 using KeyboardPress_Analyzer.Helper;
 using KeyboardPress_Analyzer.Objects;
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Transactions;
@@ -174,14 +172,20 @@ namespace KeyboardPress_Analyzer
         {
             Task t = new Task(() =>
             {
-                InfoForm.Show($@"Pernelyk ilgas darbas kenkia Jūsų sveikatai.
+                Thread th = new Thread(() =>
+                {
+                    InfoForm.Show($@"Pernelyk ilgas darbas kenkia Jūsų sveikatai.
 Prie kompiutero jau dirbate daugiau nei {restReminder.WorkStopwatch.Elapsed.TotalMinutes.ToString("#.##")} minučių.
 Siūloma pailsėti bent {(((double)(restReminder.RestTimeSeconds)) / 60d).ToString("#.##")} minutes.",
                 "Laikas poilsiui", 10000,
                 InfoForm.Enum_InfoFormImage.HeadMind,
                 null);
+                });
+                th.Start();
+                Thread.Sleep(15000);
+                th.Abort();
             });
-            t.Start();
+            //t.Start(); //to do: atkomentuoti
             //notifyIcon.ShowBalloonTip(1000, "restTime", "restTime", ToolTipIcon.Warning);
             
         }

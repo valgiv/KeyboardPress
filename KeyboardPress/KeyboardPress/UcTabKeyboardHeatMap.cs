@@ -1,14 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace KeyboardPress
 {
     public class UcTabKeyboardHeatMap : UcBase
     {
-        private KeyboardUc uc = null;
+        private UcKeyboard uc = null;
 
         public UcTabKeyboardHeatMap()
         {
@@ -56,7 +52,7 @@ namespace KeyboardPress
                     uc.Dispose();
                 uc = null;
 
-                uc = new KeyboardUc(MF.Kpt.KeyPressCountObjList);
+                uc = new UcKeyboard(MF.Kpt.KeyPressCountObjList);
                 uc.Dock = System.Windows.Forms.DockStyle.Fill;
 
                 panelCenter.Controls.Add(uc);

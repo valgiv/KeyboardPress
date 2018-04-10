@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace KeyboardPress_Analyzer
@@ -78,8 +76,20 @@ namespace KeyboardPress_Analyzer
                     }
                     else if(c.Obj is TextBox)
                     {
+
                         if (((TextBox)c.Obj).InvokeRequired)
-                            ((TextBox)c.Obj).BeginInvoke(new MethodInvoker(delegate { ((TextBox)c.Obj).Text = text; }));
+                            ((TextBox)c.Obj).BeginInvoke(new MethodInvoker(delegate
+                            {
+                                try
+                                {
+                                    ((TextBox)c.Obj).Text = text;
+                                }
+                                catch(Exception ex)
+                                {
+
+                                }
+                                
+                            }));
                         else
                             ((TextBox)c.Obj).Text = text;
                     }

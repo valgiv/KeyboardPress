@@ -1,18 +1,12 @@
-﻿using KeyboardPress_Extensions;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
+﻿using System;
 using System.Drawing;
 using System.Linq;
-using System.Runtime.InteropServices;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace KeyboardPress_Extensions.InfoForm
 {
-    public partial class InfoFormDialog : Form
+    // kazkaip disposinti
+    public partial class InfoFormDialog : Form, IDisposable
     {
         private bool opacityUp = true;
         private int showTimeMiliseconds = 0;
@@ -32,7 +26,7 @@ namespace KeyboardPress_Extensions.InfoForm
 
             ChangeFormSize();
         }
-
+        
         protected override bool ShowWithoutActivation
         {
             get { return true; }
@@ -178,7 +172,7 @@ namespace KeyboardPress_Extensions.InfoForm
             }
             catch(Exception ex)
             {
-                throw;
+                //throw;
             }
         }
 

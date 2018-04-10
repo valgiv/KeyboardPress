@@ -102,7 +102,7 @@
             this.lblLastWord = new System.Windows.Forms.Label();
             this.tbLastWord = new System.Windows.Forms.TextBox();
             this.tbTotalWordsWithMistakes = new System.Windows.Forms.TextBox();
-            this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.tabPageMouse = new System.Windows.Forms.TabPage();
             this.tabPage3 = new System.Windows.Forms.TabPage();
             this.tabPage4 = new System.Windows.Forms.TabPage();
             this.tabKeyboardHeatMap = new System.Windows.Forms.TabPage();
@@ -328,7 +328,7 @@
             // 
             this.tabControlMain.Alignment = System.Windows.Forms.TabAlignment.Left;
             this.tabControlMain.Controls.Add(this.tabPageMainInfo);
-            this.tabControlMain.Controls.Add(this.tabPage2);
+            this.tabControlMain.Controls.Add(this.tabPageMouse);
             this.tabControlMain.Controls.Add(this.tabPage3);
             this.tabControlMain.Controls.Add(this.tabPage4);
             this.tabControlMain.Controls.Add(this.tabKeyboardHeatMap);
@@ -822,15 +822,15 @@
             this.tbTotalWordsWithMistakes.Size = new System.Drawing.Size(155, 20);
             this.tbTotalWordsWithMistakes.TabIndex = 4;
             // 
-            // tabPage2
+            // tabPageMouse
             // 
-            this.tabPage2.Location = new System.Drawing.Point(124, 4);
-            this.tabPage2.Name = "tabPage2";
-            this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(654, 388);
-            this.tabPage2.TabIndex = 1;
-            this.tabPage2.Text = "Pelė";
-            this.tabPage2.UseVisualStyleBackColor = true;
+            this.tabPageMouse.Location = new System.Drawing.Point(124, 4);
+            this.tabPageMouse.Name = "tabPageMouse";
+            this.tabPageMouse.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPageMouse.Size = new System.Drawing.Size(654, 388);
+            this.tabPageMouse.TabIndex = 1;
+            this.tabPageMouse.Text = "Pelė";
+            this.tabPageMouse.UseVisualStyleBackColor = true;
             // 
             // tabPage3
             // 
@@ -949,7 +949,7 @@
         private System.Windows.Forms.ToolStripMenuItem deleteDataLocalMemoryToolStripMenuItem;
         private System.Windows.Forms.TabControl tabControlMain;
         private System.Windows.Forms.TabPage tabPageMainInfo;
-        private System.Windows.Forms.TabPage tabPage2;
+        private System.Windows.Forms.TabPage tabPageMouse;
         private System.Windows.Forms.TabPage tabPage3;
         private System.Windows.Forms.TabPage tabPage4;
         private System.Windows.Forms.TabPage tabKeyboardHeatMap;

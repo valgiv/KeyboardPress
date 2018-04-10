@@ -1,9 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace KeyboardPress_Extensions.InfoForm
@@ -78,6 +75,11 @@ namespace KeyboardPress_Extensions.InfoForm
 
                 return null;
             }
+        }
+
+        public static Tuple<int, int> GetMainScreenSize()
+        {
+            return new Tuple<int, int>(Screen.PrimaryScreen.Bounds.Width, Screen.PrimaryScreen.Bounds.Height);
         }
     }
 }

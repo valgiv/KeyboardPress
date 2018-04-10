@@ -2,12 +2,7 @@
 using KeyboardPress_Analyzer.Helper;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
-using System.Linq;
-using System.Runtime.InteropServices;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -15,6 +10,8 @@ using KeyboardPress_Analyzer.Objects;
 using KeyboardPress.OfferWord;
 using KeyboardPress_Extensions.InfoForm;
 using System.Configuration;
+using System.Diagnostics;
+using System.Windows.Threading;
 
 namespace KeyboardPress
 {
@@ -175,6 +172,18 @@ namespace KeyboardPress
                 LogHelper.LogErrorMsg(ex);
                 Console.WriteLine("NENUMATYTA KLAIDA: " + ex.Message);
             }
+
+            try
+            {
+                //to do kill all threads
+
+                Environment.Exit(0);
+
+            }
+            catch(Exception ex)
+            {
+
+            }
         }
 
         public void StartHookWork()
@@ -209,11 +218,15 @@ namespace KeyboardPress
         
         private void notifyIcon_MouseClick(object sender, MouseEventArgs e)
         {
-            string info = baloonInfoString();
-            InfoForm.Show($"{info}",
-                "Informacija", 5000,
-                InfoForm.Enum_InfoFormImage.HeadMind,
-                null);
+            Task t = new Task(() =>
+            {
+                string info = baloonInfoString();
+                InfoForm.Show($"{info}",
+                    "Informacija", 5000,
+                    InfoForm.Enum_InfoFormImage.HeadMind,
+                    null);
+            });
+            t.Start();
         }
 
         private void notifyIcon_MouseDoubleClick(object sender, MouseEventArgs e)
@@ -330,7 +343,7 @@ namespace KeyboardPress
             {
                 List<ObjKeyPressCount> a = kpt.KeyPressCountObjList;
                 
-                new EmptyForm(new KeyboardUc(a), "Karščio žemėlapis", true).ShowDialog();
+                new EmptyForm(new UcKeyboard(a), "Karščio žemėlapis", true).ShowDialog();
             }
             catch (Exception ex)
             {
@@ -493,6 +506,7 @@ namespace KeyboardPress
         }
 
         private UcTabKeyboardHeatMap ucHeatMap = null;
+        private UcTabScreenMouse ucScreenMouse = null;
         private void tabControlMain_SelectedIndexChanged(object sender, EventArgs e)
         {
             //clears controls
@@ -501,11 +515,22 @@ namespace KeyboardPress
                 ucHeatMap.Dispose();
             ucHeatMap = null;
 
+            tabPageMouse.Controls.Clear();
+            if (ucScreenMouse != null)
+                ucScreenMouse.Dispose();
+            ucScreenMouse = null;
+
             if (tabControlMain.SelectedIndex == 4)
             {
                 ucHeatMap = new UcTabKeyboardHeatMap();
                 ucHeatMap.Dock = DockStyle.Fill;
                 tabKeyboardHeatMap.Controls.Add(ucHeatMap);
+            }
+            else if(tabControlMain.SelectedIndex == 1)
+            {
+                ucScreenMouse = new UcTabScreenMouse();
+                ucScreenMouse.Dock = DockStyle.Fill;
+                tabPageMouse.Controls.Add(ucScreenMouse);
             }
         }
 
@@ -513,6 +538,9 @@ namespace KeyboardPress
         {
             try
             {
+                if (this.WindowState == FormWindowState.Minimized)
+                    return;
+
                 Task t = new Task(() =>
                 {
                     if(kpt != null)
@@ -573,7 +601,7 @@ namespace KeyboardPress
             }
             catch { }
         }
-
+        
 
     }
 }

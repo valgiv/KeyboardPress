@@ -1,12 +1,10 @@
-﻿using System;
+﻿using KeyboardPress_Extensions.InfoForm;
+using System;
 using System.Collections.Generic;
-using System.Data;
-using System.Data.SqlClient;
 using System.Diagnostics;
 using System.Linq;
 using System.Runtime.InteropServices;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace KeyboardPress_Analyzer.Helper
 {
@@ -15,6 +13,36 @@ namespace KeyboardPress_Analyzer.Helper
         public static readonly int[] ltLettersArray = new int[] { 260, 261, 269, 268, 281, 280, 279, 278, 303, 303, 353, 352, 371, 370, 363, 362, 382, 381 };
 
         public static readonly string unknownWindowName = "z_unknown";
+
+        private static int screenHeight = 0;
+        public static int ScreenHeight
+        {
+            get
+            {
+                if (screenHeight == 0)
+                {
+                    var a = InfoFormManagement.GetMainScreenSize();
+                    screenHeight = a.Item2;
+                    screenWidth = a.Item1;
+                }
+                return screenHeight;
+            }
+        }
+
+        private static int screenWidth = 0;
+        public static int ScreenWidth
+        {
+            get
+            {
+                if (screenWidth == 0)
+                {
+                    var a = InfoFormManagement.GetMainScreenSize();
+                    screenHeight = a.Item2;
+                    screenWidth = a.Item1;
+                }
+                return screenWidth;
+            }
+        }
 
         private static UiControls uiControls;
         public static UiControls UiControls

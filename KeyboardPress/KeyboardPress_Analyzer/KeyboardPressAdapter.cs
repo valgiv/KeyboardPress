@@ -8,7 +8,6 @@ using System.Diagnostics;
 using System.Linq;
 using System.Windows.Forms;
 
-
 namespace KeyboardPress_Analyzer
 {
     // nice to have: ar klaseje netruksta lock'o?
