@@ -23,7 +23,7 @@ namespace KeyboardPress_Analyzer.Helper
         {
             try
             {
-                string errMsg = $"{DateTime.Now} ERROR: {msg}";
+                string errMsg = $"============================================{Environment.NewLine}{DateTime.Now} ERROR: {msg}";
 
                 WriteToFile(errMsg);
             }
@@ -50,7 +50,7 @@ namespace KeyboardPress_Analyzer.Helper
         {
             try
             {
-                string errMsg = $"{DateTime.Now} ERROR: [{ex.Source}] {ex.Message} [{ex.StackTrace}]";
+                string errMsg = $"============================================{Environment.NewLine}{DateTime.Now} ERROR: [{ex.Source}] {ex.Message} [{ex.StackTrace}]";
 
                 WriteToFile(errMsg);
             }

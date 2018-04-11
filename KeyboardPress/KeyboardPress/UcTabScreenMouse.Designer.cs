@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             this.panelScreen = new System.Windows.Forms.Panel();
+            this.cbMouseKeyType = new System.Windows.Forms.ComboBox();
             this.panelTop.SuspendLayout();
             this.panelCenter.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownRefreshSeconds)).BeginInit();
@@ -42,28 +43,46 @@
             // 
             // dtpTo
             // 
+            this.dtpTo.Location = new System.Drawing.Point(3, 31);
             this.dtpTo.Value = new System.DateTime(2018, 4, 10, 23, 59, 59, 0);
             this.dtpTo.ValueChanged += new System.EventHandler(this.dtp_ValueChanged);
             this.dtpTo.MouseDown += new System.Windows.Forms.MouseEventHandler(this.dtp_MouseDown);
             // 
             // btnRefresh
             // 
-            this.btnRefresh.Location = new System.Drawing.Point(392, 4);
+            this.btnRefresh.Location = new System.Drawing.Point(284, 4);
             // 
             // cbProgram
             // 
-            this.cbProgram.Size = new System.Drawing.Size(167, 21);
-            this.cbProgram.SelectedIndexChanged += new System.EventHandler(this.cbProgram_SelectedIndexChanged);
+            this.cbMainFilter.Location = new System.Drawing.Point(111, 5);
+            this.cbMainFilter.Size = new System.Drawing.Size(167, 21);
+            this.cbMainFilter.SelectedIndexChanged += new System.EventHandler(this.cbProgram_SelectedIndexChanged);
             // 
             // panelTop
             // 
-            this.panelTop.Size = new System.Drawing.Size(544, 44);
+            this.panelTop.Controls.Add(this.cbMouseKeyType);
+            this.panelTop.Size = new System.Drawing.Size(665, 60);
+            this.panelTop.Controls.SetChildIndex(this.btnRefresh, 0);
+            this.panelTop.Controls.SetChildIndex(this.dtpTo, 0);
+            this.panelTop.Controls.SetChildIndex(this.cbMainFilter, 0);
+            this.panelTop.Controls.SetChildIndex(this.dtpFrom, 0);
+            this.panelTop.Controls.SetChildIndex(this.numericUpDownRefreshSeconds, 0);
+            this.panelTop.Controls.SetChildIndex(this.checkBoxAutoRefresh, 0);
+            this.panelTop.Controls.SetChildIndex(this.cbMouseKeyType, 0);
             // 
             // panelCenter
             // 
             this.panelCenter.Controls.Add(this.panelScreen);
-            this.panelCenter.Location = new System.Drawing.Point(0, 44);
-            this.panelCenter.Size = new System.Drawing.Size(544, 280);
+            this.panelCenter.Location = new System.Drawing.Point(0, 60);
+            this.panelCenter.Size = new System.Drawing.Size(665, 264);
+            // 
+            // numericUpDownRefreshSeconds
+            // 
+            this.numericUpDownRefreshSeconds.Location = new System.Drawing.Point(419, 5);
+            // 
+            // checkBoxAutoRefresh
+            // 
+            this.checkBoxAutoRefresh.Location = new System.Drawing.Point(460, 7);
             // 
             // panelScreen
             // 
@@ -72,15 +91,25 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.panelScreen.Location = new System.Drawing.Point(26, 28);
             this.panelScreen.Name = "panelScreen";
-            this.panelScreen.Size = new System.Drawing.Size(489, 226);
+            this.panelScreen.Size = new System.Drawing.Size(610, 210);
             this.panelScreen.TabIndex = 0;
+            // 
+            // cbMouseKeyType
+            // 
+            this.cbMouseKeyType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cbMouseKeyType.FormattingEnabled = true;
+            this.cbMouseKeyType.Location = new System.Drawing.Point(111, 32);
+            this.cbMouseKeyType.Name = "cbMouseKeyType";
+            this.cbMouseKeyType.Size = new System.Drawing.Size(167, 21);
+            this.cbMouseKeyType.TabIndex = 6;
+            this.cbMouseKeyType.SelectedIndexChanged += new System.EventHandler(this.cbProgram_SelectedIndexChanged);
             // 
             // UcTabScreenMouse
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Name = "UcTabScreenMouse";
-            this.Size = new System.Drawing.Size(544, 324);
+            this.Size = new System.Drawing.Size(665, 324);
             this.panelTop.ResumeLayout(false);
             this.panelTop.PerformLayout();
             this.panelCenter.ResumeLayout(false);
@@ -92,5 +121,6 @@
         #endregion
 
         private System.Windows.Forms.Panel panelScreen;
+        private System.Windows.Forms.ComboBox cbMouseKeyType;
     }
 }

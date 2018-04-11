@@ -68,17 +68,17 @@ ORDER BY proc_name
                     //dt.Rows.Add(s, String.IsNullOrEmpty(s) ? "" : s.First().ToString().ToUpper() + s.Substring(1));
                     dt.Rows.Add(s, s);
                 }
-                cbProgram.DataSource = dt;
-                cbProgram.DisplayMember = "display_member";
-                cbProgram.ValueMember = "value_member";
+                cbMainFilter.DataSource = dt;
+                cbMainFilter.DisplayMember = "display_member";
+                cbMainFilter.ValueMember = "value_member";
             }
             catch (Exception ex)
             {
                 LogHelper.ShowErrorMsgWithLog("Klaida bandant gauti galimų langų sąrašą", ex);
             }
         }
-        
-        public virtual void CheckBoxAutoRefresh_StatusChanged()
+
+        protected virtual void CheckBoxAutoRefresh_StatusChanged()
         {
             try
             {
@@ -100,7 +100,7 @@ ORDER BY proc_name
             }
         }
 
-        public virtual void RefreshData(bool firstLoad = false)
+        protected virtual void RefreshData(bool firstLoad = false)
         {
 
         }

@@ -172,20 +172,27 @@ namespace KeyboardPress_Analyzer
         {
             Task t = new Task(() =>
             {
-                Thread th = new Thread(() =>
-                {
-                    InfoForm.Show($@"Pernelyk ilgas darbas kenkia Jūsų sveikatai.
-Prie kompiutero jau dirbate daugiau nei {restReminder.WorkStopwatch.Elapsed.TotalMinutes.ToString("#.##")} minučių.
-Siūloma pailsėti bent {(((double)(restReminder.RestTimeSeconds)) / 60d).ToString("#.##")} minutes.",
+                InfoForm.Show($@"Pernelyk ilgas darbas kenkia Jūsų sveikatai.
+Prie kompiutero jau dirbate daugiau nei {restReminder.WorkStopwatch.Elapsed.TotalMinutes.ToString("#.##")} minutes(-čių).
+Siūloma pailsėti bent {(((double)(restReminder.RestTimeSeconds)) / 60d).ToString("#.##")} minutes(-čių).",
                 "Laikas poilsiui", 10000,
                 InfoForm.Enum_InfoFormImage.HeadMind,
                 null);
-                });
-                th.Start();
-                Thread.Sleep(15000);
-                th.Abort();
+
+                //                Thread th = new Thread(() =>
+                //                {
+                //                    InfoForm.Show($@"Pernelyk ilgas darbas kenkia Jūsų sveikatai.
+                //Prie kompiutero jau dirbate daugiau nei {restReminder.WorkStopwatch.Elapsed.TotalMinutes.ToString("#.##")} minučių.
+                //Siūloma pailsėti bent {(((double)(restReminder.RestTimeSeconds)) / 60d).ToString("#.##")} minutes.",
+                //                "Laikas poilsiui", 10000,
+                //                InfoForm.Enum_InfoFormImage.HeadMind,
+                //                null);
+                //                });
+                //                th.Start();
+                //                Thread.Sleep(15000);
+                //                th.Abort();
             });
-            //t.Start(); //to do: atkomentuoti
+            t.Start();
             //notifyIcon.ShowBalloonTip(1000, "restTime", "restTime", ToolTipIcon.Warning);
             
         }
@@ -511,7 +518,7 @@ Siūloma pailsėti bent {(((double)(restReminder.RestTimeSeconds)) / 60d).ToStri
                 if (needToStop)
                     base.StopHookWork();
 
-                base.StopHookWork();
+                //base.StopHookWork();
 
                 using (var tran = new TransactionScope())
                 {

@@ -5,6 +5,8 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
+using System.Threading;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace KeyboardPress_Analyzer.Functions
@@ -46,6 +48,7 @@ namespace KeyboardPress_Analyzer.Functions
                     {
                         lastSymbols = lastSymbols.Remove(lastSymbols.Length - 1, 1);
                     }
+                    
                     for (int i = 1; i < maxLettersToCheck && i < lastSymbols.Length; i++)
                     {
                         string strLet = lastSymbols.Remove(0, lastSymbols.Length - 1 - i);
@@ -57,11 +60,22 @@ namespace KeyboardPress_Analyzer.Functions
                                 //ow_notifyIcon.ShowBalloonTip(1000, "", $"Siūlomas tekstas: {pair.Value}", ToolTipIcon.Info); // nice to have: reikia pamastyti kaip uzdaryti siulymus
                                 //needHideMsg = true;
                                 //
-                                //to do: ar nereikia i kita gija?
-                                InfoForm.Show($"Siūlomas tekstas: {pair.Value}",
-                                   "Siūlymas", 2000,
-                                   InfoForm.Enum_InfoFormImage.Precent,
-                                   null);
+                                //Task t = Task.Run(() =>
+                                //{
+                                //    InfoForm.Show($"Siūlomas tekstas: {pair.Value}",
+                                //   "Siūlymas", 2000,
+                                //   InfoForm.Enum_InfoFormImage.Precent,
+                                //   null);
+                                //});
+                                Thread th = new Thread(() =>
+                                {
+                                    InfoForm.Show($"Siūlomas tekstas: {pair.Value}",
+                                       "Siūlymas", 2000,
+                                       InfoForm.Enum_InfoFormImage.Precent,
+                                       null);
+                                });
+                                th.Start();
+
                                 //
                                 //System.Diagnostics.Debug.WriteLine("offerWordTemplate atitikmuo: " + pair.Value);
                                 return;

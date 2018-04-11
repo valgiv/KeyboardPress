@@ -57,6 +57,8 @@ namespace KeyboardPress
             this.notifyIcon.Visible = true;
             
             Db_LoadData();
+
+            timerDatabaseUpdate.Enabled = true;
         }
 
         private void LoadConfiguration()
@@ -175,10 +177,13 @@ namespace KeyboardPress
 
             try
             {
-                //to do kill all threads
+                notifyIcon.Visible = false;
+            }
+            catch { }
 
+            try
+            {
                 Environment.Exit(0);
-
             }
             catch(Exception ex)
             {
@@ -265,33 +270,35 @@ namespace KeyboardPress
 
         private void SetControls()
         {
-            Helper.UiControls.Add(tbTotalWords, EnumUiControlTag.TotalWords);
-            Helper.UiControls.Add(tbLastWord, EnumUiControlTag.LastWord);
-            Helper.UiControls.Add(tbTotalWordsWithMistakes, EnumUiControlTag.TotalWordsMistakes);
-            Helper.UiControls.Add(tbKeyPressRelease, EnumUiControlTag.TotalKeyPressRelease);
-            Helper.UiControls.Add(tbKeyPress, EnumUiControlTag.TotalKeyPress);
-            Helper.UiControls.Add(tbMousePress, EnumUiControlTag.TotalMousePress);
-            Helper.UiControls.Add(tbLeftMousePress, EnumUiControlTag.TotalMouseLeftPress);
-            Helper.UiControls.Add(tbRightMousePress, EnumUiControlTag.TotalMouseRightPress);
-            Helper.UiControls.Add(tbMouseWheelUp, EnumUiControlTag.TotalMouseWheelUp);
-            Helper.UiControls.Add(tbMouseWheelDown, EnumUiControlTag.TotalMouseWheelDown);
-            Helper.UiControls.Add(tbWorkTime, EnumUiControlTag.CurrentWorkTime); //ant timer'io
-            Helper.UiControls.Add(tbRestTime, EnumUiControlTag.CurrentRestTime); //ant timer'io
-            Helper.UiControls.Add(tbTotalWorkTime, EnumUiControlTag.TotalProgramWorkTime); //ant timer'io
+            Helper.UiControls.Add(lblTotalWords, EnumUiControlTag.TotalWords);
+            Helper.UiControls.Add(lblLastWord, EnumUiControlTag.LastWord);
+            Helper.UiControls.Add(lblTotalWordsWithMistakes, EnumUiControlTag.TotalWordsMistakes);
+            Helper.UiControls.Add(lblKeyPressRelease, EnumUiControlTag.TotalKeyPressRelease);
+            Helper.UiControls.Add(lblKeyPress, EnumUiControlTag.TotalKeyPress);
+            Helper.UiControls.Add(lblMousePress, EnumUiControlTag.TotalMousePress);
+            Helper.UiControls.Add(lblLeftMousePress, EnumUiControlTag.TotalMouseLeftPress);
+            Helper.UiControls.Add(lblRightMousePress, EnumUiControlTag.TotalMouseRightPress);
+            Helper.UiControls.Add(lblMouseWheelUp, EnumUiControlTag.TotalMouseWheelUp);
+            Helper.UiControls.Add(lblMouseWheelDown, EnumUiControlTag.TotalMouseWheelDown);
+            Helper.UiControls.Add(lblCurrentWorkTime, EnumUiControlTag.CurrentWorkTime); //ant timer'io
+            Helper.UiControls.Add(lblCurrentRestTime, EnumUiControlTag.CurrentRestTime); //ant timer'io
+            Helper.UiControls.Add(lblTotalWorkTime, EnumUiControlTag.TotalProgramWorkTime); //ant timer'io
+            
+            Helper.UiControls.Add(lblAvgMousePressMin, EnumUiControlTag.AvrgMousePressPerMin); //ant timer'io
+            Helper.UiControls.Add(lblAvgMousePressH, EnumUiControlTag.AvrgMousePressPerHour); //ant timer'io
+            Helper.UiControls.Add(lblAvgWrdMin, EnumUiControlTag.AvrgWordsPerMin); //ant timer'io
+            Helper.UiControls.Add(lblAvgWrdH, EnumUiControlTag.AvrgWordsPerHour); //ant timer'io
+            Helper.UiControls.Add(lblAvgPressReleaseMin, EnumUiControlTag.AvrgPressReleasePerMin); //ant timer'io
+            Helper.UiControls.Add(lblAvgPressReleaseH, EnumUiControlTag.AvrgPressReleasePerHour); //ant timer'io
+            Helper.UiControls.Add(lblAvgPressMin, EnumUiControlTag.AvrgPressPerMin); //ant timer'io
+            Helper.UiControls.Add(lblAvgPressH, EnumUiControlTag.AvrgPressPerHour); //ant timer'io
 
-            Helper.UiControls.Add(tbAvgMousePressMin, EnumUiControlTag.AvrgMousePressPerMin); //ant timer'io
-            Helper.UiControls.Add(tbAvgMousePressH, EnumUiControlTag.AvrgMousePressPerHour); //ant timer'io
-            Helper.UiControls.Add(tbAvgWrdMin, EnumUiControlTag.AvrgWordsPerMin); //ant timer'io
-            Helper.UiControls.Add(tbAvgWrdH, EnumUiControlTag.AvrgWordsPerHour); //ant timer'io
-            Helper.UiControls.Add(tbAvgPressReleaseMin, EnumUiControlTag.AvrgPressReleasePerMin); //ant timer'io
-            Helper.UiControls.Add(tbAvgPressReleaseH, EnumUiControlTag.AvrgPressReleasePerHour); //ant timer'io
-            Helper.UiControls.Add(tbAvgPressMin, EnumUiControlTag.AvrgPressPerMin); //ant timer'io
-            Helper.UiControls.Add(tbAvgPressH, EnumUiControlTag.AvrgPressPerHour); //ant timer'io
+            Helper.UiControls.Add(lblMouseKeyboardRatio, EnumUiControlTag.MouseKeyboardRatio); //išskaičiuojamas atskirai
+            Helper.UiControls.Add(lblMouseKeyboardRatioMouse, EnumUiControlTag.MouseKeyboardRatio); //išskaičiuojamas atskirai
+            Helper.UiControls.Add(lblMouseKeyboardRatioKeyboard, EnumUiControlTag.MouseKeyboardRatio); //išskaičiuojamas atskirai
+            Helper.UiControls.Add(lblMouseWheelRatio, EnumUiControlTag.TotalMouseWhellRatio); //išskaičiuojamas atskirai
 
-            Helper.UiControls.Add(tbMouseKeyboardRatio, EnumUiControlTag.MouseKeyboardRatio); //išskaičiuojamas atskirai
-            Helper.UiControls.Add(tbMouseWheelRatio, EnumUiControlTag.TotalMouseWhellRatio); //išskaičiuojamas atskirai
-
-
+            Helper.UiControls.Add(lblWorkTime, EnumUiControlTag.WorkTime); //ant timer'io
         }
 
         /// <summary>
@@ -306,16 +313,11 @@ namespace KeyboardPress
                     Console.WriteLine("started LogInfo() method...");
                     LogHelper.LogInfoMsg(Environment.NewLine + baloonInfoString());
 
-                    
-                    //Thread.Sleep(1800000); //1 800 000 milliseconds = 30 minutes
-                    Thread.Sleep(600000); //10min
 
-                    if (periodicalDbSaveChanges)
-                    {
-                        LogHelper.LogInfoMsg(Environment.NewLine + "Periodinis duomenų saugojimas į db - pradedamas");
-                        Db_SaveChanges();
-                        LogHelper.LogInfoMsg(Environment.NewLine + "Periodinis duomenų saugojimas į db - įvykdytas");
-                    }
+                    Thread.Sleep(1800000); //1 800 000 milliseconds = 30 minutes
+                    //Thread.Sleep(600000); //10min
+                    //Thread.Sleep(10000); //10min
+                    
                 }
                 catch{}
             }
@@ -507,32 +509,46 @@ namespace KeyboardPress
             g.DrawString(text, _Font, _TextBrush, x, y);
         }
 
-        private UcTabKeyboardHeatMap ucHeatMap = null;
-        private UcTabScreenMouse ucScreenMouse = null;
+        private UcTabKeyboardHeatMap ucTabHeatMap = null;
+        private UcTabScreenMouse ucTabScreenMouse = null;
+        private UcTabMouseUsage ucTabMouseUsage = null;
         private void tabControlMain_SelectedIndexChanged(object sender, EventArgs e)
         {
-            //clears controls
+            #region clears controls
             tabKeyboardHeatMap.Controls.Clear();
-            if (ucHeatMap != null)
-                ucHeatMap.Dispose();
-            ucHeatMap = null;
+            if (ucTabHeatMap != null)
+                ucTabHeatMap.Dispose();
+            ucTabHeatMap = null;
 
             tabPageMouse.Controls.Clear();
-            if (ucScreenMouse != null)
-                ucScreenMouse.Dispose();
-            ucScreenMouse = null;
+            if (ucTabScreenMouse != null)
+                ucTabScreenMouse.Dispose();
+            ucTabScreenMouse = null;
 
-            if (tabControlMain.SelectedIndex == 4)
+            tabPageMouseUsagePerHour.Controls.Clear();
+            if (ucTabMouseUsage != null)
+                ucTabMouseUsage.Dispose();
+            ucTabMouseUsage = null;
+
+            #endregion
+
+            if (tabControlMain.SelectedTab.Name == nameof(tabKeyboardHeatMap))
             {
-                ucHeatMap = new UcTabKeyboardHeatMap();
-                ucHeatMap.Dock = DockStyle.Fill;
-                tabKeyboardHeatMap.Controls.Add(ucHeatMap);
+                ucTabHeatMap = new UcTabKeyboardHeatMap();
+                ucTabHeatMap.Dock = DockStyle.Fill;
+                tabKeyboardHeatMap.Controls.Add(ucTabHeatMap);
             }
-            else if(tabControlMain.SelectedIndex == 1)
+            else if(tabControlMain.SelectedTab.Name == nameof(tabPageMouse))
             {
-                ucScreenMouse = new UcTabScreenMouse();
-                ucScreenMouse.Dock = DockStyle.Fill;
-                tabPageMouse.Controls.Add(ucScreenMouse);
+                ucTabScreenMouse = new UcTabScreenMouse();
+                ucTabScreenMouse.Dock = DockStyle.Fill;
+                tabPageMouse.Controls.Add(ucTabScreenMouse);
+            }
+            else if(tabControlMain.SelectedTab.Name == nameof(tabPageMouseUsagePerHour))
+            {
+                ucTabMouseUsage = new UcTabMouseUsage();
+                ucTabMouseUsage.Dock = DockStyle.Fill;
+                tabPageMouseUsagePerHour.Controls.Add(ucTabMouseUsage);
             }
         }
 
@@ -557,53 +573,67 @@ namespace KeyboardPress
                         var totalMin = kpt.TotalWorkStopWatch.Elapsed.TotalMinutes;
                         var totalH = kpt.TotalWorkStopWatch.Elapsed.TotalHours;
 
-                        Helper.UiControls.SetText((kpt.TotalMousePress / totalMin).ToString("00.00"), EnumUiControlTag.AvrgMousePressPerMin);
-                        Helper.UiControls.SetText((kpt.TotalMousePress / totalH).ToString("00.00"), EnumUiControlTag.AvrgMousePressPerHour);
-                        Helper.UiControls.SetText((System.Convert.ToInt32(tbTotalWords.Text) / totalMin).ToString("00.00"), EnumUiControlTag.AvrgWordsPerMin);
-                        Helper.UiControls.SetText((System.Convert.ToInt32(tbTotalWords.Text) / totalH).ToString("00.00"), EnumUiControlTag.AvrgWordsPerHour);
-                        Helper.UiControls.SetText((kpt.TotalKeyPressRelease / totalMin).ToString("00.00"), EnumUiControlTag.AvrgPressReleasePerMin);
-                        Helper.UiControls.SetText((kpt.TotalKeyPressRelease / totalH).ToString("00.00"), EnumUiControlTag.AvrgPressReleasePerHour);
-                        Helper.UiControls.SetText((kpt.TotalKeyPres / totalMin).ToString("00.00"), EnumUiControlTag.AvrgPressPerMin);
-                        Helper.UiControls.SetText((kpt.TotalKeyPres / totalH).ToString("00.00"), EnumUiControlTag.AvrgPressPerHour);
+                        Helper.UiControls.SetText((kpt.TotalMousePress / totalMin).ToString("0.00"), EnumUiControlTag.AvrgMousePressPerMin);
+                        Helper.UiControls.SetText((kpt.TotalMousePress / totalH).ToString("0.00"), EnumUiControlTag.AvrgMousePressPerHour);
+                        Helper.UiControls.SetText((System.Convert.ToInt32(lblTotalWords.Text) / totalMin).ToString("0.00"), EnumUiControlTag.AvrgWordsPerMin);
+                        Helper.UiControls.SetText((System.Convert.ToInt32(lblTotalWords.Text) / totalH).ToString("0.00"), EnumUiControlTag.AvrgWordsPerHour);
+                        Helper.UiControls.SetText((kpt.TotalKeyPressRelease / totalMin).ToString("0.00"), EnumUiControlTag.AvrgPressReleasePerMin);
+                        Helper.UiControls.SetText((kpt.TotalKeyPressRelease / totalH).ToString("0.00"), EnumUiControlTag.AvrgPressReleasePerHour);
+                        Helper.UiControls.SetText((kpt.TotalKeyPres / totalMin).ToString("0.00"), EnumUiControlTag.AvrgPressPerMin);
+                        Helper.UiControls.SetText((kpt.TotalKeyPres / totalH).ToString("0.00"), EnumUiControlTag.AvrgPressPerHour);
+                        Helper.UiControls.SetText(kpt.StopWach.Elapsed.ToString(@"dd\.hh\:mm\:ss"), EnumUiControlTag.WorkTime);
+
                     }
                 });
                 t.Start();
             }
             catch { }
         }
-
-        private void tbMouseWheel_TextChanged(object sender, EventArgs e)
+        
+        private void lblMouseWheel_TextChanged(object sender, EventArgs e)
         {
             try
             {
                 decimal up = 1, down = 1;
-                if (!String.IsNullOrEmpty(tbMouseWheelUp.Text))
-                    up = System.Convert.ToDecimal(tbMouseWheelUp.Text);
-                if (!String.IsNullOrEmpty(tbMouseWheelDown.Text))
-                    down = System.Convert.ToDecimal(tbMouseWheelDown.Text);
+                if (!String.IsNullOrEmpty(lblMouseWheelUp.Text))
+                    up = System.Convert.ToDecimal(lblMouseWheelUp.Text);
+                if (!String.IsNullOrEmpty(lblMouseWheelDown.Text))
+                    down = System.Convert.ToDecimal(lblMouseWheelDown.Text);
 
-                tbMouseWheelRatio.Text = $"{(up/down).ToString("0.00")} - {(down/up).ToString("0.00")}";
+                lblMouseWheelRatio.Text = $"{(up / down).ToString("0.00")} - {(down / up).ToString("0.00")}";
             }
             catch { }
         }
 
-        private void tbMouseKeyboardRatioChange(object sender, EventArgs e)
+        private void lblMouseKeyboardRatioChange_TextChanged(object sender, EventArgs e)
         {
             try
             {
                 decimal m = 1, kp = 1, kr = 1;
-                if (!String.IsNullOrEmpty(tbMousePress.Text))
-                    m = System.Convert.ToDecimal(tbMousePress.Text);
-                if (!String.IsNullOrEmpty(tbKeyPressRelease.Text))
-                    kr = System.Convert.ToDecimal(tbKeyPressRelease.Text);
-                if (!String.IsNullOrEmpty(tbKeyPress.Text))
-                    kp = System.Convert.ToDecimal(tbKeyPress.Text);
+                if (!String.IsNullOrEmpty(lblMousePress.Text))
+                    m = System.Convert.ToDecimal(lblMousePress.Text);
+                if (!String.IsNullOrEmpty(lblKeyPressRelease.Text))
+                    kr = System.Convert.ToDecimal(lblKeyPressRelease.Text);
+                if (!String.IsNullOrEmpty(lblKeyPress.Text))
+                    kp = System.Convert.ToDecimal(lblKeyPress.Text);
 
-                tbMouseKeyboardRatio.Text = $"{(m/kp).ToString("0.00")} - {(m/kr).ToString("0.00")}";
+                Helper.UiControls.SetText($"{(m / kp).ToString("0.00")} - {(m / kr).ToString("0.00")}", EnumUiControlTag.MouseKeyboardRatio);
             }
             catch { }
         }
-        
 
+        private void timerDatabaseUpdate_Tick(object sender, EventArgs e)
+        {
+            try
+            {
+                if (periodicalDbSaveChanges)
+                {
+                    LogHelper.LogInfoMsg(Environment.NewLine + "Periodinis duomenų saugojimas į db - pradedamas");
+                    Db_SaveChanges();
+                    LogHelper.LogInfoMsg(Environment.NewLine + "Periodinis duomenų saugojimas į db - įvykdytas");
+                }
+            }
+            catch { }
+        }
     }
 }

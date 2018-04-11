@@ -58,49 +58,62 @@ namespace KeyboardPress_Analyzer
 
         public void SetText(string text, EnumUiControlTag uiControlTag)
         {
-            string result = "OK";
+            string result = string.Empty;
             lock (locker)
             {
-                var c = uiControls.FirstOrDefault(x => x.Tag == uiControlTag);
-                if (c == null)
-                    result = new ArgumentNullException(uiControlTag.ToString()).ToString();
+                //var c = uiControls.FirstOrDefault(x => x.Tag == uiControlTag);
 
-                if(result == "OK")
+                //if (c == null)
+                //    result = new ArgumentNullException(uiControlTag.ToString()).ToString();
+
+                var controls = uiControls.Where(x => x.Tag == uiControlTag);
+
+                if(controls != null && controls.Count() > 0)
                 {
-                    if (c.Obj is Label)
+                    foreach(var c in controls)
                     {
-                        if (((Label)c.Obj).InvokeRequired)
-                            ((Label)c.Obj).BeginInvoke(new MethodInvoker(delegate { ((Label)c.Obj).Text = text; }));
-                        else
-                            ((Label)c.Obj).Text = text;
-                    }
-                    else if(c.Obj is TextBox)
-                    {
-
-                        if (((TextBox)c.Obj).InvokeRequired)
-                            ((TextBox)c.Obj).BeginInvoke(new MethodInvoker(delegate
+                        try
+                        {
+                            if (c.Obj is Label)
                             {
-                                try
-                                {
-                                    ((TextBox)c.Obj).Text = text;
-                                }
-                                catch(Exception ex)
-                                {
+                                if (((Label)c.Obj).InvokeRequired)
+                                    ((Label)c.Obj).BeginInvoke(new MethodInvoker(delegate { ((Label)c.Obj).Text = text; }));
+                                else
+                                    ((Label)c.Obj).Text = text;
+                            }
+                            else if (c.Obj is TextBox)
+                            {
 
-                                }
-                                
-                            }));
-                        else
-                            ((TextBox)c.Obj).Text = text;
-                    }
-                    else
-                    {
-                        result = new NotSupportedException().ToString();
+                                if (((TextBox)c.Obj).InvokeRequired)
+                                    ((TextBox)c.Obj).BeginInvoke(new MethodInvoker(delegate
+                                    {
+                                        try
+                                        {
+                                            ((TextBox)c.Obj).Text = text;
+                                        }
+                                        catch (Exception ex)
+                                        {
+                                            result += $" {ex.Message}";
+                                        }
+
+                                    }));
+                                else
+                                    ((TextBox)c.Obj).Text = text;
+                            }
+                            else
+                            {
+                                result += new NotSupportedException().ToString();
+                            }
+                        }
+                        catch(Exception ex)
+                        {
+                            result += $" {ex.Message}";
+                        }
                     }
                 }
             }
 
-            if (result != "OK")
+            if (!String.IsNullOrEmpty(result))
                 throw new Exception(result);
         }
     }
@@ -110,8 +123,7 @@ namespace KeyboardPress_Analyzer
         public object Obj { get; set; }
         public EnumUiControlTag Tag { get; set; }
     }
-
-    //to do: jei saugočiau totalWork time, tada galima būtų apskaičiuoti avg reikšmes
+    
     public enum EnumUiControlTag
     {
         TotalKeyPressRelease,//+
@@ -138,6 +150,8 @@ namespace KeyboardPress_Analyzer
         CurrentWorkTime,//+
         CurrentRestTime,//+
         MouseKeyboardRatio,
+
+        WorkTime,
 
         TotalProgramWorkTime
     }

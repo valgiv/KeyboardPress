@@ -32,7 +32,7 @@
             this.dtpFrom = new System.Windows.Forms.DateTimePicker();
             this.dtpTo = new System.Windows.Forms.DateTimePicker();
             this.btnRefresh = new System.Windows.Forms.Button();
-            this.cbProgram = new System.Windows.Forms.ComboBox();
+            this.cbMainFilter = new System.Windows.Forms.ComboBox();
             this.panelTop = new System.Windows.Forms.Panel();
             this.checkBoxAutoRefresh = new System.Windows.Forms.CheckBox();
             this.numericUpDownRefreshSeconds = new System.Windows.Forms.NumericUpDown();
@@ -72,21 +72,21 @@
             this.btnRefresh.UseVisualStyleBackColor = true;
             this.btnRefresh.Click += new System.EventHandler(this.btnRefresh_Click);
             // 
-            // cbProgram
+            // cbMainFilter
             // 
-            this.cbProgram.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cbProgram.FormattingEnabled = true;
-            this.cbProgram.Location = new System.Drawing.Point(219, 5);
-            this.cbProgram.Name = "cbProgram";
-            this.cbProgram.Size = new System.Drawing.Size(121, 21);
-            this.cbProgram.TabIndex = 3;
+            this.cbMainFilter.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cbMainFilter.FormattingEnabled = true;
+            this.cbMainFilter.Location = new System.Drawing.Point(219, 5);
+            this.cbMainFilter.Name = "cbMainFilter";
+            this.cbMainFilter.Size = new System.Drawing.Size(121, 21);
+            this.cbMainFilter.TabIndex = 3;
             // 
             // panelTop
             // 
             this.panelTop.Controls.Add(this.checkBoxAutoRefresh);
             this.panelTop.Controls.Add(this.numericUpDownRefreshSeconds);
             this.panelTop.Controls.Add(this.dtpFrom);
-            this.panelTop.Controls.Add(this.cbProgram);
+            this.panelTop.Controls.Add(this.cbMainFilter);
             this.panelTop.Controls.Add(this.dtpTo);
             this.panelTop.Controls.Add(this.btnRefresh);
             this.panelTop.Dock = System.Windows.Forms.DockStyle.Top;
@@ -161,7 +161,7 @@
         protected System.Windows.Forms.DateTimePicker dtpFrom;
         protected System.Windows.Forms.DateTimePicker dtpTo;
         protected System.Windows.Forms.Button btnRefresh;
-        protected System.Windows.Forms.ComboBox cbProgram;
+        protected System.Windows.Forms.ComboBox cbMainFilter;
         protected System.Windows.Forms.Panel panelTop;
         protected System.Windows.Forms.Panel panelCenter;
         protected System.Windows.Forms.NumericUpDown numericUpDownRefreshSeconds;

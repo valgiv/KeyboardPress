@@ -28,9 +28,12 @@ namespace KeyboardPress
             base.UcBaceLoad();
 
             LoadComboBoxValues();
+
+            cbMouseKeyType.Items.AddRange(new string[] { "Visi klavišai", "Kairysis klavišas", "Dešinysis klavišas" });
+            cbMouseKeyType.SelectedIndex = 0;
         }
 
-        public override void RefreshData(bool firstLoad = false)
+        protected override void RefreshData(bool firstLoad = false)
         {
             try
             {
@@ -98,12 +101,16 @@ WHERE user_record_id = {DBHelper.UserId}";
                 });
             });
 
-            if (cbProgram.SelectedValue.ToString() != base.cbProgramAllValuesName)
-                dbMouseEvents = dbMouseEvents.Where(x => x.ActiveWindowName == cbProgram.SelectedValue.ToString()).ToList();
+            if (cbMainFilter.SelectedValue.ToString() != base.cbProgramAllValuesName)
+                dbMouseEvents = dbMouseEvents.Where(x => x.ActiveWindowName == cbMainFilter.SelectedValue.ToString()).ToList();
             if (dtpFrom.Checked)
                 dbMouseEvents = dbMouseEvents.Where(x => x.EventTime >= dtpFrom.Value).ToList();
             if (dtpTo.Checked)
                 dbMouseEvents = dbMouseEvents.Where(x => x.EventTime <= dtpTo.Value).ToList();
+            if(cbMouseKeyType.SelectedIndex == 1) //kairysis
+                dbMouseEvents = dbMouseEvents.Where(x => x.MouseKey == MouseKeys.Left).ToList();
+            else if(cbMouseKeyType.SelectedIndex == 2) //dešinysis
+                dbMouseEvents = dbMouseEvents.Where(x => x.MouseKey == MouseKeys.Right).ToList();
 
             #endregion
 
@@ -111,12 +118,16 @@ WHERE user_record_id = {DBHelper.UserId}";
 
             var data = MF.Kpt.MouseEvents.Where(x => x.SavedInDB == false);
 
-            if (cbProgram.SelectedValue.ToString() != base.cbProgramAllValuesName)
-                data = data.Where(x => x.ActiveWindowName == cbProgram.SelectedValue.ToString());
+            if (cbMainFilter.SelectedValue.ToString() != base.cbProgramAllValuesName)
+                data = data.Where(x => x.ActiveWindowName == cbMainFilter.SelectedValue.ToString());
             if (dtpFrom.Checked)
                 data = data.Where(x => x.EventTime >= dtpFrom.Value);
             if (dtpTo.Checked)
                 data = data.Where(x => x.EventTime <= dtpTo.Value);
+            if (cbMouseKeyType.SelectedIndex == 1) //kairysis
+                data = data.Where(x => x.MouseKey == MouseKeys.Left);
+            else if (cbMouseKeyType.SelectedIndex == 2) //dešinysis
+                data = data.Where(x => x.MouseKey == MouseKeys.Right);
 
             result.AddRange(data.ToArray());
             #endregion

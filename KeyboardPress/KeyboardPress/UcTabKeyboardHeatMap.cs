@@ -36,17 +36,17 @@ namespace KeyboardPress
             // 
             this.btnRefresh.Location = new System.Drawing.Point(3, 31);
             // 
-            // cbProgram
+            // cbMainFilter
             // 
-            this.cbProgram.Visible = false;
+            this.cbMainFilter.Visible = false;
             // 
             // panelTop
             // 
             this.panelTop.Controls.Add(this.panelColorMap);
-            this.panelTop.Size = new System.Drawing.Size(614, 90);
+            this.panelTop.Size = new System.Drawing.Size(582, 90);
             this.panelTop.Controls.SetChildIndex(this.btnRefresh, 0);
             this.panelTop.Controls.SetChildIndex(this.dtpTo, 0);
-            this.panelTop.Controls.SetChildIndex(this.cbProgram, 0);
+            this.panelTop.Controls.SetChildIndex(this.cbMainFilter, 0);
             this.panelTop.Controls.SetChildIndex(this.dtpFrom, 0);
             this.panelTop.Controls.SetChildIndex(this.numericUpDownRefreshSeconds, 0);
             this.panelTop.Controls.SetChildIndex(this.checkBoxAutoRefresh, 0);
@@ -55,7 +55,7 @@ namespace KeyboardPress
             // panelCenter
             // 
             this.panelCenter.Location = new System.Drawing.Point(0, 90);
-            this.panelCenter.Size = new System.Drawing.Size(614, 196);
+            this.panelCenter.Size = new System.Drawing.Size(582, 188);
             // 
             // numericUpDownRefreshSeconds
             // 
@@ -69,22 +69,22 @@ namespace KeyboardPress
             // 
             this.panelColorMap.Location = new System.Drawing.Point(3, 60);
             this.panelColorMap.Name = "panelColorMap";
-            this.panelColorMap.Size = new System.Drawing.Size(587, 24);
+            this.panelColorMap.Size = new System.Drawing.Size(337, 24);
             this.panelColorMap.TabIndex = 6;
             // 
             // UcTabKeyboardHeatMap
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.Name = "UcTabKeyboardHeatMap";
-            this.Size = new System.Drawing.Size(614, 286);
+            this.Size = new System.Drawing.Size(582, 278);
             this.panelTop.ResumeLayout(false);
             this.panelTop.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownRefreshSeconds)).EndInit();
             this.ResumeLayout(false);
 
         }
-        
-        public override void RefreshData(bool firstLoad = false)
+
+        protected override void RefreshData(bool firstLoad = false)
         {
             try
             {
@@ -118,13 +118,21 @@ namespace KeyboardPress
             try
             {
                 var col = (new UcKeyboard(null)).HeatMapColors;
+
+                var wdth = panelColorMap.Width / col.Length;
+                
+                int j = 0;
                 for(int i = col.Length - 1; i>=0; i--)
                 {
                     var panel = new Panel();
+                    panel.Name = $"panel_{j}";
                     panel.BackColor = col[i];
                     panel.Dock = DockStyle.Left;
-                    panel.Width = 50;
+                    panel.Width = 30;
+                    panel.Height = panelColorMap.Height;
                     panelColorMap.Controls.Add(panel);
+                    
+                    j++;
                 }
             }
             catch(Exception ex)
