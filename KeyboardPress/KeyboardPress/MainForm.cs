@@ -624,6 +624,7 @@ namespace KeyboardPress
 
         private void timerDatabaseUpdate_Tick(object sender, EventArgs e)
         {
+            return; //to do pasalinti
             try
             {
                 if (periodicalDbSaveChanges)

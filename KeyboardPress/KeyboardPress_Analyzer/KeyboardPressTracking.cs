@@ -517,71 +517,80 @@ Siūloma pailsėti bent {(((double)(restReminder.RestTimeSeconds)) / 60d).ToStri
                 bool needToStop = base.Working;
                 if (needToStop)
                     base.StopHookWork();
-
-                //base.StopHookWork();
-
-                using (var tran = new TransactionScope())
+                
+                #region KP_SYSTEM_PARAMETERS
+                Func<string, string, string> FuncFormat_KP_SYSTEM_PARAMETERS_sql = (value, name) =>
                 {
-                    #region KP_SYSTEM_PARAMETERS
-                    Func<string, string, string> FuncFormat_KP_SYSTEM_PARAMETERS_sql = (value, name) =>
-                    {
-                        string sql_result = $@"
-IF EXISTS (SELECT record_id FROM KP_SYSTEM_PARAMETERS WHERE user_record_id = {DBHelper.UserId} AND name = '{name}')
-BEGIN
-    UPDATE KP_SYSTEM_PARAMETERS
-        SET decimal_value = {value}, modified_date = '{DateTime.Now}'
-    WHERE user_record_id = {DBHelper.UserId} AND name = '{name}'
-END
-ELSE BEGIN
-    INSERT INTO KP_SYSTEM_PARAMETERS (user_record_id, name, decimal_value, modified_date)
-        VALUES ({DBHelper.UserId}, '{name}', {value}, '{DateTime.Now}')
-END";
-                        return sql_result;
-                    };
+                    //                    string sql_result = $@"
+                    //IF EXISTS (SELECT record_id FROM KP_SYSTEM_PARAMETERS WHERE user_record_id = {DBHelper.UserId} AND name = '{name}')
+                    //BEGIN
+                    //UPDATE KP_SYSTEM_PARAMETERS
+                    //    SET decimal_value = {value}, modified_date = '{DateTime.Now}'
+                    //WHERE user_record_id = {DBHelper.UserId} AND name = '{name}'
+                    //END
+                    //ELSE BEGIN
+                    //INSERT INTO KP_SYSTEM_PARAMETERS (user_record_id, name, decimal_value, modified_date)
+                    //    VALUES ({DBHelper.UserId}, '{name}', {value}, '{DateTime.Now}')
+                    //END";
+                    string sql_result = $@"
+UPDATE KP_SYSTEM_PARAMETERS
+    SET decimal_value = {value}, modified_date = '{DateTime.Now}'
+WHERE user_record_id = {DBHelper.UserId} AND name = '{name}';
 
-                    try
-                    {
-                        string sql_KP_SYSTEM_PARAMETERS = "";
-                        sql_KP_SYSTEM_PARAMETERS += FuncFormat_KP_SYSTEM_PARAMETERS_sql(totalKeyPressRelease.ToString(), nameof(totalKeyPressRelease));
-                        sql_KP_SYSTEM_PARAMETERS += FuncFormat_KP_SYSTEM_PARAMETERS_sql(totalMousePress.ToString(), nameof(totalMousePress));
-                        sql_KP_SYSTEM_PARAMETERS += FuncFormat_KP_SYSTEM_PARAMETERS_sql(totalMouseLeftPress.ToString(), nameof(totalMouseLeftPress));
-                        sql_KP_SYSTEM_PARAMETERS += FuncFormat_KP_SYSTEM_PARAMETERS_sql(totalMouseRightPress.ToString(), nameof(totalMouseRightPress));
-                        sql_KP_SYSTEM_PARAMETERS += FuncFormat_KP_SYSTEM_PARAMETERS_sql(totalMouseWheelUp.ToString(), nameof(totalMouseWheelUp));
-                        sql_KP_SYSTEM_PARAMETERS += FuncFormat_KP_SYSTEM_PARAMETERS_sql(totalMouseWheelDown.ToString(), nameof(totalMouseWheelDown));
-                        sql_KP_SYSTEM_PARAMETERS += FuncFormat_KP_SYSTEM_PARAMETERS_sql(totalKeyPress.ToString(), nameof(totalKeyPress));
+INSERT INTO KP_SYSTEM_PARAMETERS (user_record_id, name, decimal_value, modified_date)
+    SELECT {DBHelper.UserId}, '{name}', {value}, '{DateTime.Now}'
+    WHERE (Select Changes() = 0);";
+                    return sql_result;
+                };
+
+                try
+                {
+                    string sql_KP_SYSTEM_PARAMETERS = "";
+                    sql_KP_SYSTEM_PARAMETERS += FuncFormat_KP_SYSTEM_PARAMETERS_sql(totalKeyPressRelease.ToString(), nameof(totalKeyPressRelease));
+                    sql_KP_SYSTEM_PARAMETERS += FuncFormat_KP_SYSTEM_PARAMETERS_sql(totalMousePress.ToString(), nameof(totalMousePress));
+                    sql_KP_SYSTEM_PARAMETERS += FuncFormat_KP_SYSTEM_PARAMETERS_sql(totalMouseLeftPress.ToString(), nameof(totalMouseLeftPress));
+                    sql_KP_SYSTEM_PARAMETERS += FuncFormat_KP_SYSTEM_PARAMETERS_sql(totalMouseRightPress.ToString(), nameof(totalMouseRightPress));
+                    sql_KP_SYSTEM_PARAMETERS += FuncFormat_KP_SYSTEM_PARAMETERS_sql(totalMouseWheelUp.ToString(), nameof(totalMouseWheelUp));
+                    sql_KP_SYSTEM_PARAMETERS += FuncFormat_KP_SYSTEM_PARAMETERS_sql(totalMouseWheelDown.ToString(), nameof(totalMouseWheelDown));
+                    sql_KP_SYSTEM_PARAMETERS += FuncFormat_KP_SYSTEM_PARAMETERS_sql(totalKeyPress.ToString(), nameof(totalKeyPress));
                         
-                        string string_value = $"{TotalWorkStopWatch.Elapsed.Days};{TotalWorkStopWatch.Elapsed.Hours};{TotalWorkStopWatch.Elapsed.Minutes};{TotalWorkStopWatch.Elapsed.Seconds}";
-                        sql_KP_SYSTEM_PARAMETERS += $@"
-IF EXISTS (SELECT record_id FROM KP_SYSTEM_PARAMETERS WHERE user_record_id = {DBHelper.UserId} AND name = '{nameof(TotalWorkStopWatch)}')
-BEGIN
-    UPDATE KP_SYSTEM_PARAMETERS
-        SET string_value = '{string_value}', modified_date = '{DateTime.Now}'
-    WHERE user_record_id = {DBHelper.UserId} AND name = '{nameof(TotalWorkStopWatch)}'
-END
-ELSE BEGIN
-    INSERT INTO KP_SYSTEM_PARAMETERS (user_record_id, name, string_value, modified_date)
-        VALUES ({DBHelper.UserId}, '{nameof(TotalWorkStopWatch)}', '{string_value}', '{DateTime.Now}')
-END";
+                    string string_value = $"{TotalWorkStopWatch.Elapsed.Days};{TotalWorkStopWatch.Elapsed.Hours};{TotalWorkStopWatch.Elapsed.Minutes};{TotalWorkStopWatch.Elapsed.Seconds}";
+                    //                    sql_KP_SYSTEM_PARAMETERS += $@"
+                    //IF EXISTS (SELECT record_id FROM KP_SYSTEM_PARAMETERS WHERE user_record_id = {DBHelper.UserId} AND name = '{nameof(TotalWorkStopWatch)}')
+                    //BEGIN
+                    //UPDATE KP_SYSTEM_PARAMETERS
+                    //    SET string_value = '{string_value}', modified_date = '{DateTime.Now}'
+                    //WHERE user_record_id = {DBHelper.UserId} AND name = '{nameof(TotalWorkStopWatch)}'
+                    //END
+                    //ELSE BEGIN
+                    //INSERT INTO KP_SYSTEM_PARAMETERS (user_record_id, name, string_value, modified_date)
+                    //    VALUES ({DBHelper.UserId}, '{nameof(TotalWorkStopWatch)}', '{string_value}', '{DateTime.Now}')
+                    //END";
+                    sql_KP_SYSTEM_PARAMETERS += $@"
+UPDATE KP_SYSTEM_PARAMETERS
+    SET string_value = '{string_value}', modified_date = '{DateTime.Now}'
+WHERE user_record_id = {DBHelper.UserId} AND name = '{nameof(TotalWorkStopWatch)}';
 
-                        var result = DBHelper.ExecSqlDb(sql_KP_SYSTEM_PARAMETERS, true);
-                        if (result != "OK")
-                            throw new Exception($"Failed {nameof(KeyboardPressTracking)} {nameof(Db_SaveChanges)}[KP_SYSTEM_PARAMETERS]: {result} (sql: {sql_KP_SYSTEM_PARAMETERS})");
-                    }
-                    catch(Exception ex)
-                    {
-                        LogHelper.LogErrorMsg(ex);
-                        throw;
-                    }
-                    #endregion KP_SYSTEM_PARAMETERS
+INSERT INTO KP_SYSTEM_PARAMETERS (user_record_id, name, string_value, modified_date)
+    SELECT {DBHelper.UserId}, '{nameof(TotalWorkStopWatch)}', '{string_value}', '{DateTime.Now}'
+    WHERE (Select Changes() = 0);";
 
-                    if (TotalWordsClass != null)
-                        TotalWordsClass.Db_SaveChanges(); //kartu ir Writing mistakes
-
-                    base.Db_SaveChanges();
-
-                    tran.Complete();
+                    var result = DBHelper.ExecSqlDb(sql_KP_SYSTEM_PARAMETERS, true);
+                    if (result != "OK")
+                        throw new Exception($"Failed {nameof(KeyboardPressTracking)} {nameof(Db_SaveChanges)}[KP_SYSTEM_PARAMETERS]: {result} (sql: {sql_KP_SYSTEM_PARAMETERS})");
                 }
+                catch(Exception ex)
+                {
+                    LogHelper.LogErrorMsg(ex);
+                    throw;
+                }
+                #endregion KP_SYSTEM_PARAMETERS
 
+                if (TotalWordsClass != null)
+                    TotalWordsClass.Db_SaveChanges(); //kartu ir Writing mistakes
+
+                base.Db_SaveChanges();
+                
                 if(needToStop)
                     base.StartHookWork();
             }
@@ -598,69 +607,65 @@ END";
                 bool needToStop = base.Working;
                 if (needToStop)
                     base.StopHookWork();
-
-                using (var tran = new TransactionScope())
+                
+                #region KP_SYSTEM_PARAMETERS
+                try
                 {
-                    #region KP_SYSTEM_PARAMETERS
-                    try
-                    {
-                        var dt = DBHelper.GetDataTableDb($@"
+                    var dt = DBHelper.GetDataTableDb($@"
 SELECT
-    SP.name, SP.decimal_value, SP.string_value
+SP.name, SP.decimal_value, SP.string_value
 FROM KP_SYSTEM_PARAMETERS SP
 WHERE SP.user_record_id = {DBHelper.UserId}
-    AND SP.name IN ('{nameof(totalKeyPressRelease)}', '{nameof(totalMousePress)}', '{nameof(totalMouseLeftPress)}', '{nameof(totalMouseRightPress)}', '{nameof(totalMouseWheelUp)}', '{nameof(totalMouseWheelDown)}', '{nameof(totalKeyPress)}', '{nameof(TotalWorkStopWatch)}')");
+AND SP.name IN ('{nameof(totalKeyPressRelease)}', '{nameof(totalMousePress)}', '{nameof(totalMouseLeftPress)}', '{nameof(totalMouseRightPress)}', '{nameof(totalMouseWheelUp)}', '{nameof(totalMouseWheelDown)}', '{nameof(totalKeyPress)}', '{nameof(TotalWorkStopWatch)}')");
 
-                        if (dt == null)
-                            throw new Exception($"{nameof(KeyboardPressTracking)}.{nameof(Db_LoadData)} [KP_SYSTEM_PARAMETERS] dataload");
+                    if (dt == null)
+                        throw new Exception($"{nameof(KeyboardPressTracking)}.{nameof(Db_LoadData)} [KP_SYSTEM_PARAMETERS] dataload");
 
-                        Func<DataTable, string, ulong> FuncFillValueFromDt = (dataTable, parameterName) =>
-                        {
-                            var va = dataTable.AsEnumerable().FirstOrDefault(x => x.Field<string>("name") == parameterName);
-                            if (va == null)
-                                return 0;
-                            else
-                                return System.Convert.ToUInt64(va["decimal_value"]);
-                        };
-
-                        totalKeyPressRelease = FuncFillValueFromDt(dt, nameof(totalKeyPressRelease));
-                        totalMousePress = FuncFillValueFromDt(dt, nameof(totalMousePress));
-                        totalMouseLeftPress = FuncFillValueFromDt(dt, nameof(totalMouseLeftPress));
-                        totalMouseRightPress = FuncFillValueFromDt(dt, nameof(totalMouseRightPress));
-                        totalMouseWheelUp = FuncFillValueFromDt(dt, nameof(totalMouseWheelUp));
-                        totalMouseWheelDown = FuncFillValueFromDt(dt, nameof(totalMouseWheelDown));
-                        totalKeyPress = FuncFillValueFromDt(dt, nameof(totalKeyPress));
-
-                        var totalWT = dt.AsEnumerable().FirstOrDefault(x => x.Field<string>("name") == (nameof(TotalWorkStopWatch)));
-                        if (totalWT == null)
-                        {
-                            TotalWorkStopWatch.StartOffset = null;
-                        }
-                        else
-                        {
-                            var data = totalWT["string_value"].ToString().Split(';');
-                            if (data.Length != 4)
-                                throw new Exception($"Duomenų bazėje netinkamai suformuota {nameof(TotalWorkStopWatch)} pradinė reikšmė");
-                            TotalWorkStopWatch.StartOffset = new TimeSpan(System.Convert.ToInt32(data[0]), //days
-                                System.Convert.ToInt32(data[1]), //h
-                                System.Convert.ToInt32(data[2]), //m
-                                System.Convert.ToInt32(data[3])); //s
-                        }
-                    }
-                    catch(Exception ex)
+                    Func<DataTable, string, ulong> FuncFillValueFromDt = (dataTable, parameterName) =>
                     {
-                        LogHelper.LogErrorMsg(ex);
-                        throw;
+                        var va = dataTable.AsEnumerable().FirstOrDefault(x => x.Field<string>("name") == parameterName);
+                        if (va == null)
+                            return 0;
+                        else
+                            return System.Convert.ToUInt64(va["decimal_value"]);
+                    };
+
+                    totalKeyPressRelease = FuncFillValueFromDt(dt, nameof(totalKeyPressRelease));
+                    totalMousePress = FuncFillValueFromDt(dt, nameof(totalMousePress));
+                    totalMouseLeftPress = FuncFillValueFromDt(dt, nameof(totalMouseLeftPress));
+                    totalMouseRightPress = FuncFillValueFromDt(dt, nameof(totalMouseRightPress));
+                    totalMouseWheelUp = FuncFillValueFromDt(dt, nameof(totalMouseWheelUp));
+                    totalMouseWheelDown = FuncFillValueFromDt(dt, nameof(totalMouseWheelDown));
+                    totalKeyPress = FuncFillValueFromDt(dt, nameof(totalKeyPress));
+
+                    var totalWT = dt.AsEnumerable().FirstOrDefault(x => x.Field<string>("name") == (nameof(TotalWorkStopWatch)));
+                    if (totalWT == null)
+                    {
+                        TotalWorkStopWatch.StartOffset = null;
                     }
-                    #endregion LP_SYSTEM_PARAMETERS
-
-                    if (TotalWordsClass != null)
-                        TotalWordsClass.Db_LoadData(); //kartu ir Writing mistakes
-
-                    base.Db_LoadData();
-
-                    tran.Complete();
+                    else
+                    {
+                        var data = totalWT["string_value"].ToString().Split(';');
+                        if (data.Length != 4)
+                            throw new Exception($"Duomenų bazėje netinkamai suformuota {nameof(TotalWorkStopWatch)} pradinė reikšmė");
+                        TotalWorkStopWatch.StartOffset = new TimeSpan(System.Convert.ToInt32(data[0]), //days
+                            System.Convert.ToInt32(data[1]), //h
+                            System.Convert.ToInt32(data[2]), //m
+                            System.Convert.ToInt32(data[3])); //s
+                    }
                 }
+                catch(Exception ex)
+                {
+                    LogHelper.LogErrorMsg(ex);
+                    throw;
+                }
+                #endregion LP_SYSTEM_PARAMETERS
+
+                if (TotalWordsClass != null)
+                    TotalWordsClass.Db_LoadData(); //kartu ir Writing mistakes
+
+                base.Db_LoadData();
+
 
                 if (needToStop)
                     base.StartHookWork();
@@ -687,33 +692,28 @@ WHERE SP.user_record_id = {DBHelper.UserId}
                 if (needToStop)
                     base.StopHookWork();
                 
-                using (var tran = new TransactionScope())
+                #region KP_SYSTEM_PARAMETERS
+                try
                 {
-                    #region KP_SYSTEM_PARAMETERS
-                    try
-                    {
-                        string sql_del_KP_SYSTEM_PARAMETERS = $@"DELETE FROM KP_SYSTEM_PARAMETERS WHERE user_record_id = {DBHelper.UserId} AND name IN ('{nameof(totalKeyPressRelease)}', '{nameof(totalMousePress)}', '{nameof(totalMouseLeftPress)}', '{nameof(totalMouseRightPress)}', '{nameof(totalMouseWheelUp)}', '{nameof(totalMouseWheelDown)}', '{nameof(totalKeyPress)}', '{nameof(TotalWorkStopWatch)}')";
-                        var result = DBHelper.ExecSqlDb(sql_del_KP_SYSTEM_PARAMETERS, true);
-                        if (result != "OK")
-                            throw new Exception($"Failed {nameof(KeyboardPressTracking)} {nameof(Db_DeleteDataFromDatabase)} [KP_SYSTEM_PARAMETERS]: {result} (sql: {sql_del_KP_SYSTEM_PARAMETERS})");
-                    }
-                    catch(Exception ex)
-                    {
-                        LogHelper.LogErrorMsg(ex);
-                        throw;
-                    }
-                    
-                    #endregion LP_SYSTEM_PARAMETERS
-
-                    if (TotalWordsClass != null)
-                        TotalWordsClass.Db_DeleteDataFromDatabase(); //kartu ir Writing mistakes
-
-                    base.Db_DeleteDataFromDatabase();
-
-                    Db_DeleteDataFromLocalMemory();
-
-                    tran.Complete();
+                    string sql_del_KP_SYSTEM_PARAMETERS = $@"DELETE FROM KP_SYSTEM_PARAMETERS WHERE user_record_id = {DBHelper.UserId} AND name IN ('{nameof(totalKeyPressRelease)}', '{nameof(totalMousePress)}', '{nameof(totalMouseLeftPress)}', '{nameof(totalMouseRightPress)}', '{nameof(totalMouseWheelUp)}', '{nameof(totalMouseWheelDown)}', '{nameof(totalKeyPress)}', '{nameof(TotalWorkStopWatch)}');";
+                    var result = DBHelper.ExecSqlDb(sql_del_KP_SYSTEM_PARAMETERS, true);
+                    if (result != "OK")
+                        throw new Exception($"Failed {nameof(KeyboardPressTracking)} {nameof(Db_DeleteDataFromDatabase)} [KP_SYSTEM_PARAMETERS]: {result} (sql: {sql_del_KP_SYSTEM_PARAMETERS})");
                 }
+                catch(Exception ex)
+                {
+                    LogHelper.LogErrorMsg(ex);
+                    throw;
+                }
+                    
+                #endregion LP_SYSTEM_PARAMETERS
+
+                if (TotalWordsClass != null)
+                    TotalWordsClass.Db_DeleteDataFromDatabase(); //kartu ir Writing mistakes
+
+                base.Db_DeleteDataFromDatabase();
+
+                Db_DeleteDataFromLocalMemory();
 
                 if(needToStop)
                     base.StartHookWork();
@@ -732,27 +732,22 @@ WHERE SP.user_record_id = {DBHelper.UserId}
                 if(needToStop)
                     base.StopHookWork();
 
-                using (var tran = new TransactionScope())
-                {
-                    #region KP_SYSTEM_PARAMETERS
-                    totalKeyPressRelease = 0;
-                    totalMousePress = 0;
-                    totalMouseLeftPress = 0;
-                    totalMouseRightPress = 0;
-                    totalMouseWheelUp = 0;
-                    totalMouseWheelDown = 0;
-                    totalKeyPress = 0;
-                    TotalWorkStopWatch.StartOffset = null;
-                    TotalWorkStopWatch.Restart();
-                    #endregion
+                #region KP_SYSTEM_PARAMETERS
+                totalKeyPressRelease = 0;
+                totalMousePress = 0;
+                totalMouseLeftPress = 0;
+                totalMouseRightPress = 0;
+                totalMouseWheelUp = 0;
+                totalMouseWheelDown = 0;
+                totalKeyPress = 0;
+                TotalWorkStopWatch.StartOffset = null;
+                TotalWorkStopWatch.Restart();
+                #endregion
 
-                    if (TotalWordsClass != null)
-                        TotalWordsClass.Db_DeleteDataFromLocalMemory(); //kartu ir Writing mistakes
+                if (TotalWordsClass != null)
+                    TotalWordsClass.Db_DeleteDataFromLocalMemory(); //kartu ir Writing mistakes
 
-                    base.Db_DeleteDataFromLocalMemory();
-
-                    tran.Complete();
-                }
+                base.Db_DeleteDataFromLocalMemory();
 
                 if(needToStop)
                     base.StartHookWork();

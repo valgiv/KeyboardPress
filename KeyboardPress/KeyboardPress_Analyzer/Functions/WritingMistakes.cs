@@ -166,7 +166,7 @@ ORDER BY record_id ASC");
         {
             try
             {
-                string sql = $"DELETE FROM KP_MISTAKE_CHAR WHERE user_record_id = {DBHelper.UserId}";
+                string sql = $"DELETE FROM KP_MISTAKE_CHAR WHERE user_record_id = {DBHelper.UserId};";
                 var result = DBHelper.ExecSqlDb(sql, true);
 
                 if (result != "OK")
