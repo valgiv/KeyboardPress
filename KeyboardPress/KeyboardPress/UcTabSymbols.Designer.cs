@@ -57,12 +57,20 @@
             // 
             // panelTop
             // 
-            this.panelTop.Size = new System.Drawing.Size(530, 30);
+            this.panelTop.Size = new System.Drawing.Size(680, 30);
             // 
             // panelCenter
             // 
             this.panelCenter.Controls.Add(this.dataGridView);
-            this.panelCenter.Size = new System.Drawing.Size(530, 274);
+            this.panelCenter.Size = new System.Drawing.Size(680, 274);
+            // 
+            // numericUpDownRefreshSeconds
+            // 
+            this.numericUpDownRefreshSeconds.Visible = false;
+            // 
+            // checkBoxAutoRefresh
+            // 
+            this.checkBoxAutoRefresh.Visible = false;
             // 
             // dataGridView
             // 
@@ -84,7 +92,7 @@
             this.dataGridView.Location = new System.Drawing.Point(0, 0);
             this.dataGridView.Name = "dataGridView";
             this.dataGridView.ReadOnly = true;
-            this.dataGridView.Size = new System.Drawing.Size(530, 274);
+            this.dataGridView.Size = new System.Drawing.Size(680, 274);
             this.dataGridView.TabIndex = 0;
             // 
             // col_symbol_char
@@ -137,7 +145,7 @@
             dataGridViewCellStyle1.Format = "N4";
             dataGridViewCellStyle1.NullValue = null;
             this.col_time_before_avg.DefaultCellStyle = dataGridViewCellStyle1;
-            this.col_time_before_avg.HeaderText = "Vid. laikas prieš simolio paspaudimą";
+            this.col_time_before_avg.HeaderText = "Vid. laikas (s) prieš simolio paspaudimą (po paspaudimo)";
             this.col_time_before_avg.Name = "col_time_before_avg";
             this.col_time_before_avg.ReadOnly = true;
             // 
@@ -166,7 +174,7 @@
             dataGridViewCellStyle2.Format = "N4";
             dataGridViewCellStyle2.NullValue = null;
             this.col_time_after_avg.DefaultCellStyle = dataGridViewCellStyle2;
-            this.col_time_after_avg.HeaderText = "Vid. laikas po simbolio paspaudimo";
+            this.col_time_after_avg.HeaderText = "Vid. laikas (s) po simbolio paspaudimo (prieš paspaudžiant kitą simbolį)";
             this.col_time_after_avg.Name = "col_time_after_avg";
             this.col_time_after_avg.ReadOnly = true;
             // 
@@ -183,7 +191,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Name = "UcTabSymbols";
-            this.Size = new System.Drawing.Size(530, 304);
+            this.Size = new System.Drawing.Size(680, 304);
             this.panelTop.ResumeLayout(false);
             this.panelTop.PerformLayout();
             this.panelCenter.ResumeLayout(false);

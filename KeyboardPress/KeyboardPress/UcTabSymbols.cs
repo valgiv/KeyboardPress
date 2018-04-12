@@ -160,6 +160,10 @@ WHERE user_record_id = {DBHelper.UserId}
                     row["time_before_avg"] = (((TimeSpan)row["time_before_sum"]).TotalSeconds / ((int)row["time_before_count"] > 0 ? (int)row["time_before_count"] : 1));
                 }
 
+                var dw = DataTableResult.DefaultView;
+                dw.Sort = "symbol_count desc, symbol asc";
+                DataTableResult = dw.ToTable();
+
                 this.dataGridView.DataSource = DataTableResult;
 
             }
