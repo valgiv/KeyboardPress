@@ -566,28 +566,47 @@ namespace KeyboardPress_Analyzer.Functions
         {
             try
             {
-                string sql = $@"
-IF EXISTS (SELECT record_id FROM KP_SYSTEM_PARAMETERS WHERE user_record_id = {DBHelper.UserId} AND name = '{nameof(totalWords_v2)}')
-BEGIN
-    UPDATE KP_SYSTEM_PARAMETERS
-        SET decimal_value = {totalWords_v2}, modified_date = '{DateTime.Now}'
-    WHERE user_record_id = {DBHelper.UserId} AND name = '{nameof(totalWords_v2)}'
-END
-ELSE BEGIN
-    INSERT INTO KP_SYSTEM_PARAMETERS (user_record_id, name, decimal_value, modified_date)
-        VALUES ({DBHelper.UserId}, '{nameof(totalWords_v2)}', {totalWords_v2}, '{DateTime.Now}')
-END
+                //                string sql = $@"
+                //IF EXISTS (SELECT record_id FROM KP_SYSTEM_PARAMETERS WHERE user_record_id = {DBHelper.UserId} AND name = '{nameof(totalWords_v2)}')
+                //BEGIN
+                //    UPDATE KP_SYSTEM_PARAMETERS
+                //        SET decimal_value = {totalWords_v2}, modified_date = '{DateTime.Now}'
+                //    WHERE user_record_id = {DBHelper.UserId} AND name = '{nameof(totalWords_v2)}'
+                //END
+                //ELSE BEGIN
+                //    INSERT INTO KP_SYSTEM_PARAMETERS (user_record_id, name, decimal_value, modified_date)
+                //        VALUES ({DBHelper.UserId}, '{nameof(totalWords_v2)}', {totalWords_v2}, '{DateTime.Now}')
+                //END
 
-IF EXISTS (SELECT record_id FROM KP_SYSTEM_PARAMETERS WHERE user_record_id = {DBHelper.UserId} AND name = '{nameof(wordsWithMistakes_v2)}')
-BEGIN
-    UPDATE KP_SYSTEM_PARAMETERS
-        SET decimal_value = {wordsWithMistakes_v2}, modified_date = '{DateTime.Now}'
-    WHERE user_record_id = {DBHelper.UserId} AND name = '{nameof(wordsWithMistakes_v2)}'
-END
-ELSE BEGIN
-    INSERT INTO KP_SYSTEM_PARAMETERS (user_record_id, name, decimal_value, modified_date)
-        VALUES ({DBHelper.UserId}, '{nameof(wordsWithMistakes_v2)}', {wordsWithMistakes_v2}, '{DateTime.Now}')
-END
+                //IF EXISTS (SELECT record_id FROM KP_SYSTEM_PARAMETERS WHERE user_record_id = {DBHelper.UserId} AND name = '{nameof(wordsWithMistakes_v2)}')
+                //BEGIN
+                //    UPDATE KP_SYSTEM_PARAMETERS
+                //        SET decimal_value = {wordsWithMistakes_v2}, modified_date = '{DateTime.Now}'
+                //    WHERE user_record_id = {DBHelper.UserId} AND name = '{nameof(wordsWithMistakes_v2)}'
+                //END
+                //ELSE BEGIN
+                //    INSERT INTO KP_SYSTEM_PARAMETERS (user_record_id, name, decimal_value, modified_date)
+                //        VALUES ({DBHelper.UserId}, '{nameof(wordsWithMistakes_v2)}', {wordsWithMistakes_v2}, '{DateTime.Now}')
+                //END
+                //";
+                string sql = $@"
+UPDATE KP_SYSTEM_PARAMETERS
+    SET decimal_value = {totalWords_v2}, modified_date = '{DateTime.Now}'
+WHERE user_record_id = {DBHelper.UserId} AND name = '{nameof(totalWords_v2)}';
+
+INSERT INTO KP_SYSTEM_PARAMETERS (user_record_id, name, decimal_value, modified_date)
+    SELECT {DBHelper.UserId}, '{nameof(totalWords_v2)}', {totalWords_v2}, '{DateTime.Now}'
+    WHERE (Select Changes() = 0);
+
+
+UPDATE KP_SYSTEM_PARAMETERS
+    SET decimal_value = {wordsWithMistakes_v2}, modified_date = '{DateTime.Now}'
+WHERE user_record_id = {DBHelper.UserId} AND name = '{nameof(wordsWithMistakes_v2)}';
+
+INSERT INTO KP_SYSTEM_PARAMETERS (user_record_id, name, decimal_value, modified_date)
+    SELECT {DBHelper.UserId}, '{nameof(wordsWithMistakes_v2)}', {wordsWithMistakes_v2}, '{DateTime.Now}'
+    WHERE (Select Changes() = 0);
+
 ";
 
                 var result = DBHelper.ExecSqlDb(sql, true);
@@ -645,7 +664,7 @@ WHERE SP.user_record_id = {DBHelper.UserId}
         {
             try
             {
-                string sql = $"DELETE FROM KP_SYSTEM_PARAMETERS WHERE user_record_id = {DBHelper.UserId} AND name IN ('{nameof(totalWords_v2)}', '{nameof(wordsWithMistakes_v2)}')";
+                string sql = $"DELETE FROM KP_SYSTEM_PARAMETERS WHERE user_record_id = {DBHelper.UserId} AND name IN ('{nameof(totalWords_v2)}', '{nameof(wordsWithMistakes_v2)}');";
                 var result = DBHelper.ExecSqlDb(sql, true);
                 if (result != "OK")
                     throw new Exception($"Failed {nameof(TotalWords)} {nameof(Db_DeleteDataFromDatabase)}: {result} (sql: {sql})");

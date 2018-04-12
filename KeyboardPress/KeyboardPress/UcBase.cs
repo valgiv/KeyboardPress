@@ -50,7 +50,7 @@ namespace KeyboardPress
                 var lst = DBHelper.GetDataTableDb($@"
 SELECT
 	--record_id,
-	ISNULL(proc_name, '') as 'proc_name'
+	IFNULL(proc_name, '') as 'proc_name'
 FROM KP_WINDOWS
 ORDER BY proc_name
 ").AsEnumerable().Select(x=>x.Field<string>("proc_name")).ToList();

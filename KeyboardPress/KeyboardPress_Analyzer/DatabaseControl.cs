@@ -55,7 +55,7 @@ namespace KeyboardPress_Analyzer
 
                 dt.AsEnumerable().ToList().ForEach(x => WindowsList.Add(new ObjWin()
                 {
-                    record_id = x.Field<int>("record_id"),
+                    record_id = (int)x.Field<Int64>("record_id"),
                     proc_name = x.Field<string>("proc_name")
                 }));
             }

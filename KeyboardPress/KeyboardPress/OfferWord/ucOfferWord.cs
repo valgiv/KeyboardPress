@@ -70,7 +70,7 @@ namespace KeyboardPress.OfferWord
                             MessageBox.Show("Turi būti nurodytos laukų 'Reikšmė iš' ir 'Reikšmė į' reikšmės");
                             return;
                         }
-                        sql += $"UPDATE KP_OFFER_WORD SET value1 = '{change["value1"].ToString().Replace("'", "''")}', value2='{change["value2"].ToString().Replace("'", "''")}' WHERE record_id = {change["record_id"].ToString()}";
+                        sql += $"UPDATE KP_OFFER_WORD SET value1 = '{change["value1"].ToString().Replace("'", "''")}', value2='{change["value2"].ToString().Replace("'", "''")}' WHERE record_id = {change["record_id"].ToString()};";
                     }
                     else if (change.RowState == DataRowState.Added)
                     {
@@ -79,7 +79,7 @@ namespace KeyboardPress.OfferWord
                             MessageBox.Show("Turi būti nurodytos laukų 'Reikšmė iš' ir 'Reikšmė į' reikšmės");
                             return;
                         }
-                        sql += $"INSERT INTO KP_OFFER_WORD (value1, value2, user_record_id) VALUES ('{change["value1"].ToString().Replace("'", "''")}', '{change["value2"].ToString().Replace("'", "''")}', {DBHelper.UserId})";
+                        sql += $"INSERT INTO KP_OFFER_WORD (value1, value2, user_record_id) VALUES ('{change["value1"].ToString().Replace("'", "''")}', '{change["value2"].ToString().Replace("'", "''")}', {DBHelper.UserId});";
                     }
                     else if (change.RowState == DataRowState.Deleted)
                     {
@@ -89,7 +89,7 @@ namespace KeyboardPress.OfferWord
                         || (int)change["record_id", DataRowVersion.Original] < 1)
                             change.AcceptChanges();
                         else
-                            sql += $"DELETE FROM KP_OFFER_WORD WHERE record_id = {change["record_id", DataRowVersion.Original].ToString()}";
+                            sql += $"DELETE FROM KP_OFFER_WORD WHERE record_id = {change["record_id", DataRowVersion.Original].ToString()};";
                     }
 
                     sql += "\n";

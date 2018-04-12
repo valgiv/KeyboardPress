@@ -2,6 +2,7 @@
 using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
+using System.Data.SQLite;
 
 namespace KeyboardPress_Analyzer.Helper
 {
@@ -14,13 +15,20 @@ namespace KeyboardPress_Analyzer.Helper
         {
             get
             {
+                //                if (String.IsNullOrWhiteSpace(connStr))
+                //                {
+                //                    string customLocation = ConfigurationManager.AppSettings["CustomDbFileLocation"];
+                //                    connStr = $@"
+                //Data Source=(LocalDB)\MSSQLLocalDB;
+                //AttachDbFilename={(String.IsNullOrEmpty(customLocation) ? AppDomain.CurrentDomain.BaseDirectory : customLocation)}kpData.mdf;
+                //Integrated Security=True";
+                //                }
+                //                return connStr;
+
                 if (String.IsNullOrWhiteSpace(connStr))
                 {
                     string customLocation = ConfigurationManager.AppSettings["CustomDbFileLocation"];
-                    connStr = $@"
-Data Source=(LocalDB)\MSSQLLocalDB;
-AttachDbFilename={(String.IsNullOrEmpty(customLocation) ? AppDomain.CurrentDomain.BaseDirectory : customLocation)}kpData.mdf;
-Integrated Security=True";
+                    connStr = $@"Data Source={customLocation}; Version=3;";
                 }
                 return connStr;
             }
@@ -31,13 +39,13 @@ Integrated Security=True";
             {
                 if(userId == 0)
                 {
-                    userId = SelectTopRow<int>("SELECT TOP 1 record_id FROM KP_USER");
+                    userId = (int)SelectTopRow<Int64>("SELECT record_id FROM KP_USER LIMIT 1");
                 }
                 if(userId == 0)
                 {
                     if (ExecSqlDb($"INSERT INTO KP_USER (name) VALUES ('{Guid.NewGuid()}')", true) != "OK")
                         throw new Exception("Klaida duomenų bazėje, nepavyksta sukurti vartotojo");
-                    userId = SelectTopRow<int>("SELECT TOP 1 record_id FROM KP_USER");
+                    userId = (int)SelectTopRow<Int64>("SELECT record_id FROM KP_USER LIMIT 1");
 
                     if (userId == 0)
                         throw new Exception("Klaida. Nepavyksta gauti vartotojo");
@@ -47,10 +55,15 @@ Integrated Security=True";
             }
         }
 
-        private static SqlConnection GetConnection()
+        //private static SqlConnection GetConnection()
+        //{
+        //    var conn = new SqlConnection(ConnStr);
+        //    return conn;
+        //}
+
+        private static SQLiteConnection GetConnection()
         {
-            var conn = new SqlConnection(ConnStr);
-            return conn;
+            return new SQLiteConnection(ConnStr);
         }
 
         public static bool TestConnection()
@@ -89,7 +102,8 @@ Integrated Security=True";
                 {
                     conn.Open();
 
-                    var sda = new SqlDataAdapter(sql, conn);
+                    //var sda = new SqlDataAdapter(sql, conn);
+                    var sda = new SQLiteDataAdapter(sql, conn);
                     sda.Fill(ds);
 
                     conn.Close();
@@ -112,7 +126,8 @@ Integrated Security=True";
                 {
                     conn.Open();
 
-                    var sda = new SqlDataAdapter(sql, conn);
+                    //var sda = new SqlDataAdapter(sql, conn);
+                    var sda = new SQLiteDataAdapter(sql, conn);
                     sda.Fill(dt);
 
                     conn.Close();
@@ -134,7 +149,8 @@ Integrated Security=True";
                 using(var conn = GetConnection())
                 {
                     conn.Open();
-                    SqlCommand comand = new SqlCommand(sql, conn);
+                    //SqlCommand comand = new SqlCommand(sql, conn);
+                    var comand = new SQLiteCommand(sql, conn);
                     comand.ExecuteNonQuery();
                     conn.Close();
                 }
@@ -154,6 +170,7 @@ Integrated Security=True";
         public static T SelectTopRow<T>(string sql)
         {
             var dt = GetDataTableDb(sql);
+            
             if (dt == null || dt.Rows.Count == 0)
                 return default(T);
 

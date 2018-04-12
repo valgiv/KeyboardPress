@@ -432,10 +432,11 @@ namespace KeyboardPress_Analyzer
                     sql += $@"
 UPDATE KP_KEY_PRESS_COUNT
     SET press_hold_count = {x.PressHoldCount}, press_release_count = {x.PressReleaseCount}
-WHERE ascii_code = {x.AsciiKeyCode} AND user_record_id = {DBHelper.UserId}
-IF @@ROWCOUNT = 0
-    INSERT INTO KP_KEY_PRESS_COUNT (ascii_code, press_hold_count, press_release_count, user_record_id)
-        VALUES ({x.AsciiKeyCode}, {x.PressHoldCount}, {x.PressReleaseCount}, {DBHelper.UserId})";
+WHERE ascii_code = {x.AsciiKeyCode} AND user_record_id = {DBHelper.UserId};
+
+INSERT INTO KP_KEY_PRESS_COUNT (ascii_code, press_hold_count, press_release_count, user_record_id)
+    SELECT {x.AsciiKeyCode}, {x.PressHoldCount}, {x.PressReleaseCount}, {DBHelper.UserId}
+    WHERE (Select Changes() = 0);";
                 });
 
                 if (!String.IsNullOrWhiteSpace(sql))
@@ -464,21 +465,24 @@ IF @@ROWCOUNT = 0
                 keyPressCountObjList = new List<ObjKeyPressCount>();
 
                 string sql = $@"
-SELECT TOP 0 record_id, CAST(event_type_id AS SMALLINT) as event_type_id, CAST(event_data_type_id AS SMALLINT) as event_data_type_id, win_id, [time], [key], key_value, shift_press, ctrl_press, user_record_id
+SELECT record_id, CAST(event_type_id AS SMALLINT) as event_type_id, CAST(event_data_type_id AS SMALLINT) as event_data_type_id, win_id, [time], [key], key_value, shift_press, ctrl_press, user_record_id
 FROM KP_EVENT_KEY_ALL
 WHERE user_record_id = {DBHelper.UserId}
-
-SELECT TOP 0 record_id, CAST(event_type_id AS SMALLINT) as event_type_id, CAST(event_data_type_id AS SMALLINT) as event_data_type_id, win_id, [time], [key], key_value, shift_press, ctrl_press, user_record_id
+LIMIT 0
+;
+SELECT record_id, CAST(event_type_id AS SMALLINT) as event_type_id, CAST(event_data_type_id AS SMALLINT) as event_data_type_id, win_id, [time], [key], key_value, shift_press, ctrl_press, user_record_id
 FROM KP_EVENT_KEY_CHAR
 WHERE user_record_id = {DBHelper.UserId}
-
-SELECT TOP 0 record_id, CAST(event_type_id AS SMALLINT) as event_type_id, CAST(event_data_type_id AS SMALLINT) as event_data_type_id, win_id, [time], x, y, user_record_id, CAST(mouse_key_id AS SMALLINT) as mouse_key_id
+LIMIT 0
+;
+SELECT record_id, CAST(event_type_id AS SMALLINT) as event_type_id, CAST(event_data_type_id AS SMALLINT) as event_data_type_id, win_id, [time], x, y, user_record_id, CAST(mouse_key_id AS SMALLINT) as mouse_key_id
 FROM KP_EVENT_MOUSE
 WHERE user_record_id = {DBHelper.UserId}
-
+LIMIT 0
+;
 SELECT record_id, ascii_code, press_hold_count, press_release_count, user_record_id
 FROM KP_KEY_PRESS_COUNT
-WHERE user_record_id = {DBHelper.UserId}";
+WHERE user_record_id = {DBHelper.UserId};";
 
                 var ds = DBHelper.GetDataSetDb(sql);
 
@@ -577,10 +581,10 @@ WHERE user_record_id = {DBHelper.UserId}";
             try
             {
                 string sql = $@"
-DELETE FROM KP_EVENT_KEY_ALL WHERE user_record_id = {DBHelper.UserId}
-DELETE FROM KP_EVENT_KEY_CHAR WHERE user_record_id = {DBHelper.UserId}
-DELETE FROM KP_EVENT_MOUSE WHERE user_record_id = {DBHelper.UserId}
-DELETE FROM KP_KEY_PRESS_COUNT WHERE user_record_id = {DBHelper.UserId}";
+DELETE FROM KP_EVENT_KEY_ALL WHERE user_record_id = {DBHelper.UserId};
+DELETE FROM KP_EVENT_KEY_CHAR WHERE user_record_id = {DBHelper.UserId};
+DELETE FROM KP_EVENT_MOUSE WHERE user_record_id = {DBHelper.UserId};
+DELETE FROM KP_KEY_PRESS_COUNT WHERE user_record_id = {DBHelper.UserId};";
 
                 var result = DBHelper.ExecSqlDb(sql, true);
                 if (result != "OK")
