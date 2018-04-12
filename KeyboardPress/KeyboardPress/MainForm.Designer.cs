@@ -114,11 +114,11 @@
             this.label15 = new System.Windows.Forms.Label();
             this.tabPageKeyboardUsagePerHour = new System.Windows.Forms.TabPage();
             this.tabPageKeyboardHeatMap = new System.Windows.Forms.TabPage();
-            this.tabPage4 = new System.Windows.Forms.TabPage();
+            this.tabPageSymbols = new System.Windows.Forms.TabPage();
+            this.tabPageMistakes = new System.Windows.Forms.TabPage();
             this.timer_workTime = new System.Windows.Forms.Timer(this.components);
             this.timer_uiUpdateTrigger = new System.Windows.Forms.Timer(this.components);
             this.timerDatabaseUpdate = new System.Windows.Forms.Timer(this.components);
-            this.tabPageSymbols = new System.Windows.Forms.TabPage();
             this.menuStrip.SuspendLayout();
             this.statusStrip.SuspendLayout();
             this.panelDebug.SuspendLayout();
@@ -347,7 +347,7 @@
             this.tabControlMain.Controls.Add(this.tabPageKeyboardUsagePerHour);
             this.tabControlMain.Controls.Add(this.tabPageKeyboardHeatMap);
             this.tabControlMain.Controls.Add(this.tabPageSymbols);
-            this.tabControlMain.Controls.Add(this.tabPage4);
+            this.tabControlMain.Controls.Add(this.tabPageMistakes);
             this.tabControlMain.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tabControlMain.DrawMode = System.Windows.Forms.TabDrawMode.OwnerDrawFixed;
             this.tabControlMain.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -953,15 +953,24 @@
             this.tabPageKeyboardHeatMap.Text = "Klaviatūros \"karštis\"";
             this.tabPageKeyboardHeatMap.UseVisualStyleBackColor = true;
             // 
-            // tabPage4
+            // tabPageSymbols
             // 
-            this.tabPage4.Location = new System.Drawing.Point(124, 4);
-            this.tabPage4.Name = "tabPage4";
-            this.tabPage4.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage4.Size = new System.Drawing.Size(538, 388);
-            this.tabPage4.TabIndex = 3;
-            this.tabPage4.Text = "Klaidos";
-            this.tabPage4.UseVisualStyleBackColor = true;
+            this.tabPageSymbols.Location = new System.Drawing.Point(124, 4);
+            this.tabPageSymbols.Name = "tabPageSymbols";
+            this.tabPageSymbols.Size = new System.Drawing.Size(538, 388);
+            this.tabPageSymbols.TabIndex = 8;
+            this.tabPageSymbols.Text = "Simboliai";
+            this.tabPageSymbols.UseVisualStyleBackColor = true;
+            // 
+            // tabPageMistakes
+            // 
+            this.tabPageMistakes.Location = new System.Drawing.Point(124, 4);
+            this.tabPageMistakes.Name = "tabPageMistakes";
+            this.tabPageMistakes.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPageMistakes.Size = new System.Drawing.Size(538, 388);
+            this.tabPageMistakes.TabIndex = 3;
+            this.tabPageMistakes.Text = "Klaidos";
+            this.tabPageMistakes.UseVisualStyleBackColor = true;
             // 
             // timer_workTime
             // 
@@ -978,15 +987,6 @@
             // 
             this.timerDatabaseUpdate.Interval = 900000;
             this.timerDatabaseUpdate.Tick += new System.EventHandler(this.timerDatabaseUpdate_Tick);
-            // 
-            // tabPageSymbols
-            // 
-            this.tabPageSymbols.Location = new System.Drawing.Point(124, 4);
-            this.tabPageSymbols.Name = "tabPageSymbols";
-            this.tabPageSymbols.Size = new System.Drawing.Size(538, 388);
-            this.tabPageSymbols.TabIndex = 8;
-            this.tabPageSymbols.Text = "Simboliai";
-            this.tabPageSymbols.UseVisualStyleBackColor = true;
             // 
             // MainForm
             // 
@@ -1053,7 +1053,7 @@
         private System.Windows.Forms.TabPage tabPageMainInfo;
         private System.Windows.Forms.TabPage tabPageMouse;
         private System.Windows.Forms.TabPage tabPageKeyboardUsagePerHour;
-        private System.Windows.Forms.TabPage tabPage4;
+        private System.Windows.Forms.TabPage tabPageMistakes;
         private System.Windows.Forms.TabPage tabPageKeyboardHeatMap;
         private System.Windows.Forms.TabPage tabPageMouseUsagePerHour;
         private System.Windows.Forms.Label label7;

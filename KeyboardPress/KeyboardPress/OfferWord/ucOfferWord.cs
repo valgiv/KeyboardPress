@@ -51,7 +51,7 @@ namespace KeyboardPress.OfferWord
                 }
 
                 var oneWordValidation = changes.AsEnumerable()
-                    .FirstOrDefault(x => !String.IsNullOrWhiteSpace(x.Field<string>("value1"))
+                    .FirstOrDefault(x => x.RowState != DataRowState.Deleted && !String.IsNullOrWhiteSpace(x.Field<string>("value1"))
                         && (x.Field<string>("value1").Contains(' ') || x.Field<string>("value1").Contains('\t')));
                 if(oneWordValidation != null)
                 {
@@ -86,7 +86,7 @@ namespace KeyboardPress.OfferWord
                         if (change["record_id", DataRowVersion.Original] == null
                         || change["record_id", DataRowVersion.Original] == DBNull.Value
                         || change["record_id", DataRowVersion.Original].ToString() == ""
-                        || (int)change["record_id", DataRowVersion.Original] < 1)
+                        || (Int64)change["record_id", DataRowVersion.Original] < 1)
                             change.AcceptChanges();
                         else
                             sql += $"DELETE FROM KP_OFFER_WORD WHERE record_id = {change["record_id", DataRowVersion.Original].ToString()};";

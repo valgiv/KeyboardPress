@@ -124,6 +124,12 @@
     <Compile Include="UcTabKeyboardUsage.Designer.cs">
       <DependentUpon>UcTabKeyboardUsage.cs</DependentUpon>
     </Compile>
+    <Compile Include="UcTabMistakes.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UcTabMistakes.Designer.cs">
+      <DependentUpon>UcTabMistakes.cs</DependentUpon>
+    </Compile>
     <Compile Include="UcTabMouseUsage.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -178,6 +184,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="UcTabKeyboardUsage.resx">
       <DependentUpon>UcTabKeyboardUsage.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UcTabMistakes.resx">
+      <DependentUpon>UcTabMistakes.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UcTabMouseUsage.resx">
       <DependentUpon>UcTabMouseUsage.cs</DependentUpon>

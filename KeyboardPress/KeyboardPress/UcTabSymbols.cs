@@ -20,6 +20,14 @@ namespace KeyboardPress
             InitializeComponent();
         }
 
+        protected override void LoadComboBoxValues()
+        {
+            dtpFrom.ShowCheckBox = false;
+            dtpTo.ShowCheckBox = false;
+
+            base.LoadComboBoxValues();
+        }
+
         protected override void RefreshData(bool firstLoad = false)
         {
             try

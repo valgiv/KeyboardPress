@@ -514,6 +514,7 @@ namespace KeyboardPress
         private UcTabMouseUsage ucTabMouseUsage = null;
         private UcTabKeyboardUsage ucTabKeyboardUsage = null;
         private UcTabSymbols ucTabSymbols = null;
+        private UcTabMistakes ucTabMistakes = null;
         private void tabControlMain_SelectedIndexChanged(object sender, EventArgs e)
         {
             #region clears controls
@@ -541,6 +542,11 @@ namespace KeyboardPress
             if (ucTabSymbols != null)
                 ucTabSymbols.Dispose();
             ucTabSymbols = null;
+
+            tabPageMistakes.Controls.Clear();
+            if (ucTabMistakes != null)
+                ucTabMistakes.Dispose();
+            ucTabMistakes = null;
 
             #endregion
 
@@ -573,6 +579,12 @@ namespace KeyboardPress
                 ucTabSymbols = new UcTabSymbols();
                 ucTabSymbols.Dock = DockStyle.Fill;
                 tabPageSymbols.Controls.Add(ucTabSymbols);
+            }
+            else if(tabControlMain.SelectedTab.Name == nameof(tabPageMistakes))
+            {
+                ucTabMistakes = new UcTabMistakes();
+                ucTabMistakes.Dock = DockStyle.Fill;
+                tabPageMistakes.Controls.Add(ucTabMistakes);
             }
         }
 
