@@ -18,6 +18,9 @@ namespace KeyboardPress_Analyzer
                 if (ids == null || ids.Length == 0)
                     return null;
 
+                if (WindowsList == null || WindowsList.Count() == 0)
+                    ReloadWindowsList();
+
                 return WindowsList.Where(x => ids.Contains(x.record_id)).Select(x => new Tuple<int, string>(x.record_id, x.proc_name)).ToArray();
             }
             catch (Exception ex)
@@ -33,7 +36,10 @@ namespace KeyboardPress_Analyzer
             {
                 if (procNames == null || procNames.Length == 0)
                     return null;
-                
+
+                if (WindowsList == null || WindowsList.Count() == 0)
+                    ReloadWindowsList();
+
                 return WindowsList.Where(x => procNames.Contains(x.proc_name)).Select(x => new Tuple<int, string>(x.record_id, x.proc_name)).ToArray();
             }
             catch(Exception ex)
@@ -77,7 +83,7 @@ namespace KeyboardPress_Analyzer
 
                 proccessNames.Distinct().Where(x => !(WindowsList.Select(y => y.proc_name).ToArray()).Contains(x)).ToList().ForEach(x =>
                 {
-                    sql += $"INSERT INTO KP_WINDOWS (proc_name) VALUES ('{x.ToString().Replace("'", "''")}') ";
+                    sql += $"INSERT INTO KP_WINDOWS (proc_name) VALUES ('{x.ToString().Replace("'", "''")}'); ";
                 });
 
                 if (String.IsNullOrWhiteSpace(sql))
@@ -108,14 +114,14 @@ namespace KeyboardPress_Analyzer
                 counter++;
                 if(counter%100 == 0)
                 {
-                    result += $"{Environment.NewLine}{insertBaseSql} {valuesStr.Remove(valuesStr.Length - 1, 1)}";
+                    result += $"{Environment.NewLine}{insertBaseSql} {valuesStr.Remove(valuesStr.Length - 1, 1)};";
 
                     valuesStr = "";
                     counter = 0;
                 }
             }
             if(counter > 0)
-                result += $"{Environment.NewLine}{insertBaseSql} {valuesStr.Remove(valuesStr.Length - 1, 1)}";
+                result += $"{Environment.NewLine}{insertBaseSql} {valuesStr.Remove(valuesStr.Length - 1, 1)};";
 
             return result;
         }

@@ -37,6 +37,16 @@ namespace KeyboardPress_Analyzer
 
         //public List<object> UiControls;
 
+        public List<ObjMistakeChar> MistakesChar
+        {
+            get
+            {
+                if(TotalWordsClass != null)
+                    return TotalWordsClass.MistakesChar;
+                return null;
+            }
+        }
+
         public CustomStopWatch TotalWorkStopWatch = null;
         
         #region get set

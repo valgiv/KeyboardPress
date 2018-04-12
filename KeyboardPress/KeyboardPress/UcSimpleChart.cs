@@ -10,19 +10,16 @@ using System.Windows.Forms;
 
 namespace KeyboardPress
 {
-    public partial class ucMouseUsageByHours : UserControl
+    public partial class UcSimpleChart : UserControl
     {
-        public ucMouseUsageByHours()
+        public UcSimpleChart()
         {
             InitializeComponent();
         }
 
         private void ucMouseUsageByHours_Load(object sender, EventArgs e)
         {
-            //chart.ChartAreas[0].AxisX.MajorGrid.Enabled = false;
-            //chart.ChartAreas[0].AxisX.MinorGrid.Enabled = false;
-            //chart.ChartAreas[0].AxisY.MajorGrid.Enabled = false;
-            //chart.ChartAreas[0].AxisY.MinorGrid.Enabled = false;
+
         }
 
         public void SetData(Tuple<string, int>[] data)

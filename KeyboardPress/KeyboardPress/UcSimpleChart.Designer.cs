@@ -1,6 +1,6 @@
 ﻿namespace KeyboardPress
 {
-    partial class ucMouseUsageByHours
+    partial class UcSimpleChart
     {
         /// <summary> 
         /// Required designer variable.

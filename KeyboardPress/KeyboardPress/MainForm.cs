@@ -512,10 +512,12 @@ namespace KeyboardPress
         private UcTabKeyboardHeatMap ucTabHeatMap = null;
         private UcTabScreenMouse ucTabScreenMouse = null;
         private UcTabMouseUsage ucTabMouseUsage = null;
+        private UcTabKeyboardUsage ucTabKeyboardUsage = null;
+        private UcTabSymbols ucTabSymbols = null;
         private void tabControlMain_SelectedIndexChanged(object sender, EventArgs e)
         {
             #region clears controls
-            tabKeyboardHeatMap.Controls.Clear();
+            tabPageKeyboardHeatMap.Controls.Clear();
             if (ucTabHeatMap != null)
                 ucTabHeatMap.Dispose();
             ucTabHeatMap = null;
@@ -530,13 +532,23 @@ namespace KeyboardPress
                 ucTabMouseUsage.Dispose();
             ucTabMouseUsage = null;
 
+            tabPageKeyboardUsagePerHour.Controls.Clear();
+            if (ucTabKeyboardUsage != null)
+                ucTabKeyboardUsage.Dispose();
+            ucTabKeyboardUsage = null;
+
+            tabPageSymbols.Controls.Clear();
+            if (ucTabSymbols != null)
+                ucTabSymbols.Dispose();
+            ucTabSymbols = null;
+
             #endregion
 
-            if (tabControlMain.SelectedTab.Name == nameof(tabKeyboardHeatMap))
+            if (tabControlMain.SelectedTab.Name == nameof(tabPageKeyboardHeatMap))
             {
                 ucTabHeatMap = new UcTabKeyboardHeatMap();
                 ucTabHeatMap.Dock = DockStyle.Fill;
-                tabKeyboardHeatMap.Controls.Add(ucTabHeatMap);
+                tabPageKeyboardHeatMap.Controls.Add(ucTabHeatMap);
             }
             else if(tabControlMain.SelectedTab.Name == nameof(tabPageMouse))
             {
@@ -549,6 +561,18 @@ namespace KeyboardPress
                 ucTabMouseUsage = new UcTabMouseUsage();
                 ucTabMouseUsage.Dock = DockStyle.Fill;
                 tabPageMouseUsagePerHour.Controls.Add(ucTabMouseUsage);
+            }
+            else if(tabControlMain.SelectedTab.Name == nameof(tabPageKeyboardUsagePerHour))
+            {
+                ucTabKeyboardUsage = new UcTabKeyboardUsage();
+                ucTabKeyboardUsage.Dock = DockStyle.Fill;
+                tabPageKeyboardUsagePerHour.Controls.Add(ucTabKeyboardUsage);
+            }
+            else if(tabControlMain.SelectedTab.Name == nameof(tabPageSymbols))
+            {
+                ucTabSymbols = new UcTabSymbols();
+                ucTabSymbols.Dock = DockStyle.Fill;
+                tabPageSymbols.Controls.Add(ucTabSymbols);
             }
         }
 
@@ -624,7 +648,6 @@ namespace KeyboardPress
 
         private void timerDatabaseUpdate_Tick(object sender, EventArgs e)
         {
-            return; //to do pasalinti
             try
             {
                 if (periodicalDbSaveChanges)

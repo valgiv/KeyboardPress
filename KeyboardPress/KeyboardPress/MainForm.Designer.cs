@@ -66,12 +66,9 @@
             this.label1 = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
-            this.tabPageMouse = new System.Windows.Forms.TabPage();
-            this.tabPageMouseUsagePerHour = new System.Windows.Forms.TabPage();
-            this.tabPage3 = new System.Windows.Forms.TabPage();
-            this.tabKeyboardHeatMap = new System.Windows.Forms.TabPage();
-            this.tabPage4 = new System.Windows.Forms.TabPage();
             this.tabPageMouseInfo = new System.Windows.Forms.TabPage();
+            this.lblMouseKeyboardRatioMouse = new System.Windows.Forms.Label();
+            this.label23 = new System.Windows.Forms.Label();
             this.lblMouseWheelRatio = new System.Windows.Forms.Label();
             this.lblMouseWheelDown = new System.Windows.Forms.Label();
             this.lblMouseWheelUp = new System.Windows.Forms.Label();
@@ -88,7 +85,11 @@
             this.label3 = new System.Windows.Forms.Label();
             this.label14 = new System.Windows.Forms.Label();
             this.label13 = new System.Windows.Forms.Label();
+            this.tabPageMouse = new System.Windows.Forms.TabPage();
+            this.tabPageMouseUsagePerHour = new System.Windows.Forms.TabPage();
             this.tabPageKeyboardInfo = new System.Windows.Forms.TabPage();
+            this.lblMouseKeyboardRatioKeyboard = new System.Windows.Forms.Label();
+            this.label24 = new System.Windows.Forms.Label();
             this.lblTotalWordsWithMistakes = new System.Windows.Forms.Label();
             this.lblLastWord = new System.Windows.Forms.Label();
             this.lblAvgWrdH = new System.Windows.Forms.Label();
@@ -111,13 +112,13 @@
             this.label17 = new System.Windows.Forms.Label();
             this.label16 = new System.Windows.Forms.Label();
             this.label15 = new System.Windows.Forms.Label();
+            this.tabPageKeyboardUsagePerHour = new System.Windows.Forms.TabPage();
+            this.tabPageKeyboardHeatMap = new System.Windows.Forms.TabPage();
+            this.tabPage4 = new System.Windows.Forms.TabPage();
             this.timer_workTime = new System.Windows.Forms.Timer(this.components);
             this.timer_uiUpdateTrigger = new System.Windows.Forms.Timer(this.components);
-            this.lblMouseKeyboardRatioMouse = new System.Windows.Forms.Label();
-            this.label23 = new System.Windows.Forms.Label();
-            this.lblMouseKeyboardRatioKeyboard = new System.Windows.Forms.Label();
-            this.label24 = new System.Windows.Forms.Label();
             this.timerDatabaseUpdate = new System.Windows.Forms.Timer(this.components);
+            this.tabPageSymbols = new System.Windows.Forms.TabPage();
             this.menuStrip.SuspendLayout();
             this.statusStrip.SuspendLayout();
             this.panelDebug.SuspendLayout();
@@ -343,8 +344,9 @@
             this.tabControlMain.Controls.Add(this.tabPageMouse);
             this.tabControlMain.Controls.Add(this.tabPageMouseUsagePerHour);
             this.tabControlMain.Controls.Add(this.tabPageKeyboardInfo);
-            this.tabControlMain.Controls.Add(this.tabPage3);
-            this.tabControlMain.Controls.Add(this.tabKeyboardHeatMap);
+            this.tabControlMain.Controls.Add(this.tabPageKeyboardUsagePerHour);
+            this.tabControlMain.Controls.Add(this.tabPageKeyboardHeatMap);
+            this.tabControlMain.Controls.Add(this.tabPageSymbols);
             this.tabControlMain.Controls.Add(this.tabPage4);
             this.tabControlMain.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tabControlMain.DrawMode = System.Windows.Forms.TabDrawMode.OwnerDrawFixed;
@@ -469,57 +471,6 @@
             this.label6.TabIndex = 21;
             this.label6.Text = "Darbo laikas";
             // 
-            // tabPageMouse
-            // 
-            this.tabPageMouse.Location = new System.Drawing.Point(124, 4);
-            this.tabPageMouse.Name = "tabPageMouse";
-            this.tabPageMouse.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageMouse.Size = new System.Drawing.Size(538, 388);
-            this.tabPageMouse.TabIndex = 1;
-            this.tabPageMouse.Text = "Pelės paspaudimai";
-            this.tabPageMouse.UseVisualStyleBackColor = true;
-            // 
-            // tabPageMouseUsagePerHour
-            // 
-            this.tabPageMouseUsagePerHour.Location = new System.Drawing.Point(124, 4);
-            this.tabPageMouseUsagePerHour.Name = "tabPageMouseUsagePerHour";
-            this.tabPageMouseUsagePerHour.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageMouseUsagePerHour.Size = new System.Drawing.Size(538, 388);
-            this.tabPageMouseUsagePerHour.TabIndex = 5;
-            this.tabPageMouseUsagePerHour.Text = "Pelės naudojimas";
-            this.tabPageMouseUsagePerHour.UseVisualStyleBackColor = true;
-            // 
-            // tabPage3
-            // 
-            this.tabPage3.Location = new System.Drawing.Point(124, 4);
-            this.tabPage3.Name = "tabPage3";
-            this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage3.Size = new System.Drawing.Size(538, 388);
-            this.tabPage3.TabIndex = 2;
-            this.tabPage3.Text = "Klaviatūra";
-            this.tabPage3.UseVisualStyleBackColor = true;
-            // 
-            // tabKeyboardHeatMap
-            // 
-            this.tabKeyboardHeatMap.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.tabKeyboardHeatMap.Location = new System.Drawing.Point(124, 4);
-            this.tabKeyboardHeatMap.Name = "tabKeyboardHeatMap";
-            this.tabKeyboardHeatMap.Padding = new System.Windows.Forms.Padding(3);
-            this.tabKeyboardHeatMap.Size = new System.Drawing.Size(538, 388);
-            this.tabKeyboardHeatMap.TabIndex = 4;
-            this.tabKeyboardHeatMap.Text = "Klaviatūros \"karštis\"";
-            this.tabKeyboardHeatMap.UseVisualStyleBackColor = true;
-            // 
-            // tabPage4
-            // 
-            this.tabPage4.Location = new System.Drawing.Point(124, 4);
-            this.tabPage4.Name = "tabPage4";
-            this.tabPage4.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage4.Size = new System.Drawing.Size(538, 388);
-            this.tabPage4.TabIndex = 3;
-            this.tabPage4.Text = "Klaidos";
-            this.tabPage4.UseVisualStyleBackColor = true;
-            // 
             // tabPageMouseInfo
             // 
             this.tabPageMouseInfo.Controls.Add(this.lblMouseKeyboardRatioMouse);
@@ -546,6 +497,23 @@
             this.tabPageMouseInfo.TabIndex = 6;
             this.tabPageMouseInfo.Text = "Pelės informacija";
             this.tabPageMouseInfo.UseVisualStyleBackColor = true;
+            // 
+            // lblMouseKeyboardRatioMouse
+            // 
+            this.lblMouseKeyboardRatioMouse.AutoSize = true;
+            this.lblMouseKeyboardRatioMouse.Location = new System.Drawing.Point(167, 218);
+            this.lblMouseKeyboardRatioMouse.Name = "lblMouseKeyboardRatioMouse";
+            this.lblMouseKeyboardRatioMouse.Size = new System.Drawing.Size(13, 13);
+            this.lblMouseKeyboardRatioMouse.TabIndex = 168;
+            this.lblMouseKeyboardRatioMouse.Text = "--";
+            // 
+            // label23
+            // 
+            this.label23.Location = new System.Drawing.Point(14, 218);
+            this.label23.Name = "label23";
+            this.label23.Size = new System.Drawing.Size(141, 28);
+            this.label23.TabIndex = 167;
+            this.label23.Text = "Pelės/klaviatūros naudojimo santykis";
             // 
             // lblMouseWheelRatio
             // 
@@ -694,6 +662,26 @@
             this.label13.TabIndex = 104;
             this.label13.Text = "Vid. pelės paspaudimai/min.";
             // 
+            // tabPageMouse
+            // 
+            this.tabPageMouse.Location = new System.Drawing.Point(124, 4);
+            this.tabPageMouse.Name = "tabPageMouse";
+            this.tabPageMouse.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPageMouse.Size = new System.Drawing.Size(538, 388);
+            this.tabPageMouse.TabIndex = 1;
+            this.tabPageMouse.Text = "Pelės paspaudimai";
+            this.tabPageMouse.UseVisualStyleBackColor = true;
+            // 
+            // tabPageMouseUsagePerHour
+            // 
+            this.tabPageMouseUsagePerHour.Location = new System.Drawing.Point(124, 4);
+            this.tabPageMouseUsagePerHour.Name = "tabPageMouseUsagePerHour";
+            this.tabPageMouseUsagePerHour.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPageMouseUsagePerHour.Size = new System.Drawing.Size(538, 388);
+            this.tabPageMouseUsagePerHour.TabIndex = 5;
+            this.tabPageMouseUsagePerHour.Text = "Pelės naudojimas";
+            this.tabPageMouseUsagePerHour.UseVisualStyleBackColor = true;
+            // 
             // tabPageKeyboardInfo
             // 
             this.tabPageKeyboardInfo.Controls.Add(this.lblMouseKeyboardRatioKeyboard);
@@ -726,6 +714,23 @@
             this.tabPageKeyboardInfo.TabIndex = 7;
             this.tabPageKeyboardInfo.Text = "Klaviatūros informacija";
             this.tabPageKeyboardInfo.UseVisualStyleBackColor = true;
+            // 
+            // lblMouseKeyboardRatioKeyboard
+            // 
+            this.lblMouseKeyboardRatioKeyboard.AutoSize = true;
+            this.lblMouseKeyboardRatioKeyboard.Location = new System.Drawing.Point(173, 298);
+            this.lblMouseKeyboardRatioKeyboard.Name = "lblMouseKeyboardRatioKeyboard";
+            this.lblMouseKeyboardRatioKeyboard.Size = new System.Drawing.Size(13, 13);
+            this.lblMouseKeyboardRatioKeyboard.TabIndex = 170;
+            this.lblMouseKeyboardRatioKeyboard.Text = "--";
+            // 
+            // label24
+            // 
+            this.label24.Location = new System.Drawing.Point(15, 298);
+            this.label24.Name = "label24";
+            this.label24.Size = new System.Drawing.Size(141, 28);
+            this.label24.TabIndex = 169;
+            this.label24.Text = "Pelės/klaviatūros naudojimo santykis";
             // 
             // lblTotalWordsWithMistakes
             // 
@@ -927,6 +932,37 @@
             this.label15.TabIndex = 126;
             this.label15.Text = "Vid. žodžiai/min.";
             // 
+            // tabPageKeyboardUsagePerHour
+            // 
+            this.tabPageKeyboardUsagePerHour.Location = new System.Drawing.Point(124, 4);
+            this.tabPageKeyboardUsagePerHour.Name = "tabPageKeyboardUsagePerHour";
+            this.tabPageKeyboardUsagePerHour.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPageKeyboardUsagePerHour.Size = new System.Drawing.Size(538, 388);
+            this.tabPageKeyboardUsagePerHour.TabIndex = 2;
+            this.tabPageKeyboardUsagePerHour.Text = "Klaviatūros naudojimas";
+            this.tabPageKeyboardUsagePerHour.UseVisualStyleBackColor = true;
+            // 
+            // tabPageKeyboardHeatMap
+            // 
+            this.tabPageKeyboardHeatMap.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.tabPageKeyboardHeatMap.Location = new System.Drawing.Point(124, 4);
+            this.tabPageKeyboardHeatMap.Name = "tabPageKeyboardHeatMap";
+            this.tabPageKeyboardHeatMap.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPageKeyboardHeatMap.Size = new System.Drawing.Size(538, 388);
+            this.tabPageKeyboardHeatMap.TabIndex = 4;
+            this.tabPageKeyboardHeatMap.Text = "Klaviatūros \"karštis\"";
+            this.tabPageKeyboardHeatMap.UseVisualStyleBackColor = true;
+            // 
+            // tabPage4
+            // 
+            this.tabPage4.Location = new System.Drawing.Point(124, 4);
+            this.tabPage4.Name = "tabPage4";
+            this.tabPage4.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage4.Size = new System.Drawing.Size(538, 388);
+            this.tabPage4.TabIndex = 3;
+            this.tabPage4.Text = "Klaidos";
+            this.tabPage4.UseVisualStyleBackColor = true;
+            // 
             // timer_workTime
             // 
             this.timer_workTime.Interval = 1000;
@@ -938,44 +974,19 @@
             this.timer_uiUpdateTrigger.Interval = 3000;
             this.timer_uiUpdateTrigger.Tick += new System.EventHandler(this.timer_uiUpdateTrigger_Tick);
             // 
-            // lblMouseKeyboardRatioMouse
-            // 
-            this.lblMouseKeyboardRatioMouse.AutoSize = true;
-            this.lblMouseKeyboardRatioMouse.Location = new System.Drawing.Point(167, 218);
-            this.lblMouseKeyboardRatioMouse.Name = "lblMouseKeyboardRatioMouse";
-            this.lblMouseKeyboardRatioMouse.Size = new System.Drawing.Size(13, 13);
-            this.lblMouseKeyboardRatioMouse.TabIndex = 168;
-            this.lblMouseKeyboardRatioMouse.Text = "--";
-            // 
-            // label23
-            // 
-            this.label23.Location = new System.Drawing.Point(14, 218);
-            this.label23.Name = "label23";
-            this.label23.Size = new System.Drawing.Size(141, 28);
-            this.label23.TabIndex = 167;
-            this.label23.Text = "Pelės/klaviatūros naudojimo santykis";
-            // 
-            // lblMouseKeyboardRatioKeyboard
-            // 
-            this.lblMouseKeyboardRatioKeyboard.AutoSize = true;
-            this.lblMouseKeyboardRatioKeyboard.Location = new System.Drawing.Point(173, 298);
-            this.lblMouseKeyboardRatioKeyboard.Name = "lblMouseKeyboardRatioKeyboard";
-            this.lblMouseKeyboardRatioKeyboard.Size = new System.Drawing.Size(13, 13);
-            this.lblMouseKeyboardRatioKeyboard.TabIndex = 170;
-            this.lblMouseKeyboardRatioKeyboard.Text = "--";
-            // 
-            // label24
-            // 
-            this.label24.Location = new System.Drawing.Point(15, 298);
-            this.label24.Name = "label24";
-            this.label24.Size = new System.Drawing.Size(141, 28);
-            this.label24.TabIndex = 169;
-            this.label24.Text = "Pelės/klaviatūros naudojimo santykis";
-            // 
             // timerDatabaseUpdate
             // 
             this.timerDatabaseUpdate.Interval = 900000;
             this.timerDatabaseUpdate.Tick += new System.EventHandler(this.timerDatabaseUpdate_Tick);
+            // 
+            // tabPageSymbols
+            // 
+            this.tabPageSymbols.Location = new System.Drawing.Point(124, 4);
+            this.tabPageSymbols.Name = "tabPageSymbols";
+            this.tabPageSymbols.Size = new System.Drawing.Size(538, 388);
+            this.tabPageSymbols.TabIndex = 8;
+            this.tabPageSymbols.Text = "Simboliai";
+            this.tabPageSymbols.UseVisualStyleBackColor = true;
             // 
             // MainForm
             // 
@@ -1041,9 +1052,9 @@
         private System.Windows.Forms.TabControl tabControlMain;
         private System.Windows.Forms.TabPage tabPageMainInfo;
         private System.Windows.Forms.TabPage tabPageMouse;
-        private System.Windows.Forms.TabPage tabPage3;
+        private System.Windows.Forms.TabPage tabPageKeyboardUsagePerHour;
         private System.Windows.Forms.TabPage tabPage4;
-        private System.Windows.Forms.TabPage tabKeyboardHeatMap;
+        private System.Windows.Forms.TabPage tabPageKeyboardHeatMap;
         private System.Windows.Forms.TabPage tabPageMouseUsagePerHour;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.Label label6;
@@ -1101,6 +1112,7 @@
         private System.Windows.Forms.Label lblMouseKeyboardRatioKeyboard;
         private System.Windows.Forms.Label label24;
         private System.Windows.Forms.Timer timerDatabaseUpdate;
+        private System.Windows.Forms.TabPage tabPageSymbols;
     }
 }
 

@@ -132,6 +132,7 @@
             this.MinimizeBox = false;
             this.Name = "InfoFormDialog";
             this.ShowIcon = false;
+            this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.Manual;
             this.Text = "InfoForm";
             this.TransparencyKey = System.Drawing.Color.White;
