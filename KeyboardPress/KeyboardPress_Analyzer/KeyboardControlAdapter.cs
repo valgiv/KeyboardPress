@@ -1,11 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Drawing;
-using System.Linq;
+﻿using KeyboardPress_Analyzer.Helper;
+using System;
 using System.Runtime.InteropServices;
-using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace KeyboardPress_Analyzer
@@ -24,13 +19,6 @@ namespace KeyboardPress_Analyzer
         /// <param name="dwExtraInfo">An additional value associated with the key stroke</param>
         [DllImport("user32.dll")]
         private static extern void keybd_event(byte bVk, byte bScan, uint dwFlags, uint dwExtraInfo);
-
-        public static void tst()
-        {
-            Thread.Sleep(10000);
-
-            keybd_event((byte)0x4D, 0, 0x0001 | 0, 0);
-        }
         
         public static void pressButton(int keyboardKey, bool makeApplicationDoEvents = false)
         {
@@ -43,6 +31,7 @@ namespace KeyboardPress_Analyzer
             }
             catch(Exception ex)
             {
+                LogHelper.LogErrorMsg(ex);
                 throw ex;
             }
         }
@@ -123,7 +112,7 @@ namespace KeyboardPress_Analyzer
         {
             try
             {
-                // to do: jei bus laiko patobulinti
+                // nice to have: jei bus laiko patobulinti (paveiksleliai ir kiti objektai atmintyje)
 
                 //bool containsAudio = false;
                 //bool containsFileDropList = false;

@@ -1,11 +1,4 @@
-﻿using Gma.System.MouseKeyHook;
-using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
+﻿
 namespace KeyboardPress_Analyzer
 {
     public interface IKeyboardPressAdapter
@@ -20,10 +13,10 @@ namespace KeyboardPress_Analyzer
         /// </summary>
         void StopHookWork();
 
-        /// <summary>
-        /// Cleans saved data
-        /// </summary>
-        void CleanData();
+        ///// <summary>
+        ///// Cleans saved data
+        ///// </summary>
+        //void CleanData();
         
 
 

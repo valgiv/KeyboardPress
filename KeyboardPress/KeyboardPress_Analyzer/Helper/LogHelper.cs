@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Configuration;
 using System.IO;
+using System.Windows.Forms;
 
 namespace KeyboardPress_Analyzer.Helper
 {
@@ -8,7 +9,7 @@ namespace KeyboardPress_Analyzer.Helper
     {
         private static string logDir = "";
 
-        public static string LogDir
+        private static string LogDir
         {
             get
             {
@@ -22,7 +23,7 @@ namespace KeyboardPress_Analyzer.Helper
         {
             try
             {
-                string errMsg = $"{DateTime.Now} ERROR: {msg}";
+                string errMsg = $"============================================{Environment.NewLine}{DateTime.Now} ERROR: {msg}";
 
                 WriteToFile(errMsg);
             }
@@ -31,6 +32,33 @@ namespace KeyboardPress_Analyzer.Helper
                 Console.WriteLine("ERROR !!! !!! !!!");
                 Console.WriteLine($"err on {nameof(LogErrorMsg)}()");
                 Console.WriteLine(ex.Message);
+            }
+        }
+
+        public static void ShowErrorMsgWithLog(string ErrorMSg, Exception ex)
+        {
+            MessageBox.Show(ErrorMSg, "Klaida", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            LogErrorMsg(ex);
+        }
+
+        public static void ShowErrorMsgWithLog(Exception ex)
+        {
+            ShowErrorMsgWithLog(ex.Message, ex);
+        }
+
+        public static void LogErrorMsg(Exception ex)
+        {
+            try
+            {
+                string errMsg = $"============================================{Environment.NewLine}{DateTime.Now} ERROR: [{ex.Source}] {ex.Message} [{ex.StackTrace}]";
+
+                WriteToFile(errMsg);
+            }
+            catch(Exception e)
+            {
+                Console.WriteLine("ERROR !!! !!! !!!");
+                Console.WriteLine($"err on {nameof(LogErrorMsg)}()");
+                Console.WriteLine(e.Message);
             }
         }
 
@@ -48,6 +76,17 @@ namespace KeyboardPress_Analyzer.Helper
                 Console.WriteLine($"err on {nameof(LogInfoMsg)}()");
                 Console.WriteLine(ex.Message);
             }
+        }
+
+        public static void ShowInfoMsgWithLog(string infoMsg)
+        {
+            ShowInfoMsgWithLog(infoMsg, infoMsg);
+        }
+
+        public static void ShowInfoMsgWithLog(string infoMsg, string infoMsgLog)
+        {
+            MessageBox.Show(infoMsg, "Informacija", MessageBoxButtons.OK, MessageBoxIcon.Information, MessageBoxDefaultButton.Button1);
+            LogInfoMsg(infoMsgLog);
         }
 
         private static void WriteToFile(string text)
