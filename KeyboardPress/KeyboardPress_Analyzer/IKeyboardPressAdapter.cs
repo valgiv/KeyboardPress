@@ -18,8 +18,5 @@ namespace KeyboardPress_Analyzer
         ///// </summary>
         //void CleanData();
         
-
-
-
     }
 }

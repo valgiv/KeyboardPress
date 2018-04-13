@@ -1,6 +1,6 @@
-﻿namespace KeyboardPress.OfferWord
+﻿namespace KeyboardPress
 {
-    partial class ucOfferWord
+    partial class UcOfferWord
     {
         /// <summary> 
         /// Required designer variable.

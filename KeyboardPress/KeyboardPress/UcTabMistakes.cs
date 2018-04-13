@@ -1,12 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Drawing;
 using System.Data;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
 using KeyboardPress_Analyzer.Helper;
 
 namespace KeyboardPress
@@ -16,6 +10,14 @@ namespace KeyboardPress
         public UcTabMistakes()
         {
             InitializeComponent();
+        }
+
+        protected override void UcBaceLoad()
+        {
+            base.UcBaceLoad();
+
+            dtpFrom.ShowCheckBox = false;
+            dtpTo.ShowCheckBox = false;
         }
 
         protected override void RefreshData(bool firstLoad = false)

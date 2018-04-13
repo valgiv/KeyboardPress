@@ -7,11 +7,8 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using KeyboardPress_Analyzer.Objects;
-using KeyboardPress.OfferWord;
 using KeyboardPress_Extensions.InfoForm;
 using System.Configuration;
-using System.Diagnostics;
-using System.Windows.Threading;
 
 namespace KeyboardPress
 {
@@ -360,7 +357,7 @@ namespace KeyboardPress
         {
             try
             {
-                ucOfferWord uc = new ucOfferWord();
+                UcOfferWord uc = new UcOfferWord();
                 EmptyForm form = new EmptyForm(uc, "Žodžių keitimas", true);
                 form.ShowDialog();
                 kpt.Reload_OfferWordClass_Data();

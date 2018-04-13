@@ -4,12 +4,12 @@ using System.Linq;
 using System.Windows.Forms;
 using KeyboardPress_Analyzer.Helper;
 
-namespace KeyboardPress.OfferWord
+namespace KeyboardPress
 {
-    public partial class ucOfferWord : UserControl
+    public partial class UcOfferWord : UserControl
     {
         private DataTable dt;
-        public ucOfferWord()
+        public UcOfferWord()
         {
             InitializeComponent();
         }
