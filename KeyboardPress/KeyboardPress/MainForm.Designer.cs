@@ -41,7 +41,6 @@
             this.offerWordToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.apieToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.informacijaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.karščioŽemėlapisToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.dBToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.loadDataDbToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.saveDataDbToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -136,7 +135,6 @@
             this.setingsToolStripMenuItem,
             this.administrationToolStripMenuItem,
             this.apieToolStripMenuItem,
-            this.karščioŽemėlapisToolStripMenuItem,
             this.dBToolStripMenuItem});
             this.menuStrip.Location = new System.Drawing.Point(0, 0);
             this.menuStrip.Name = "menuStrip";
@@ -223,13 +221,6 @@
             this.informacijaToolStripMenuItem.Name = "informacijaToolStripMenuItem";
             this.informacijaToolStripMenuItem.Size = new System.Drawing.Size(134, 22);
             this.informacijaToolStripMenuItem.Text = "Informacija";
-            // 
-            // karščioŽemėlapisToolStripMenuItem
-            // 
-            this.karščioŽemėlapisToolStripMenuItem.Name = "karščioŽemėlapisToolStripMenuItem";
-            this.karščioŽemėlapisToolStripMenuItem.Size = new System.Drawing.Size(122, 20);
-            this.karščioŽemėlapisToolStripMenuItem.Text = "\"Karščio\" žemėlapis";
-            this.karščioŽemėlapisToolStripMenuItem.Click += new System.EventHandler(this.karščioŽemėlapisToolStripMenuItem_Click);
             // 
             // dBToolStripMenuItem
             // 
@@ -1042,7 +1033,6 @@
         private System.Windows.Forms.ToolStripMenuItem informacijaToolStripMenuItem;
         private System.Windows.Forms.Timer timer_workTime;
         private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel_totalWorkTime;
-        private System.Windows.Forms.ToolStripMenuItem karščioŽemėlapisToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem offerWordToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem dBToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem loadDataDbToolStripMenuItem;

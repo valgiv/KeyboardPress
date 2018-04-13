@@ -23,26 +23,29 @@ namespace KeyboardPress
             // 
             // dtpFrom
             // 
+            this.dtpFrom.Location = new System.Drawing.Point(251, 7);
             this.dtpFrom.Value = new System.DateTime(2018, 4, 7, 0, 0, 0, 0);
             this.dtpFrom.Visible = false;
             // 
             // dtpTo
             // 
+            this.dtpTo.Location = new System.Drawing.Point(359, 7);
             this.dtpTo.Value = new System.DateTime(2018, 4, 7, 23, 59, 59, 0);
             this.dtpTo.Visible = false;
             // 
             // btnRefresh
             // 
-            this.btnRefresh.Location = new System.Drawing.Point(3, 31);
+            this.btnRefresh.Location = new System.Drawing.Point(3, 4);
             // 
             // cbMainFilter
             // 
+            this.cbMainFilter.Location = new System.Drawing.Point(467, 7);
             this.cbMainFilter.Visible = false;
             // 
             // panelTop
             // 
             this.panelTop.Controls.Add(this.panelColorMap);
-            this.panelTop.Size = new System.Drawing.Size(582, 90);
+            this.panelTop.Size = new System.Drawing.Size(582, 66);
             this.panelTop.Controls.SetChildIndex(this.btnRefresh, 0);
             this.panelTop.Controls.SetChildIndex(this.dtpTo, 0);
             this.panelTop.Controls.SetChildIndex(this.cbMainFilter, 0);
@@ -53,20 +56,20 @@ namespace KeyboardPress
             // 
             // panelCenter
             // 
-            this.panelCenter.Location = new System.Drawing.Point(0, 90);
-            this.panelCenter.Size = new System.Drawing.Size(582, 188);
+            this.panelCenter.Location = new System.Drawing.Point(0, 66);
+            this.panelCenter.Size = new System.Drawing.Size(582, 212);
             // 
             // numericUpDownRefreshSeconds
             // 
-            this.numericUpDownRefreshSeconds.Location = new System.Drawing.Point(147, 34);
+            this.numericUpDownRefreshSeconds.Location = new System.Drawing.Point(147, 7);
             // 
             // checkBoxAutoRefresh
             // 
-            this.checkBoxAutoRefresh.Location = new System.Drawing.Point(188, 36);
+            this.checkBoxAutoRefresh.Location = new System.Drawing.Point(188, 9);
             // 
             // panelColorMap
             // 
-            this.panelColorMap.Location = new System.Drawing.Point(3, 60);
+            this.panelColorMap.Location = new System.Drawing.Point(3, 33);
             this.panelColorMap.Name = "panelColorMap";
             this.panelColorMap.Size = new System.Drawing.Size(337, 24);
             this.panelColorMap.TabIndex = 6;

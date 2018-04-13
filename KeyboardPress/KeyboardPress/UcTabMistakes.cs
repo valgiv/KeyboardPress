@@ -50,7 +50,7 @@ namespace KeyboardPress
                     DataRow dr = DataTableResult.AsEnumerable().FirstOrDefault(x =>
                         ((x.Field<string>("before_delete") != null ? x.Field<string>("before_delete") : null) == (obj.BeforeRemovedChar == null ? null : obj.BeforeRemovedChar.ToString()))
                         && (x.Field<string>("deleted_char") == obj.RemovedChar.ToString())
-                        && ((x.Field<string>("new_char") != null ? x.Field<string>("new_char") : null) == (obj.BeforeRemovedChar == null ? null : obj.BeforeRemovedChar.ToString())));
+                        && ((x.Field<string>("new_char") != null ? x.Field<string>("new_char") : null) == (obj.ChangedChar == null ? null : obj.ChangedChar.ToString())));
                     
                     if(dr == null)
                     {
@@ -59,11 +59,11 @@ namespace KeyboardPress
                         dr["deleted_char"] = obj.RemovedChar.ToString();
                         dr["new_char"] = obj.ChangedChar == null ? null : obj.ChangedChar.ToString();
                         dr["count"] = 1;
-                        dr["count_in_last_2h"] = dataForLast24H.Count(x=>x.EventTime >= DateTime.Now.AddHours(-2));
-                        dr["count_in_last_4h"] = dataForLast24H.Count(x => x.EventTime >= DateTime.Now.AddHours(-4));
-                        dr["count_in_last_8h"] = dataForLast24H.Count(x => x.EventTime >= DateTime.Now.AddHours(-8));
-                        dr["count_in_last_16h"] = dataForLast24H.Count(x => x.EventTime >= DateTime.Now.AddHours(-16));
-                        dr["count_in_last_24h"] = dataForLast24H.Count(x => x.EventTime >= DateTime.Now.AddHours(-24));
+                        dr["count_in_last_2h"] = dataForLast24H.Count(x=>x.EventTime >= DateTime.Now.AddHours(-2) && x.BeforeRemovedChar == obj.BeforeRemovedChar && x.ChangedChar == obj.ChangedChar && x.RemovedChar == obj.RemovedChar);
+                        dr["count_in_last_4h"] = dataForLast24H.Count(x => x.EventTime >= DateTime.Now.AddHours(-4) && x.BeforeRemovedChar == obj.BeforeRemovedChar && x.ChangedChar == obj.ChangedChar && x.RemovedChar == obj.RemovedChar);
+                        dr["count_in_last_8h"] = dataForLast24H.Count(x => x.EventTime >= DateTime.Now.AddHours(-8) && x.BeforeRemovedChar == obj.BeforeRemovedChar && x.ChangedChar == obj.ChangedChar && x.RemovedChar == obj.RemovedChar);
+                        dr["count_in_last_16h"] = dataForLast24H.Count(x => x.EventTime >= DateTime.Now.AddHours(-16) && x.BeforeRemovedChar == obj.BeforeRemovedChar && x.ChangedChar == obj.ChangedChar && x.RemovedChar == obj.RemovedChar);
+                        dr["count_in_last_24h"] = dataForLast24H.Count(x => x.EventTime >= DateTime.Now.AddHours(-24) && x.BeforeRemovedChar == obj.BeforeRemovedChar && x.ChangedChar == obj.ChangedChar && x.RemovedChar == obj.RemovedChar);
 
                         DataTableResult.Rows.Add(dr);
                     }
@@ -73,7 +73,7 @@ namespace KeyboardPress
                     }
                 }
 
-                dataGridView.DataSource = DataTableResult; //to do: sukurti datagrid'ą
+                dataGridView.DataSource = DataTableResult;
             }
             catch(Exception ex)
             {

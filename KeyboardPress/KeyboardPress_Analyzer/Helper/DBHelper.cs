@@ -28,7 +28,14 @@ namespace KeyboardPress_Analyzer.Helper
                 if (String.IsNullOrWhiteSpace(connStr))
                 {
                     string customLocation = ConfigurationManager.AppSettings["CustomDbFileLocation"];
-                    connStr = $@"Data Source={customLocation}; Version=3;";
+
+                    if(String.IsNullOrEmpty(customLocation))
+                        customLocation = AppDomain.CurrentDomain.BaseDirectory;
+
+                    if (customLocation[customLocation.Length - 1] == '\\')
+                        customLocation = customLocation.Remove(customLocation.Length - 1, 1);
+                    
+                    connStr = $@"Data Source={customLocation}\SQLite_kpData.db; Version=3;";
                 }
                 return connStr;
             }
@@ -54,6 +61,8 @@ namespace KeyboardPress_Analyzer.Helper
                 return userId;
             }
         }
+
+
 
         //private static SqlConnection GetConnection()
         //{
