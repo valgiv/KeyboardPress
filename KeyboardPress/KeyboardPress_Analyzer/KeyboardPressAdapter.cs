@@ -27,7 +27,7 @@ namespace KeyboardPress_Analyzer
 
         /// <summary>
         /// klaviatūros mygtukų paspaudimų junginiai (gauti REZULTATAI) darantis įtaką rašomam tekstui
-        /// KP_EVENT_KEY_ALL
+        /// KP_EVENT_KEY_CHAR
         /// </summary>
         private List<ObjEvent_key> keysCharsEvents;
 
