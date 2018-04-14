@@ -6,7 +6,7 @@ using KeyboardPress_Analyzer.Helper;
 
 namespace KeyboardPress
 {
-    public partial class UcOfferWord : UserControl
+    public partial class UcOfferWord : UserControl, IDisposable
     {
         private DataTable dt;
         public UcOfferWord()

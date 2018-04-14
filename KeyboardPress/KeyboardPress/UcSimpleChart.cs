@@ -3,7 +3,7 @@ using System.Windows.Forms;
 
 namespace KeyboardPress
 {
-    public partial class UcSimpleChart : UserControl
+    public partial class UcSimpleChart : UserControl, IDisposable
     {
         public UcSimpleChart()
         {

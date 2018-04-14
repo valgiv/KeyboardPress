@@ -5,7 +5,7 @@ using KeyboardPress_Analyzer.Helper;
 
 namespace KeyboardPress
 {
-    public partial class UcTabMistakes : UcBase
+    public partial class UcTabMistakes : UcBase, IDisposable
     {
         public UcTabMistakes()
         {

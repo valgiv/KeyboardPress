@@ -8,7 +8,7 @@ using KeyboardPress_Analyzer.Helper;
 
 namespace KeyboardPress
 {
-    public partial class UcKeyboard : UserControl
+    public partial class UcKeyboard : UserControl, IDisposable
     {
         private List<ObjKeyPressCount> Data;
 

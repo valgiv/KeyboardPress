@@ -4,7 +4,7 @@ using System.Windows.Forms;
 
 namespace KeyboardPress
 {
-    public class UcTabKeyboardHeatMap : UcBase
+    public class UcTabKeyboardHeatMap : UcBase, IDisposable
     {
         private System.Windows.Forms.Panel panelColorMap;
         private UcKeyboard uc = null;

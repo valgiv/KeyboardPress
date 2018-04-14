@@ -8,7 +8,7 @@ using KeyboardPress_Analyzer.Helper;
 
 namespace KeyboardPress
 {
-    public partial class UcScreen : UserControl
+    public partial class UcScreen : UserControl, IDisposable
     {
         public List<ObjEvent_mouse> MouseEvents { get; set; }
 

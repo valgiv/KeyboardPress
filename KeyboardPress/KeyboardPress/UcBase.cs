@@ -6,7 +6,7 @@ using KeyboardPress_Analyzer.Helper;
 
 namespace KeyboardPress
 {
-    public partial class UcBase : UserControl
+    public partial class UcBase : UserControl, IDisposable
     {
         protected MainForm MF = null;
 

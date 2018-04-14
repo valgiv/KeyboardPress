@@ -9,7 +9,7 @@ using KeyboardPress_Analyzer.Objects;
 
 namespace KeyboardPress
 {
-    public partial class UcTabSymbols : UcBase
+    public partial class UcTabSymbols : UcBase, IDisposable
     {
         public UcTabSymbols()
         {
