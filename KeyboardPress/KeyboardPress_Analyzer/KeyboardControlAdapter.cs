@@ -105,9 +105,7 @@ namespace KeyboardPress_Analyzer
                 throw ex;
             }
         }
-
         
-
         public static void pasteText(string text, bool setBackPreviosCopiedValue = true)
         {
             try
