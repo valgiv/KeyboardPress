@@ -15,6 +15,7 @@ namespace KeyboardPress
     // v.1.0.0.0
     public partial class MainForm : Form, IKeyboardPressAdapter
     {
+        private readonly string VERSION = "1";
         private KeyboardPressTracking kpt;
         private Task logInfoTask;
         bool periodicalDbSaveChanges = false;
@@ -22,7 +23,7 @@ namespace KeyboardPress
         public MainForm()
         {
             InitializeComponent();
-            this.Text = "Keyboard Press Analyzer";
+            this.Text = "DKAS - Keyboard Press Analyzer";
         }
         
         public KeyboardPressTracking Kpt
@@ -282,6 +283,13 @@ namespace KeyboardPress
                 }
             }
             catch { }
+        }
+
+        private void informacijaToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show($@"Programos versija: v{VERSION}
+Sukurta: 2018
+Kūrėjas: Valentinas Givėliušas", "Informacija", MessageBoxButtons.OK);
         }
 
         #endregion Form events
@@ -657,9 +665,10 @@ namespace KeyboardPress
             }
         }
 
+
+
         #endregion Data Database
 
-        
         
     }
 }
