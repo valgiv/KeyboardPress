@@ -182,8 +182,8 @@ namespace KeyboardPress_Analyzer
             Task t = new Task(() =>
             {
                 InfoForm.Show($@"Pernelyk ilgas darbas kenkia Jūsų sveikatai.
-Prie kompiutero jau dirbate daugiau nei {restReminder.WorkStopwatch.Elapsed.TotalMinutes.ToString("#.##")} minutes(-čių).
-Siūloma pailsėti bent {(((double)(restReminder.RestTimeSeconds)) / 60d).ToString("#.##")} minutes(-čių).",
+Prie kompiutero jau dirbate daugiau nei {restReminder.WorkStopwatch.Elapsed.TotalMinutes.ToString("#")} minutes(-čių).
+Siūloma pailsėti bent {(((double)(restReminder.RestTimeSeconds)) / 60d).ToString("#")} minutes(-čių).",
                 "Laikas poilsiui", 10000,
                 InfoForm.Enum_InfoFormImage.HeadMind,
                 null);
