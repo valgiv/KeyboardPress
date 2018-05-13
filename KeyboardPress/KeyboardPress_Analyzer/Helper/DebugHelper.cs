@@ -46,7 +46,8 @@ namespace KeyboardPress_Analyzer.Helper
                     }
                     catch(Exception ex)
                     {
-                        MessageBox.Show(ex.Message + " " + ex.StackTrace);
+                        MessageBox.Show(ex.Message + " " + ex.StackTrace); //to do: užkomentuoti
+                        LogHelper.LogErrorMsg(ex);
                     }
                 }
             }
@@ -78,7 +79,8 @@ namespace KeyboardPress_Analyzer.Helper
                     }
                     catch (Exception ex)
                     {
-                        MessageBox.Show(ex.Message + " " + ex.StackTrace);
+                        MessageBox.Show(ex.Message + " " + ex.StackTrace); //to do: užkomentuoti
+                        LogHelper.LogErrorMsg(ex);
                     }
                 }
             }
@@ -110,7 +112,8 @@ namespace KeyboardPress_Analyzer.Helper
                     }
                     catch (Exception ex)
                     {
-                        MessageBox.Show("err\n" + ex.Message + " " + ex.StackTrace);
+                        MessageBox.Show("err\n" + ex.Message + " " + ex.StackTrace); //to do: užkomentuoti
+                        LogHelper.LogErrorMsg(ex);
                     }
                 }
             }
@@ -152,7 +155,8 @@ namespace KeyboardPress_Analyzer.Helper
                     }
                     catch (Exception ex)
                     {
-                        MessageBox.Show(ex.Message + " " + ex.StackTrace);
+                        MessageBox.Show(ex.Message + " " + ex.StackTrace); // to do: užkomentuoti
+                        LogHelper.LogErrorMsg(ex);
                     }
                 }
             }
@@ -198,7 +202,8 @@ namespace KeyboardPress_Analyzer.Helper
                     }
                     catch (Exception ex)
                     {
-                        MessageBox.Show(ex.Message + " " + ex.StackTrace);
+                        MessageBox.Show(ex.Message + " " + ex.StackTrace); //to do: užkomentuoti
+                        LogHelper.LogErrorMsg(ex);
                     }
                 }
             }

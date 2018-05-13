@@ -129,8 +129,7 @@ namespace KeyboardPress
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Klaida paleidžiant programą:\n{ex.Message}");
-                LogHelper.LogErrorMsg(ex);
+                LogHelper.ShowErrorMsgWithLog($"Klaida paleidžiant programą:\n{ex.Message}", ex);
             }
         }
 
@@ -146,7 +145,6 @@ namespace KeyboardPress
             catch (Exception ex)
             {
                 LogHelper.LogErrorMsg(ex);
-                Console.WriteLine("NENUMATYTA KLAIDA: " + ex.Message);
             }
 
             try
@@ -346,8 +344,7 @@ Kūrėjas: Valentinas Givėliušas", "Informacija", MessageBoxButtons.OK);
             }
             catch (Exception ex)
             {
-                LogHelper.LogErrorMsg(ex);
-                MessageBox.Show("Klaida inicijuojant klavišų paspaudimų fiksavimo pradžią");
+                LogHelper.ShowErrorMsgWithLog("Klaida inicijuojant klavišų paspaudimų fiksavimo pradžią", ex);
             }
         }
 
@@ -361,8 +358,7 @@ Kūrėjas: Valentinas Givėliušas", "Informacija", MessageBoxButtons.OK);
             }
             catch (Exception ex)
             {
-                LogHelper.LogErrorMsg(ex);
-                MessageBox.Show("Klaida sustabdant klavišų paspaudimų fiksavimą");
+                LogHelper.ShowErrorMsgWithLog("Klaida sustabdant klavišų paspaudimų fiksavimą", ex);
             }
         }
 
@@ -386,7 +382,7 @@ Kūrėjas: Valentinas Givėliušas", "Informacija", MessageBoxButtons.OK);
             {
                 try
                 {
-                    Console.WriteLine("started LogInfo() method...");
+                    //Console.WriteLine("started LogInfo() method...");
                     LogHelper.LogInfoMsg(Environment.NewLine + baloonInfoString());
 
 

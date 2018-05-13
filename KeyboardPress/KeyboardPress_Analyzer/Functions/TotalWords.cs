@@ -351,7 +351,7 @@ namespace KeyboardPress_Analyzer.Functions
                             {
                                 if (!calculateCursorPos(newWord, ref cursorPos, ref cursorSelectBeginPos, eventK, eventK_index, NLastKeyPressInSameWindow))
                                 {
-                                    Console.WriteLine("TotalWordsCount v2 exited with false");
+                                    //Console.WriteLine("TotalWordsCount v2 exited with false");
                                     return;
                                 }
                             }
@@ -392,7 +392,7 @@ namespace KeyboardPress_Analyzer.Functions
                             {
                                 if (!calculateCursorPos(newWord, ref cursorPos, ref cursorSelectBeginPos, eventK, eventK_index, NLastKeyPressInSameWindow))
                                 {
-                                    Console.WriteLine("TotalWordsCount v2 exited with false");
+                                    //Console.WriteLine("TotalWordsCount v2 exited with false");
                                     return;
                                 }
                             }
@@ -413,18 +413,18 @@ namespace KeyboardPress_Analyzer.Functions
                     Helper.Helper.UiControls.SetText(newWord, EnumUiControlTag.LastWord);
                     Helper.Helper.UiControls.SetText(wordsWithMistakes_v2.ToString(), EnumUiControlTag.TotalWordsMistakes);
 
-                    Console.WriteLine($"TotalWordsCount v2: '{newWord}'");
+                    //Console.WriteLine($"TotalWordsCount v2: '{newWord}'");
                 }
                 else
                 {
-                    Console.WriteLine($"TotalWordsCount v2: neatitinka žodžio savokos '{newWord}'");
+                    //Console.WriteLine($"TotalWordsCount v2: neatitinka žodžio savokos '{newWord}'");
 
                 }
             }
             catch(Exception ex)
             {
-                MessageBox.Show(ex.Message, $"Error on {nameof(totalWordsCount_v2)}", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                Console.WriteLine(ex.Message);
+                MessageBox.Show(ex.Message, $"Error on {nameof(totalWordsCount_v2)}", MessageBoxButtons.OK, MessageBoxIcon.Error); //to do: užkomentuoti
+                //Console.WriteLine(ex.Message);
                 LogHelper.LogErrorMsg(ex);
             }
         }

@@ -137,7 +137,7 @@ namespace KeyboardPress
 
                 if (panel.Width == 0 || panel.Height == 0)
                 {
-                    Console.WriteLine("panel 0");
+                    //Console.WriteLine("panel 0");
                     return;
                 }
 
@@ -165,7 +165,7 @@ namespace KeyboardPress
                 else
                     throw new Exception("Resize operation failed");
 
-                Console.WriteLine($"ratio: {ratio}");
+                //Console.WriteLine($"ratio: {ratio}");
 
                 if (ratio <= 0)
                     return;

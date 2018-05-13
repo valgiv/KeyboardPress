@@ -72,10 +72,10 @@ namespace KeyboardPress_Analyzer.Functions
             char? changedChar)
         {
 
-            Console.WriteLine($@"AddCharMistake:
-'{(beforeRemovedChar == null ? "null" : (beforeRemovedChar.ToString() + " " + (int)beforeRemovedChar))}' 
-'{removedChar.ToString()}'
-'{(changedChar == null ? "null" : ((changedChar.ToString()) + " " + (int)changedChar))}' ");
+//            Console.WriteLine($@"AddCharMistake:
+//'{(beforeRemovedChar == null ? "null" : (beforeRemovedChar.ToString() + " " + (int)beforeRemovedChar))}' 
+//'{removedChar.ToString()}'
+//'{(changedChar == null ? "null" : ((changedChar.ToString()) + " " + (int)changedChar))}' ");
             AddCharMistake(new ObjMistakeChar()
             {
                 BeforeRemovedChar = beforeRemovedChar,

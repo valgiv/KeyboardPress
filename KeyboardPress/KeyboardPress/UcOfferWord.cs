@@ -126,7 +126,7 @@ namespace KeyboardPress
             }
             catch(Exception ex)
             {
-                MessageBox.Show(ex.Message, "Klaida", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                LogHelper.ShowErrorMsgWithLog("Klaida šalinant įrašą", ex);
             }
         }
         

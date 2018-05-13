@@ -253,7 +253,8 @@ Siūloma pailsėti bent {(((double)(restReminder.RestTimeSeconds)) / 60d).ToStri
             }
             catch(Exception ex)
             {
-                MessageBox.Show(ex.Message, $"Error on {nameof(GlobalHookKeyUp)}");
+                MessageBox.Show(ex.Message, $"Error on {nameof(GlobalHookKeyUp)}"); //to do: užkomentuoti
+                LogHelper.LogErrorMsg(ex);
             }
         }
 
@@ -335,7 +336,8 @@ Siūloma pailsėti bent {(((double)(restReminder.RestTimeSeconds)) / 60d).ToStri
             }
             catch(Exception ex)
             {
-                MessageBox.Show(ex.Message, $"Error on {nameof(GlobalHookKeyPress)}");
+                MessageBox.Show(ex.Message, $"Error on {nameof(GlobalHookKeyPress)}"); //to do: užkomentuoti
+                LogHelper.LogErrorMsg(ex);
             }
         }
 
@@ -444,7 +446,7 @@ Siūloma pailsėti bent {(((double)(restReminder.RestTimeSeconds)) / 60d).ToStri
             catch(Exception ex)
             {
                 LogHelper.LogErrorMsg(ex);
-                MessageBox.Show(ex.Message, $"Error on {nameof(GlobalHookMouseDown)}");
+                MessageBox.Show(ex.Message, $"Error on {nameof(GlobalHookMouseDown)}");// to do: užkomentuoti
             }
             
             //base.GlobalHookMouseDown(sender, e); //viskas iškelta čianais
