@@ -19,7 +19,7 @@ namespace KeyboardPress_Analyzer.Functions
         
         private ulong totalWords_v2;
         private ulong wordsWithMistakes_v2;
-        private List<string> tmpWrdsList_v2 = new List<string>();
+        //private List<string> tmpWrdsList_v2 = new List<string>();
 
         public TotalWords()
         {
@@ -206,7 +206,8 @@ namespace KeyboardPress_Analyzer.Functions
                         if (NLastKeyPressInSameWindow[indexNextObj].EventObjDataType == EventDataType.KeyboardButtonCode
                             && word.Length - 1 >= indexNextObj)
                             return word[indexNextObj];
-                        else if (NLastKeyPressInSameWindow[indexNextObj].EventObjDataType == EventDataType.SymbolAsciiCode)
+                        else if (NLastKeyPressInSameWindow[indexNextObj].EventObjDataType == EventDataType.SymbolAsciiCode
+                            && NLastKeyPressInSameWindow[indexNextObj].KeyValue != 8) //fix (kai daugiau nei vienas backspace)
                             return NLastKeyPressInSameWindow[indexNextObj].Key[0];
                             
                             
@@ -257,7 +258,7 @@ namespace KeyboardPress_Analyzer.Functions
                                     cursorPos = 0;
                                 }
                                 else
-                                {
+                                 {
                                      AddCharMistake(
                                         Func_beforeMistakeChar(newWord, cursorPos - 2),
                                         newWord[cursorPos - 1],
@@ -404,7 +405,7 @@ namespace KeyboardPress_Analyzer.Functions
                 if(!String.IsNullOrEmpty(newWord) && newWord.Length > 0 && Regex.Matches(newWord, @"[a-zA-Z]").Count > 0)
                 {
                     totalWords_v2++;
-                    tmpWrdsList_v2.Add(newWord);
+                    //tmpWrdsList_v2.Add(newWord);
                     if (mistake)
                          wordsWithMistakes_v2++;
 

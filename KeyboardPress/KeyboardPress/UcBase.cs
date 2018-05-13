@@ -24,7 +24,7 @@ namespace KeyboardPress
 
         protected virtual void UcBaceLoad()
         {
-            //to do: cia kazka pakeisti, nes neleidzia programint
+            //to do: cia kazka pakeisti, nes neleidzia programint //05.13 nebepamenu apie ką čia rašiau
             //if (this.ParentForm.GetType() != typeof(MainForm))
             //    throw new NotSupportedException("Netinkamai kviečiama klasė. Klasė gali būti iškviesta tik iš MainForm klasės");
             //else
