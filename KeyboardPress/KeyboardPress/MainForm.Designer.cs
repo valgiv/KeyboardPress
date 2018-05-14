@@ -159,7 +159,7 @@
             this.toolStripItem_start.CheckOnClick = true;
             this.toolStripItem_start.Name = "toolStripItem_start";
             this.toolStripItem_start.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.F5)));
-            this.toolStripItem_start.Size = new System.Drawing.Size(214, 22);
+            this.toolStripItem_start.Size = new System.Drawing.Size(213, 22);
             this.toolStripItem_start.Text = "Pradėti";
             this.toolStripItem_start.Click += new System.EventHandler(this.toolStripItem_start_Click);
             // 
@@ -167,21 +167,21 @@
             // 
             this.toolStripItem_stop.CheckOnClick = true;
             this.toolStripItem_stop.Name = "toolStripItem_stop";
-            this.toolStripItem_stop.Size = new System.Drawing.Size(214, 22);
+            this.toolStripItem_stop.Size = new System.Drawing.Size(213, 22);
             this.toolStripItem_stop.Text = "Sustabdyti";
             this.toolStripItem_stop.Click += new System.EventHandler(this.toolStripItem_stop_Click);
             // 
             // toolStripSeparator1
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(211, 6);
+            this.toolStripSeparator1.Size = new System.Drawing.Size(210, 6);
             // 
             // toolStripItem_debug
             // 
             this.toolStripItem_debug.CheckOnClick = true;
             this.toolStripItem_debug.Name = "toolStripItem_debug";
             this.toolStripItem_debug.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.F10)));
-            this.toolStripItem_debug.Size = new System.Drawing.Size(214, 22);
+            this.toolStripItem_debug.Size = new System.Drawing.Size(213, 22);
             this.toolStripItem_debug.Text = "Debug sritis";
             this.toolStripItem_debug.Click += new System.EventHandler(this.toolStripItem_debug_Click);
             // 
@@ -189,7 +189,7 @@
             // 
             this.toolStripItem_cleanDebugWindow.Name = "toolStripItem_cleanDebugWindow";
             this.toolStripItem_cleanDebugWindow.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.F11)));
-            this.toolStripItem_cleanDebugWindow.Size = new System.Drawing.Size(214, 22);
+            this.toolStripItem_cleanDebugWindow.Size = new System.Drawing.Size(213, 22);
             this.toolStripItem_cleanDebugWindow.Text = "Valyti debug sritį";
             this.toolStripItem_cleanDebugWindow.Click += new System.EventHandler(this.toolStripItem_cleanDebugWindow_Click);
             // 
@@ -198,7 +198,7 @@
             this.administrationToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.offerWordToolStripMenuItem});
             this.administrationToolStripMenuItem.Name = "administrationToolStripMenuItem";
-            this.administrationToolStripMenuItem.Size = new System.Drawing.Size(70, 20);
+            this.administrationToolStripMenuItem.Size = new System.Drawing.Size(69, 20);
             this.administrationToolStripMenuItem.Text = "Valdymas";
             // 
             // offerWordToolStripMenuItem
@@ -1028,7 +1028,7 @@
             // 
             // timerDatabaseUpdate
             // 
-            this.timerDatabaseUpdate.Interval = 90000;
+            this.timerDatabaseUpdate.Interval = 900000;
             this.timerDatabaseUpdate.Tick += new System.EventHandler(this.timerDatabaseUpdate_Tick);
             // 
             // MainForm
