@@ -518,7 +518,7 @@ WHERE user_record_id = {DBHelper.UserId};";
                     //keysCharsEvents
                     ds.Tables[1].AsEnumerable().ToList().ForEach(x =>
                     {
-                        var win = DatabaseControl.GetWindowsByIds(x.Field<int>("record_id"));
+                        var win = DatabaseControl.GetWindowsByIds(x.Field<int>("win_id"));
                         keysCharsEvents.Add(new ObjEvent_key()
                         {
                             ActiveWindowName = win != null && win.Length > 0 ? win[0].Item2 : Helper.Helper.unknownWindowName,
