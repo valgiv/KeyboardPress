@@ -15,7 +15,7 @@ namespace KeyboardPress
     // v.1.0.0.0
     public partial class MainForm : Form, IKeyboardPressAdapter
     {
-        private readonly string VERSION = "1.1";
+        private readonly string VERSION = "1.0.0.3";
         private KeyboardPressTracking kpt;
         private Task logInfoTask;
         bool periodicalDbSaveChanges = false;
