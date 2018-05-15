@@ -1,17 +1,12 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Drawing;
 using System.Data;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using KeyboardPress_Analyzer.Helper;
 
 namespace KeyboardPress
 {
-    public partial class UcBase : UserControl
+    public partial class UcBase : UserControl, IDisposable
     {
         protected MainForm MF = null;
 
@@ -29,10 +24,7 @@ namespace KeyboardPress
 
         protected virtual void UcBaceLoad()
         {
-            //to do: cia kazka pakeisti, nes neleidzia programint
-            //if (this.ParentForm.GetType() != typeof(MainForm))
-            //    throw new NotSupportedException("Netinkamai kviečiama klasė. Klasė gali būti iškviesta tik iš MainForm klasės");
-            //else
+            //klaida jei kviečia ne iš main form
             MF = (MainForm)this.ParentForm;
 
             dtpFrom.Value = DateTime.Today;

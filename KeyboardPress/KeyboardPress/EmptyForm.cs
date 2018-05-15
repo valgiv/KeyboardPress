@@ -4,7 +4,7 @@ using System.Windows.Forms;
 
 namespace KeyboardPress
 {
-    public partial class EmptyForm : Form
+    public partial class EmptyForm : Form, IDisposable
     {
         private UserControl uc;
 

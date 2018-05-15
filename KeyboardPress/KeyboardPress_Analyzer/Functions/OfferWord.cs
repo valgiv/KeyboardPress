@@ -6,7 +6,6 @@ using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 using System.Threading;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace KeyboardPress_Analyzer.Functions
@@ -69,7 +68,7 @@ namespace KeyboardPress_Analyzer.Functions
                                 //});
                                 Thread th = new Thread(() =>
                                 {
-                                    InfoForm.Show($"Siūlomas tekstas: {pair.Value}",
+                                    InfoForm.Show($"Siūlomas tekstas: {Environment.NewLine}{pair.Value}",
                                        "Siūlymas", 2000,
                                        InfoForm.Enum_InfoFormImage.Precent,
                                        null);

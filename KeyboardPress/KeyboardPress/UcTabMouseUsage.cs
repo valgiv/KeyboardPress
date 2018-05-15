@@ -1,11 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Drawing;
 using System.Data;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using KeyboardPress_Analyzer.Helper;
 using KeyboardPress_Analyzer.Objects;
@@ -15,7 +11,7 @@ namespace KeyboardPress
 {
     public partial class UcTabMouseUsage : UcBase, IDisposable
     {
-        private ucMouseUsageByHours uc = null;
+        private UcSimpleChart uc = null;
 
         public UcTabMouseUsage()
         {
@@ -39,7 +35,7 @@ namespace KeyboardPress
                 if (firstLoad)
                 {
                     if (uc == null)
-                        uc = new ucMouseUsageByHours();
+                        uc = new UcSimpleChart();
                     uc.Dock = DockStyle.Fill;
                     this.panelCenter.Controls.Add(uc);
 
@@ -117,7 +113,7 @@ WHERE user_record_id = {DBHelper.UserId};";
 
             var hours = all.Select(x => x.EventTime.Hour).ToArray();
             List<Tuple<string, int>> result = new List<Tuple<string, int>>();
-            for(int i = 0; i<=24; i++)
+            for(int i = 0; i<=23; i++)
             {
                 result.Add(new Tuple<string, int>(i.ToString(), hours.Count(x => x == i)));
             }

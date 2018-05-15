@@ -46,7 +46,8 @@ namespace KeyboardPress_Analyzer.Helper
                     }
                     catch(Exception ex)
                     {
-                        MessageBox.Show(ex.Message + " " + ex.StackTrace);
+                        MessageBox.Show(ex.Message + " " + ex.StackTrace); //to do: užkomentuoti
+                        LogHelper.LogErrorMsg(ex);
                     }
                 }
             }
@@ -78,7 +79,8 @@ namespace KeyboardPress_Analyzer.Helper
                     }
                     catch (Exception ex)
                     {
-                        MessageBox.Show(ex.Message + " " + ex.StackTrace);
+                        MessageBox.Show(ex.Message + " " + ex.StackTrace); //to do: užkomentuoti
+                        LogHelper.LogErrorMsg(ex);
                     }
                 }
             }
@@ -110,7 +112,51 @@ namespace KeyboardPress_Analyzer.Helper
                     }
                     catch (Exception ex)
                     {
-                        MessageBox.Show("err\n" + ex.Message + " " + ex.StackTrace);
+                        MessageBox.Show("err\n" + ex.Message + " " + ex.StackTrace); //to do: užkomentuoti
+                        LogHelper.LogErrorMsg(ex);
+                    }
+                }
+            }
+        }
+
+        public static void CleanMemory()
+        {
+            if (debugRichTextBox != null)
+            {
+                lock (locker)
+                {
+                    try
+                    {
+                        if (!debugRichTextBox.InvokeRequired)
+                        {
+                            if (debugRichTextBox.Lines.Length > 100)
+                            {
+                                debugRichTextBox.Select(0, debugRichTextBox.GetFirstCharIndexFromLine(debugRichTextBox.Lines.Length - 50));
+                                debugRichTextBox.SelectedText = Environment.NewLine;
+                            }
+
+                            debugRichTextBox.SelectionStart = debugRichTextBox.Text.Length;
+                            debugRichTextBox.ScrollToCaret();
+                        }
+                        else
+                        {
+                            debugRichTextBox.BeginInvoke(new MethodInvoker(delegate
+                            {
+                                if (debugRichTextBox.Lines.Length > 100)
+                                {
+                                    debugRichTextBox.Select(0, debugRichTextBox.GetFirstCharIndexFromLine(debugRichTextBox.Lines.Length - 50));
+                                    debugRichTextBox.SelectedText = Environment.NewLine;
+                                }
+
+                                debugRichTextBox.SelectionStart = debugRichTextBox.Text.Length;
+                                debugRichTextBox.ScrollToCaret();
+                            }));
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show(ex.Message + " " + ex.StackTrace); // to do: užkomentuoti
+                        LogHelper.LogErrorMsg(ex);
                     }
                 }
             }
@@ -156,7 +202,8 @@ namespace KeyboardPress_Analyzer.Helper
                     }
                     catch (Exception ex)
                     {
-                        MessageBox.Show(ex.Message + " " + ex.StackTrace);
+                        MessageBox.Show(ex.Message + " " + ex.StackTrace); //to do: užkomentuoti
+                        LogHelper.LogErrorMsg(ex);
                     }
                 }
             }

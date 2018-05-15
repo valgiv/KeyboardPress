@@ -8,11 +8,13 @@
     <OutputType>WinExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>KeyboardPress</RootNamespace>
-    <AssemblyName>KeyboardPress</AssemblyName>
+    <AssemblyName>DKAS KeyboardPress</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <IsWebBootstrapper>false</IsWebBootstrapper>
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
     <PublishUrl>publish\</PublishUrl>
     <Install>true</Install>
     <InstallFrom>Disk</InstallFrom>
@@ -27,8 +29,6 @@
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <BootstrapperEnabled>true</BootstrapperEnabled>
-    <NuGetPackageImportStamp>
-    </NuGetPackageImportStamp>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -95,19 +95,19 @@
     <Compile Include="MainForm.Designer.cs">
       <DependentUpon>MainForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="OfferWord\ucOfferWord.cs">
+    <Compile Include="UcOfferWord.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="OfferWord\ucOfferWord.Designer.cs">
-      <DependentUpon>ucOfferWord.cs</DependentUpon>
+    <Compile Include="UcOfferWord.Designer.cs">
+      <DependentUpon>UcOfferWord.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="ucMouseUsageByHours.cs">
+    <Compile Include="UcSimpleChart.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="ucMouseUsageByHours.Designer.cs">
-      <DependentUpon>ucMouseUsageByHours.cs</DependentUpon>
+    <Compile Include="UcSimpleChart.Designer.cs">
+      <DependentUpon>UcSimpleChart.cs</DependentUpon>
     </Compile>
     <Compile Include="UcScreen.cs">
       <SubType>UserControl</SubType>
@@ -117,6 +117,18 @@
     </Compile>
     <Compile Include="UcTabKeyboardHeatMap.cs">
       <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UcTabKeyboardUsage.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UcTabKeyboardUsage.Designer.cs">
+      <DependentUpon>UcTabKeyboardUsage.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UcTabMistakes.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UcTabMistakes.Designer.cs">
+      <DependentUpon>UcTabMistakes.cs</DependentUpon>
     </Compile>
     <Compile Include="UcTabMouseUsage.cs">
       <SubType>UserControl</SubType>
@@ -130,6 +142,12 @@
     <Compile Include="UcTabScreenMouse.Designer.cs">
       <DependentUpon>UcTabScreenMouse.cs</DependentUpon>
     </Compile>
+    <Compile Include="UcTabSymbols.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UcTabSymbols.Designer.cs">
+      <DependentUpon>UcTabSymbols.cs</DependentUpon>
+    </Compile>
     <EmbeddedResource Include="UcBase.resx">
       <DependentUpon>UcBase.cs</DependentUpon>
     </EmbeddedResource>
@@ -142,8 +160,8 @@
     <EmbeddedResource Include="MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="OfferWord\ucOfferWord.resx">
-      <DependentUpon>ucOfferWord.cs</DependentUpon>
+    <EmbeddedResource Include="UcOfferWord.resx">
+      <DependentUpon>UcOfferWord.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -155,8 +173,8 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
-    <EmbeddedResource Include="ucMouseUsageByHours.resx">
-      <DependentUpon>ucMouseUsageByHours.cs</DependentUpon>
+    <EmbeddedResource Include="UcSimpleChart.resx">
+      <DependentUpon>UcSimpleChart.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UcScreen.resx">
       <DependentUpon>UcScreen.cs</DependentUpon>
@@ -164,11 +182,20 @@
     <EmbeddedResource Include="UcTabKeyboardHeatMap.resx">
       <DependentUpon>UcTabKeyboardHeatMap.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="UcTabKeyboardUsage.resx">
+      <DependentUpon>UcTabKeyboardUsage.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UcTabMistakes.resx">
+      <DependentUpon>UcTabMistakes.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="UcTabMouseUsage.resx">
       <DependentUpon>UcTabMouseUsage.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UcTabScreenMouse.resx">
       <DependentUpon>UcTabScreenMouse.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UcTabSymbols.resx">
+      <DependentUpon>UcTabSymbols.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
@@ -207,10 +234,14 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\head_config.png" />
+    <Content Include="ico_green_Graphicloads-Seo-Services-Tags.ico">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="_Notes.txt" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Resources\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PreBuildEvent>

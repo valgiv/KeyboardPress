@@ -7,10 +7,10 @@ using System.Diagnostics;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using System.Transactions;
 using System.Windows.Forms;
 using KeyboardPress_Extensions.InfoForm;
 using System.Data;
+using System.Configuration;
 
 namespace KeyboardPress_Analyzer
 {
@@ -36,6 +36,16 @@ namespace KeyboardPress_Analyzer
         private OfferWord OfferWordClass;
 
         //public List<object> UiControls;
+
+        public List<ObjMistakeChar> MistakesChar
+        {
+            get
+            {
+                if(TotalWordsClass != null)
+                    return TotalWordsClass.MistakesChar;
+                return null;
+            }
+        }
 
         public CustomStopWatch TotalWorkStopWatch = null;
         
@@ -173,8 +183,8 @@ namespace KeyboardPress_Analyzer
             Task t = new Task(() =>
             {
                 InfoForm.Show($@"Pernelyk ilgas darbas kenkia Jūsų sveikatai.
-Prie kompiutero jau dirbate daugiau nei {restReminder.WorkStopwatch.Elapsed.TotalMinutes.ToString("#.##")} minutes(-čių).
-Siūloma pailsėti bent {(((double)(restReminder.RestTimeSeconds)) / 60d).ToString("#.##")} minutes(-čių).",
+Prie kompiutero jau dirbate daugiau nei {restReminder.WorkStopwatch.Elapsed.TotalMinutes.ToString("#")} minutes(-čių).
+Siūloma pailsėti bent {(((double)(restReminder.RestTimeSeconds)) / 60d).ToString("#")} minutes(-čių).",
                 "Laikas poilsiui", 10000,
                 InfoForm.Enum_InfoFormImage.HeadMind,
                 null);
@@ -243,7 +253,8 @@ Siūloma pailsėti bent {(((double)(restReminder.RestTimeSeconds)) / 60d).ToStri
             }
             catch(Exception ex)
             {
-                MessageBox.Show(ex.Message, $"Error on {nameof(GlobalHookKeyUp)}");
+                MessageBox.Show(ex.Message, $"Error on {nameof(GlobalHookKeyUp)}"); //to do: užkomentuoti
+                LogHelper.LogErrorMsg(ex);
             }
         }
 
@@ -325,7 +336,8 @@ Siūloma pailsėti bent {(((double)(restReminder.RestTimeSeconds)) / 60d).ToStri
             }
             catch(Exception ex)
             {
-                MessageBox.Show(ex.Message, $"Error on {nameof(GlobalHookKeyPress)}");
+                MessageBox.Show(ex.Message, $"Error on {nameof(GlobalHookKeyPress)}"); //to do: užkomentuoti
+                LogHelper.LogErrorMsg(ex);
             }
         }
 
@@ -434,7 +446,7 @@ Siūloma pailsėti bent {(((double)(restReminder.RestTimeSeconds)) / 60d).ToStri
             catch(Exception ex)
             {
                 LogHelper.LogErrorMsg(ex);
-                MessageBox.Show(ex.Message, $"Error on {nameof(GlobalHookMouseDown)}");
+                MessageBox.Show(ex.Message, $"Error on {nameof(GlobalHookMouseDown)}");// to do: užkomentuoti
             }
             
             //base.GlobalHookMouseDown(sender, e); //viskas iškelta čianais
@@ -590,7 +602,45 @@ INSERT INTO KP_SYSTEM_PARAMETERS (user_record_id, name, string_value, modified_d
                     TotalWordsClass.Db_SaveChanges(); //kartu ir Writing mistakes
 
                 base.Db_SaveChanges();
-                
+
+                #region
+                try
+                {
+                    if (ConfigurationManager.AppSettings["PeriodicalMemoryClean"].ToString() == "1" || ConfigurationManager.AppSettings["PeriodicalMemoryClean"].ToString().ToLower() == "true")
+                    {
+                        LogHelper.LogInfoMsg("Pradedamas periodinis atminties pravalymas");
+
+                        //if(TotalWordsClass.MistakesChar != null && TotalWordsClass.MistakesChar.Count > 0 && TotalWordsClass.MistakesChar.FirstOrDefault(x=>x.SavedInDB == true) != null)
+                        //{
+                        //    TotalWordsClass.MistakesChar.RemoveAll(x => x.SavedInDB == true);
+                        //}
+                        
+                        if(MouseEvents != null && MouseEvents.Count > 0 && MouseEvents.FirstOrDefault(x=>x.SavedInDB == true) != null)
+                        {
+                            MouseEvents.RemoveAll(x => x.SavedInDB == true);
+                        }
+
+                        if(KeysEvents != null && KeysEvents.Count > 0 && KeysEvents.FirstOrDefault(x=>x.SavedInDB == true) != null)
+                        {
+                            KeysEvents.RemoveAll(x => x.SavedInDB == true);
+                        }
+                        
+                        if(KeysCharsEvents != null && KeysCharsEvents.Count > 0 && KeysCharsEvents.FirstOrDefault(x=>x.SavedInDB == true) != null)
+                        {
+                            KeysCharsEvents.RemoveAll(x => x.SavedInDB == true);
+                        }
+
+                        DebugHelper.CleanMemory();
+
+                        LogHelper.LogInfoMsg("Baigtas periodinis atminties pravalymas");
+                    }
+                }
+                catch(Exception ex)
+                {
+                    LogHelper.LogErrorMsg(ex);
+                }
+                #endregion
+
                 if(needToStop)
                     base.StartHookWork();
             }

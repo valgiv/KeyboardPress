@@ -27,7 +27,7 @@ namespace KeyboardPress_Analyzer
 
         /// <summary>
         /// klaviatūros mygtukų paspaudimų junginiai (gauti REZULTATAI) darantis įtaką rašomam tekstui
-        /// KP_EVENT_KEY_ALL
+        /// KP_EVENT_KEY_CHAR
         /// </summary>
         private List<ObjEvent_key> keysCharsEvents;
 
@@ -504,8 +504,8 @@ WHERE user_record_id = {DBHelper.UserId};";
                             ShiftKeyPressed = x.Field<bool?>("shift_press").HasValue ? x.Field<bool?>("shift_press").Value : (bool?)null,
                             EventTime = x.Field<DateTime>("time"),
                             SavedInDB = true,
-                            EventObjDataType = (EventDataType)x.Field<Int16>("event_data_type_id"),
-                            EventObjType = (EventType)x.Field<Int16>("event_type_id"),
+                            EventObjDataType = (EventDataType)x.Field<Int64>("event_data_type_id"),
+                            EventObjType = (EventType)x.Field<Int64>("event_type_id"),
                             Key = x.Field<string>("key"),
                             KeyValue = x.Field<Int16>("key_value")
                         });
@@ -518,7 +518,7 @@ WHERE user_record_id = {DBHelper.UserId};";
                     //keysCharsEvents
                     ds.Tables[1].AsEnumerable().ToList().ForEach(x =>
                     {
-                        var win = DatabaseControl.GetWindowsByIds(x.Field<int>("record_id"));
+                        var win = DatabaseControl.GetWindowsByIds(x.Field<int>("win_id"));
                         keysCharsEvents.Add(new ObjEvent_key()
                         {
                             ActiveWindowName = win != null && win.Length > 0 ? win[0].Item2 : Helper.Helper.unknownWindowName,
@@ -526,8 +526,8 @@ WHERE user_record_id = {DBHelper.UserId};";
                             ShiftKeyPressed = x.Field<bool?>("shift_press").HasValue ? x.Field<bool?>("shift_press").Value : (bool?)null,
                             EventTime = x.Field<DateTime>("time"),
                             SavedInDB = true,
-                            EventObjDataType = (EventDataType)x.Field<Int16>("event_data_type_id"),
-                            EventObjType = (EventType)x.Field<Int16>("event_type_id"),
+                            EventObjDataType = (EventDataType)x.Field<Int64>("event_data_type_id"),
+                            EventObjType = (EventType)x.Field<Int64>("event_type_id"),
                             Key = x.Field<string>("key"),
                             KeyValue = x.Field<Int16>("key_value")
                         });
@@ -545,8 +545,8 @@ WHERE user_record_id = {DBHelper.UserId};";
                         {
                             ActiveWindowName = win != null && win.Length > 0 ? win[0].Item2 : Helper.Helper.unknownWindowName,
                             EventTime = x.Field<DateTime>("time"),
-                            EventObjDataType = (EventDataType)x.Field<Int16>("event_data_type_id"),
-                            EventObjType = (EventType)x.Field<Int16>("event_type_id"),
+                            EventObjDataType = (EventDataType)x.Field<Int64>("event_data_type_id"),
+                            EventObjType = (EventType)x.Field<Int64>("event_type_id"),
                             SavedInDB = true,
                             X = x.Field<Int16>("x"),
                             Y = x.Field<Int16>("y"),
