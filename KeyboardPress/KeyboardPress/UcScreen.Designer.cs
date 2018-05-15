@@ -34,7 +34,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.SystemColors.Control;
+            this.BackColor = System.Drawing.SystemColors.Window;
             this.Name = "UcScreen";
             this.Size = new System.Drawing.Size(365, 248);
             this.Paint += new System.Windows.Forms.PaintEventHandler(this.ucScreen_Paint);
